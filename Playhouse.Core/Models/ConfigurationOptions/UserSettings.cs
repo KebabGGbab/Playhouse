@@ -1,10 +1,10 @@
 ﻿namespace Playhouse.Core.Models.ConfigurationOptions
 {
-	public sealed class UserSettings
+	public class UserSettings
 	{
-		public required FileLocationsOptions FileLocations { get; init; }
-		public required EntityOptions Entity { get; init;}
-		public required PlaywrightOptions Playwright { get; init; }
-		public required ViewOptions View { get; init; }
+		public required FileLocationsOptions FileLocations { get; set; }
+		public required EntityOptions Entity { get; set;}
+		public required PlaywrightOptions Playwright { get; set; }
+		public required CultureOptions Culture { get; set; }
 	}
 }
