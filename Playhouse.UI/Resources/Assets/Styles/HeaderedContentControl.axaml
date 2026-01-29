@@ -1,0 +1,25 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Design.PreviewWith>
+    <Border Padding="20">
+      <HeaderedContentControl Classes="header-middle" Header="Header">
+		  Content Content Content
+      </HeaderedContentControl>
+    </Border>
+  </Design.PreviewWith>
+
+  <Style Selector="HeaderedContentControl">
+	  <Setter Property="BorderBrush" Value="{DynamicResource HeaderedContentControlBorderBrush}" />
+      <Setter Property="BorderThickness" Value="2" />
+      <Setter Property="Padding" Value="20,20,20,20" />
+  </Style>
+
+    <Style Selector="HeaderedContentControl /template/ ContentPresenter#PART_HeaderPresenter">
+		<Setter Property="Margin" Value="0,0,0,25" />
+    </Style>
+
+    <Style Selector="HeaderedContentControl.model-settings-box">
+		<Setter Property="Width" Value="300" />
+    </Style>
+
+</Styles>

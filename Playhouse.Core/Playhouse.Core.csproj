@@ -1,0 +1,54 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+	<PropertyGroup>
+		<AnalysisMode>all</AnalysisMode>
+	</PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="10.0.2" />
+    <PackageReference Include="Microsoft.Playwright" Version="1.57.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Playhouse.Desktop.Share\Playhouse.Desktop.Share.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Jobs.Abstractions">
+      <HintPath>..\..\..\Libraries\Jobs.Abstractions\Jobs.Abstractions\bin\Debug\net10.0\Jobs.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="KebabGGbab.Extensions.Logging">
+      <HintPath>..\..\..\Libraries\KebabGGbab.Extensions.Logging\src\bin\Debug\net9.0\KebabGGbab.Extensions.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="KebabGGbab.Json">
+      <HintPath>..\..\..\Libraries\KebabGGbab.Json\src\bin\Debug\net9.0\KebabGGbab.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="KebabGGbab.Primitives.Extensions">
+      <HintPath>..\..\..\Libraries\KebabGGbab.Primitives.Extensions\src\bin\Debug\net10.0\KebabGGbab.Primitives.Extensions.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Resources\StringsCode.Designer.cs">
+      <DependentUpon>StringsCode.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\StringsCode.resx">
+      <LastGenOutput>StringsCode.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>

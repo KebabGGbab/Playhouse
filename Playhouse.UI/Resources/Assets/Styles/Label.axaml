@@ -1,0 +1,21 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Design.PreviewWith>
+    <Border Padding="20">
+      <!-- Add Controls for Previewer Here -->
+    </Border>
+  </Design.PreviewWith>
+
+    <Style Selector="Label">
+		<Setter Property="Padding" Value="0" />
+    </Style>
+
+  <Style Selector="Label.inline">
+	  <Setter Property="Margin" Value="0,0,15,0" />
+  </Style>
+
+  <Style Selector="Label.overline">
+	  <Setter Property="Margin" Value="0,0,0,5" />
+  </Style>
+
+</Styles>

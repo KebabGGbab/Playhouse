@@ -1,0 +1,274 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Playhouse.ViewModels.ViewModels"
+        xmlns:models="using:Playhouse.Core.Models"
+        xmlns:localization="using:KebabGGbab.Avalonia.Extensions.Services.Localization"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        x:Class="Playhouse.UI.Views.MainWindow" x:FieldModifier="internal"
+        Icon="/Resources/Assets/Images/Playhouse_icon_black-white.jpg"
+        Title="{localization:LocalizationMarkupExtensions WindowMainTitle}"
+        MinWidth="1200" MinHeight="500"
+        x:Name="Window"
+        d:DesignWidth="2000" d:DesignHeight="500">
+
+    <TabControl Classes="middle" TabStripPlacement="Left" SelectedIndex="2">
+		<TabItem Theme="{StaticResource Minimalism}">
+			<TabItem.Header>
+				<TextBlock Text="{localization:LocalizationMarkupExtensions TabRunHeader}" />
+            </TabItem.Header>
+            <DockPanel x:Name="TabRun"
+                       x:DataType="vm:RunViewModel"
+                       MinWidth="1000" LastChildFill="True">
+                <HeaderedContentControl Classes="header-middle"
+                                        DockPanel.Dock="Right" 
+                                        MinWidth="400" MaxWidth="500"
+                                        Header="{localization:LocalizationMarkupExtensions BoxRunningTasksHeader}">
+					<ScrollViewer>
+						<StackPanel>
+							<ItemsControl ItemsSource="{Binding Path=RunningTasks}" />
+                        </StackPanel>
+                    </ScrollViewer>
+                </HeaderedContentControl>
+                <HeaderedContentControl Classes="header-middle" 
+                                        MinWidth="350"
+                                        VerticalAlignment="Center" HorizontalAlignment="Center"
+                                        Header="{localization:LocalizationMarkupExtensions BoxRunTaskHeader}">
+					<Grid Grid.IsSharedSizeScope="True" RowDefinitions="auto,auto,200,auto" ColumnSpacing="15" RowSpacing="5">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition SharedSizeGroup="Profiles" />
+                            <ColumnDefinition SharedSizeGroup="Profiles" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Grid.Row="0"
+                               Classes="inline"
+                               VerticalAlignment="Center"
+                               Target="{Binding ElementName=ComboBoxSelectBotRun}"
+                               Content="{localization:LocalizationMarkupExtensions LabelSelectBot}" />
+                        <ComboBox x:Name="ComboBoxSelectBotRun"
+                                  Grid.Column="1" Grid.Row="0"
+                                  Classes="inline, editable"
+                                  MinWidth="150" MaxWidth="300" 
+                                  SelectedItem="{Binding Path=SelectedBotStart}"
+                                  IsEditable="True" />
+                        <TextBlock Grid.Column="0" Grid.Row="1"
+                                   Text="{localization:LocalizationMarkupExtensions LabelSelectProfiles}" />
+                        <ListBox Grid.Column="0" Grid.Row="2"
+                                 ItemsSource="{Binding Path=UnselectedProfiles}" />
+                        <ListBox Grid.Column="1" Grid.Row="2"
+                                 ItemsSource="{Binding Path=SelectedProfiles}" />
+                        <Button Grid.ColumnSpan="2" Grid.Row="3"
+                                Classes="box-action"
+                                Content="{localization:LocalizationMarkupExtensions ButtonStart}" />
+                    </Grid>
+                </HeaderedContentControl>
+            </DockPanel>
+        </TabItem>
+        <TabItem Theme="{StaticResource Minimalism}">
+			<TabItem.Header>
+				<TextBlock Text="{localization:LocalizationMarkupExtensions TabBotsHeader}" />
+            </TabItem.Header>
+            <Grid x:Name="TabBots"
+                  x:DataType="vm:BotViewModel"
+                  ColumnDefinitions="*, auto">
+                <WrapPanel Grid.Column="0"
+                           Classes="model-settings-container">
+					<HeaderedContentControl Classes="header-middle model-settings-box"
+                                            Header="{localization:LocalizationMarkupExtensions BoxCreateBotHeader}">
+						<StackPanel Orientation="Vertical">
+                            <StackPanel Classes="first-group">
+							    <Label Classes="overline"
+                                       Target="ComboBoxBotsCreateSelectProfile"
+                                       Content="{localization:LocalizationMarkupExtensions LabelSelectProfile}" />
+                                <ComboBox x:Name="ComboBoxBotsCreateSelectProfile"
+                                          Classes="editable"
+                                          ItemsSource="{Binding Path=Profiles}"
+                                          Text="{Binding Path=ProfileNameFilterForCreateBot}"
+                                          SelectedItem="{Binding Path=SelectedProfileCreate}" />
+                            </StackPanel>
+                            <StackPanel Classes="middle-group">
+                                <Label Classes="overline" 
+                                       Target="TextBoxBotsCreateName"
+                                       Content="{localization:LocalizationMarkupExtensions LabelBotName}" />
+                                <TextBox x:Name="TextBoxBotsCreateName" 
+                                         Text="{Binding Path=BotNameCreate}" />
+                            </StackPanel>
+                            <StackPanel Classes="last-group">
+                                <Label Classes="overline" 
+                                       Target="ComboBoxBotsCreateBrowserType"
+                                       Content="{localization:LocalizationMarkupExtensions LabelSelectBrowser}" />
+                                <ComboBox x:Name="ComboBoxBotsCreateBrowserType" />
+                            </StackPanel>
+                            <Button Classes="box-action"
+                                    Content="{localization:LocalizationMarkupExtensions ButtonCreate}"
+                                    Command="{Binding Path=CreateBotCommand}" />
+                        </StackPanel>
+                    </HeaderedContentControl>
+                    <HeaderedContentControl Classes="header-middle model-settings-box"
+                                            Header="{localization:LocalizationMarkupExtensions BoxDeleteBotHeader}">
+						<StackPanel Orientation="Vertical">
+                            <StackPanel Classes="first-group">
+							    <Label Classes="overline"
+                                       Target="ComboBoxBotDeleteSelectBot"
+                                       Content="{localization:LocalizationMarkupExtensions LabelSelectBot}" />
+                                <ComboBox x:Name="ComboBoxBotDeleteSelectBot"
+                                          Classes="editable"
+                                          ItemsSource="{Binding Path=BotsDelete}"
+                                          Text="{Binding Path=BotNameFilterForDelete}"
+                                          SelectedItem="{Binding Path=SelectedBotDelete}" />								
+                            </StackPanel>
+                            <CheckBox Margin="0,10,0,0"
+                                      Content="{localization:LocalizationMarkupExtensions CheckBoxConfirm}" />
+                            <Button Classes="box-action" 
+                                    Content="{localization:LocalizationMarkupExtensions ButtonDelete}" />
+                        </StackPanel>
+                    </HeaderedContentControl>
+                </WrapPanel>
+				<DataGrid Grid.Column="1" ItemsSource="{Binding Path=Bots}">
+					<DataGrid.Columns>
+						<DataGridTextColumn x:DataType="models:BotInfo" Header="{localization:LocalizationMarkupExtensions BotPropertyID}" Binding="{Binding Path=Id}" />
+                        <DataGridTextColumn x:DataType="models:BotInfo" Header="{localization:LocalizationMarkupExtensions BotPropertyName}" Binding="{Binding Path=Id}" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </TabItem>
+        <TabItem Theme="{StaticResource Minimalism}">
+			<TabItem.Header>
+				<TextBlock Text="{localization:LocalizationMarkupExtensions TabProfilesHeader}" />
+            </TabItem.Header>
+            <Grid x:Name="TabProfiles" 
+                  x:DataType="vm:ProfilesViewModel" 
+                  ColumnDefinitions="*, 300" RowDefinitions="*,auto">
+				<ScrollViewer Grid.Column="0" Grid.Row="0"
+                              VerticalScrollBarVisibility="Disabled">
+					<WrapPanel Classes="model-settings-container">
+						<HeaderedContentControl Classes="model-settings-box" 
+                                                Header="{localization:LocalizationMarkupExtensions BoxInformationProfileHeader}">
+                            <StackPanel Orientation="Vertical">
+                                <StackPanel Classes="first-group">
+								    <Label Classes="overline" 
+                                           Target="{Binding ElementName=TextBoxProfilesInformationName}" 
+                                           Content="{localization:LocalizationMarkupExtensions LabelProfileName}" />
+                                    <TextBox x:Name="TextBoxProfilesInformationName"
+                                             Text="{Binding Path=SelectedProfile.Name}" />
+                                </StackPanel>
+                            </StackPanel>
+                        </HeaderedContentControl>
+                        <HeaderedContentControl Classes="model-settings-box"
+                                                Header="{localization:LocalizationMarkupExtensions BoxStorageProfileHeader}">
+                            <StackPanel Orientation="Vertical">
+                                <StackPanel Classes="first-group">
+							        <Label Classes="overline" 
+                                           Target="{Binding ElementName=TextBoxProfilesPathDownloads}" 
+                                           Content="{localization:LocalizationMarkupExtensions LabelDownloadPath}" />
+                                    <TextBox x:Name="TextBoxProfilesPathDownloads"
+                                             Text="{Binding Path=SelectedProfile.DownloadsPath}" />
+                                </StackPanel>
+                                <CheckBox Margin="0,10,0,0" 
+                                          Content="{localization:LocalizationMarkupExtensions LabelAcceptDownloadsProfile}" />
+                            </StackPanel>
+                        </HeaderedContentControl>
+                        <HeaderedContentControl Classes="model-settings-box"
+                                                Header="{localization:LocalizationMarkupExtensions BoxOtherProfileHeader}">
+                            <StackPanel>
+						        <CheckBox Margin="0,10,0,0"
+                                          Content="{localization:LocalizationMarkupExtensions CheckBoxHeadlessMode}"
+                                          IsChecked="{Binding Path=SelectedProfile.Headless}" />
+                                <CheckBox Margin="0,10,0,0"
+                                          Content="{localization:LocalizationMarkupExtensions CheckBoxBypassCSP}"
+                                          IsChecked="{Binding Path=SelectedProfile.BypassCSP}" />
+                                <CheckBox Margin="0,10,0,10"
+                                          Content="{localization:LocalizationMarkupExtensions CheckBoxEnableChromiumSandbox}"
+                                          IsChecked="{Binding Path=SelectedProfile.ChromiumSandbox}" />
+                                <StackPanel Classes="last-group">
+                                    <Label Classes="overline" 
+                                           Target="{Binding ElementName=NumericUpDownProfilesSlowMo}" 
+                                           Content="{localization:LocalizationMarkupExtensions LabelSlowMo}" />
+                                    <NumericUpDown x:Name="NumericUpDownProfilesSlowMo" 
+                                                   Text="{Binding Path=SelectedProfile.SlowMo}" />								
+                                </StackPanel>
+                            </StackPanel>
+                        </HeaderedContentControl>
+                    </WrapPanel>
+                </ScrollViewer>
+                <Grid Grid.Column="1" Grid.Row="0" RowDefinitions="*, auto, auto">
+					<DataGrid Grid.Row="0"
+                              ItemsSource="{Binding Path=Profiles}"
+                              SelectedItem="{Binding Path=SelectedProfile}">
+						<DataGrid.Columns>
+							<DataGridTextColumn x:DataType="models:BrowserProfile" Header="{localization:LocalizationMarkupExtensions ProfilePropertyID}" Binding="{Binding Path=Id}" />
+                            <DataGridTextColumn x:DataType="models:BrowserProfile" Header="{localization:LocalizationMarkupExtensions ProfilePropertyName}" Binding="{Binding Path=Name}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <TextBox Grid.Row="1"
+                             Watermark="{localization:LocalizationMarkupExtensions TextBoxWatermarkProfilesSearh}" />
+                    <StackPanel Grid.Row="2" Orientation="Horizontal">
+						<Button Content="{localization:LocalizationMarkupExtensions ButtonAdd}"
+                                Command="{Binding Path=AddProfileCommand}" />
+                        <Button Content="{localization:LocalizationMarkupExtensions ButtonSave}"
+                                Command="{Binding Path=SaveProfileCommand}" />
+                        <Button Content="{localization:LocalizationMarkupExtensions ButtonDelete}"
+                                Command="{Binding Path=DeleteProfileCommand}" />
+                    </StackPanel>
+                </Grid>
+                <DockPanel Grid.ColumnSpan="2" Grid.Row="1">
+					<StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
+						<TextBlock Text="{localization:LocalizationMarkupExtensions LabelStatusNumberOfProfiles}" />
+                        <TextBlock Text="{Binding Path=Profiles.Count}" />
+                    </StackPanel>
+                    <StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
+						<TextBlock Text="{localization:LocalizationMarkupExtensions LabelStatusLoadedProfile}" />
+                        <TextBlock Text="{Binding SelectedProfile.Name}" />
+                    </StackPanel>
+                </DockPanel>
+            </Grid>
+        </TabItem>
+        <TabItem Theme="{StaticResource Minimalism}">
+			<TabItem.Header>
+				<TextBlock Text="{localization:LocalizationMarkupExtensions TabSettingsHeader}" />
+            </TabItem.Header>
+            <ScrollViewer x:Name="TabSettings" 
+                          x:DataType="vm:SettingsViewModel">
+                <StackPanel Orientation="Vertical">
+					<TextBlock Text="{localization:LocalizationMarkupExtensions LabelSettingsHeaderFileLocation}" />
+                    <TextBlock Text="{localization:LocalizationMarkupExtensions LabelSettingsDescriptionFileLocation}" />
+                    <TextBlock Text="{localization:LocalizationMarkupExtensions LabelSettingsProfiles}" />
+                    <StackPanel Orientation="Horizontal">
+						<TextBox />
+                        <Button Content="{localization:LocalizationMarkupExtensions ButtonSearchFile}" />
+                    </StackPanel>
+                    <TextBlock Text="{localization:LocalizationMarkupExtensions LabelSettingsBots}" />
+                    <StackPanel Orientation="Horizontal">
+						<TextBox />
+                        <Button Content="{localization:LocalizationMarkupExtensions ButtonSearchFile}" />
+                    </StackPanel>
+                    <TextBlock Text="{localization:LocalizationMarkupExtensions LabelSettingsHeaderDefaultNaming}" />
+                    <TextBlock Text="{localization:LocalizationMarkupExtensions LabelSettingsDescriptionDefaultNaming}" />
+                    <TextBlock Text="{localization:LocalizationMarkupExtensions LabelSettingsProfiles}" />
+                    <TextBox />
+                    <TextBlock Text="{localization:LocalizationMarkupExtensions LabelSettingsBots}" />
+                    <TextBox />
+                    <TextBlock Text="{localization:LocalizationMarkupExtensions LabelSettingsHeaderInstalledBrowsers}" />
+                    <TextBlock Text="{localization:LocalizationMarkupExtensions LabelSettingsDescriptionInstalledBrowsers}" />
+                    <CheckBox />
+                    <CheckBox />
+                    <CheckBox />
+                    <CheckBox />
+                    <CheckBox />
+                    <CheckBox />
+                    <CheckBox />
+                    <CheckBox />
+                    <CheckBox />
+                    <CheckBox />
+                    <CheckBox />
+                    <CheckBox />
+                    <TextBlock Text="{localization:LocalizationMarkupExtensions LabelSettingsHeaderLanguage}" />
+                    <TextBlock Text="{localization:LocalizationMarkupExtensions LabelSettingsDescriptionLanguage}" />
+                    <ComboBox />
+                    <Button Content="{localization:LocalizationMarkupExtensions ButtonSave}" />
+                </StackPanel>
+            </ScrollViewer>
+        </TabItem>
+    </TabControl>
+
+</Window>

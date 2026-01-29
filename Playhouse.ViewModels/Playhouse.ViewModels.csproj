@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+    <PackageReference Include="DynamicData" Version="9.4.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Playhouse.Core\Playhouse.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Jobs.Abstractions">
+      <HintPath>..\..\..\Libraries\Jobs.Abstractions\Jobs.Abstractions\bin\Debug\net10.0\Jobs.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="KebabGGbab.Localization">
+      <HintPath>..\..\..\Libraries\KebabGGbab.Localization\KebabGGbab.Localization\bin\Debug\net10.0\KebabGGbab.Localization.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
