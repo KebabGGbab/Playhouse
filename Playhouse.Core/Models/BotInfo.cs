@@ -5,7 +5,7 @@ namespace Playhouse.Core.Models
 {
 	public class BotInfo
     {
-        public int Id { get; private set; }
+        public int Id { get; set; }
 
         public required string Name { get; set; }
 

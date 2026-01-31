@@ -1,10 +1,14 @@
 ﻿namespace Playhouse.Core.Models.BrowserEvents.Abstractions
 {
-    public abstract class BrowserEvent
+    public class BrowserEvent
     {
-        public string Title { get; }
+        public int Id { get; set; }
+        public string Title { get; set; }
 
-        protected BrowserEvent(string title)
+        public int BotInfoId { get; set; }
+        public BotInfo BotInfo { get; set; }
+
+        public BrowserEvent(string title)
         {
             Title = title;
         }
@@ -14,6 +18,6 @@
             return Title;
         }
 
-        public abstract void Accept(IBrowserEventVisitor visitor);
+        public virtual void Accept(IBrowserEventVisitor visitor) { }
     }
 }

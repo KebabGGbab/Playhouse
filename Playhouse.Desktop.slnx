@@ -1,4 +1,5 @@
 <Solution>
+  <Project Path="Playhouse.Core.Test/Playhouse.Core.Test.csproj" Id="9c6bebfd-e328-4985-ae7c-9a1e070dd054" />
   <Project Path="Playhouse.Core/Playhouse.Core.csproj" />
   <Project Path="Playhouse.Desktop.Share/Playhouse.Desktop.Share.csproj" />
   <Project Path="Playhouse.UI/Playhouse.UI.csproj" />
