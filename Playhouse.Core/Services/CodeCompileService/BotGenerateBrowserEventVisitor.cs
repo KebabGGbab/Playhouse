@@ -21,7 +21,7 @@ namespace Playhouse.Core.Services.CodeCompileService
                         IdentifierName(nameof(IPage)),
                         SeparatedList([
                         VariableDeclarator(
-                            Identifier(_context.GetPageName(browserEvent.Page)),
+                            Identifier(_context.GetPageName(browserEvent.Number)),
                             null,
                             EqualsValueClause(
                                 AwaitExpression(
@@ -45,7 +45,7 @@ namespace Playhouse.Core.Services.CodeCompileService
                         InvocationExpression(
                             MemberAccessExpression(
                                 SyntaxKind.SimpleMemberAccessExpression,
-                                IdentifierName(_context.GetPageName(browserEvent.Page)),
+                                IdentifierName(_context.GetPageName(browserEvent.Number)),
                                 IdentifierName(nameof(IPage.GotoAsync))
                             ),
                             ArgumentList(
@@ -53,7 +53,7 @@ namespace Playhouse.Core.Services.CodeCompileService
                                     Argument(
                                         LiteralExpression(
                                             SyntaxKind.StringLiteralExpression,
-                                            Literal(browserEvent.Url)))]))))));
+                                            Literal(browserEvent.Url.ToString())))]))))));
         }
 
         public void Visit(BrowserContextClosedBrowserEvent browserEvent)
@@ -68,14 +68,14 @@ namespace Playhouse.Core.Services.CodeCompileService
 
         private sealed class GenerateContext
         {
-            private readonly Dictionary<IPage, string> Pages = [];
+            private readonly Dictionary<int, string> Pages = [];
 
-            public string GetPageName(IPage page)
+            public string GetPageName(int pageNumber)
             {
-                if (!Pages.TryGetValue(page, out string? value))
+                if (!Pages.TryGetValue(pageNumber, out string? value))
                 {
                     value = $"page{Pages.Count}";
-                    Pages.Add(page, value);
+                    Pages.Add(pageNumber, value);
                 }
 
                 return value;

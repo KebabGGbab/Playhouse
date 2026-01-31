@@ -2,6 +2,7 @@
 using Playhouse.Core.Data;
 using Playhouse.Core.Enums;
 using Playhouse.Core.Models;
+using Playhouse.Core.Models.BrowserEvents;
 using Playhouse.Core.Test.Tools;
 
 namespace Playhouse.Core.Test.TestingClasses
@@ -46,7 +47,6 @@ namespace Playhouse.Core.Test.TestingClasses
 
             BrowserProfile profile = await context.BrowserProfiles.SingleAsync(p => p.Id == 1, CancellationToken.None);
 
-            Assert.AreEqual(1, profile.Id);
             Assert.AreEqual("Profile1", profile.Name);
             Assert.IsNull(profile.AcceptDownloads);
             Assert.AreEqual("C://Downloads", profile.DownloadsPath);
@@ -59,12 +59,12 @@ namespace Playhouse.Core.Test.TestingClasses
         {
             using ApplicationDbContext context = DbFactory.GetSimpleAppContext();
 
-            BotInfo bot = await context.BotsInfo.SingleAsync(b => b.Id == 3, CancellationToken.None);
+            BotInfo bot = await context.BotsInfo.Include(b => b.BrowserEvents).SingleAsync(b => b.Id == 2, CancellationToken.None);
 
-            Assert.AreEqual(3, bot.Id);
-            Assert.AreEqual("Play", bot.Name);
-            Assert.AreEqual(BrowserType.Firefox, bot.Browser);
-            Assert.HasCount(0, bot.BrowserEvents);
+            Assert.AreEqual("2", bot.Name);
+            Assert.AreEqual(BrowserType.Chromium, bot.Browser);
+            Assert.HasCount(2, bot.BrowserEvents);
+            Assert.AreEqual(10, ((LocatorClickBrowserEvent)bot.BrowserEvents[1]).ClickOptions.Position!.X);
         }
 
         [TestMethod]

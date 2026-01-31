@@ -5,15 +5,22 @@ namespace Playhouse.Core.Models.BrowserEvents
 {
     public class BrowserContextClosedBrowserEvent : BrowserContextBrowserEvent
     {
-        public BrowserContextCloseOptions CloseOptions { get; }
-         
-        public BrowserContextClosedBrowserEvent(IBrowserContext browserContext, string title, BrowserContextCloseOptions? options = null) : base(browserContext, title)
+        public BrowserContextCloseOptions CloseOptions { get; init; } = null!;
+
+        // Конструктор для EntityFramework
+        private BrowserContextClosedBrowserEvent()
+        {
+        }
+
+        public BrowserContextClosedBrowserEvent(BrowserContextCloseOptions? options = null)
         {
             CloseOptions = options ?? new BrowserContextCloseOptions();
         }
 
         public override void Accept(IBrowserEventVisitor visitor)
         {
+            ArgumentNullException.ThrowIfNull(visitor, nameof(visitor));
+
             visitor.Visit(this);
         }
     }

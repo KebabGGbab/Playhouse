@@ -1,7 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Diagnostics;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Playwright;
 using Playhouse.Core.Data;
-using Playhouse.Core.Enums;
 using Playhouse.Core.Models;
+using Playhouse.Core.Models.BrowserEvents;
 
 namespace Playhouse.Core.Test.Tools
 {
@@ -84,15 +86,28 @@ namespace Playhouse.Core.Test.Tools
                 return new ApplicationDbContext(new DbContextOptionsBuilder<ApplicationDbContext>()
                     .UseSqlite(_connectionString)
                     .UseSeeding(SetData)
+                    .LogTo(Log)
+                    .EnableSensitiveDataLogging()
                     .Options);
+            }
+
+            private void Log(string message)
+            {
+                Debug.WriteLine(message);
             }
 
             public override void SetData(DbContext context, bool _)
             {
-                context.Set<BotInfo>().AddRange(
-                    new() { Name = "test", Browser = BrowserType.WebKit },
-                    new() { Name = "2", Browser = BrowserType.Chromium },
-                    new() { Name = "Play", Browser = BrowserType.Firefox });
+                BotInfo[] botsInfo =
+                [
+                    new() { Name = "test", Browser = Enums.BrowserType.WebKit },
+                    new() { Name = "2", Browser = Enums.BrowserType.Chromium },
+                    new() { Name = "Play", Browser = Enums.BrowserType.Firefox }
+                ];
+                botsInfo[0].BrowserEvents.Add(new PageCreatedBrowserEvent() { BotInfo = botsInfo[0] });
+                botsInfo[1].BrowserEvents.Add(new BrowserContextClosedBrowserEvent(new BrowserContextCloseOptions() { Reason = "Причина" }) { BotInfo = botsInfo[1] });
+                botsInfo[1].BrowserEvents.Add(new LocatorClickBrowserEvent(new LocatorClickOptions() { Position = new Position() { X = 10, Y = 1} }) { BotInfo = botsInfo[1] });
+                context.Set<BotInfo>().AddRange(botsInfo);
                 context.Set<BrowserProfile>().AddRange(
                     new BrowserProfile() { Name = "Profile1", AcceptDownloads = null, DownloadsPath = "C://Downloads", SlowMo = 1, Headless = false },
                     new BrowserProfile() { Name = "Profile1", AcceptDownloads = null, DownloadsPath = null, SlowMo = null, Headless = null });
@@ -106,6 +121,13 @@ namespace Playhouse.Core.Test.Tools
             public SimpleAppDbHandler() :
                 base(CONNECTIONSTRING)
             { }
+
+            public override ApplicationDbContext CreateDbContext()
+            {
+                ApplicationDbContext context = base.CreateDbContext();
+                context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+                return context;
+            }
         }
 
         private class TransactionAppDbHandler : AppDbHanderBase

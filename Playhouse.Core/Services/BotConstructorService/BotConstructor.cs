@@ -14,6 +14,7 @@ namespace Playhouse.Core.Services.BotConstructorService
 
         public event EventHandler<BrowserEvent>? BrowserEventReceived;
         public event EventHandler? ConstructionCompleted;
+        public BotInfo? BotConstruction { get; private set; }
 
         public BotConstructor(IPlaywrightFactory playwrightFactory)
         {
@@ -22,6 +23,7 @@ namespace Playhouse.Core.Services.BotConstructorService
 
         public async Task StartConstructorAsync(BrowserProfile profile, BotInfo bot)
         {
+            BotConstruction = bot;
             IBrowserContext browser = await _playwrightFactory.CreateBrowserAsync(profile, bot).ConfigureAwait(false);
             await browser.AddInitScriptAsync(
                 """
@@ -45,7 +47,7 @@ namespace Playhouse.Core.Services.BotConstructorService
             e.Console -= Console_GetRecord;
             e.Close -= Browser_Closed;
             e.Page -= Page_Created;
-            BrowserContextClosedBrowserEvent browserEvent = new(e, "Контекст браузера был закрыт");
+            BrowserContextClosedBrowserEvent browserEvent = new() { BotInfo = BotConstruction };
             OnBrowserEventReceived(browserEvent);
             OnConstructionCompleted();
         }
@@ -54,7 +56,7 @@ namespace Playhouse.Core.Services.BotConstructorService
         {
             e.Load += Page_Loaded;
             e.Close += Page_Closed;
-            PageCreatedBrowserEvent browserEvent = new(e, "Открыто окно");
+            PageCreatedBrowserEvent browserEvent = new() { BotInfo = BotConstruction };
             OnBrowserEventReceived(browserEvent);
         }
 
@@ -62,13 +64,13 @@ namespace Playhouse.Core.Services.BotConstructorService
         {
             e.Load -= Page_Loaded;
             e.Close -= Page_Closed;
-            PageClosedBrowserEvent browserEvent = new(e, "Окно закрыто");
+            PageClosedBrowserEvent browserEvent = new() { BotInfo = BotConstruction };
             OnBrowserEventReceived(browserEvent);
         }
 
         private void Page_Loaded(object? sender, IPage e)
         {
-            PageGoToBrowserEvent browserEvent = new(e, "Страница загружена", e.Url);
+            PageGoToBrowserEvent browserEvent = new(new Uri(e.Url)) { BotInfo = BotConstruction };
             OnBrowserEventReceived(browserEvent);
         }
 
@@ -83,7 +85,7 @@ namespace Playhouse.Core.Services.BotConstructorService
 
             BrowserEvent browserEvent = match.Groups["event"].Value switch
             {
-                LocatorClickBrowserEvent.NAME => new LocatorClickBrowserEvent(e.Page!, $"Клик по {match.Groups["text"].Value}") { Text = match.Groups["text"].Value },
+                LocatorClickBrowserEvent.NAME => new LocatorClickBrowserEvent() { BotInfo = BotConstruction },
                 _ => throw new NotSupportedException("Не поддерживаемое действие")
             };
 
@@ -97,6 +99,7 @@ namespace Playhouse.Core.Services.BotConstructorService
 
         private void OnConstructionCompleted()
         {
+            BotConstruction = null;
             ConstructionCompleted?.Invoke(this, EventArgs.Empty);
         }
 
