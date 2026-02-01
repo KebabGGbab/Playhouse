@@ -7,7 +7,7 @@ using Playhouse.Core.Models.BrowserEvents;
 
 namespace Playhouse.Core.Test.Tools
 {
-    public static class DbFactory
+    internal static class DbFactory
     {
         private static readonly List<IDisposable> _dbHandlers = [
             new SimpleAppDbHandler(),
@@ -104,9 +104,9 @@ namespace Playhouse.Core.Test.Tools
                     new() { Name = "2", Browser = Enums.BrowserType.Chromium },
                     new() { Name = "Play", Browser = Enums.BrowserType.Firefox }
                 ];
-                botsInfo[0].BrowserEvents.Add(new PageCreatedBrowserEvent() { BotInfo = botsInfo[0] });
-                botsInfo[1].BrowserEvents.Add(new BrowserContextClosedBrowserEvent(new BrowserContextCloseOptions() { Reason = "Причина" }) { BotInfo = botsInfo[1] });
-                botsInfo[1].BrowserEvents.Add(new LocatorClickBrowserEvent(new LocatorClickOptions() { Position = new Position() { X = 10, Y = 1} }) { BotInfo = botsInfo[1] });
+                botsInfo[0].BrowserEvents.Add(new PageCreatedBrowserEvent() { BotInfo = botsInfo[0], Number = 1 });
+                botsInfo[1].BrowserEvents.Add(new BrowserContextClosedBrowserEvent(new BrowserContextCloseOptions() { Reason = "Причина" }) { BotInfo = botsInfo[1], Number = 1 });
+                botsInfo[1].BrowserEvents.Add(new LocatorClickBrowserEvent(new LocatorClickOptions() { Position = new Position() { X = 10, Y = 1} }) { BotInfo = botsInfo[1], Number = 1 });
                 context.Set<BotInfo>().AddRange(botsInfo);
                 context.Set<BrowserProfile>().AddRange(
                     new BrowserProfile() { Name = "Profile1", AcceptDownloads = null, DownloadsPath = "C://Downloads", SlowMo = 1, Headless = false },

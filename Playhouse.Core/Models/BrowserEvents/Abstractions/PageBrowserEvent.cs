@@ -2,6 +2,6 @@
 {
     public abstract class PageBrowserEvent : BrowserEvent
     {
-        public int Number { get; set; }
+        public required int Number { get; set; }
     }
 }

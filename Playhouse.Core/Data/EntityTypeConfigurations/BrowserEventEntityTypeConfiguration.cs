@@ -5,6 +5,9 @@ using Playhouse.Core.Models.BrowserEvents.Abstractions;
 
 namespace Playhouse.Core.Data.EntityTypeConfigurations
 {
+    /// <summary>
+    /// Конфигурация типа сущности <see cref="BrowserEvent"/>.
+    /// </summary>
     internal sealed class BrowserEventEntityTypeConfiguration : IEntityTypeConfiguration<BrowserEvent>
     {
         public void Configure(EntityTypeBuilder<BrowserEvent> builder)
@@ -13,12 +16,15 @@ namespace Playhouse.Core.Data.EntityTypeConfigurations
             builder.HasOne(b => b.BotInfo)
                 .WithMany(b => b.BrowserEvents)
                 .HasPrincipalKey(b => b.Id)
-                .HasForeignKey(b => b.Id)
+                .HasForeignKey("BotInfoId")
                 .IsRequired(true)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }
 
+    /// <summary>
+    /// Конфигурация типа сущности <see cref="BrowserContextBrowserEvent"/>.
+    /// </summary>
     internal sealed class BrowserContextBrowserEventEntityTypeConfiguration : IEntityTypeConfiguration<BrowserContextBrowserEvent>
     {
         public void Configure(EntityTypeBuilder<BrowserContextBrowserEvent> builder)
@@ -27,6 +33,9 @@ namespace Playhouse.Core.Data.EntityTypeConfigurations
         }
     }
 
+    /// <summary>
+    /// Конфигурация типа сущности <see cref="BrowserContextClosedBrowserEvent"/>.
+    /// </summary>
     internal sealed class BrowserContextClosedBrowserEventEntityTypeConfiguration : IEntityTypeConfiguration<BrowserContextClosedBrowserEvent>
     {
         public void Configure(EntityTypeBuilder<BrowserContextClosedBrowserEvent> builder)
@@ -36,6 +45,9 @@ namespace Playhouse.Core.Data.EntityTypeConfigurations
         }
     }
 
+    /// <summary>
+    /// Конфигурация типа сущности <see cref="PageBrowserEvent"/>.
+    /// </summary>
     internal sealed class PageBrowserEventEntityTypeConfiguration : IEntityTypeConfiguration<PageBrowserEvent>
     {
         public void Configure(EntityTypeBuilder<PageBrowserEvent> builder)
@@ -44,6 +56,9 @@ namespace Playhouse.Core.Data.EntityTypeConfigurations
         }
     }
 
+    /// <summary>
+    /// Конфигурация типа сущности <see cref="PageCreatedBrowserEvent"/>.
+    /// </summary>
     internal sealed class PageCreatedBrowserEventEntityTypeConfiguration : IEntityTypeConfiguration<PageCreatedBrowserEvent>
     {
         public void Configure(EntityTypeBuilder<PageCreatedBrowserEvent> builder)
@@ -52,6 +67,9 @@ namespace Playhouse.Core.Data.EntityTypeConfigurations
         }
     }
 
+    /// <summary>
+    /// Конфигурация типа сущности <see cref="PageClosedBrowserEvent"/>.
+    /// </summary>
     internal sealed class PageClosedBrowserEventEntityTypeConfiguration : IEntityTypeConfiguration<PageClosedBrowserEvent>
     {
         public void Configure(EntityTypeBuilder<PageClosedBrowserEvent> builder)
@@ -61,6 +79,9 @@ namespace Playhouse.Core.Data.EntityTypeConfigurations
         }
     }
 
+    /// <summary>
+    /// Конфигурация типа сущности <see cref="PageGoToBrowserEvent"/>.
+    /// </summary>
     internal sealed class PageGoToBrowserEventEntityTypeConfiguration : IEntityTypeConfiguration<PageGoToBrowserEvent>
     {
         public void Configure(EntityTypeBuilder<PageGoToBrowserEvent> builder)
@@ -70,6 +91,9 @@ namespace Playhouse.Core.Data.EntityTypeConfigurations
         }
     }
 
+    /// <summary>
+    /// Конфигурация типа сущности <see cref="LocatorBrowserEvent"/>.
+    /// </summary>
     internal sealed class LocatorBrowserEventEntityTypeConfiguration : IEntityTypeConfiguration<LocatorBrowserEvent>
     {
         public void Configure(EntityTypeBuilder<LocatorBrowserEvent> builder)
@@ -78,6 +102,9 @@ namespace Playhouse.Core.Data.EntityTypeConfigurations
         }
     }
 
+    /// <summary>
+    /// Конфигурация типа сущности <see cref="LocatorClickBrowserEvent"/>.
+    /// </summary>
     internal sealed class LocatorClickBrowserEventEntityTypeConfiguration : IEntityTypeConfiguration<LocatorClickBrowserEvent>
     {
         public void Configure(EntityTypeBuilder<LocatorClickBrowserEvent> builder)

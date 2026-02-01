@@ -5,11 +5,11 @@ namespace Playhouse.Core.Models
 {
 	public class BotInfo
     {
-        public int Id { get; set; }
+        public int Id { get; private set; }
 
-        public required string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
 
-        public BrowserType Browser { get; set; }
+        public BrowserType Browser { get; init; }
 
         public IList<BrowserEvent> BrowserEvents { get; } = [];
 

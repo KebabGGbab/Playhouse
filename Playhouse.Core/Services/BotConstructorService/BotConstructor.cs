@@ -47,8 +47,6 @@ namespace Playhouse.Core.Services.BotConstructorService
             e.Console -= Console_GetRecord;
             e.Close -= Browser_Closed;
             e.Page -= Page_Created;
-            BrowserContextClosedBrowserEvent browserEvent = new() { BotInfo = BotConstruction };
-            OnBrowserEventReceived(browserEvent);
             OnConstructionCompleted();
         }
 
@@ -56,22 +54,16 @@ namespace Playhouse.Core.Services.BotConstructorService
         {
             e.Load += Page_Loaded;
             e.Close += Page_Closed;
-            PageCreatedBrowserEvent browserEvent = new() { BotInfo = BotConstruction };
-            OnBrowserEventReceived(browserEvent);
         }
 
         private void Page_Closed(object? sender, IPage e)
         {
             e.Load -= Page_Loaded;
             e.Close -= Page_Closed;
-            PageClosedBrowserEvent browserEvent = new() { BotInfo = BotConstruction };
-            OnBrowserEventReceived(browserEvent);
         }
 
         private void Page_Loaded(object? sender, IPage e)
         {
-            PageGoToBrowserEvent browserEvent = new(new Uri(e.Url)) { BotInfo = BotConstruction };
-            OnBrowserEventReceived(browserEvent);
         }
 
         private void Console_GetRecord(object? sender, IConsoleMessage e)
@@ -85,7 +77,6 @@ namespace Playhouse.Core.Services.BotConstructorService
 
             BrowserEvent browserEvent = match.Groups["event"].Value switch
             {
-                LocatorClickBrowserEvent.NAME => new LocatorClickBrowserEvent() { BotInfo = BotConstruction },
                 _ => throw new NotSupportedException("Не поддерживаемое действие")
             };
 

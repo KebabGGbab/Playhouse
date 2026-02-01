@@ -4,9 +4,9 @@ namespace Playhouse.Core.Models
 {
 	public class BrowserProfile : BrowserTypeLaunchPersistentContextOptions
     {
-        public int Id { get; set; }
+        public int Id { get; private set; }
 
-        public required string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
 
         public override string ToString() => $"{$"[{Id}]",-8}{Name}";
     }
