@@ -68,5 +68,23 @@ namespace Playhouse.Core.Resources {
                 return ResourceManager.GetString("PassedIncorrectImplementation", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Unable to install browsers..
+        /// </summary>
+        public static string UnableInstallBrowsers {
+            get {
+                return ResourceManager.GetString("UnableInstallBrowsers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Browser {0} is not supported..
+        /// </summary>
+        public static string UnsupportedBrowser {
+            get {
+                return ResourceManager.GetString("UnsupportedBrowser", resourceCulture);
+            }
+        }
     }
 }

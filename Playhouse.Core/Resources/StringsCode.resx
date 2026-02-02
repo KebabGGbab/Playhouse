@@ -120,4 +120,10 @@
   <data name="PassedIncorrectImplementation" xml:space="preserve">
     <value>Expected implementation "{0}" of abstract type "{1}" but received "{2}".</value>
   </data>
+  <data name="UnableInstallBrowsers" xml:space="preserve">
+    <value>Unable to install browsers.</value>
+  </data>
+  <data name="UnsupportedBrowser" xml:space="preserve">
+    <value>Browser {0} is not supported.</value>
+  </data>
 </root>

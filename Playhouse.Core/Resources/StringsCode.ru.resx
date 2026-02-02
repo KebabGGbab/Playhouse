@@ -120,4 +120,10 @@
   <data name="PassedIncorrectImplementation" xml:space="preserve">
     <value>Ожидалась реализация "{0}", абстрактного типа "{1}", а передана "{2}".</value>
   </data>
+  <data name="UnableInstallBrowsers" xml:space="preserve">
+    <value>Не удается установить браузеры.</value>
+  </data>
+  <data name="UnsupportedBrowser" xml:space="preserve">
+    <value>Браузер {0} не поддерживается.</value>
+  </data>
 </root>
