@@ -4,27 +4,21 @@ using System.Text.Json.Serialization;
 using System.Text.Unicode;
 using KebabGGbab.Json;
 using KebabGGbab.TextKit;
-using Microsoft.Extensions.Options;
 using Playhouse.Core.Models.ConfigurationOptions;
-using Playhouse.Core.Services.ConfigurationService.Abstractions;
 using Playhouse.Core.Services.FilePathResolverService;
+using Playhouse.Core.Services.SettingsService.Abstractions;
 
-namespace Playhouse.Core.Services.ConfigurationService
+namespace Playhouse.Core.Services.SettingsService
 {
-	public sealed class ConfigurationUpdater : IConfigurationUpdater
+	public class UserSettingsUpdater : ISettingsUpdater<UserSettings>
 	{
 		private readonly FileStreamOptions _fileStreamOptions;
 		private readonly JsonSerializerOptions _jsonSerializerOptions;
 
-		public UserSettings UserSettings { get; private set; }
-
-		public event EventHandler? ConfigurationSaved;
-		 
-		public ConfigurationUpdater(IOptionsMonitor<UserSettings> userSettingsOptions)
+		public event EventHandler<ISettingsUpdater<UserSettings>, SettingsSavedEventArgs<UserSettings>>? SettingsSaved;
+		
+		public UserSettingsUpdater()
 		{
-			UserSettings = userSettingsOptions.CurrentValue;
-			userSettingsOptions.OnChange(s => UserSettings = s);
-
 			_fileStreamOptions = FileStreamOptionsDefaults.Write;
 			_jsonSerializerOptions = new JsonSerializerOptions()
 			{
@@ -37,18 +31,16 @@ namespace Playhouse.Core.Services.ConfigurationService
 			};
 		}
 
-		public async Task UpdateAsync(Func<UserSettings, UserSettings> changeConfig)
+		public async Task UpdateAsync(UserSettings settings)
 		{
-            UserSettings settings = changeConfig(UserSettings);
-
 			await JsonOperations.WriteJsonAsync(FilePathResolver.UserSettings, settings, _fileStreamOptions, _jsonSerializerOptions).ConfigureAwait(false);
 
-            OnConfigurationSaved();
+            OnConfigurationSaved(settings);
 		}
 
-		private void OnConfigurationSaved()
+		private void OnConfigurationSaved(UserSettings settings)
 		{
-			ConfigurationSaved?.Invoke(this, EventArgs.Empty);
+            SettingsSaved?.Invoke(this, new SettingsSavedEventArgs<UserSettings>(settings));
 		}
 	}
 }
