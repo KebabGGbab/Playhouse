@@ -2,49 +2,63 @@
 using Playhouse.Core.Models.ConfigurationOptions;
 using Playhouse.Core.Services.FilePathResolverService.Abstractions;
 using System.Globalization;
-using System.Reflection;
 
 namespace Playhouse.Core.Services.FilePathResolverService
 {
-    public class FilePathResolver : IFilePathResolver
+    public class FilePathResolver : IFilePathResolver, IDisposable
 	{
-		public static readonly string AppData = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Playhouse");
+        private readonly IDisposable? _onConfigChangeToken;
+		private bool _disposed;
+        private FileLocationsOptions _currentConfig;
+
+        public static readonly string AppData = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Playhouse");
 		public static readonly string AppSettings = Path.Combine(AppData, "appsettings.json");
 		public static readonly string UserSettings = Path.Combine(AppData, "usersettings.json");
 
-		private FileLocationsOptions _options;
+		public string DirectoryProfiles => _currentConfig.Profiles;
 
-		public FilePathResolver(IOptionsMonitor<FileLocationsOptions> optionsMonitor)
+		public string DirectoryBots => _currentConfig.Bots;
+
+		public string FileJSEventScripts => throw new NotImplementedException();
+
+
+        public FilePathResolver(IOptionsMonitor<FileLocationsOptions> config)
 		{
-			optionsMonitor.OnChange(options => _options = options);
-			_options = optionsMonitor.CurrentValue;
+			ArgumentNullException.ThrowIfNull(config, nameof(config));
+
+			_currentConfig = config.CurrentValue;
+			_onConfigChangeToken = config.OnChange(updatedConfig => _currentConfig = updatedConfig);
 		}
 
-		public string GetPath(FileType fileType)
+		public string GetPathToDirectoryProfile(int id) => Path.Combine(DirectoryProfiles, id.ToString(CultureInfo.InvariantCulture));
+
+		public string GetPathToDirectoryUserDataDirProfile(int id) => Path.Combine(GetPathToDirectoryProfile(id), "UserDataDir");
+
+		public string GetPathToDirectoryBot(int id) => Path.Combine(DirectoryBots, id.ToString(CultureInfo.InvariantCulture));
+
+		public string GetPathToFileDllBot(int id) => Path.Combine(GetPathToDirectoryBot(id), "Main.dll");
+
+        public void Dispose()
+        {
+			Dispose(true);
+			GC.SuppressFinalize(this);
+        }
+
+		protected virtual void Dispose(bool disposing)
 		{
-			return fileType switch
+			if (_disposed) return;
+
+			_disposed = true;
+
+			if (disposing)
 			{
-				FileType.DirectoryProfiles => _options.Profiles,
-				FileType.DirectoryBots => _options.Bots,
-				FileType.FileJSEventsScripts => throw new NotImplementedException(),
-				_ => throw new ArgumentOutOfRangeException(nameof(fileType))
-			};
+				_onConfigChangeToken?.Dispose();
+			}
 		}
 
-		public string GetPath(FileType fileType, int id)
+		~FilePathResolver()
 		{
-			CultureInfo culture = CultureInfo.InvariantCulture;
-
-			return fileType switch
-			{
-				FileType.DirectoryProfile => Path.Combine(GetPath(FileType.DirectoryProfiles), id.ToString(culture)),
-				FileType.DirectoryUserDataDir => Path.Combine(GetPath(FileType.DirectoryProfiles), id.ToString(culture), "UserDataDir"),
-				FileType.FileProfileInfo => Path.Combine(GetPath(FileType.DirectoryProfiles), id.ToString(culture), "ProfileInfo.json"),
-				FileType.DirectoryBot => Path.Combine(GetPath(FileType.DirectoryBots), id.ToString(culture)),
-				FileType.FileBotInfo => Path.Combine(GetPath(FileType.DirectoryBots), id.ToString(culture), "BotInfo.json"),
-				FileType.FileBotDll => Path.Combine(GetPath(FileType.DirectoryBots), id.ToString(culture), "Main.dll"),
-				_ => throw new ArgumentOutOfRangeException(nameof(fileType))
-			};
+			Dispose(false);
 		}
-	}
+    }
 }

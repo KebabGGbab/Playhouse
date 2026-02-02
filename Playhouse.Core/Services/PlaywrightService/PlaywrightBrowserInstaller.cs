@@ -10,21 +10,21 @@ namespace Playhouse.Core.Services.PlaywrightService
 {
     public class PlaywrightBrowserInstaller : IPlaywrightBrowserInstaller, IDisposable
 	{
-        private readonly IDisposable? _onOptionsChangeToken;
+        private readonly IDisposable? _onConfigChangeToken;
 		private bool _disposed;
-		private PlaywrightOptions _options;
+		private PlaywrightOptions _currentConfig;
 
 		public PlaywrightBrowserInstaller(IOptionsMonitor<PlaywrightOptions> config)
 		{
 			ArgumentNullException.ThrowIfNull(config, nameof(config));
 
-			_options = config.CurrentValue;
-			_onOptionsChangeToken = config.OnChange(updatedConfig => _options = updatedConfig);
+			_currentConfig = config.CurrentValue;
+			_onConfigChangeToken = config.OnChange(updatedConfig => _currentConfig = updatedConfig);
 		}
 
 		public async Task Install()
 		{
-			string[] request = GetRequestString(_options);
+			string[] request = GetRequestString(_currentConfig);
 
 			int exitCode = await Task.Run(() => Microsoft.Playwright.Program.Main(request)).ConfigureAwait(false);
 
@@ -65,7 +65,7 @@ namespace Playhouse.Core.Services.PlaywrightService
 
 			if (disposing)
 			{
-				_onOptionsChangeToken?.Dispose();
+				_onConfigChangeToken?.Dispose();
 			}
 		}
 
