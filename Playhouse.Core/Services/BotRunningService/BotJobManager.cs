@@ -6,8 +6,8 @@ using Jobs.Abstractions;
 using Microsoft.Playwright;
 using PlayhouseShare;
 using Playhouse.Core.Models;
-using Playhouse.Core.Resources;
 using Playhouse.Core.Services.PlaywrightService.Abstractions;
+using Playhouse.Core.Resources.Localization;
 
 namespace Playhouse.Core.Services.BotRunningService
 {

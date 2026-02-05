@@ -4,7 +4,7 @@ namespace Playhouse.Core.Services.BotRunningService
 {
     public sealed class BotManagerRunArgs : RunArgs
     {
-        public string PathToBot { get; init; }
+        public string PathToBot { get; }
 
         public BotManagerRunArgs(string pathToBot)
         {

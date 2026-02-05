@@ -6,8 +6,8 @@ namespace Playhouse.Core.Services.BotRunningService
 {
     public sealed class BotRunArgs : RunArgs
     {
-        public Bot Bot { get; set; }
-        public IBrowserContext BrowserContext { get; set; }
+        public Bot Bot { get; }
+        public IBrowserContext BrowserContext { get; }
 
         public BotRunArgs(Bot bot, IBrowserContext browserContext)
         {

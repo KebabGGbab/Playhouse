@@ -5,8 +5,8 @@ namespace Playhouse.Core.Services.BotRunningService
 {
     public sealed class BotJobContext : JobManagerContext
     {
-        public IList<BrowserProfile> Profiles { get; set; }
-        public BotInfo BotInfo { get; set; }
+        public IList<BrowserProfile> Profiles { get; }
+        public BotInfo BotInfo { get; }
 
         public BotJobContext(IList<BrowserProfile> profiles, BotInfo botInfo)
         {
