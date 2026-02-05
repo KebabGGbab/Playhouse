@@ -46,7 +46,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Resources\StringsCode.Designer.cs">
+    <Compile Update="Resources\Localization\StringsCode.Designer.cs">
       <DependentUpon>StringsCode.resx</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -54,10 +54,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Resources\StringsCode.resx">
+    <EmbeddedResource Update="Resources\Localization\StringsCode.resx">
       <LastGenOutput>StringsCode.Designer.cs</LastGenOutput>
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Resources\JS\BrowserEventsListener.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

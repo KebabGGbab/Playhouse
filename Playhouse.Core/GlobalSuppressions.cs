@@ -5,4 +5,4 @@
 
 using System.Diagnostics.CodeAnalysis;
 
-[assembly: SuppressMessage("Design", "CA1003:Используйте экземпляры обработчика универсальных событий", Justification = "Используется тип с 2 универсальными параметрами", Scope = "member", Target = "~E:Playhouse.Core.Services.SettingsService.Abstractions.ISettingsUpdater`1.SettingsSaved")]
+[assembly: SuppressMessage("Design", "CA1003:Используйте экземпляры обработчика универсальных событий", Justification = "Использую событие либо без параметров, либо с двумя параметрами", Scope = "module")]

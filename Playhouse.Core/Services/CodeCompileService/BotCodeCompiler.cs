@@ -1,27 +1,31 @@
 ﻿using Playhouse.Core.Models;
 using Playhouse.Core.Services.CodeCompileService.Abstractions;
-using Playhouse.Core.Services.FilePathResolverService;
 using Playhouse.Core.Services.FilePathResolverService.Abstractions;
 
 namespace Playhouse.Core.Services.CodeCompileService
 {
-    public sealed class BotCodeCompiler : ICodeCompiler<BotInfo>
+    public class BotCodeCompiler : ICodeCompiler<BotInfo>
     {
-        private readonly IFilePathResolver _filePaths;
+        private readonly IFilePathResolver _filePathResolver;
         private readonly ICompiler _compiler;
 
-        public BotCodeCompiler(IFilePathResolver filePaths, ICompiler compiler)
+        public BotCodeCompiler(IFilePathResolver filePathResolver, ICompiler compiler)
         {
-            _filePaths = filePaths;
+            ArgumentNullException.ThrowIfNull(filePathResolver, nameof(filePathResolver));
+            ArgumentNullException.ThrowIfNull(compiler, nameof(compiler));
+
+            _filePathResolver = filePathResolver;
             _compiler = compiler;
         }
 
         public bool Compile(BotInfo bot)
         {
+            ArgumentNullException.ThrowIfNull(bot, nameof(bot));
+
             BotCodeGenerator generator = new(bot);
             CompilationInfo info = new()
             {
-                Path = _filePaths.GetPath(FileType.FileBotDll, bot.Id),
+                Path = _filePathResolver.GetPathToFileDllBot(bot.Id),
                 Trees = generator.Generate()
             };
 

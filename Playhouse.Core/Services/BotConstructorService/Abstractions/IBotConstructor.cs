@@ -1,13 +1,10 @@
-﻿using Playhouse.Core.Models;
-using Playhouse.Core.Models.BrowserEvents.Abstractions;
-
-namespace Playhouse.Core.Services.BotConstructorService.Abstractions
+﻿namespace Playhouse.Core.Services.BotConstructorService.Abstractions
 {
     public interface IBotConstructor
     {
-        event EventHandler<BrowserEvent> BrowserEventReceived;
-        event EventHandler ConstructionCompleted;
+        event EventHandler<IBotConstructor, BrowserEventHappenedEventArgs> BrowserEventHappend;
+        event EventHandler<IBotConstructor, BotConstructionCompletedEventArgs> ConstructionCompleted;
 
-        Task StartConstructorAsync(BrowserProfile profile, BotInfo bot);
+        Task StartConstructorAsync();
     }
 }

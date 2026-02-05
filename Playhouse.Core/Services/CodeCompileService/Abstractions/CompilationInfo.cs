@@ -1,8 +1,8 @@
 ﻿using Microsoft.CodeAnalysis;
 
-namespace Playhouse.Core.Services.CodeCompileService
+namespace Playhouse.Core.Services.CodeCompileService.Abstractions
 {
-    public sealed class CompilationInfo
+    public class CompilationInfo
     {
         public required IEnumerable<SyntaxTree> Trees { get; set; }
         public string? AssemblyName { get; set; }

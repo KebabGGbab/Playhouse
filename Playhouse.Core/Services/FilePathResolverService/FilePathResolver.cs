@@ -19,7 +19,7 @@ namespace Playhouse.Core.Services.FilePathResolverService
 
 		public string DirectoryBots => _currentConfig.Bots;
 
-		public string FileJSEventScripts => throw new NotImplementedException();
+		public string FileJSEventScripts => field ??= Path.Combine(Environment.CurrentDirectory, "Resources", "JS", "BrowserEventsListener.js");
 
 
         public FilePathResolver(IOptionsMonitor<FileLocationsOptions> config)

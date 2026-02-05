@@ -4,6 +4,7 @@ using Playhouse.Core.Models;
 using Playhouse.Core.Models.BrowserEvents;
 using Playhouse.Core.Models.BrowserEvents.Abstractions;
 using Playhouse.Core.Services.BotConstructorService.Abstractions;
+using Playhouse.Core.Services.FilePathResolverService.Abstractions;
 using Playhouse.Core.Services.PlaywrightService.Abstractions;
 
 namespace Playhouse.Core.Services.BotConstructorService
@@ -11,31 +12,35 @@ namespace Playhouse.Core.Services.BotConstructorService
     public sealed partial class BotConstructor : IBotConstructor
     {
         private readonly IPlaywrightFactory _playwrightFactory;
+        private readonly IFilePathResolver _filePathResolver;
 
-        public event EventHandler<BrowserEvent>? BrowserEventReceived;
-        public event EventHandler? ConstructionCompleted;
-        public BotInfo? BotConstruction { get; private set; }
+        private readonly ConstructorContext _context = new();
 
-        public BotConstructor(IPlaywrightFactory playwrightFactory)
+        public BotInfo BotConstruction { get; }
+
+        public BrowserProfile ProfileConstruct { get; }
+
+        public event EventHandler<IBotConstructor, BrowserEventHappenedEventArgs>? BrowserEventHappend;
+
+        public event EventHandler<IBotConstructor, BotConstructionCompletedEventArgs>? ConstructionCompleted;
+
+        public BotConstructor(IPlaywrightFactory playwrightFactory, IFilePathResolver filePathResolver, BrowserProfile profile, BotInfo bot)
         {
+            ArgumentNullException.ThrowIfNull(playwrightFactory, nameof(playwrightFactory));
+            ArgumentNullException.ThrowIfNull(filePathResolver, nameof(filePathResolver));
+            ArgumentNullException.ThrowIfNull(profile, nameof(profile));
+            ArgumentNullException.ThrowIfNull(bot, nameof(bot));
+
             _playwrightFactory = playwrightFactory;
+            _filePathResolver = filePathResolver;
+            BotConstruction = bot;
+            ProfileConstruct = profile;
         }
 
-        public async Task StartConstructorAsync(BrowserProfile profile, BotInfo bot)
+        public async Task StartConstructorAsync()
         {
-            BotConstruction = bot;
-            IBrowserContext browser = await _playwrightFactory.CreateBrowserAsync(profile, bot).ConfigureAwait(false);
-            await browser.AddInitScriptAsync(
-                """
-                document.addEventListener('click', e => {
-                    const selector = e.target?.outerHTML?.slice(0, 200);
-                    console.log('[Playhouse]:!:click:!::!:' + selector);
-                });
-                document.addEventListener('input', e => {
-                    const selector = e.target?.outerHTML?.slice(0, 200);
-                    console.log('[Playhouse]:!:input:!::!:' + selector + ' => ' + e.target.value);
-                });
-                """).ConfigureAwait(false);
+            IBrowserContext browser = await _playwrightFactory.CreateBrowserAsync(ProfileConstruct, BotConstruction).ConfigureAwait(false);
+            await browser.AddInitScriptAsync(scriptPath: _filePathResolver.FileJSEventScripts).ConfigureAwait(false);
 
             browser.Console += Console_GetRecord;
             browser.Close += Browser_Closed;
@@ -44,6 +49,7 @@ namespace Playhouse.Core.Services.BotConstructorService
 
         private void Browser_Closed(object? sender, IBrowserContext e)
         {
+            OnBrowserEventHappend(new BrowserContextClosedBrowserEvent() { BotInfo = BotConstruction });
             e.Console -= Console_GetRecord;
             e.Close -= Browser_Closed;
             e.Page -= Page_Created;
@@ -52,18 +58,21 @@ namespace Playhouse.Core.Services.BotConstructorService
 
         private void Page_Created(object? sender, IPage e)
         {
+            OnBrowserEventHappend(new PageCreatedBrowserEvent() { BotInfo = BotConstruction, Number = _context.GetPageNumber(e) });
             e.Load += Page_Loaded;
             e.Close += Page_Closed;
         }
 
         private void Page_Closed(object? sender, IPage e)
         {
+            OnBrowserEventHappend(new PageClosedBrowserEvent() { BotInfo = BotConstruction, Number = _context.GetPageNumber(e) });
             e.Load -= Page_Loaded;
             e.Close -= Page_Closed;
         }
 
         private void Page_Loaded(object? sender, IPage e)
         {
+            OnBrowserEventHappend(new PageGoToBrowserEvent(new Uri(e.Url)) { BotInfo = BotConstruction, Number = _context.GetPageNumber(e) });
         }
 
         private void Console_GetRecord(object? sender, IConsoleMessage e)
@@ -80,21 +89,36 @@ namespace Playhouse.Core.Services.BotConstructorService
                 _ => throw new NotSupportedException("Не поддерживаемое действие")
             };
 
-            OnBrowserEventReceived(browserEvent);
+            OnBrowserEventHappend(browserEvent);
         }
 
-        private void OnBrowserEventReceived(BrowserEvent browserEvent)
+        private void OnBrowserEventHappend(BrowserEvent browserEvent)
         {
-            BrowserEventReceived?.Invoke(this, browserEvent);
+            BrowserEventHappend?.Invoke(this, new BrowserEventHappenedEventArgs(browserEvent));
         }
 
         private void OnConstructionCompleted()
         {
-            BotConstruction = null;
-            ConstructionCompleted?.Invoke(this, EventArgs.Empty);
+            ConstructionCompleted?.Invoke(this, new BotConstructionCompletedEventArgs(BotConstruction));
         }
 
         [GeneratedRegex(@"^(?:\[Playhouse\]):!:(?<event>\w{3,20}):!:(?<id>[a-zA-Z0-9_\-.]{0,}):!:(?<text>.{0,})$", RegexOptions.Singleline)]
         private static partial Regex ParseConsoleMessage();
+
+        private class ConstructorContext
+        {
+            private Dictionary<IPage, int> _pageNumber = [];
+
+            public int GetPageNumber(IPage page)
+            {
+                if (!_pageNumber.TryGetValue(page, out int result))
+                {
+                    result = _pageNumber.Count;
+                    _pageNumber.Add(page, result);
+                }
+
+                return result;
+            }
+        }
     }
 }

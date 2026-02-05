@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Playhouse.Core.Resources {
+namespace Playhouse.Core.Resources.Localization {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Playhouse.Core.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Playhouse.Core.Resources.StringsCode", typeof(StringsCode).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Playhouse.Core.Resources.Localization.StringsCode", typeof(StringsCode).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

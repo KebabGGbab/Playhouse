@@ -15,6 +15,8 @@ namespace Playhouse.Core.Services.CodeCompileService
 
         public void Visit(PageCreatedBrowserEvent browserEvent)
         {
+            ArgumentNullException.ThrowIfNull(browserEvent, nameof(browserEvent));
+
             Statements.Add(
                 LocalDeclarationStatement(
                     VariableDeclaration(
@@ -39,6 +41,8 @@ namespace Playhouse.Core.Services.CodeCompileService
 
         public void Visit(PageGoToBrowserEvent browserEvent)
         {
+            ArgumentNullException.ThrowIfNull(browserEvent, nameof(browserEvent));
+
             Statements.Add(
                 ExpressionStatement(
                     AwaitExpression(

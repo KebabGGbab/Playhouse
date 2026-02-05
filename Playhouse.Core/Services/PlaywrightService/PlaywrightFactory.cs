@@ -2,7 +2,7 @@
 using System.Text;
 using Microsoft.Playwright;
 using Playhouse.Core.Models;
-using Playhouse.Core.Resources;
+using Playhouse.Core.Resources.Localization;
 using Playhouse.Core.Services.FilePathResolverService.Abstractions;
 using Playhouse.Core.Services.PlaywrightService.Abstractions;
 using BrowserType = Playhouse.Core.Enums.BrowserType;

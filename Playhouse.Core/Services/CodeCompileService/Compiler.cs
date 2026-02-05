@@ -5,7 +5,7 @@ using Playhouse.Core.Services.CodeCompileService.Abstractions;
 
 namespace Playhouse.Core.Services.CodeCompileService
 {
-    public sealed class Compiler : ICompiler
+    public class Compiler : ICompiler
     {
         private readonly CSharpCompilationOptions _options;
         private readonly IEnumerable<MetadataReference> _references;
@@ -21,6 +21,8 @@ namespace Playhouse.Core.Services.CodeCompileService
 
         public bool Compile(CompilationInfo info)
         {
+            ArgumentNullException.ThrowIfNull(info, nameof(info));
+
             CSharpCompilation compilation = CSharpCompilation.Create(
                 assemblyName: info.AssemblyName ?? Guid.NewGuid().ToString(),
                 syntaxTrees: info.Trees,

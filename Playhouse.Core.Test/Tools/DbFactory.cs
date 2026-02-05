@@ -105,7 +105,7 @@ namespace Playhouse.Core.Test.Tools
                     new() { Name = "Play", Browser = Enums.BrowserType.Firefox }
                 ];
                 botsInfo[0].BrowserEvents.Add(new PageCreatedBrowserEvent() { BotInfo = botsInfo[0], Number = 1 });
-                botsInfo[1].BrowserEvents.Add(new BrowserContextClosedBrowserEvent(new BrowserContextCloseOptions() { Reason = "Причина" }) { BotInfo = botsInfo[1], Number = 1 });
+                botsInfo[1].BrowserEvents.Add(new BrowserContextClosedBrowserEvent(new BrowserContextCloseOptions() { Reason = "Причина" }) { BotInfo = botsInfo[1] });
                 botsInfo[1].BrowserEvents.Add(new LocatorClickBrowserEvent(new LocatorClickOptions() { Position = new Position() { X = 10, Y = 1} }) { BotInfo = botsInfo[1], Number = 1 });
                 context.Set<BotInfo>().AddRange(botsInfo);
                 context.Set<BrowserProfile>().AddRange(
