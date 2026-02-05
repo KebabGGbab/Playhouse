@@ -13,7 +13,6 @@ using Playhouse.Core.Services.BotConstructorService;
 using Playhouse.Core.Services.BotConstructorService.Abstractions;
 using Playhouse.Core.Services.BotRunningService;
 using Playhouse.Core.Services.BotRunningService.Abstrtactions;
-using Playhouse.Core.Services.CodeCompileService;
 using Playhouse.Core.Services.ConfigurationService;
 using Playhouse.Core.Services.ConfigurationService.Abstractions;
 using Playhouse.Core.Services.EntityManagerService;
@@ -28,6 +27,7 @@ using Playhouse.UI.Resources.Localization;
 using Playhouse.UI.Services.WindowCreatorService;
 using Playhouse.UI.Services.WindowCreatorService.Abstractions;
 using Playhouse.UI.Views;
+using Playhouse.ViewModels.CoreExtensions.Services;
 using Playhouse.ViewModels.Services.LocalizationService;
 using Playhouse.ViewModels.ViewModels;
 

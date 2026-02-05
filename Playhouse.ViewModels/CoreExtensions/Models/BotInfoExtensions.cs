@@ -1,6 +1,6 @@
 ﻿using Playhouse.Core.Models;
 
-namespace Playhouse.ViewModels.ModelsExtensions
+namespace Playhouse.ViewModels.CoreExtensions.Models
 {
     public static class BotInfoExtensions
     {

@@ -4,8 +4,8 @@ using DynamicData;
 using Playhouse.Core.Enums;
 using Playhouse.Core.Models;
 using Playhouse.Core.Services.EntityManagerService.Abstractions;
+using Playhouse.ViewModels.CoreExtensions.Models;
 using Playhouse.ViewModels.Messages;
-using Playhouse.ViewModels.ModelsExtensions;
 using System.Collections.ObjectModel;
 
 namespace Playhouse.ViewModels.ViewModels

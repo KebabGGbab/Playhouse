@@ -4,7 +4,7 @@ using Playhouse.Core.Enums;
 using Playhouse.Core.Models.ConfigurationOptions;
 using Playhouse.Core.Services.PlaywrightService.Abstractions;
 using Humanizer;
-using Playhouse.Core.Resources;
+using Playhouse.Core.Resources.Localization;
 
 namespace Playhouse.Core.Services.PlaywrightService
 {
