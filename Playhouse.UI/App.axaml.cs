@@ -1,31 +1,14 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Playhouse.Core.Models;
 using Playhouse.Core.Models.ConfigurationOptions;
-using Playhouse.Core.Services.BotConstructorService;
-using Playhouse.Core.Services.BotConstructorService.Abstractions;
-using Playhouse.Core.Services.BotRunningService;
-using Playhouse.Core.Services.BotRunningService.Abstrtactions;
-using Playhouse.Core.Services.ConfigurationService;
-using Playhouse.Core.Services.ConfigurationService.Abstractions;
-using Playhouse.Core.Services.EntityManagerService;
-using Playhouse.Core.Services.EntityManagerService.Abstractions;
-using Playhouse.Core.Services.FileManagerService;
-using Playhouse.Core.Services.FileManagerService.Abstractions;
 using Playhouse.Core.Services.FilePathResolverService;
-using Playhouse.Core.Services.FilePathResolverService.Abstractions;
-using Playhouse.Core.Services.PlaywrightService;
-using Playhouse.Core.Services.PlaywrightService.Abstractions;
 using Playhouse.UI.Resources.Localization;
-using Playhouse.UI.Services.WindowCreatorService;
-using Playhouse.UI.Services.WindowCreatorService.Abstractions;
 using Playhouse.UI.Views;
 using Playhouse.ViewModels.CoreExtensions.Services;
 using Playhouse.ViewModels.Services.LocalizationService;
@@ -96,23 +79,16 @@ namespace Playhouse.UI
             services.AddSingleton<MainWindow>();
             services.AddSingleton<BotConstructorWindow>();
             services.AddSingleton<UpdateViewModel>();
-            services.AddSingleton<ProfilesViewModel>();
             services.AddSingleton<RunViewModel>();
             services.AddSingleton<BotViewModel>();
             services.AddSingleton<SettingsViewModel>();
             services.AddSingleton<BotConstructorViewModel>();
-            services.AddSingleton<IFilePathResolver, FilePathResolver>();
-            services.AddSingleton<FileCRUDBase<BrowserProfile>, ProfileFileCRUD>();
-            services.AddSingleton<FileCRUDBase<BotInfo>, BotFileCRUD>();
-            services.AddSingleton<IEntityManager<BrowserProfile>, ProfileManager>();
-            services.AddSingleton<IEntityManager<BotInfo>, BotManager>();
-            services.AddSingleton<IPlaywrightBrowserInstaller, PlaywrightBrowserInstaller>();
-            services.AddSingleton<IPlaywrightFactory, PlaywrightFactory>();
-            services.AddSingleton<IConfigurationUpdater, ConfigurationUpdater>();
-            services.AddSingleton<IWindowFactory, WindowFactory>();
-            services.AddSingleton<IBotConstructor, BotConstructor>();
-            services.AddSingleton<IBotJobManagerFactory, BotJobManagerFactory>();
+            services.AddBotConstruction();
             services.AddBotCompiler();
+            services.AddBotRunning();
+            services.AddFilePathResolver();
+            services.AddPlaywright();
+            services.AddSettings();
             services.AddLocalization(StringsUI.ResourceManager);
         }
 
@@ -124,10 +100,10 @@ namespace Playhouse.UI
                 configuration.AddJsonFile(FilePathResolver.AppSettings, true, true);
                 configuration.AddJsonFile(FilePathResolver.UserSettings, false, true);
             }
-            services.Configure<FileLocationsOptions>(configuration.GetSection(FileLocationsOptions.Name));
-            services.Configure<EntityOptions>(configuration.GetSection(EntityOptions.Name));
-            services.Configure<PlaywrightOptions>(configuration.GetSection(PlaywrightOptions.Name));
-            services.Configure<ViewOptions>(configuration.GetSection(ViewOptions.Name));
+            services.Configure<FileLocationsOptions>(configuration.GetSection(FileLocationsOptions.OPTIONSNAME));
+            services.Configure<EntityOptions>(configuration.GetSection(EntityOptions.OPTIONSNAME));
+            services.Configure<PlaywrightOptions>(configuration.GetSection(PlaywrightOptions.OPTIONSNAME));
+            services.Configure<CultureOptions>(configuration.GetSection(CultureOptions.OPTIONSNAME));
             services.Configure<UserSettings>(configuration);
         }
 
