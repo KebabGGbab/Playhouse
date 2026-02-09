@@ -10,7 +10,7 @@ namespace Playhouse.Core.Test.TestingClasses
     public sealed class ApplicationDbContextTestWrite
     {
         [TestMethod]
-        public async Task AddAsync_AddNewBrowserProfile()
+        public async Task AddNewBrowserProfile()
         {
             using ApplicationDbContext context = DbFactory.GetTransactionAppContext();
             context.Database.BeginTransaction();
@@ -41,7 +41,7 @@ namespace Playhouse.Core.Test.TestingClasses
         }
 
         [TestMethod]
-        public async Task AddAsync_AddNewBotInfo()
+        public async Task AddNewBotInfo()
         {
             using ApplicationDbContext context = DbFactory.GetTransactionAppContext();
             context.Database.BeginTransaction();
@@ -56,7 +56,7 @@ namespace Playhouse.Core.Test.TestingClasses
 
             context.ChangeTracker.Clear();
 
-            BotInfo bot = await context.BotsInfo.SingleAsync(b => b.Id == 4, CancellationToken.None);
+            BotInfo bot = await context.BotsInfo.OrderBy(b => b.Id).LastAsync(CancellationToken.None);
             Assert.AreEqual("NewBot", bot.Name);
             Assert.AreEqual(BrowserType.Chromium, bot.Browser);
             Assert.HasCount(0, bot.BrowserEvents);

@@ -5,4 +5,5 @@
 
 using System.Diagnostics.CodeAnalysis;
 
+[assembly: SuppressMessage("Usage", "CA2225:Для перегрузок операторов существуют варианты с именами", Justification = "На данный момент программа разрабатывается только на языке программирования C#, который поддерживает операторы привидения.", Scope = "module")]
 [assembly: SuppressMessage("Design", "CA1003:Используйте экземпляры обработчика универсальных событий", Justification = "Использую событие либо без параметров, либо с двумя параметрами", Scope = "module")]
