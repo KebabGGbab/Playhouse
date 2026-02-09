@@ -17,6 +17,14 @@ namespace Playhouse.Core.Test.TestingClasses
         }
 
         [TestMethod]
+        public async Task GetNotExistObject_Throw()
+        {
+            using ApplicationDbContext context = DbFactory.GetSimpleAppContext();
+
+            await Assert.ThrowsAsync<InvalidOperationException>(async () => await context.BrowserProfiles.SingleAsync(p => p.Id == 4, CancellationToken.None));
+        }
+
+        [TestMethod]
         public async Task ReadAllTableBrowserProfile_AllObjectNotNullAndUnique()
         {
             using ApplicationDbContext context = DbFactory.GetSimpleAppContext();
@@ -25,7 +33,53 @@ namespace Playhouse.Core.Test.TestingClasses
 
             CollectionAssert.AllItemsAreNotNull(profiles);
             CollectionAssert.AllItemsAreUnique(profiles);
-            Assert.HasCount(2, profiles);
+            Assert.HasCount(3, profiles);
+        }
+
+        [TestMethod]
+        public async Task ReadOneBrowserProfile_PopertiesSameAsWhenWrite()
+        {
+            using ApplicationDbContext context = DbFactory.GetSimpleAppContext();
+
+            BrowserProfile profile = await context.BrowserProfiles.SingleAsync(p => p.Id == 1, CancellationToken.None);
+
+            Assert.AreEqual("test", profile.Name);
+            Assert.IsFalse(profile.Options.AcceptDownloads);
+            Assert.AreEqual(BrowserChannels.ChromeBeta.ToString(), profile.Options.Channel);
+            Assert.IsFalse(profile.Options.ChromiumSandbox);
+            Assert.IsNull(profile.Options.DownloadsPath);
+            Assert.IsTrue(profile.Options.Headless);
+            Assert.AreEqual(1, profile.Options.SlowMo);
+        }
+
+        [TestMethod]
+        public async Task BrowserTypeLaunchPersistentContextOptionsStrictDecorator_DefaultValueAllProperties()
+        {
+            using ApplicationDbContext context = DbFactory.GetSimpleAppContext();
+
+            BrowserProfile profile = await context.BrowserProfiles.SingleAsync(p => p.Id == 2, CancellationToken.None);
+
+            Assert.IsTrue(profile.Options.AcceptDownloads);
+            Assert.IsNull(profile.Options.Channel);
+            Assert.IsFalse(profile.Options.ChromiumSandbox);
+            Assert.IsNull(profile.Options.DownloadsPath);
+            Assert.IsTrue(profile.Options.Headless);
+            Assert.IsNull(profile.Options.SlowMo);
+        }
+
+        [TestMethod]
+        public async Task BrowserTypeLaunchPersistentContextOptionsStrictDecorator_NotDefaultValueAllProperties()
+        {
+            using ApplicationDbContext context = DbFactory.GetSimpleAppContext();
+
+            BrowserProfile profile = await context.BrowserProfiles.SingleAsync(p => p.Id == 3, CancellationToken.None);
+
+            Assert.IsFalse(profile.Options.AcceptDownloads);
+            Assert.AreEqual(BrowserChannels.ChromeBeta.ToString(), profile.Options.Channel);
+            Assert.IsTrue(profile.Options.ChromiumSandbox);
+            Assert.AreEqual("C://Downloads", profile.Options.DownloadsPath);
+            Assert.IsFalse(profile.Options.Headless);
+            Assert.AreEqual(1, profile.Options.SlowMo);
         }
 
         [TestMethod]
@@ -41,21 +95,19 @@ namespace Playhouse.Core.Test.TestingClasses
         }
 
         [TestMethod]
-        public async Task ReadOneBrowserProfile_PopertiesSameAsWhenWrite()
+        public async Task ReadOneBotInfo_PopertiesSameAsWhenWrite()
         {
             using ApplicationDbContext context = DbFactory.GetSimpleAppContext();
 
-            BrowserProfile profile = await context.BrowserProfiles.SingleAsync(p => p.Id == 1, CancellationToken.None);
+            BotInfo bot = await context.BotsInfo.Include(b => b.BrowserEvents).SingleAsync(b => b.Id == 1, CancellationToken.None);
 
-            Assert.AreEqual("Profile1", profile.Name);
-            Assert.IsNull(profile.AcceptDownloads);
-            Assert.AreEqual("C://Downloads", profile.DownloadsPath);
-            Assert.AreEqual(1, profile.SlowMo);
-            Assert.IsFalse(profile.Headless);
+            Assert.AreEqual("test", bot.Name);
+            Assert.AreEqual(Enums.BrowserType.WebKit, bot.Browser);
+            Assert.HasCount(1, bot.BrowserEvents);
         }
 
         [TestMethod]
-        public async Task ReadOneBotInfo_PopertiesSameAsWhenWrite()
+        public async Task ReadNestedOwnType_LocatorClick_Options_Position()
         {
             using ApplicationDbContext context = DbFactory.GetSimpleAppContext();
 

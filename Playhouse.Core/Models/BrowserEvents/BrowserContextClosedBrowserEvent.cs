@@ -1,5 +1,5 @@
 ﻿using Playhouse.Core.Models.BrowserEvents.Abstractions;
-using Playhouse.Core.Models.BrowserEvents.OptionsDecorator;
+using Playhouse.Core.Models.PlaywrightDecorator;
 
 namespace Playhouse.Core.Models.BrowserEvents
 {
