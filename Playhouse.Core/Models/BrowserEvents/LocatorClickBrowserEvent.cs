@@ -1,5 +1,5 @@
-﻿using Microsoft.Playwright;
-using Playhouse.Core.Models.BrowserEvents.Abstractions;
+﻿using Playhouse.Core.Models.BrowserEvents.Abstractions;
+using Playhouse.Core.Models.PlaywrightDecorator;
 
 namespace Playhouse.Core.Models.BrowserEvents
 {
@@ -7,16 +7,16 @@ namespace Playhouse.Core.Models.BrowserEvents
     {
         public const string NAME = "click";
 
-        public LocatorClickOptions ClickOptions { get; init; } = null!;
+        public LocatorClickOptionsStrictDecorator ClickOptions { get; init; } = null!;
 
         // Конструктор для EntityFramework
         private LocatorClickBrowserEvent()
         {
         }
 
-        public LocatorClickBrowserEvent(LocatorClickOptions? options = null)
+        public LocatorClickBrowserEvent(LocatorClickOptionsStrictDecorator? options = null)
         {
-            ClickOptions = options ?? new LocatorClickOptions();
+            ClickOptions = options ?? new LocatorClickOptionsStrictDecorator();
         }
 
         public override void Accept(IBrowserEventVisitor visitor)

@@ -10,19 +10,22 @@ namespace Playhouse.Core.Test.TestingClasses
     public sealed class ApplicationDbContextTestWrite
     {
         [TestMethod]
-        public async Task AddAsync_AddNewBrowserProfile()
+        public async Task AddNewBrowserProfile()
         {
             using ApplicationDbContext context = DbFactory.GetTransactionAppContext();
             context.Database.BeginTransaction();
             BrowserProfile newProfile = new() 
             { 
-                Name = "NewProfile", 
-                AcceptDownloads = true, 
-                Headless = true, 
-                ChromiumSandbox = null, 
-                Channel = Channel.ChromeBeta.ToString(), 
-                DownloadsPath = "D://path",
-                SlowMo = 2
+                Name = "NewProfile",
+                Options =
+                {
+                    AcceptDownloads = true,
+                    Channel = BrowserChannels.ChromeBeta.ToString(),
+                    ChromiumSandbox = true,
+                    DownloadsPath = "D://path",
+                    Headless = false,
+                    SlowMo = 2
+                }
             };
 
             await context.BrowserProfiles.AddAsync(newProfile, CancellationToken.None);
@@ -30,18 +33,18 @@ namespace Playhouse.Core.Test.TestingClasses
 
             context.ChangeTracker.Clear();
 
-            BrowserProfile profile = await context.BrowserProfiles.SingleAsync(p => p.Id == 3, CancellationToken.None);
+            BrowserProfile profile = await context.BrowserProfiles.OrderBy(p => p.Id).LastAsync(CancellationToken.None);
             Assert.AreEqual("NewProfile", profile.Name);
-            Assert.IsTrue(profile.AcceptDownloads);
-            Assert.AreEqual("D://path", profile.DownloadsPath);
-            Assert.IsNull(profile.ChromiumSandbox);
-            Assert.AreEqual(2, profile.SlowMo);
-            Assert.IsTrue(profile.Headless);
-            Assert.AreEqual(Channel.ChromeBeta.ToString(), profile.Channel);
+            Assert.IsTrue(profile.Options.AcceptDownloads);
+            Assert.AreEqual(BrowserChannels.ChromeBeta.ToString(), profile.Options.Channel);
+            Assert.IsTrue(profile.Options.ChromiumSandbox);
+            Assert.AreEqual("D://path", profile.Options.DownloadsPath);
+            Assert.IsFalse(profile.Options.Headless);
+            Assert.AreEqual(2, profile.Options.SlowMo);
         }
 
         [TestMethod]
-        public async Task AddAsync_AddNewBotInfo()
+        public async Task AddNewBotInfo()
         {
             using ApplicationDbContext context = DbFactory.GetTransactionAppContext();
             context.Database.BeginTransaction();
@@ -56,7 +59,7 @@ namespace Playhouse.Core.Test.TestingClasses
 
             context.ChangeTracker.Clear();
 
-            BotInfo bot = await context.BotsInfo.SingleAsync(b => b.Id == 4, CancellationToken.None);
+            BotInfo bot = await context.BotsInfo.OrderBy(b => b.Id).LastAsync(CancellationToken.None);
             Assert.AreEqual("NewBot", bot.Name);
             Assert.AreEqual(BrowserType.Chromium, bot.Browser);
             Assert.HasCount(0, bot.BrowserEvents);

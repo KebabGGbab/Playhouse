@@ -1,9 +1,7 @@
 ﻿using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Playwright;
 using Playhouse.Core.Data;
 using Playhouse.Core.Models;
-using Playhouse.Core.Models.BrowserEvents;
 
 namespace Playhouse.Core.Test.Tools
 {
@@ -98,19 +96,8 @@ namespace Playhouse.Core.Test.Tools
 
             public override void SetData(DbContext context, bool _)
             {
-                BotInfo[] botsInfo =
-                [
-                    new() { Name = "test", Browser = Enums.BrowserType.WebKit },
-                    new() { Name = "2", Browser = Enums.BrowserType.Chromium },
-                    new() { Name = "Play", Browser = Enums.BrowserType.Firefox }
-                ];
-                botsInfo[0].BrowserEvents.Add(new PageCreatedBrowserEvent() { BotInfo = botsInfo[0], Number = 1 });
-                botsInfo[1].BrowserEvents.Add(new BrowserContextClosedBrowserEvent(new BrowserContextCloseOptions() { Reason = "Причина" }) { BotInfo = botsInfo[1], Number = 1 });
-                botsInfo[1].BrowserEvents.Add(new LocatorClickBrowserEvent(new LocatorClickOptions() { Position = new Position() { X = 10, Y = 1} }) { BotInfo = botsInfo[1], Number = 1 });
-                context.Set<BotInfo>().AddRange(botsInfo);
-                context.Set<BrowserProfile>().AddRange(
-                    new BrowserProfile() { Name = "Profile1", AcceptDownloads = null, DownloadsPath = "C://Downloads", SlowMo = 1, Headless = false },
-                    new BrowserProfile() { Name = "Profile1", AcceptDownloads = null, DownloadsPath = null, SlowMo = null, Headless = null });
+                context.Set<BotInfo>().AddRange(GeneratorTestDbData.GenerateBotsInfo());
+                context.Set<BrowserProfile>().AddRange(GeneratorTestDbData.GenerateBrowserProfiles());
                 context.SaveChanges();
             }
         }

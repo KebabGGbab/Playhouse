@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 namespace Playhouse.Core.Enums
 {
 	[Flags]
-	public enum Channel
+	public enum BrowserChannels
 	{
 		[Display(Name = "none"), JsonStringEnumMemberName("none")]
 		None = 0b_0000_0000_0000,

@@ -1,20 +1,20 @@
-﻿using Microsoft.Playwright;
-using Playhouse.Core.Models.BrowserEvents.Abstractions;
+﻿using Playhouse.Core.Models.BrowserEvents.Abstractions;
+using Playhouse.Core.Models.PlaywrightDecorator;
 
 namespace Playhouse.Core.Models.BrowserEvents
 {
     public class PageClosedBrowserEvent : PageBrowserEvent
     {
-        public PageCloseOptions CloseOptions { get; init; } = null!;
+        public PageCloseOptionsStrictDecorator CloseOptions { get; init; } = null!;
 
         // Конструктор для EntityFramework
         private PageClosedBrowserEvent()
         {
         }
 
-        public PageClosedBrowserEvent(PageCloseOptions? options = null)
-        { 
-            CloseOptions = options ?? new PageCloseOptions();
+        public PageClosedBrowserEvent(PageCloseOptionsStrictDecorator? options = null)
+        {
+            CloseOptions = options ?? new PageCloseOptionsStrictDecorator();
         }
 
         public override void Accept(IBrowserEventVisitor visitor)

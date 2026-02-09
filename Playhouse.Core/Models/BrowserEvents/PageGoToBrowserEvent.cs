@@ -1,22 +1,22 @@
-﻿using Microsoft.Playwright;
-using Playhouse.Core.Models.BrowserEvents.Abstractions;
+﻿using Playhouse.Core.Models.BrowserEvents.Abstractions;
+using Playhouse.Core.Models.PlaywrightDecorator;
 
 namespace Playhouse.Core.Models.BrowserEvents
 {
     public class PageGoToBrowserEvent : PageBrowserEvent
     {
         public Uri Url { get; init; } = null!;
-        public PageGotoOptions GotoOptions { get; init; } = null!;
+        public PageGoToOptionsStrictDecorator GotoOptions { get; init; } = null!;
 
         // Конструктор для EntityFramework
         private PageGoToBrowserEvent()
         {
         }
 
-        public PageGoToBrowserEvent(Uri url, PageGotoOptions? options = null)
+        public PageGoToBrowserEvent(Uri url, PageGoToOptionsStrictDecorator? options = null)
         {
             Url = url;
-            GotoOptions = options ?? new PageGotoOptions();
+            GotoOptions = options ?? new PageGoToOptionsStrictDecorator();
         }
 
         public override void Accept(IBrowserEventVisitor visitor)

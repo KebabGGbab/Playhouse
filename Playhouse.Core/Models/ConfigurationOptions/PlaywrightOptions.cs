@@ -6,7 +6,7 @@ namespace Playhouse.Core.Models.ConfigurationOptions
 	{
 		public const string OPTIONSNAME = "Playwright";
 
-		public Channel Channels { get; set; }
+		public BrowserChannels Channels { get; set; }
 		public BrowserType BrowserTypes { get; set; }
 	}
 }
