@@ -15,11 +15,11 @@ namespace Playhouse.Core.Services.PlaywrightService
 
         private readonly IFilePathResolver _fullPathResolver;
 
-		public PlaywrightFactory(IFilePathResolver fullPath)
+		public PlaywrightFactory(IFilePathResolver fullPathResolver)
 		{
-			ArgumentNullException.ThrowIfNull(fullPath, nameof(fullPath));
+			ArgumentNullException.ThrowIfNull(fullPathResolver, nameof(fullPathResolver));
 
-			_fullPathResolver = fullPath;
+			_fullPathResolver = fullPathResolver;
 		}
 
 		public async Task<IBrowserContext> CreateBrowserAsync(BrowserProfile profile, BotInfo bot)
@@ -29,17 +29,18 @@ namespace Playhouse.Core.Services.PlaywrightService
 
 			IPlaywright playwright = await Playwright.CreateAsync().ConfigureAwait(false);
 			string pathToUserDataDir = _fullPathResolver.GetPathToDirectoryUserDataDirProfile(profile.Id);
+            BrowserTypeLaunchPersistentContextOptions options = (BrowserTypeLaunchPersistentContextOptions)profile.Options;
 
-			return bot.Browser switch
+            return bot.Browser switch
 			{
                 BrowserType.Chromium => await playwright.Chromium.
-					LaunchPersistentContextAsync(pathToUserDataDir, profile)
+					LaunchPersistentContextAsync(pathToUserDataDir, options)
 					.ConfigureAwait(false),
                 BrowserType.Firefox => await playwright.Firefox
-					.LaunchPersistentContextAsync(pathToUserDataDir, profile)
+					.LaunchPersistentContextAsync(pathToUserDataDir, options)
 					.ConfigureAwait(false),
                 BrowserType.WebKit => await playwright.Webkit
-					.LaunchPersistentContextAsync(pathToUserDataDir, profile)
+					.LaunchPersistentContextAsync(pathToUserDataDir, options)
 					.ConfigureAwait(false),
 				_ => throw new NotSupportedException(string.Format(CultureInfo.CurrentCulture, _unsupportedBrowserFormat, bot.Browser))
 			};

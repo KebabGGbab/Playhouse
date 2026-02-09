@@ -49,7 +49,7 @@ namespace Playhouse.Core.Services.BotConstructorService
 
         private void Browser_Closed(object? sender, IBrowserContext e)
         {
-            OnBrowserEventHappend(new BrowserContextClosedBrowserEvent() { BotInfo = BotConstruction });
+            OnBrowserEventHappend(new BrowserContextClosedBrowserEvent() { BotInfo = BotConstruction, Number = _context.GetBrowserContextNumber(e) });
             e.Console -= Console_GetRecord;
             e.Close -= Browser_Closed;
             e.Page -= Page_Created;
@@ -107,14 +107,26 @@ namespace Playhouse.Core.Services.BotConstructorService
 
         private class ConstructorContext
         {
-            private Dictionary<IPage, int> _pageNumber = [];
+            private Dictionary<IPage, int> _pageNumbers = [];
+            private Dictionary<IBrowserContext, int> _browserContextNumbers = [];
 
             public int GetPageNumber(IPage page)
             {
-                if (!_pageNumber.TryGetValue(page, out int result))
+                if (!_pageNumbers.TryGetValue(page, out int result))
                 {
-                    result = _pageNumber.Count;
-                    _pageNumber.Add(page, result);
+                    result = _pageNumbers.Count;
+                    _pageNumbers.Add(page, result);
+                }
+
+                return result;
+            }
+
+            public int GetBrowserContextNumber(IBrowserContext browserContext)
+            {
+                if (!_browserContextNumbers.TryGetValue(browserContext, out int result))
+                {
+                    result = _browserContextNumbers.Count;
+                    _browserContextNumbers.Add(browserContext, result);
                 }
 
                 return result;

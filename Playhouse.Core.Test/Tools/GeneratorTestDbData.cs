@@ -1,7 +1,8 @@
 ﻿using Microsoft.Playwright;
+using Playhouse.Core.Enums;
 using Playhouse.Core.Models;
 using Playhouse.Core.Models.BrowserEvents;
-using Playhouse.Core.Models.BrowserEvents.OptionsDecorator;
+using Playhouse.Core.Models.PlaywrightDecorator;
 
 namespace Playhouse.Core.Test.Tools
 {
@@ -126,21 +127,33 @@ namespace Playhouse.Core.Test.Tools
         {
             BrowserProfile[] profiles =
                 [
-                    new BrowserProfile() 
+                    new BrowserProfile()
                     {
-                        Name = "Profile1",
-                        AcceptDownloads = null,
-                        DownloadsPath = "C://Downloads",
-                        SlowMo = 1,
-                        Headless = false 
+                        Name = "test",
+                        Options = new()
+                        {
+                            AcceptDownloads = false,
+                            Channel = BrowserChannels.ChromeBeta.ToString(),
+                            SlowMo = 1,
+                        }
                     },
-                    new BrowserProfile() 
+                    new BrowserProfile()
                     {
                         Name = "Profile1",
-                        AcceptDownloads = null,
-                        DownloadsPath = null,
-                        SlowMo = null, 
-                        Headless = null 
+                        Options = new()
+                    },
+                    new BrowserProfile()
+                    {
+                        Name = "Profile2",
+                        Options = new()
+                        {
+                            AcceptDownloads = false,
+                            Channel = BrowserChannels.ChromeBeta.ToString(),
+                            ChromiumSandbox = true,
+                            DownloadsPath = "C://Downloads",
+                            Headless = false,
+                            SlowMo = 1,
+                        }
                     }
                 ];
 
