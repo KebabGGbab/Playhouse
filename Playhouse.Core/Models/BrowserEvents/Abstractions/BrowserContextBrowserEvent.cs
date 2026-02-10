@@ -2,5 +2,6 @@
 {
     public abstract class BrowserContextBrowserEvent : BrowserEvent
     {
+        public required int Number { get; set; }
     }
 }

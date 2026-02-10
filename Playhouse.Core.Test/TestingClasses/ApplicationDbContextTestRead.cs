@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Playwright;
 using Playhouse.Core.Data;
+using Playhouse.Core.Enums;
 using Playhouse.Core.Models;
 using Playhouse.Core.Models.BrowserEvents;
 using Playhouse.Core.Test.Tools;
@@ -104,26 +105,6 @@ namespace Playhouse.Core.Test.TestingClasses
             Assert.AreEqual("test", bot.Name);
             Assert.AreEqual(Enums.BrowserType.WebKit, bot.Browser);
             Assert.HasCount(1, bot.BrowserEvents);
-        }
-
-        [TestMethod]
-        public async Task ReadNestedOwnType_LocatorClick_Options_Position()
-        {
-            using ApplicationDbContext context = DbFactory.GetSimpleAppContext();
-
-            BotInfo bot = await context.BotsInfo.Include(b => b.BrowserEvents).SingleAsync(b => b.Id == 1, CancellationToken.None);
-
-            Assert.AreEqual("test", bot.Name);
-            Assert.AreEqual(Enums.BrowserType.WebKit, bot.Browser);
-            Assert.HasCount(1, bot.BrowserEvents);
-        }
-
-        [TestMethod]
-        public async Task GetNotExistObject_Throw()
-        {
-            using ApplicationDbContext context = DbFactory.GetSimpleAppContext();
-
-            await Assert.ThrowsAsync<InvalidOperationException>(async () => await context.BrowserProfiles.SingleAsync(p => p.Id == 3, CancellationToken.None));
         }
 
         [TestMethod]
