@@ -2,6 +2,6 @@
 {
     public interface IPlaywrightBrowserInstaller
 	{
-		Task Install();
+		Task InstallAsync();
 	}
 }

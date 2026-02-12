@@ -5,7 +5,7 @@ namespace Playhouse.Core.Models.BrowserEvents
 {
     public class PageGoToBrowserEvent : PageBrowserEvent
     {
-        public Uri Url { get; init; } = null!;
+        public Uri Url { get; set; } = null!;
         public PageGoToOptionsStrictDecorator GotoOptions { get; init; } = null!;
 
         // Конструктор для EntityFramework

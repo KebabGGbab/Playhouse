@@ -6,19 +6,19 @@ namespace Playhouse.ViewModels.ViewModels
 {
     public abstract class BaseCollectionViewModel<T> : ObservableObject
     {
-        protected static void SendMessageAddItem(T item)
+        protected static void SendMessageAddItems(List<T> item)
         {
-            SendMessageChangedCollection(item, CollectionChangeAction.Add);
+            SendMessageChangedCollection(item, CollectionChangedAction.Add);
         }
 
-        protected static void SendMessageRemoveItem(T item)
+        protected static void SendMessageRemoveItems(List<T> item)
         {
-            SendMessageChangedCollection(item, CollectionChangeAction.Remove);
+            SendMessageChangedCollection(item, CollectionChangedAction.Remove);
         }
 
-        private static void SendMessageChangedCollection(T item, CollectionChangeAction action)
+        private static void SendMessageChangedCollection(List<T> item, CollectionChangedAction action)
         {
-            WeakReferenceMessenger.Default.Send(new CollectionChangeMessage<T>(item, action));
+            WeakReferenceMessenger.Default.Send(new CollectionChangedMessage<T>(item, action));
         }
     }
 }

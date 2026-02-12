@@ -1,6 +1,6 @@
 ﻿namespace Playhouse.ViewModels.Messages
 {
-    public enum CollectionChangeAction
+    public enum CollectionChangedAction
     {
         Add,
         Remove,

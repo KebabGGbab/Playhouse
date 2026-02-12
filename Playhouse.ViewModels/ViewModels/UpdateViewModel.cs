@@ -34,7 +34,7 @@ namespace Playhouse.ViewModels.ViewModels
 			{
 				Step = 1;
 				Message = "Поиск, установка и обновление браузеров";
-				_playwrightBrowserInstaller.Install();
+				_playwrightBrowserInstaller.InstallAsync();
 			}).ConfigureAwait(false);
 			IsUpdateSuccessful = true;
 		}

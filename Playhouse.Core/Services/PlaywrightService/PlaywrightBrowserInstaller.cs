@@ -22,7 +22,7 @@ namespace Playhouse.Core.Services.PlaywrightService
 			_onConfigChangeToken = config.OnChange(updatedConfig => _currentConfig = updatedConfig);
 		}
 
-		public async Task Install()
+		public async Task InstallAsync()
 		{
 			string[] request = GetRequestString(_currentConfig);
 

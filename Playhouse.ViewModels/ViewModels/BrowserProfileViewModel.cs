@@ -3,20 +3,23 @@ using Playhouse.Core.Models;
 
 namespace Playhouse.ViewModels.ViewModels
 {
-    public sealed class BrowserProfileViewModel : ObservableObject
+    public class BrowserProfileViewModel : ObservableObject
     {
-        private readonly BrowserProfile _profile;
+        internal BrowserProfile Profile { get; }
 
-        public int Id
-        {
-            get => _profile.Id;
-        }
+        public int Id => Profile.Id;
 
-        public string Name
-        {
-            get => _profile.Name;
-            set => SetProperty(_profile.Name, value, _profile, (m, v) => m.Name = v);
-        }
+        public string Name => Profile.Name;
+
+        public bool AcceptDownloads => Profile.Options.AcceptDownloads;
+
+        public string? Channel => Profile.Options.Channel;
+
+        public bool ChromiumSandbox => Profile.Options.ChromiumSandbox;
+
+        public string? DownloadsPath => Profile.Options.DownloadsPath;
+
+        public bool Headless => Profile.Options.Headless;
 
         public BrowserProfileViewModel() : this(new BrowserProfile())
         {
@@ -24,7 +27,7 @@ namespace Playhouse.ViewModels.ViewModels
 
         public BrowserProfileViewModel(BrowserProfile profile)
         {
-            _profile = profile;
+            Profile = profile;
         }
     }
 }
