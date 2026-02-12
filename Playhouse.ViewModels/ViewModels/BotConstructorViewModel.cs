@@ -1,42 +1,39 @@
 ﻿using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Playhouse.Core.Models;
-using Playhouse.Core.Models.BrowserEvents.Abstractions;
 using Playhouse.Core.Services.BotConstructorService.Abstractions;
+using Playhouse.ViewModels.ViewModels.EventBrowserViewModels;
 
 namespace Playhouse.ViewModels.ViewModels
 {
     public sealed class BotConstructorViewModel: ObservableObject
     {
-        private readonly IBotConstructor _constructor;
+        private readonly IBotConstructorFactory _constructorFactory;
 
-        public BrowserEvent? SelectBrowserEvent 
+        private AsyncRelayCommand? _startConstructorBotCommand;
+        public BrowserEventViewModel? SelectBrowserEvent 
         {
             get => field;
             set => SetProperty(ref field, value);
         }
-        public BrowserProfile Profile { get; }
-        public BotInfo Bot { get; }
+
+        public BrowserProfileViewModel Profile { get; }
+
+        public BotInfoViewModel Bot { get; }
 
         public event EventHandler? ConstructorCompleted;
 
-        #region Commands
+        public ICommand StartConstructorBotCommand => _startConstructorBotCommand ??= new AsyncRelayCommand(StartConstructorBotExecuteAsync);
 
-        public ICommand StartConstructorBot
+        public BotConstructorViewModel(IBotConstructorFactory constructorFactory, BrowserProfileViewModel profile, BotInfoViewModel bot)
         {
-            get => field ??= new RelayCommand(StartConstructorBotExecuteAsync);
-        }
+            ArgumentNullException.ThrowIfNull(constructorFactory, nameof(constructorFactory));
+            ArgumentNullException.ThrowIfNull(profile, nameof(profile));
+            ArgumentNullException.ThrowIfNull(bot, nameof(bot));
 
-        #endregion 
-
-        public BotConstructorViewModel(IBotConstructor constructor, BrowserProfile profile, BotInfo bot)
-        {
-            _constructor = constructor;
+            _constructorFactory = constructorFactory;
             Profile = profile;
             Bot = bot;
-            _constructor.BrowserEventReceived += AdddBrowserEvent;
-            _constructor.ConstructionCompleted += Constructor_ConstructionCompleted;
         }
 
         private void Constructor_ConstructionCompleted(object? sender, EventArgs e)
@@ -44,9 +41,9 @@ namespace Playhouse.ViewModels.ViewModels
             OnConstructorCompleted();
         }
 
-        private void AdddBrowserEvent(object? sender, BrowserEvent e)
+        private void OnBrowserEventHappend(IBotConstructor sender, BrowserEventHappenedEventArgs e)
         {
-            Bot.BrowserEvents.Add(e);
+            Bot.AddEvents(e.BrowserEvent);
         }
 
         private void OnConstructorCompleted()
@@ -56,9 +53,12 @@ namespace Playhouse.ViewModels.ViewModels
 
         #region Method for commands
 
-        private async void StartConstructorBotExecuteAsync()
+        private async Task StartConstructorBotExecuteAsync()
         {
-            await _constructor.StartConstructorAsync(Profile, Bot).ConfigureAwait(true);
+            IBotConstructor constructor = _constructorFactory.Create(Profile.Profile, Bot.Bot);
+            constructor.BrowserEventHappend += OnBrowserEventHappend;
+            constructor.ConstructionCompleted += Constructor_ConstructionCompleted;
+            await constructor.StartConstructorAsync().ConfigureAwait(true);
         }
 
         #endregion

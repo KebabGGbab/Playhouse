@@ -4,13 +4,13 @@ namespace Playhouse.Core.Services.BotConstructorService.Abstractions
 {
     public class BrowserEventHappenedEventArgs : EventArgs
     {
-        public BrowserEvent BrowserEventHappened { get; }
+        public BrowserEvent BrowserEvent { get; }
 
         public BrowserEventHappenedEventArgs(BrowserEvent browserevent)
         {
             ArgumentNullException.ThrowIfNull(browserevent, nameof(browserevent));
 
-            BrowserEventHappened = browserevent;
+            BrowserEvent = browserevent;
         }
     }
 }
