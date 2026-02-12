@@ -80,7 +80,7 @@ namespace Playhouse.UI
             services.AddSingleton<BotConstructorWindow>();
             services.AddSingleton<UpdateViewModel>();
             services.AddSingleton<RunViewModel>();
-            services.AddSingleton<BotViewModel>();
+            services.AddSingleton<BotsInfoViewModel>();
             services.AddSingleton<SettingsViewModel>();
             services.AddSingleton<BotConstructorViewModel>();
             services.AddBotConstruction();
