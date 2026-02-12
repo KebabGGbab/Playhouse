@@ -11,6 +11,7 @@ using Playhouse.Core.Services.FilePathResolverService;
 using Playhouse.UI.Resources.Localization;
 using Playhouse.UI.Views;
 using Playhouse.ViewModels.DIExtensions.CoreServices;
+using Playhouse.ViewModels.DIExtensions.ViewModelsExtensions;
 using Playhouse.ViewModels.Services.LocalizationService;
 using Playhouse.ViewModels.ViewModels;
 
@@ -78,10 +79,7 @@ namespace Playhouse.UI
             services.AddSingleton<UpdateWindow>();
             services.AddSingleton<MainWindow>();
             services.AddSingleton<BotConstructorWindow>();
-            services.AddSingleton<UpdateViewModel>();
-            services.AddSingleton<RunViewModel>();
-            services.AddSingleton<BotsInfoViewModel>();
-            services.AddSingleton<SettingsViewModel>();
+            services.AddMainWindowViewModel();
             services.AddSingleton<BotConstructorViewModel>();
             services.AddBotConstruction();
             services.AddBotCompiler();

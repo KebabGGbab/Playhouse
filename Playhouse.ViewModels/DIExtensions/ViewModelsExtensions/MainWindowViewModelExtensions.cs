@@ -6,7 +6,7 @@ namespace Playhouse.ViewModels.DIExtensions.ViewModelsExtensions
 {
     public static class MainWindowViewModelExtensions
     {
-        public static void AddMainWindowViewModel(this ServiceCollection services)
+        public static void AddMainWindowViewModel(this IServiceCollection services)
         {
             ArgumentNullException.ThrowIfNull(services, nameof(services));
 
