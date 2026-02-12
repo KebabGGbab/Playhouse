@@ -26,7 +26,7 @@ namespace Playhouse.ViewModels.Services.LocalizationService
                             CultureInfo.GetCultureInfo("en"), 
                             CultureInfo.GetCultureInfo("ru")
                         ]));
-                builder.SetUICulture(CultureInfo.GetCultureInfo(s.GetRequiredService<IOptions<ViewOptions>>().Value.Language));
+                builder.SetUICulture(CultureInfo.GetCultureInfo(s.GetRequiredService<IOptions<CultureOptions>>().Value.Name));
                 
                 return new Localizator(builder.Build());
             });
