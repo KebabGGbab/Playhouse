@@ -2,7 +2,7 @@
 using Playhouse.Core.Services.FilePathResolverService;
 using Playhouse.Core.Services.FilePathResolverService.Abstractions;
 
-namespace Playhouse.ViewModels.CoreExtensions.Services
+namespace Playhouse.ViewModels.DIExtensions.CoreServices
 {
     public static class FilePathResolverExtensions
     {

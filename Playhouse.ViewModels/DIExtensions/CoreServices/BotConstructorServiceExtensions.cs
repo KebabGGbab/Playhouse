@@ -2,7 +2,7 @@
 using Playhouse.Core.Services.BotConstructorService;
 using Playhouse.Core.Services.BotConstructorService.Abstractions;
 
-namespace Playhouse.ViewModels.CoreExtensions.Services
+namespace Playhouse.ViewModels.DIExtensions.CoreServices
 {
     public static class BotConstructorServiceExtensions
     {

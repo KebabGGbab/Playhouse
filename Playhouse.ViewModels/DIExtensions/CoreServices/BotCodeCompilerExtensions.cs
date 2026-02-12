@@ -7,7 +7,7 @@ using Playhouse.Core.Services.CodeCompileService;
 using Playhouse.Core.Services.CodeCompileService.Abstractions;
 using PlayhouseShare;
 
-namespace Playhouse.ViewModels.CoreExtensions.Services
+namespace Playhouse.ViewModels.DIExtensions.CoreServices
 {
     public static class BotCodeCompilerExtensions
     {

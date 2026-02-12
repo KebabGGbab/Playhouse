@@ -10,7 +10,7 @@ using Playhouse.Core.Models.ConfigurationOptions;
 using Playhouse.Core.Services.FilePathResolverService;
 using Playhouse.UI.Resources.Localization;
 using Playhouse.UI.Views;
-using Playhouse.ViewModels.CoreExtensions.Services;
+using Playhouse.ViewModels.DIExtensions.CoreServices;
 using Playhouse.ViewModels.Services.LocalizationService;
 using Playhouse.ViewModels.ViewModels;
 

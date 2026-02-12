@@ -2,7 +2,7 @@
 using Playhouse.Core.Services.BotRunningService;
 using Playhouse.Core.Services.BotRunningService.Abstrtactions;
 
-namespace Playhouse.ViewModels.CoreExtensions.Services
+namespace Playhouse.ViewModels.DIExtensions.CoreServices
 {
     public static class BotRunningServiceExtensions
     {

@@ -2,7 +2,7 @@
 using Playhouse.Core.Services.PlaywrightService;
 using Playhouse.Core.Services.PlaywrightService.Abstractions;
 
-namespace Playhouse.ViewModels.CoreExtensions.Services
+namespace Playhouse.ViewModels.DIExtensions.CoreServices
 {
     public static class PlaywrightExtensions
     {

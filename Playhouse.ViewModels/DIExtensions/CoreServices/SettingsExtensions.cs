@@ -3,7 +3,7 @@ using Playhouse.Core.Models.ConfigurationOptions;
 using Playhouse.Core.Services.SettingsService;
 using Playhouse.Core.Services.SettingsService.Abstractions;
 
-namespace Playhouse.ViewModels.CoreExtensions.Services
+namespace Playhouse.ViewModels.DIExtensions.CoreServices
 {
     public static class SettingsExtensions
     {
