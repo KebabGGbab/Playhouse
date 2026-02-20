@@ -198,9 +198,6 @@
   <data name="CheckBoxHeadlessMode" xml:space="preserve">
     <value>Headless mode</value>
   </data>
-  <data name="CheckBoxBypassCSP" xml:space="preserve">
-    <value>Bypass Content-Security-Policy</value>
-  </data>
   <data name="CheckBoxEnableChromiumSandbox" xml:space="preserve">
     <value>Enable Chromium sandbox</value>
   </data>

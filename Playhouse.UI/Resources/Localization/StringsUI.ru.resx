@@ -198,9 +198,6 @@
   <data name="CheckBoxHeadlessMode" xml:space="preserve">
     <value>Безголовый режим</value>
   </data>
-  <data name="CheckBoxBypassCSP" xml:space="preserve">
-    <value>Обходить Content-Security-Policy</value>
-  </data>
   <data name="CheckBoxEnableChromiumSandbox" xml:space="preserve">
     <value>Включить песочницу Chromium</value>
   </data>

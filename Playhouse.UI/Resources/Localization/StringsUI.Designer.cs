@@ -196,15 +196,6 @@ namespace Playhouse.UI.Resources.Localization {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Bypass Content-Security-Policy.
-        /// </summary>
-        public static string CheckBoxBypassCSP {
-            get {
-                return ResourceManager.GetString("CheckBoxBypassCSP", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Ищет локализованную строку, похожую на Confirm.
         /// </summary>
         public static string CheckBoxConfirm {

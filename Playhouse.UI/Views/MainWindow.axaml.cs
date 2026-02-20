@@ -1,10 +1,14 @@
 using Avalonia.Controls;
+using CommunityToolkit.Mvvm.Messaging;
+using Playhouse.UI.Services.WindowCreatorService.Abstractions;
+using Playhouse.ViewModels.Messages;
 using Playhouse.ViewModels.ViewModels;
 
 namespace Playhouse.UI.Views
 {
     internal partial class MainWindow : Window
     {
+        private readonly IWindowFactory _windowFactory;
         /// <summary>
         /// Конструктор для дизайнера
         /// </summary>
@@ -18,13 +22,19 @@ namespace Playhouse.UI.Views
             InitializeComponent();
         }
 
-        public MainWindow(RunViewModel runViewModel, BotViewModel botViewModel, ProfilesViewModel profileViewModel, SettingsViewModel settingsViewModel)
+        public MainWindow(IWindowFactory windowFactory, MainWindowViewModel vm)
         {
+            _windowFactory = windowFactory;
             InitializeComponent();
-            TabRun.DataContext = runViewModel;
-            TabBots.DataContext = botViewModel;
-            TabProfiles.DataContext = profileViewModel;
-            TabSettings.DataContext = settingsViewModel;
+            DataContext = vm;
+            WeakReferenceMessenger.Default.Register<MainWindow, GetBrowserEventsMessage>(this, OnGetBrowserEventsMessage);
+        }
+
+        private static void OnGetBrowserEventsMessage(MainWindow recepient, GetBrowserEventsMessage message)
+        {
+            recepient._windowFactory.CreateBotConstructorWindow(message.BrowserProfile, message.BotInfo).ShowDialog(recepient);
+
+            message.Reply(message.BotInfo);
         }
     }
 }

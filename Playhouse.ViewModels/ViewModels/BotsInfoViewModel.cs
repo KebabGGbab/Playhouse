@@ -84,6 +84,7 @@ namespace Playhouse.ViewModels.ViewModels
 
 		public IRelayCommand CreateBotCommand => field ??= new AsyncRelayCommand(CreateBot, CanCreateBot);
         public IRelayCommand DeleteBotCommand => field ??= new AsyncRelayCommand(ExecuteDeleteBot, CanExecuteDeleteBot);
+        public IRelayCommand SaveBotCommand => field ??= new AsyncRelayCommand<BotInfoViewModel>(SaveBot);
 
 		public BotsInfoViewModel(IDbContextFactory<ApplicationDbContext> dbContextFactory)
 		{
@@ -140,20 +141,19 @@ namespace Playhouse.ViewModels.ViewModels
         private async Task CreateBot()
         {
             if (SelectedProfileCreate == null || BrowserType == null)
+            {
                 return;
+            }
 
             BotInfoViewModel newBot = new(new BotInfo()
             {
                 Browser = (BrowserType)BrowserType,
                 Name = BotNameCreate,
             });
-			_botsSource.AddOrUpdate(newBot);
             BrowserType = null;
             BotNameCreate = string.Empty;
-            using ApplicationDbContext dbContext = await _dbContextFactory.CreateDbContextAsync();
-            await dbContext.BotsInfo.AddAsync(newBot.Bot);
-            await dbContext.SaveChangesAsync();
-            SendMessageAddItems([newBot]);
+            await WeakReferenceMessenger.Default.Send(new GetBrowserEventsMessage(newBot, SelectedProfileCreate));
+            await SaveBot(newBot);
 		}
 
 		private bool CanCreateBot() => SelectedProfileCreate != null  && BrowserType != null;
@@ -161,7 +161,9 @@ namespace Playhouse.ViewModels.ViewModels
         private async Task ExecuteDeleteBot()
         {
             if (SelectedBotDelete == null)
+            {
                 return;
+            }
 
             BotInfoViewModel bot = SelectedBotDelete;
 			_botsSource.Remove(bot);
@@ -174,5 +176,19 @@ namespace Playhouse.ViewModels.ViewModels
 		}
 
         private bool CanExecuteDeleteBot() => IsConfirmDelete && _botsSource.Items.Contains(SelectedBotDelete);
+
+        private async Task SaveBot(BotInfoViewModel? bot)
+        {
+            if (bot == null)
+            {
+                return; 
+            }
+
+            using ApplicationDbContext dbContext = await _dbContextFactory.CreateDbContextAsync();
+            await dbContext.BotsInfo.AddAsync(bot.Bot);
+            await dbContext.SaveChangesAsync();
+            _botsSource.AddOrUpdate(bot);
+            SendMessageAddItems([bot]);
+        }
 	}
 }

@@ -4,7 +4,7 @@ namespace Playhouse.Core.Models.PlaywrightDecorator
 {
     public class BrowserTypeLaunchPersistentContextOptionsStrictDecorator
     {
-        private const bool DEFAULTACCEOTDOWNLOADS = true;
+        private const bool DEFAULTACCEPTDOWNLOADS = true;
         private const bool DEFAULTCHROMIUMSANDBOX = false;
         private const bool DEFAULTHEADLESS = true;
 
@@ -12,7 +12,7 @@ namespace Playhouse.Core.Models.PlaywrightDecorator
 
         public bool AcceptDownloads
         {
-            get => _options.AcceptDownloads ??= DEFAULTACCEOTDOWNLOADS;
+            get => _options.AcceptDownloads ??= DEFAULTACCEPTDOWNLOADS;
             set => _options.AcceptDownloads = value;
         }
 
@@ -55,7 +55,7 @@ namespace Playhouse.Core.Models.PlaywrightDecorator
         public BrowserTypeLaunchPersistentContextOptionsStrictDecorator(BrowserTypeLaunchPersistentContextOptions? options = null)
         {
             _options = options ?? new BrowserTypeLaunchPersistentContextOptions();
-            _options.AcceptDownloads ??= DEFAULTACCEOTDOWNLOADS;
+            _options.AcceptDownloads ??= DEFAULTACCEPTDOWNLOADS;
             _options.ChromiumSandbox ??= DEFAULTCHROMIUMSANDBOX;
             _options.Headless ??= DEFAULTHEADLESS;
         }

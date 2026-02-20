@@ -21,6 +21,8 @@ namespace Playhouse.ViewModels.ViewModels
 
         public bool Headless => Profile.Options.Headless;
 
+        public float? SlowMo => Profile.Options.SlowMo; 
+
         public BrowserProfileViewModel() : this(new BrowserProfile())
         {
         }

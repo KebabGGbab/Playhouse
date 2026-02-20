@@ -2,7 +2,7 @@
 
 namespace Playhouse.ViewModels.ViewModels
 {
-    public class MainWindowViewModels : ObservableObject
+    public class MainWindowViewModel : ObservableObject
     {
         public RunViewModel RunViewModel { get; }
 
@@ -12,7 +12,7 @@ namespace Playhouse.ViewModels.ViewModels
 
         public SettingsViewModel SettingsViewModel { get; }
 
-        public MainWindowViewModels(RunViewModel runVM, BotsInfoViewModel botsVM, BrowserProfilesViewModel profilesVM, SettingsViewModel settingsVM)
+        public MainWindowViewModel(RunViewModel runVM, BotsInfoViewModel botsVM, BrowserProfilesViewModel profilesVM, SettingsViewModel settingsVM)
         {
             ArgumentNullException.ThrowIfNull(runVM, nameof(runVM));
             ArgumentNullException.ThrowIfNull(botsVM, nameof(botsVM));
