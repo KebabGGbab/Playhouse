@@ -9,6 +9,8 @@ using Microsoft.Extensions.Logging;
 using Playhouse.Core.Models.ConfigurationOptions;
 using Playhouse.Core.Services.FilePathResolverService;
 using Playhouse.UI.Resources.Localization;
+using Playhouse.UI.Services.WindowCreatorService;
+using Playhouse.UI.Services.WindowCreatorService.Abstractions;
 using Playhouse.UI.Views;
 using Playhouse.ViewModels.DIExtensions.CoreServices;
 using Playhouse.ViewModels.DIExtensions.ViewModelsExtensions;
@@ -81,12 +83,14 @@ namespace Playhouse.UI
             services.AddSingleton<BotConstructorWindow>();
             services.AddMainWindowViewModel();
             services.AddSingleton<BotConstructorViewModel>();
+            services.AddSingleton<IWindowFactory, WindowFactory>();
             services.AddBotConstruction();
             services.AddBotCompiler();
             services.AddBotRunning();
             services.AddFilePathResolver();
             services.AddPlaywright();
             services.AddSettings();
+            services.AddApplicationDbContext();
             services.AddLocalization(StringsUI.ResourceManager);
         }
 

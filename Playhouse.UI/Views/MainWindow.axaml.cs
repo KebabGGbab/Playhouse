@@ -8,9 +8,10 @@ namespace Playhouse.UI.Views
 {
     internal partial class MainWindow : Window
     {
-        private readonly IWindowFactory _windowFactory;
+        private readonly IWindowFactory _windowFactory = null!;
+
         /// <summary>
-        /// Конструктор для дизайнера
+        /// РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РґР»СЏ РґРёР·Р°Р№РЅРµСЂР°
         /// </summary>
         public MainWindow()
         {
