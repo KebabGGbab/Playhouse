@@ -261,4 +261,10 @@
   <data name="TextBoxWatermarkProfilesSearh" xml:space="preserve">
     <value>Search</value>
   </data>
+  <data name="ButtonSaveAll" xml:space="preserve">
+    <value>Save all</value>
+  </data>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
 </root>

@@ -151,6 +151,15 @@ namespace Playhouse.UI.Resources.Localization {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Cancel.
+        /// </summary>
+        public static string ButtonCancel {
+            get {
+                return ResourceManager.GetString("ButtonCancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Create.
         /// </summary>
         public static string ButtonCreate {
@@ -174,6 +183,15 @@ namespace Playhouse.UI.Resources.Localization {
         public static string ButtonSave {
             get {
                 return ResourceManager.GetString("ButtonSave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Save all.
+        /// </summary>
+        public static string ButtonSaveAll {
+            get {
+                return ResourceManager.GetString("ButtonSaveAll", resourceCulture);
             }
         }
         
