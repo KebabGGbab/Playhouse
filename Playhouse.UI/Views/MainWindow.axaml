@@ -197,14 +197,26 @@
                     </DataGrid>
                     <TextBox Grid.Row="1"
                              Watermark="{localization:LocalizationMarkupExtensions TextBoxWatermarkProfilesSearh}" />
-                    <StackPanel Grid.Row="2" Orientation="Horizontal">
-						<Button Content="{localization:LocalizationMarkupExtensions ButtonAdd}"
+
+                    <Grid Grid.Row="2"
+                          ColumnDefinitions="*,*,*" RowDefinitions="*,*">
+                        <Button Grid.Row="0" Grid.Column="0"
+                                Content="{localization:LocalizationMarkupExtensions ButtonAdd}"
                                 Command="{Binding Path=BrowserProfilesViewModel.AddProfileCommand}" />
-                        <Button Content="{localization:LocalizationMarkupExtensions ButtonSave}"
+                        <Button Grid.Row="0" Grid.Column="1"
+                                Content="{localization:LocalizationMarkupExtensions ButtonSave}"
                                 Command="{Binding Path=BrowserProfilesViewModel.SaveProfilesCommand}" />
-                        <Button Content="{localization:LocalizationMarkupExtensions ButtonDelete}"
+                        <Button Grid.Row="0" Grid.Column="2"
+                                Content="{localization:LocalizationMarkupExtensions ButtonDelete}"
                                 Command="{Binding Path=BrowserProfilesViewModel.DeleteProfileCommand}" />
-                    </StackPanel>
+                        <Button Grid.Row="1" Grid.Column="1"
+                                Content="{localization:LocalizationMarkupExtensions ButtonSaveAll}"
+                                Command="{Binding Path=BrowserProfilesViewModel.SaveAllProfilesCommand}" />
+                        <Button Grid.Row="2" Grid.Column="2"
+                                Content="{localization:LocalizationMarkupExtensions ButtonCancel}"
+                                Command="{Binding Path=BrowserProfilesViewModel.SelectedProfile.CancelChangesCommand}" />
+                    </Grid>
+
                 </Grid>
                 <DockPanel Grid.ColumnSpan="2" Grid.Row="1">
 					<StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
