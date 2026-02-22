@@ -162,7 +162,8 @@
                                     <TextBox x:Name="TextBoxProfilesPathDownloads"
                                              Text="{Binding Path=BrowserProfilesViewModel.SelectedProfile.DownloadsPath}" />
                                 </StackPanel>
-                                <CheckBox Margin="0,10,0,0" 
+                                <CheckBox Margin="0,10,0,0"
+                                          IsChecked="{Binding Path=BrowserProfilesViewModel.SelectedProfile.AcceptDownloads}"
                                           Content="{localization:LocalizationMarkupExtensions LabelAcceptDownloadsProfile}" />
                             </StackPanel>
                         </HeaderedContentControl>
@@ -201,7 +202,7 @@
 						<Button Content="{localization:LocalizationMarkupExtensions ButtonAdd}"
                                 Command="{Binding Path=BrowserProfilesViewModel.AddProfileCommand}" />
                         <Button Content="{localization:LocalizationMarkupExtensions ButtonSave}"
-                                Command="{Binding Path=BrowserProfilesViewModel.SaveProfilesCommand}" />
+                                Command="{Binding Path=BrowserProfilesViewModel.SelectedProfile.SaveCommand}" />
                         <Button Content="{localization:LocalizationMarkupExtensions ButtonDelete}"
                                 Command="{Binding Path=BrowserProfilesViewModel.DeleteProfileCommand}" />
                     </StackPanel>
