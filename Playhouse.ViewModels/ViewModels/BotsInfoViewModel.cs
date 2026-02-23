@@ -6,6 +6,7 @@ using Playhouse.Core.Data;
 using Playhouse.Core.Enums;
 using Playhouse.Core.Models;
 using Playhouse.ViewModels.Messages;
+using Playhouse.ViewModels.ViewModels.Abstractions;
 using Playhouse.ViewModels.ViewModelsExtensions;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;

@@ -4,13 +4,14 @@ using CommunityToolkit.Mvvm.Input;
 using DynamicData;
 using Microsoft.EntityFrameworkCore;
 using Playhouse.Core.Data;
+using Playhouse.ViewModels.ViewModels.Abstractions;
 
 namespace Playhouse.ViewModels.ViewModels
 {
     public class BrowserProfilesViewModel : BaseCollectionViewModel<BrowserProfileViewModel>
     {
-        private readonly IDbContextFactory<ApplicationDbContext> _dbContextFactory;
-        private readonly SourceCache<BrowserProfileViewModel, int> _source = new(p => p.Id);
+        private readonly IDbContextFactory<ApplicationDbContext> _dbFactory;
+        private readonly SourceList<BrowserProfileViewModel> _source = new();
 
         private ReadOnlyObservableCollection<BrowserProfileViewModel> _profiles;
 
@@ -19,68 +20,115 @@ namespace Playhouse.ViewModels.ViewModels
         public BrowserProfileViewModel? SelectedProfile
         {
             get => field;
-            set => SetProperty(field, value, (v) =>
+            set
             {
-                field = v;
-                DeleteProfileCommand.NotifyCanExecuteChanged();
-            });
+                if (SetProperty(ref field, value))
+                {
+                    DeleteProfileCommand.NotifyCanExecuteChanged();
+                }
+            }
+        }
+
+        public bool IsSavingAll
+        {
+            get;
+            set
+            {
+                if (SetProperty(ref field, value))
+                {
+                    SaveAllProfilesCommand.NotifyCanExecuteChanged();
+                }
+            }
         }
 
         public IRelayCommand AddProfileCommand => field ??= new RelayCommand(AddProfile);
-        public IAsyncRelayCommand DeleteProfileCommand => field ??= new AsyncRelayCommand(DeleteProfile, CanDeleteProfile);
 
-        public BrowserProfilesViewModel(IDbContextFactory<ApplicationDbContext> dbContextFactory)
+        public IAsyncRelayCommand DeleteProfileCommand => field ??= new AsyncRelayCommand(DeleteProfileAsync, CanDeleteProfile);
+
+        public IAsyncRelayCommand SaveAllProfilesCommand => field ??= new AsyncRelayCommand(SaveAllProfilesAsync, CanSaveAllProfiles);
+
+        public BrowserProfilesViewModel(IDbContextFactory<ApplicationDbContext> dbFactory)
         {
-            _dbContextFactory = dbContextFactory;
+            _dbFactory = dbFactory;
             FillSource(LoadProfilesAsync().Result);
         }
 
         private async Task<List<BrowserProfileViewModel>> LoadProfilesAsync()
         {
-            using ApplicationDbContext dbContext = await _dbContextFactory.CreateDbContextAsync();
+            using ApplicationDbContext dbContext = await _dbFactory.CreateDbContextAsync();
 
             return await dbContext.BrowserProfiles
                 .ToAsyncEnumerable()
-                .Select(p => new BrowserProfileViewModel(p, _dbContextFactory))
+                .Select(p => new BrowserProfileViewModel(p, _dbFactory))
                 .ToListAsync();
         }
 
         [MemberNotNull(nameof(_profiles))]
         private void FillSource(List<BrowserProfileViewModel> profiles)
         {
-            _source.Remove(_source.Items);
-            _source.AddOrUpdate(profiles);
+            _source.RemoveMany(_source.Items);
+            _source.AddRange(profiles);
 
             _source.Connect()
+                .AutoRefresh(p => p.IsModifier)
                 .Bind(out _profiles)
-                .Subscribe();
+                .Subscribe(_ => SaveAllProfilesCommand.NotifyCanExecuteChanged());
             SendMessageAddItems(profiles);
         }
 
         private void AddProfile()
         {
-            BrowserProfileViewModel newProfile = new(_dbContextFactory);
-            _source.AddOrUpdate(newProfile);
+            BrowserProfileViewModel newProfile = new(_dbFactory);
+            _source.Add(newProfile);
             SelectedProfile = newProfile;
         }
 
-        private async Task DeleteProfile()
+        private async Task DeleteProfileAsync()
         {
-            if (SelectedProfile == null) 
-                return;
-
-            if (SelectedProfile.Id != 0)
+            if (SelectedProfile == null)
             {
-                using ApplicationDbContext dbContext = await _dbContextFactory.CreateDbContextAsync();
+                return;
+            }
+
+            if (!SelectedProfile.IsNew)
+            {
+                using ApplicationDbContext dbContext = await _dbFactory.CreateDbContextAsync();
                 dbContext.BrowserProfiles.Remove(SelectedProfile.Profile);
                 await dbContext.SaveChangesAsync();
             }
 
             _source.Remove(SelectedProfile);
             SendMessageRemoveItems([SelectedProfile]);
-            SelectedProfile = null;
         }
 
-        public bool CanDeleteProfile() => SelectedProfile != null;
+        private bool CanDeleteProfile() => SelectedProfile != null;
+
+        private async Task SaveAllProfilesAsync()
+        {
+            if (!CanSaveAllProfiles())
+            {
+                return; 
+            }
+
+            IsSavingAll = true;
+            List<BrowserProfileViewModel> modifiedProfiles = _profiles.Where(p => p.IsModifier).ToList();
+            using ApplicationDbContext db = await _dbFactory.CreateDbContextAsync();
+
+            foreach (BrowserProfileViewModel profile in modifiedProfiles)
+            {
+                await profile.SaveAsync(db);
+            }
+
+            await db.SaveChangesAsync();
+
+            foreach(BrowserProfileViewModel profile in modifiedProfiles)
+            {
+                profile.MarkSaved();
+            }
+
+            IsSavingAll = false;
+        }
+
+        private bool CanSaveAllProfiles() => _profiles.Any(p => p.IsModifier && !p.IsSaving) && !IsSavingAll;
     }
 }

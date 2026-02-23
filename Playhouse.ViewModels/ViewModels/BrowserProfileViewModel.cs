@@ -8,118 +8,268 @@ namespace Playhouse.ViewModels.ViewModels
 {
     public class BrowserProfileViewModel : ObservableObject
     {
-        private readonly IDbContextFactory<ApplicationDbContext> _dbContextFactory;
+        private readonly IDbContextFactory<ApplicationDbContext> _dbFactory;
+
+        private Memento _memento;
+
+        internal BrowserProfile Profile { get; }
 
         public bool IsSaving
         {
             get;
             private set
             {
-                SetProperty(field, value, (v) =>
+                if (SetProperty(ref field, value))
                 {
-                    v = value;
                     SaveCommand.NotifyCanExecuteChanged();
-                });
+                    CancelChangesCommand.NotifyCanExecuteChanged();
+                }
             }
         }
 
-        internal BrowserProfile Profile { get; }
+        public bool IsNew => Id == 0;
+
+        public bool IsModifier
+        {
+            get;
+            private set
+            {
+                if (SetProperty(ref field, value))
+                {
+                    SaveCommand.NotifyCanExecuteChanged();
+                    CancelChangesCommand.NotifyCanExecuteChanged();
+                }
+            }
+        }
 
         public int Id => Profile.Id;
 
         public string Name
         {
-            get => Profile.Name;
-            set => SetProperty(Profile.Name, value, Profile, (m, v) => m.Name = v);
+            get;
+            set
+            {
+                if (SetProperty(ref field, value))
+                {
+                    CheckModifier();
+                }
+            }
         }
 
         public bool AcceptDownloads
         {
-            get => Profile.Options.AcceptDownloads;
-            set => SetProperty(Profile.Options.AcceptDownloads, value, Profile, (m, v) => m.Options.AcceptDownloads = v);
+            get;
+            set
+            {
+                if (SetProperty(ref field, value))
+                {
+                    CheckModifier();
+                }
+            }
         }
 
         public string? Channel
         {
-            get => Profile.Options.Channel;
-            set => SetProperty(Profile.Options.Channel, value, Profile, (m, v) => m.Options.Channel = v);
+            get;
+            set
+            {
+                if (SetProperty(ref field, value))
+                {
+                    CheckModifier();
+                }
+            }
         }
 
         public bool ChromiumSandbox
         {
-            get => Profile.Options.ChromiumSandbox;
-            set => SetProperty(Profile.Options.ChromiumSandbox, value, Profile, (m, v) => m.Options.ChromiumSandbox = v);
+            get;
+            set
+            {
+                if (SetProperty(ref field, value))
+                {
+                    CheckModifier();
+                }
+            }
         }
 
         public string? DownloadsPath
         {
-            get => Profile.Options.DownloadsPath;
-            set => SetProperty(Profile.Options.DownloadsPath, value, Profile, (m, v) => m.Options.DownloadsPath = v);
+            get;
+            set
+            {
+                if (SetProperty(ref field, value))
+                {
+                    CheckModifier();
+                }
+            }
         }
 
         public bool Headless
         {
-            get => Profile.Options.Headless;
-            set => SetProperty(Profile.Options.Headless, value, Profile, (m, v) => m.Options.Headless = v);
+            get;
+            set
+            {
+                if (SetProperty(ref field, value))
+                {
+                    CheckModifier();
+                }
+            }
         }
 
         public float? SlowMo
         {
-            get => Profile.Options.SlowMo;
-            set => SetProperty(Profile.Options.SlowMo, value, Profile, (m, v) => m.Options.SlowMo = v);
+            get;
+            set
+            {
+                if (SetProperty(ref field, value))
+                {
+                    CheckModifier();
+                }
+            }
         }
 
         public IAsyncRelayCommand SaveCommand => field ??= new AsyncRelayCommand(SaveAsync, CanSave);
+
+        public IRelayCommand CancelChangesCommand => field ??= new RelayCommand(CancelChanges, CanCancelChanges);
 
         public BrowserProfileViewModel(IDbContextFactory<ApplicationDbContext> factory) : this(new BrowserProfile(), factory)
         {
         }
 
-        public BrowserProfileViewModel(BrowserProfile profile, IDbContextFactory<ApplicationDbContext> factory)
+        public BrowserProfileViewModel(BrowserProfile profile, IDbContextFactory<ApplicationDbContext> dbFactory)
         {
             ArgumentNullException.ThrowIfNull(profile, nameof(profile));
-            ArgumentNullException.ThrowIfNull(factory, nameof(factory));
+            ArgumentNullException.ThrowIfNull(dbFactory, nameof(dbFactory));
 
-            _dbContextFactory = factory;
+            _dbFactory = dbFactory;
             Profile = profile;
+            Name = profile.Name;
+            AcceptDownloads = profile.Options.AcceptDownloads;
+            Channel = profile.Options.Channel;
+            ChromiumSandbox = profile.Options.ChromiumSandbox;
+            DownloadsPath = profile.Options.DownloadsPath;
+            Headless = profile.Options.Headless;
+            SlowMo = profile.Options.SlowMo;
+            _memento = CreateSnapshot();
+            IsModifier = IsNew;
+        }
+
+        private Memento CreateSnapshot()
+        {
+            return new Memento(this);
+        }
+
+        private void RestoreSnapshot(Memento shapshot)
+        {
+            Name = shapshot.Name;
+            AcceptDownloads = shapshot.AcceptDownloads;
+            Channel = shapshot.Channel;
+            ChromiumSandbox = shapshot.ChromiumSandbox;
+            DownloadsPath = shapshot.DownloadsPath;
+            Headless = shapshot.Headless;
+            SlowMo = shapshot.SlowMo;
+        }
+
+        private void CheckModifier()
+        {
+            IsModifier = _memento != null 
+                && !(_memento.Name == Name 
+                && _memento.AcceptDownloads == AcceptDownloads
+                && _memento.Channel == Channel
+                && _memento.ChromiumSandbox == ChromiumSandbox 
+                && _memento.DownloadsPath == DownloadsPath
+                && _memento.Headless == Headless
+                && _memento.SlowMo == SlowMo);
+        }
+
+        private void UpdateModel()
+        {
+            Profile.Name = Name;
+            Profile.Options.AcceptDownloads = AcceptDownloads;
+            Profile.Options.Channel = Channel;
+            Profile.Options.ChromiumSandbox = ChromiumSandbox;
+            Profile.Options.DownloadsPath = DownloadsPath;
+            Profile.Options.Headless = Headless;
+            Profile.Options.SlowMo = SlowMo;
+        }
+
+        private void NotifyChangedOneTimeSetProperty()
+        {
+            OnPropertyChanged(nameof(Id));
         }
 
         private async Task SaveAsync()
         {
-            if (IsSaving)
+            if (!CanSave())
             {
                 return; 
             }
 
             IsSaving = true;
+            using ApplicationDbContext db = await _dbFactory.CreateDbContextAsync();
+            await SaveAsync(db);
+            await db.SaveChangesAsync();
+            MarkSaved();
+        }
 
-            if (Profile.Id == 0)
+        internal async Task SaveAsync(ApplicationDbContext db)
+        {
+            IsSaving = true;
+            UpdateModel();
+
+            if (IsNew)
             {
-                await SaveNewAsync();
+                await db.BrowserProfiles.AddAsync(Profile);
             }
             else
             {
-                await SaveExistAsync();
+                db.BrowserProfiles.Update(Profile);
             }
+        }
 
+        internal void MarkSaved()
+        {
+            NotifyChangedOneTimeSetProperty();
+            _memento = CreateSnapshot();
+            IsModifier = false;
             IsSaving = false;
         }
 
-        private bool CanSave() => !IsSaving;
+        private bool CanSave() => IsModifier && !IsSaving;
 
-        private async Task SaveNewAsync()
+        private void CancelChanges()
         {
-            using ApplicationDbContext dbContext = await _dbContextFactory.CreateDbContextAsync();
-            await dbContext.BrowserProfiles.AddAsync(Profile);
-            await dbContext.SaveChangesAsync();
-            OnPropertyChanged(nameof(Id));
+            if (!CanCancelChanges())
+            {
+                return;
+            }
+
+            RestoreSnapshot(_memento);
+            IsModifier = false;
         }
 
-        private async Task SaveExistAsync()
+        private bool CanCancelChanges() => IsModifier && !IsSaving;
+
+        private class Memento
         {
-            using ApplicationDbContext dbContext = await _dbContextFactory.CreateDbContextAsync();
-            dbContext.BrowserProfiles.Update(Profile);
-            await dbContext.SaveChangesAsync();
+            public string Name { get; }
+            public bool AcceptDownloads { get; }
+            public string? Channel { get; }
+            public bool ChromiumSandbox { get; }
+            public string? DownloadsPath { get; }
+            public bool Headless { get; }
+            public float? SlowMo { get; }
+
+            public Memento(BrowserProfileViewModel profile)
+            {
+                Name = profile.Name;
+                AcceptDownloads = profile.AcceptDownloads;
+                Channel = profile.Channel;
+                ChromiumSandbox = profile.ChromiumSandbox;
+                DownloadsPath = profile.DownloadsPath;
+                Headless = profile.Headless;
+                SlowMo = profile.SlowMo;
+            }
         }
     }
 }

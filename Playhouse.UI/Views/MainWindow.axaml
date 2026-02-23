@@ -206,7 +206,7 @@
                                 Command="{Binding Path=BrowserProfilesViewModel.AddProfileCommand}" />
                         <Button Grid.Row="0" Grid.Column="1"
                                 Content="{localization:LocalizationMarkupExtensions ButtonSave}"
-                                Command="{Binding Path=BrowserProfilesViewModel.SaveProfilesCommand}" />
+                                Command="{Binding Path=BrowserProfilesViewModel.SelectedProfile.SaveCommand}" />
                         <Button Grid.Row="0" Grid.Column="2"
                                 Content="{localization:LocalizationMarkupExtensions ButtonDelete}"
                                 Command="{Binding Path=BrowserProfilesViewModel.DeleteProfileCommand}" />

@@ -2,7 +2,7 @@
 using CommunityToolkit.Mvvm.Messaging;
 using Playhouse.ViewModels.Messages;
 
-namespace Playhouse.ViewModels.ViewModels
+namespace Playhouse.ViewModels.ViewModels.Abstractions
 {
     public abstract class BaseCollectionViewModel<T> : ObservableObject
     {
