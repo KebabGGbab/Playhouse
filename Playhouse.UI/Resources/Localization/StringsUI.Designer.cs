@@ -412,20 +412,20 @@ namespace Playhouse.UI.Resources.Localization {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Loaded profile:.
-        /// </summary>
-        public static string LabelStatusLoadedProfile {
-            get {
-                return ResourceManager.GetString("LabelStatusLoadedProfile", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Ищет локализованную строку, похожую на Number of profiles:.
         /// </summary>
         public static string LabelStatusNumberOfProfiles {
             get {
                 return ResourceManager.GetString("LabelStatusNumberOfProfiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Selected profile:.
+        /// </summary>
+        public static string LabelStatusSelectedProfile {
+            get {
+                return ResourceManager.GetString("LabelStatusSelectedProfile", resourceCulture);
             }
         }
         
@@ -484,11 +484,11 @@ namespace Playhouse.UI.Resources.Localization {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Search.
+        ///   Ищет локализованную строку, похожую на Filter.
         /// </summary>
-        public static string TextBoxWatermarkProfilesSearh {
+        public static string TextBoxWatermarkProfilesFilter {
             get {
-                return ResourceManager.GetString("TextBoxWatermarkProfilesSearh", resourceCulture);
+                return ResourceManager.GetString("TextBoxWatermarkProfilesFilter", resourceCulture);
             }
         }
         

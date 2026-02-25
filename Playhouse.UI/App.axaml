@@ -13,13 +13,15 @@
         <StyleInclude Source="avares://KebabGGbab.Avalonia.Extensions/Resources/Styles/HeaderedContentControl.axaml" />
 
         <!-- Playhouse styles -->
-        <StyleInclude Source="avares://Playhouse.UI/Resources/Assets/Styles/TabItem.axaml" />
         <StyleInclude Source="avares://Playhouse.UI/Resources/Assets/Styles/Button.axaml" />
-        <StyleInclude Source="avares://Playhouse.UI/Resources/Assets/Styles/HeaderedContentControl.axaml" />
-        <StyleInclude Source="avares://Playhouse.UI/Resources/Assets/Styles/TextBlock.axaml" />
-        <StyleInclude Source="avares://Playhouse.UI/Resources/Assets/Styles/Label.axaml" />
         <StyleInclude Source="avares://Playhouse.UI/Resources/Assets/Styles/ComboBox.axaml" />
+        <StyleInclude Source="avares://Playhouse.UI/Resources/Assets/Styles/DataGrid.axaml" />
+        <StyleInclude Source="avares://Playhouse.UI/Resources/Assets/Styles/DataGridRow.axaml" />
+        <StyleInclude Source="avares://Playhouse.UI/Resources/Assets/Styles/HeaderedContentControl.axaml" />
+        <StyleInclude Source="avares://Playhouse.UI/Resources/Assets/Styles/Label.axaml" />
         <StyleInclude Source="avares://Playhouse.UI/Resources/Assets/Styles/StackPanel.axaml" />
+        <StyleInclude Source="avares://Playhouse.UI/Resources/Assets/Styles/TabItem.axaml" />
+        <StyleInclude Source="avares://Playhouse.UI/Resources/Assets/Styles/TextBlock.axaml" />
         <StyleInclude Source="avares://Playhouse.UI/Resources/Assets/Styles/WrapPanel.axaml" />
     </Application.Styles>
 

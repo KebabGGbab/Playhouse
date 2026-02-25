@@ -23,6 +23,8 @@
     <AvaloniaXaml Remove="Resources\Assets\Brushes\SolidColorBrushes.axaml" />
     <AvaloniaXaml Remove="Resources\Assets\Styles\Button.axaml" />
     <AvaloniaXaml Remove="Resources\Assets\Styles\ComboBox.axaml" />
+    <AvaloniaXaml Remove="Resources\Assets\Styles\DataGrid.axaml" />
+    <AvaloniaXaml Remove="Resources\Assets\Styles\DataGridRow.axaml" />
     <AvaloniaXaml Remove="Resources\Assets\Styles\HeaderedContentControl.axaml" />
     <AvaloniaXaml Remove="Resources\Assets\Styles\Label.axaml" />
     <AvaloniaXaml Remove="Resources\Assets\Styles\StackPanel.axaml" />
@@ -96,6 +98,12 @@
       <SubType>Designer</SubType>
     </AvaloniaResource>
     <AvaloniaResource Update="Resources\Assets\Styles\ComboBox.axaml">
+      <SubType>Designer</SubType>
+    </AvaloniaResource>
+    <AvaloniaResource Update="Resources\Assets\Styles\DataGrid.axaml">
+      <SubType>Designer</SubType>
+    </AvaloniaResource>
+    <AvaloniaResource Update="Resources\Assets\Styles\DataGridRow.axaml">
       <SubType>Designer</SubType>
     </AvaloniaResource>
     <AvaloniaResource Update="Resources\Assets\Styles\HeaderedContentControl.axaml">

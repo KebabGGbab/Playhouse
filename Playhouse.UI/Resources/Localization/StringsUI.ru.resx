@@ -207,8 +207,8 @@
   <data name="LabelStatusNumberOfProfiles" xml:space="preserve">
     <value>Количество профилей:</value>
   </data>
-  <data name="LabelStatusLoadedProfile" xml:space="preserve">
-    <value>Загруженный профиль:</value>
+  <data name="LabelStatusSelectedProfile" xml:space="preserve">
+    <value>Выбранный профиль:</value>
   </data>
   <data name="ProfilePropertyID" xml:space="preserve">
     <value>ID</value>
@@ -258,8 +258,8 @@
   <data name="ButtonStart" xml:space="preserve">
     <value>Запуск</value>
   </data>
-  <data name="TextBoxWatermarkProfilesSearh" xml:space="preserve">
-    <value>Поиск</value>
+  <data name="TextBoxWatermarkProfilesFilter" xml:space="preserve">
+    <value>Фильтр</value>
   </data>
   <data name="ButtonSaveAll" xml:space="preserve">
     <value>Сохранить все</value>

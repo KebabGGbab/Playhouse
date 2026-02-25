@@ -207,8 +207,8 @@
   <data name="LabelStatusNumberOfProfiles" xml:space="preserve">
     <value>Number of profiles:</value>
   </data>
-  <data name="LabelStatusLoadedProfile" xml:space="preserve">
-    <value>Loaded profile:</value>
+  <data name="LabelStatusSelectedProfile" xml:space="preserve">
+    <value>Selected profile:</value>
   </data>
   <data name="ProfilePropertyID" xml:space="preserve">
     <value>ID</value>
@@ -258,8 +258,8 @@
   <data name="ButtonStart" xml:space="preserve">
     <value>Run</value>
   </data>
-  <data name="TextBoxWatermarkProfilesSearh" xml:space="preserve">
-    <value>Search</value>
+  <data name="TextBoxWatermarkProfilesFilter" xml:space="preserve">
+    <value>Filter</value>
   </data>
   <data name="ButtonSaveAll" xml:space="preserve">
     <value>Save all</value>

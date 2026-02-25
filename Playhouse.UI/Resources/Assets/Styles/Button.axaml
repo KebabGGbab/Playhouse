@@ -17,4 +17,8 @@
         <Setter Property="Margin" Value="20,25,20,0" />
     </Style>
 
+    <Style Selector="Button.not-defined-size">
+		<Setter Property="HorizontalAlignment" Value="Stretch" /> 
+    </Style>
+
 </Styles>

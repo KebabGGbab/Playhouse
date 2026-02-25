@@ -70,8 +70,8 @@ namespace Playhouse.ViewModels.ViewModels
             _source.AddRange(profiles);
 
             _source.Connect()
-                .AutoRefresh(p => p.IsModifier)
                 .Bind(out _profiles)
+                .AutoRefresh(p => p.IsModifier)
                 .Subscribe(_ => SaveAllProfilesCommand.NotifyCanExecuteChanged());
             SendMessageAddItems(profiles);
         }

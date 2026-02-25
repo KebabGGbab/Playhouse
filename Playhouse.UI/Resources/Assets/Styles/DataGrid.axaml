@@ -1,0 +1,19 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Design.PreviewWith>
+    <Border Padding="20">
+      <!-- Add Controls for Previewer Here -->
+    </Border>
+  </Design.PreviewWith>
+
+    <Style Selector="DataGrid">
+		<Setter Property="CanUserReorderColumns" Value="false" />
+        <Setter Property="CanUserSortColumns" Value="false" />
+        <Setter Property="CanUserResizeColumns" Value="true" />
+        <Setter Property="GridLinesVisibility" Value="All" />
+        <Setter Property="IsReadOnly" Value="true" /> 
+        <Setter Property="SelectionMode" Value="Single" />
+        <Setter Property="Background" Value="{DynamicResource DataGridBackground}" />
+    </Style>
+
+</Styles>

@@ -14,13 +14,12 @@
         x:DataType="vm:MainWindowViewModel"
         d:DesignWidth="2000" d:DesignHeight="500">
 
-    <TabControl Classes="middle" TabStripPlacement="Left" SelectedIndex="2">
+    <TabControl Classes="middle" TabStripPlacement="Left" SelectedIndex="1">
 		<TabItem Theme="{StaticResource Minimalism}">
 			<TabItem.Header>
 				<TextBlock Text="{localization:LocalizationMarkupExtensions TabRunHeader}" />
             </TabItem.Header>
-            <DockPanel x:Name="TabRun"
-                       MinWidth="1000" LastChildFill="True">
+            <DockPanel MinWidth="1000" LastChildFill="True">
                 <HeaderedContentControl Classes="header-middle"
                                         DockPanel.Dock="Right" 
                                         MinWidth="400" MaxWidth="500"
@@ -64,12 +63,15 @@
                 </HeaderedContentControl>
             </DockPanel>
         </TabItem>
+
+        <!-- Таба ботов -->
+
         <TabItem Theme="{StaticResource Minimalism}">
 			<TabItem.Header>
 				<TextBlock Text="{localization:LocalizationMarkupExtensions TabBotsHeader}" />
             </TabItem.Header>
-            <Grid x:Name="TabBots"
-                  ColumnDefinitions="*, auto">
+            <Grid ColumnDefinitions="*, auto"
+                  Margin="10">
                 <WrapPanel Grid.Column="0"
                            Classes="model-settings-container">
 					<HeaderedContentControl Classes="header-middle model-settings-box"
@@ -119,25 +121,107 @@
                             <CheckBox Margin="0,10,0,0"
                                       Content="{localization:LocalizationMarkupExtensions CheckBoxConfirm}" />
                             <Button Classes="box-action" 
-                                    Content="{localization:LocalizationMarkupExtensions ButtonDelete}" />
+                                    Content="{localization:LocalizationMarkupExtensions ButtonDelete}"
+                                    Command="{Binding Path=BotsInfoViewModel.DeleteBotCommand}" />
                         </StackPanel>
                     </HeaderedContentControl>
                 </WrapPanel>
-				<DataGrid Grid.Column="1" ItemsSource="{Binding Path=BotsInfoViewModel.Bots}">
-					<DataGrid.Columns>
-						<DataGridTextColumn x:DataType="models:BotInfo" Header="{localization:LocalizationMarkupExtensions BotPropertyID}" Binding="{Binding Path=Id}" />
-                        <DataGridTextColumn x:DataType="models:BotInfo" Header="{localization:LocalizationMarkupExtensions BotPropertyName}" Binding="{Binding Path=Id}" />
-                    </DataGrid.Columns>
-                </DataGrid>
+                <HeaderedContentControl Grid.Column="1" 
+                                        MinWidth="100" MaxWidth="400">
+				    <DataGrid ItemsSource="{Binding Path=BotsInfoViewModel.Bots}">
+					    <DataGrid.Columns>
+						    <DataGridTextColumn x:DataType="models:BotInfo" 
+                                                Width="SizeToHeader"
+                                                Header="{localization:LocalizationMarkupExtensions BotPropertyID}" 
+                                                Binding="{Binding Path=Id}" />
+                            <DataGridTextColumn x:DataType="models:BotInfo" 
+                                                Width="*"
+                                                Header="{localization:LocalizationMarkupExtensions BotPropertyName}" 
+                                                Binding="{Binding Path=Id}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </HeaderedContentControl>
             </Grid>
         </TabItem>
+
+        <!-- Таба профилей -->
+
         <TabItem Theme="{StaticResource Minimalism}">
 			<TabItem.Header>
 				<TextBlock Text="{localization:LocalizationMarkupExtensions TabProfilesHeader}" />
             </TabItem.Header>
-            <Grid x:Name="TabProfiles"
-                  ColumnDefinitions="*, 300" RowDefinitions="*,auto">
-				<ScrollViewer Grid.Column="0" Grid.Row="0"
+            <DockPanel LastChildFill="True"
+                       HorizontalSpacing="10" VerticalSpacing="10">
+
+                <Border DockPanel.Dock="Bottom"
+                        Padding="8 5 8 5"
+                        Background="{StaticResource StatusBackground}">
+					<DockPanel HorizontalSpacing="25">
+					    <StackPanel DockPanel.Dock="Left" 
+                                    Orientation="Horizontal">
+						    <TextBlock Text="{localization:LocalizationMarkupExtensions LabelStatusNumberOfProfiles}" />
+                            <TextBlock Text="{Binding Path=BrowserProfilesViewModel.Profiles.Count}" />
+                        </StackPanel>
+                        <StackPanel DockPanel.Dock="Left" 
+                                    Orientation="Horizontal">
+						    <TextBlock Text="{localization:LocalizationMarkupExtensions LabelStatusSelectedProfile}" />
+                            <TextBlock Text="{Binding Path=BrowserProfilesViewModel.SelectedProfile.Name}" />
+                        </StackPanel>
+                    </DockPanel>
+                </Border>
+
+                <HeaderedContentControl DockPanel.Dock="Right"
+                                        Margin="0, 8, 8, 0"
+                                        MinWidth="100" MaxWidth="400">
+                    <Grid RowDefinitions="*, auto, auto"
+                          RowSpacing="10">
+
+					    <DataGrid Grid.Row="0"
+                                  ItemsSource="{Binding Path=BrowserProfilesViewModel.Profiles}"
+                                  SelectedItem="{Binding Path=BrowserProfilesViewModel.SelectedProfile}">
+						    <DataGrid.Columns>
+							    <DataGridTextColumn x:DataType="models:BrowserProfile"
+                                                    Width="SizeToHeader"
+                                                    Binding="{Binding Path=Id}"
+                                                    Header="{localization:LocalizationMarkupExtensions ProfilePropertyID}" />
+                                <DataGridTextColumn x:DataType="models:BrowserProfile" 
+                                                    Width="*"
+                                                    Binding="{Binding Path=Name}"
+                                                    Header="{localization:LocalizationMarkupExtensions ProfilePropertyName}" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                        <TextBox Grid.Row="1"
+                                 Watermark="{localization:LocalizationMarkupExtensions TextBoxWatermarkProfilesFilter}" />
+
+                        <Grid Grid.Row="2"
+                              RowDefinitions="*,*" ColumnDefinitions="*,*,*"
+                              ColumnSpacing="5" RowSpacing="5">
+
+                            <Button Grid.Row="0" Grid.Column="0"
+                                    Classes="not-defined-size"
+                                    Content="{localization:LocalizationMarkupExtensions ButtonAdd}"
+                                    Command="{Binding Path=BrowserProfilesViewModel.AddProfileCommand}" />
+                            <Button Grid.Row="0" Grid.Column="1"
+                                    Classes="not-defined-size"
+                                    Content="{localization:LocalizationMarkupExtensions ButtonSave}"
+                                    Command="{Binding Path=BrowserProfilesViewModel.SelectedProfile.SaveCommand}" />
+                            <Button Grid.Row="0" Grid.Column="2"
+                                    Classes="not-defined-size"
+                                    Content="{localization:LocalizationMarkupExtensions ButtonDelete}"
+                                    Command="{Binding Path=BrowserProfilesViewModel.DeleteProfileCommand}" />
+                            <Button Grid.Row="1" Grid.Column="1"
+                                    Classes="not-defined-size"
+                                    Content="{localization:LocalizationMarkupExtensions ButtonSaveAll}"
+                                    Command="{Binding Path=BrowserProfilesViewModel.SaveAllProfilesCommand}" />
+                            <Button Grid.Row="2" Grid.Column="2"
+                                    Classes="not-defined-size"
+                                    Content="{localization:LocalizationMarkupExtensions ButtonCancel}"
+                                    Command="{Binding Path=BrowserProfilesViewModel.SelectedProfile.CancelChangesCommand}" />
+                        </Grid>
+                    </Grid>
+                </HeaderedContentControl>
+				<ScrollViewer Margin="8, 8, 0, 0" 
                               VerticalScrollBarVisibility="Disabled">
 					<WrapPanel Classes="model-settings-container">
 						<HeaderedContentControl Classes="model-settings-box" 
@@ -187,50 +271,11 @@
                         </HeaderedContentControl>
                     </WrapPanel>
                 </ScrollViewer>
-                <Grid Grid.Column="1" Grid.Row="0" RowDefinitions="*, auto, auto">
-					<DataGrid Grid.Row="0"
-                              ItemsSource="{Binding Path=BrowserProfilesViewModel.Profiles}"
-                              SelectedItem="{Binding Path=BrowserProfilesViewModel.SelectedProfile}">
-						<DataGrid.Columns>
-							<DataGridTextColumn x:DataType="models:BrowserProfile" Header="{localization:LocalizationMarkupExtensions ProfilePropertyID}" Binding="{Binding Path=Id}" />
-                            <DataGridTextColumn x:DataType="models:BrowserProfile" Header="{localization:LocalizationMarkupExtensions ProfilePropertyName}" Binding="{Binding Path=Name}" />
-                        </DataGrid.Columns>
-                    </DataGrid>
-                    <TextBox Grid.Row="1"
-                             Watermark="{localization:LocalizationMarkupExtensions TextBoxWatermarkProfilesSearh}" />
-
-                    <Grid Grid.Row="2"
-                          ColumnDefinitions="*,*,*" RowDefinitions="*,*">
-                        <Button Grid.Row="0" Grid.Column="0"
-                                Content="{localization:LocalizationMarkupExtensions ButtonAdd}"
-                                Command="{Binding Path=BrowserProfilesViewModel.AddProfileCommand}" />
-                        <Button Grid.Row="0" Grid.Column="1"
-                                Content="{localization:LocalizationMarkupExtensions ButtonSave}"
-                                Command="{Binding Path=BrowserProfilesViewModel.SelectedProfile.SaveCommand}" />
-                        <Button Grid.Row="0" Grid.Column="2"
-                                Content="{localization:LocalizationMarkupExtensions ButtonDelete}"
-                                Command="{Binding Path=BrowserProfilesViewModel.DeleteProfileCommand}" />
-                        <Button Grid.Row="1" Grid.Column="1"
-                                Content="{localization:LocalizationMarkupExtensions ButtonSaveAll}"
-                                Command="{Binding Path=BrowserProfilesViewModel.SaveAllProfilesCommand}" />
-                        <Button Grid.Row="2" Grid.Column="2"
-                                Content="{localization:LocalizationMarkupExtensions ButtonCancel}"
-                                Command="{Binding Path=BrowserProfilesViewModel.SelectedProfile.CancelChangesCommand}" />
-                    </Grid>
-
-                </Grid>
-                <DockPanel Grid.ColumnSpan="2" Grid.Row="1">
-					<StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
-						<TextBlock Text="{localization:LocalizationMarkupExtensions LabelStatusNumberOfProfiles}" />
-                        <TextBlock Text="{Binding Path=BrowserProfilesViewModel.Profiles.Count}" />
-                    </StackPanel>
-                    <StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
-						<TextBlock Text="{localization:LocalizationMarkupExtensions LabelStatusLoadedProfile}" />
-                        <TextBlock Text="{Binding Path=BrowserProfilesViewModel.SelectedProfile.Name}" />
-                    </StackPanel>
-                </DockPanel>
-            </Grid>
+            </DockPanel>
         </TabItem>
+
+        <!-- Таба настроек -->
+
         <TabItem Theme="{StaticResource Minimalism}">
 			<TabItem.Header>
 				<TextBlock Text="{localization:LocalizationMarkupExtensions TabSettingsHeader}" />
