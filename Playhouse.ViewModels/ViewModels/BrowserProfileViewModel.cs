@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System.Diagnostics.CodeAnalysis;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.EntityFrameworkCore;
 using Playhouse.Core.Data;
@@ -10,7 +11,13 @@ namespace Playhouse.ViewModels.ViewModels
     {
         private readonly IDbContextFactory<ApplicationDbContext> _dbFactory;
 
-        private Memento _memento;
+        private string _name;
+        private bool _acceptDownloads;
+        private string? _channel;
+        private bool _chromiumSandbox;
+        private string? _downloadsPath;
+        private bool _headless;
+        private float? _slowMo;
 
         internal BrowserProfile Profile { get; }
 
@@ -46,84 +53,84 @@ namespace Playhouse.ViewModels.ViewModels
 
         public string Name
         {
-            get;
+            get => _name;
             set
             {
-                if (SetProperty(ref field, value))
+                if (SetProperty(ref _name, value))
                 {
-                    CheckModifier();
+                    CheckChanges();
                 }
             }
         }
 
         public bool AcceptDownloads
         {
-            get;
+            get => _acceptDownloads;
             set
             {
-                if (SetProperty(ref field, value))
+                if (SetProperty(ref _acceptDownloads, value))
                 {
-                    CheckModifier();
+                    CheckChanges();
                 }
             }
         }
 
         public string? Channel
         {
-            get;
+            get => _channel;
             set
             {
-                if (SetProperty(ref field, value))
+                if (SetProperty(ref _channel, value))
                 {
-                    CheckModifier();
+                    CheckChanges();
                 }
             }
         }
 
         public bool ChromiumSandbox
         {
-            get;
+            get => _chromiumSandbox;
             set
             {
-                if (SetProperty(ref field, value))
+                if (SetProperty(ref _chromiumSandbox, value))
                 {
-                    CheckModifier();
+                    CheckChanges();
                 }
             }
         }
 
         public string? DownloadsPath
         {
-            get;
+            get => _downloadsPath;
             set
             {
-                if (SetProperty(ref field, value))
+                if (SetProperty(ref _downloadsPath, value))
                 {
-                    CheckModifier();
+                    CheckChanges();
                 }
             }
         }
 
         public bool Headless
         {
-            get;
+            get => _headless;
             set
             {
-                if (SetProperty(ref field, value))
+                if (SetProperty(ref _headless, value))
                 {
-                    CheckModifier();
+                    CheckChanges();
                 }
             }
         }
 
         public float? SlowMo
         {
-            get;
+            get => _slowMo;
             set
             {
-                if (SetProperty(ref field, value))
+                if (SetProperty(ref _slowMo, value))
                 {
-                    CheckModifier();
+                    CheckChanges();
                 }
             }
         }
@@ -143,46 +150,22 @@ namespace Playhouse.ViewModels.ViewModels
 
             _dbFactory = dbFactory;
             Profile = profile;
-            Name = profile.Name;
-            AcceptDownloads = profile.Options.AcceptDownloads;
-            Channel = profile.Options.Channel;
-            ChromiumSandbox = profile.Options.ChromiumSandbox;
-            DownloadsPath = profile.Options.DownloadsPath;
-            Headless = profile.Options.Headless;
-            SlowMo = profile.Options.SlowMo;
-            _memento = CreateSnapshot();
+            ResetChanges();
             IsModifier = IsNew;
         }
 
-        private Memento CreateSnapshot()
+        private void CheckChanges()
         {
-            return new Memento(this);
+            IsModifier = !(Profile.Name == Name 
+                && Profile.Options.AcceptDownloads == AcceptDownloads
+                && Profile.Options.Channel == Channel
+                && Profile.Options.ChromiumSandbox == ChromiumSandbox 
+                && Profile.Options.DownloadsPath == DownloadsPath
+                && Profile.Options.Headless == Headless
+                && Profile.Options.SlowMo == SlowMo);
         }
 
-        private void RestoreSnapshot(Memento shapshot)
-        {
-            Name = shapshot.Name;
-            AcceptDownloads = shapshot.AcceptDownloads;
-            Channel = shapshot.Channel;
-            ChromiumSandbox = shapshot.ChromiumSandbox;
-            DownloadsPath = shapshot.DownloadsPath;
-            Headless = shapshot.Headless;
-            SlowMo = shapshot.SlowMo;
-        }
-
-        private void CheckModifier()
-        {
-            IsModifier = _memento != null 
-                && !(_memento.Name == Name 
-                && _memento.AcceptDownloads == AcceptDownloads
-                && _memento.Channel == Channel
-                && _memento.ChromiumSandbox == ChromiumSandbox 
-                && _memento.DownloadsPath == DownloadsPath
-                && _memento.Headless == Headless
-                && _memento.SlowMo == SlowMo);
-        }
-
-        private void UpdateModel()
+        private void ApplyChanges()
         {
             Profile.Name = Name;
             Profile.Options.AcceptDownloads = AcceptDownloads;
@@ -191,6 +174,18 @@ namespace Playhouse.ViewModels.ViewModels
             Profile.Options.DownloadsPath = DownloadsPath;
             Profile.Options.Headless = Headless;
             Profile.Options.SlowMo = SlowMo;
+        }
+
+        [MemberNotNull(nameof(_name))]
+        private void ResetChanges()
+        {
+            Name = Profile.Name;
+            AcceptDownloads = Profile.Options.AcceptDownloads;
+            Channel = Profile.Options.Channel;
+            ChromiumSandbox = Profile.Options.ChromiumSandbox;
+            DownloadsPath = Profile.Options.DownloadsPath;
+            Headless = Profile.Options.Headless;
+            SlowMo = Profile.Options.SlowMo;
         }
 
         private void NotifyChangedOneTimeSetProperty()
@@ -215,7 +210,7 @@ namespace Playhouse.ViewModels.ViewModels
         internal async Task SaveAsync(ApplicationDbContext db)
         {
             IsSaving = true;
-            UpdateModel();
+            ApplyChanges();
 
             if (IsNew)
             {
@@ -230,7 +225,6 @@ namespace Playhouse.ViewModels.ViewModels
         internal void MarkSaved()
         {
             NotifyChangedOneTimeSetProperty();
-            _memento = CreateSnapshot();
             IsModifier = false;
             IsSaving = false;
         }
@@ -244,32 +238,10 @@ namespace Playhouse.ViewModels.ViewModels
                 return;
             }
 
-            RestoreSnapshot(_memento);
+            ResetChanges();
             IsModifier = false;
         }
 
         private bool CanCancelChanges() => IsModifier && !IsSaving;
-
-        private class Memento
-        {
-            public string Name { get; }
-            public bool AcceptDownloads { get; }
-            public string? Channel { get; }
-            public bool ChromiumSandbox { get; }
-            public string? DownloadsPath { get; }
-            public bool Headless { get; }
-            public float? SlowMo { get; }
-
-            public Memento(BrowserProfileViewModel profile)
-            {
-                Name = profile.Name;
-                AcceptDownloads = profile.AcceptDownloads;
-                Channel = profile.Channel;
-                ChromiumSandbox = profile.ChromiumSandbox;
-                DownloadsPath = profile.DownloadsPath;
-                Headless = profile.Headless;
-                SlowMo = profile.SlowMo;
-            }
-        }
     }
 }

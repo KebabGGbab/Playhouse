@@ -58,7 +58,6 @@ namespace Playhouse.ViewModels.ViewModels
             using ApplicationDbContext dbContext = await _dbFactory.CreateDbContextAsync();
 
             return await dbContext.BrowserProfiles
-                .ToAsyncEnumerable()
                 .Select(p => new BrowserProfileViewModel(p, _dbFactory))
                 .ToListAsync();
         }
