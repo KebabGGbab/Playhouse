@@ -23,12 +23,12 @@ namespace Playhouse.ViewModels.Services.ViewModelFactories
 
         public BotInfoViewModel Create()
         {
-            return new BotInfoViewModel()
+            return new BotInfoViewModel(_dbFactory, _fileManager);
         }
 
         public BotInfoViewModel Create(BotInfo model)
         {
-            throw new NotImplementedException();
+            return new BotInfoViewModel(_dbFactory, _fileManager, model);
         }
     }
 }

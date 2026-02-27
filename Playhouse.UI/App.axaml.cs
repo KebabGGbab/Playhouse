@@ -15,6 +15,7 @@ using Playhouse.UI.Views;
 using Playhouse.ViewModels.DIExtensions.CoreServices;
 using Playhouse.ViewModels.DIExtensions.ViewModelsExtensions;
 using Playhouse.ViewModels.Services.LocalizationService;
+using Playhouse.ViewModels.Services.ViewModelFactories;
 using Playhouse.ViewModels.ViewModels;
 
 namespace Playhouse.UI
@@ -91,7 +92,9 @@ namespace Playhouse.UI
             services.AddPlaywright();
             services.AddSettings();
             services.AddApplicationDbContext();
+            services.AddFileManagers();
             services.AddLocalization(StringsUI.ResourceManager);
+            services.AddViewModelFactories();
         }
 
         private static void ConfigureConfiguration(IServiceCollection services, ConfigurationManager configuration)
