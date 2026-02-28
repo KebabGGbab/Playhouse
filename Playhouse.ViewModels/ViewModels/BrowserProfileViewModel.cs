@@ -1,15 +1,13 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.EntityFrameworkCore;
-using Playhouse.Core.Data;
 using Playhouse.Core.Models;
+using Playhouse.Core.Services.FileManagerService.Abstractions;
 
 namespace Playhouse.ViewModels.ViewModels
 {
     public class BrowserProfileViewModel : ObservableObject
     {
-        private readonly IDbContextFactory<ApplicationDbContext> _dbFactory;
+        private readonly FileManager<BrowserProfile> _fileManager;
 
         private string _name;
         private bool _acceptDownloads;
@@ -24,29 +22,19 @@ namespace Playhouse.ViewModels.ViewModels
         public bool IsSaving
         {
             get;
-            private set
-            {
-                if (SetProperty(ref field, value))
-                {
-                    SaveCommand.NotifyCanExecuteChanged();
-                    CancelChangesCommand.NotifyCanExecuteChanged();
-                }
-            }
+            private set => SetProperty(ref field, value);
         }
 
-        public bool IsNew => Id == 0;
+        public bool IsNew 
+        {
+            get => field;
+            set => SetProperty(ref field, value);
+        }
 
         public bool IsModifier
         {
             get;
-            private set
-            {
-                if (SetProperty(ref field, value))
-                {
-                    SaveCommand.NotifyCanExecuteChanged();
-                    CancelChangesCommand.NotifyCanExecuteChanged();
-                }
-            }
+            private set => SetProperty(ref field, value);
         }
 
         public int Id => Profile.Id;
@@ -135,22 +123,26 @@ namespace Playhouse.ViewModels.ViewModels
             }
         }
 
-        public IAsyncRelayCommand SaveCommand => field ??= new AsyncRelayCommand(SaveAsync, CanSave);
-
-        public IRelayCommand CancelChangesCommand => field ??= new RelayCommand(CancelChanges, CanCancelChanges);
-
-        public BrowserProfileViewModel(IDbContextFactory<ApplicationDbContext> factory) : this(new BrowserProfile(), factory)
+        public BrowserProfileViewModel(FileManager<BrowserProfile> fileManager) 
+            : this(new BrowserProfile(), fileManager)
         {
         }
 
-        public BrowserProfileViewModel(BrowserProfile profile, IDbContextFactory<ApplicationDbContext> dbFactory)
+        public BrowserProfileViewModel(BrowserProfile profile, FileManager<BrowserProfile> fileManager)
         {
+            ArgumentNullException.ThrowIfNull(fileManager, nameof(fileManager));
             ArgumentNullException.ThrowIfNull(profile, nameof(profile));
-            ArgumentNullException.ThrowIfNull(dbFactory, nameof(dbFactory));
 
-            _dbFactory = dbFactory;
+            _fileManager = fileManager;
             Profile = profile;
-            ResetChanges();
+            _name = Profile.Name;
+            _acceptDownloads = Profile.Options.AcceptDownloads;
+            _channel = Profile.Options.Channel;
+            _chromiumSandbox = Profile.Options.ChromiumSandbox;
+            _downloadsPath = Profile.Options.DownloadsPath;
+            _headless = Profile.Options.Headless;
+            _slowMo = Profile.Options.SlowMo;
+            IsNew = Id == 0;
             IsModifier = IsNew;
         }
 
@@ -176,7 +168,6 @@ namespace Playhouse.ViewModels.ViewModels
             Profile.Options.SlowMo = SlowMo;
         }
 
-        [MemberNotNull(nameof(_name))]
         private void ResetChanges()
         {
             Name = Profile.Name;
@@ -193,7 +184,7 @@ namespace Playhouse.ViewModels.ViewModels
             OnPropertyChanged(nameof(Id));
         }
 
-        private async Task SaveAsync()
+        public async Task SaveAsync(DbContext db)
         {
             if (!CanSave())
             {
@@ -201,37 +192,63 @@ namespace Playhouse.ViewModels.ViewModels
             }
 
             IsSaving = true;
-            using ApplicationDbContext db = await _dbFactory.CreateDbContextAsync();
-            await SaveAsync(db);
-            await db.SaveChangesAsync();
-            MarkSaved();
-        }
-
-        internal async Task SaveAsync(ApplicationDbContext db)
-        {
-            IsSaving = true;
             ApplyChanges();
+            db.SavedChanges += OnProfileSaved;
 
             if (IsNew)
             {
-                await db.BrowserProfiles.AddAsync(Profile);
+                await db.Set<BrowserProfile>().AddAsync(Profile);
             }
             else
             {
-                db.BrowserProfiles.Update(Profile);
+                db.Set<BrowserProfile>().Update(Profile);
             }
         }
 
-        internal void MarkSaved()
+        private void OnProfileSaved(object? sender, SavedChangesEventArgs e)
         {
-            NotifyChangedOneTimeSetProperty();
+            if (sender is not DbContext db)
+            {
+                return;
+            }
+
+            db.SavedChanges -= OnProfileSaved;
+
+            if (IsNew)
+            {
+                _fileManager.Create(Profile);
+                IsNew = false;
+                NotifyChangedOneTimeSetProperty();
+            }
+
             IsModifier = false;
             IsSaving = false;
         }
 
         private bool CanSave() => IsModifier && !IsSaving;
 
-        private void CancelChanges()
+        public async Task DeleteAsync(DbContext db)
+        {
+            if (!IsNew)
+            {
+                db.SavedChanges += OnProfileDeleted;
+                db.Set<BrowserProfile>().Remove(Profile);
+            }
+        }
+
+        private void OnProfileDeleted(object? sender, SavedChangesEventArgs e)
+        {
+            if (sender is not DbContext db)
+            {
+                return;
+            }
+
+            db.SavedChanges -= OnProfileDeleted;
+
+            _fileManager.Delete(Profile);
+        }
+
+        public void CancelChanges()
         {
             if (!CanCancelChanges())
             {

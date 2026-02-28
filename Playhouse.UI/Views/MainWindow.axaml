@@ -14,7 +14,7 @@
         x:DataType="vm:MainWindowViewModel"
         d:DesignWidth="2000" d:DesignHeight="500">
 
-    <TabControl Classes="middle" TabStripPlacement="Left" SelectedIndex="1">
+    <TabControl Classes="middle" TabStripPlacement="Left" SelectedIndex="2">
 		<TabItem Theme="{StaticResource Minimalism}">
 			<TabItem.Header>
 				<TextBlock Text="{localization:LocalizationMarkupExtensions TabRunHeader}" />
@@ -205,11 +205,11 @@
                             <Button Grid.Row="0" Grid.Column="1"
                                     Classes="not-defined-size"
                                     Content="{localization:LocalizationMarkupExtensions ButtonSave}"
-                                    Command="{Binding Path=BrowserProfilesViewModel.SelectedProfile.SaveCommand}" />
+                                    Command="{Binding Path=BrowserProfilesViewModel.SaveProfileCommand}" CommandParameter="{Binding Path=BrowserProfilesViewModel.SelectedProfile}" />
                             <Button Grid.Row="0" Grid.Column="2"
                                     Classes="not-defined-size"
                                     Content="{localization:LocalizationMarkupExtensions ButtonDelete}"
-                                    Command="{Binding Path=BrowserProfilesViewModel.DeleteProfileCommand}" />
+                                    Command="{Binding Path=BrowserProfilesViewModel.DeleteProfileCommand}" CommandParameter="{Binding Path=BrowserProfilesViewModel.SelectedProfile}" />
                             <Button Grid.Row="1" Grid.Column="1"
                                     Classes="not-defined-size"
                                     Content="{localization:LocalizationMarkupExtensions ButtonSaveAll}"
@@ -217,7 +217,7 @@
                             <Button Grid.Row="2" Grid.Column="2"
                                     Classes="not-defined-size"
                                     Content="{localization:LocalizationMarkupExtensions ButtonCancel}"
-                                    Command="{Binding Path=BrowserProfilesViewModel.SelectedProfile.CancelChangesCommand}" />
+                                    Command="{Binding Path=BrowserProfilesViewModel.CancelProfileChangesCommand}" CommandParameter="{Binding Path=BrowserProfilesViewModel.SelectedProfile}" />
                         </Grid>
                     </Grid>
                 </HeaderedContentControl>

@@ -6,16 +6,17 @@ using Playhouse.Core.Data;
 using Playhouse.Core.Enums;
 using Playhouse.Core.Models;
 using Playhouse.ViewModels.Messages;
+using Playhouse.ViewModels.Services.ViewModelFactories.Abstractions;
 using Playhouse.ViewModels.ViewModels.Abstractions;
 using Playhouse.ViewModels.ViewModelsExtensions;
 using System.Collections.ObjectModel;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Playhouse.ViewModels.ViewModels
 {
 	public class BotsInfoViewModel : BaseCollectionViewModel<BotInfoViewModel>
     {
-        private readonly IDbContextFactory<ApplicationDbContext> _dbContextFactory;
+        private readonly IDbContextFactory<ApplicationDbContext> _dbFactory;
+        private readonly IViewModelFactory<BotInfoViewModel, BotInfo> _viewModelFactory;
         private readonly SourceCache<BotInfoViewModel, int> _botsSource = new(b => b.Id);
         private ReadOnlyObservableCollection<BotInfoViewModel> _bots;
         public ReadOnlyObservableCollection<BotInfoViewModel> Bots => _bots;
@@ -83,38 +84,24 @@ namespace Playhouse.ViewModels.ViewModels
 
         #endregion
 
+        public IAsyncRelayCommand LoadDataCommand => field ??= new AsyncRelayCommand(LoadDataAsync);
+
 		public IRelayCommand CreateBotCommand => field ??= new AsyncRelayCommand(CreateBot, CanCreateBot);
+
         public IRelayCommand DeleteBotCommand => field ??= new AsyncRelayCommand(ExecuteDeleteBot, CanExecuteDeleteBot);
+
         public IRelayCommand SaveBotCommand => field ??= new AsyncRelayCommand<BotInfoViewModel>(SaveBot);
 
-		public BotsInfoViewModel(IDbContextFactory<ApplicationDbContext> dbContextFactory)
+		public BotsInfoViewModel(IDbContextFactory<ApplicationDbContext> dbFactory, IViewModelFactory<BotInfoViewModel, BotInfo> viewModelFactory)
 		{
-            _dbContextFactory = dbContextFactory;
-            FillSource(LoadBotsAsync().Result);
+            _dbFactory = dbFactory;
+            _viewModelFactory = viewModelFactory;
+
             WeakReferenceMessenger.Default.Register<BotsInfoViewModel, CollectionChangedMessage<BrowserProfileViewModel>>(this, OnSourceProfilesCollectionChanged);
             _profilesSource.Connect()
                 .Filter(p => p.FilterByName(ProfileNameFilterForCreateBot))
                 .Bind(out _profiles)
                 .Subscribe();
-        }
-
-        private async Task<List<BotInfoViewModel>> LoadBotsAsync()
-        {
-            using ApplicationDbContext dbContext = await _dbContextFactory.CreateDbContextAsync();
-
-            return await dbContext.BotsInfo
-                .Include(b => b.BrowserEvents)
-                .ToAsyncEnumerable()
-                .Select(b => new BotInfoViewModel(b))
-                .ToListAsync();
-        }
-
-        [MemberNotNull(nameof(_botsDelete), nameof(_bots))]
-        private void FillSource(List<BotInfoViewModel> bots)
-        {
-            _botsSource.Remove(_botsSource.Items);
-            _botsSource.AddOrUpdate(bots);
-
             _botsSource.Connect()
                 .Filter(b => b.FilterByName(BotNameFilterForDelete))
                 .Bind(out _botsDelete)
@@ -122,7 +109,22 @@ namespace Playhouse.ViewModels.ViewModels
             _botsSource.Connect()
                 .Bind(out _bots)
                 .Subscribe();
+        }
 
+        private async Task LoadDataAsync()
+        {
+            using ApplicationDbContext dbContext = await _dbFactory.CreateDbContextAsync();
+
+            List<BotInfoViewModel> bots = await dbContext.BotsInfo
+                .Include(b => b.BrowserEvents)
+                .Select(b => _viewModelFactory.Create(b))
+                .ToListAsync();
+
+            IReadOnlyList<BotInfoViewModel> oldBots = _botsSource.Items;
+            _botsSource.Remove(oldBots);
+            _botsSource.AddOrUpdate(bots);
+
+            SendMessageRemoveItems(oldBots);
             SendMessageAddItems(bots);
         }
 
@@ -146,7 +148,7 @@ namespace Playhouse.ViewModels.ViewModels
                 return;
             }
 
-            BotInfoViewModel newBot = new(new BotInfo()
+            BotInfoViewModel newBot = _viewModelFactory.Create(new BotInfo()
             {
                 Browser = (BrowserType)BrowserType,
                 Name = BotNameCreate,
@@ -170,9 +172,9 @@ namespace Playhouse.ViewModels.ViewModels
 			_botsSource.Remove(bot);
             SelectedBotDelete = null;
             IsConfirmDelete = false;
-            using ApplicationDbContext dbContext = await _dbContextFactory.CreateDbContextAsync();
-            dbContext.BotsInfo.Remove(bot.Bot);
-            await dbContext.SaveChangesAsync();
+            using ApplicationDbContext db = await _dbFactory.CreateDbContextAsync();
+            db.BotsInfo.Remove(bot.Bot);
+            await db.SaveChangesAsync();
             SendMessageRemoveItems([bot]);
 		}
 
@@ -185,9 +187,9 @@ namespace Playhouse.ViewModels.ViewModels
                 return; 
             }
 
-            using ApplicationDbContext dbContext = await _dbContextFactory.CreateDbContextAsync();
-            await dbContext.BotsInfo.AddAsync(bot.Bot);
-            await dbContext.SaveChangesAsync();
+            using ApplicationDbContext db = await _dbFactory.CreateDbContextAsync();
+            await db.BotsInfo.AddAsync(bot.Bot);
+            await db.SaveChangesAsync();
             _botsSource.AddOrUpdate(bot);
             SendMessageAddItems([bot]);
         }
