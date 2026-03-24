@@ -21,4 +21,8 @@
 	  <Setter Property="Margin" Value="0,0,0,0" />
   </Style>
 
+    <Style Selector="StackPanel.settings-body">
+		<Setter Property="MaxWidth" Value="500" />
+    </Style>
+
 </Styles>

@@ -1,0 +1,22 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Design.PreviewWith>
+    <Border Padding="20">
+      <!-- Add Controls for Previewer Here -->
+    </Border>
+  </Design.PreviewWith>
+
+    <Style Selector="TextBox.settings-group-item-under-line">
+		<Setter Property="Margin" Value="0,2,0,6" />
+        <Setter Property="MaxWidth" Value="500" />
+        <Setter Property="MinWidth" Value ="200" />
+    </Style>
+
+    <Style Selector="TextBox.settings-group-item-inline-left">
+		<Setter Property="Margin" Value="0,0,0,0" />
+        <Setter Property="MaxWidth" Value="390" />
+        <Setter Property="MinWidth" Value ="100" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+    </Style>
+
+</Styles>

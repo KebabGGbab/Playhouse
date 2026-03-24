@@ -249,11 +249,11 @@
   <data name="LabelSettingsDescriptionInstalledBrowsers" xml:space="preserve">
     <value>Браузеры и их каналы, которые необходимо установить.</value>
   </data>
-  <data name="LabelSettingsHeaderLanguage" xml:space="preserve">
-    <value>Язык</value>
+  <data name="LabelSettingsHeaderUserInterface" xml:space="preserve">
+    <value>Интерфейс</value>
   </data>
-  <data name="LabelSettingsDescriptionLanguage" xml:space="preserve">
-    <value>Язык отображения пользовательского интерфейса.</value>
+  <data name="LabelSettingsDescriptionUserInterface" xml:space="preserve">
+    <value>Задает параметры, влияющие на отображение пользовательского интерфейса.</value>
   </data>
   <data name="ButtonStart" xml:space="preserve">
     <value>Запуск</value>
@@ -266,5 +266,8 @@
   </data>
   <data name="ButtonCancel" xml:space="preserve">
     <value>Отменить</value>
+  </data>
+  <data name="LabelSettingsLanguage" xml:space="preserve">
+    <value>Язык</value>
   </data>
 </root>

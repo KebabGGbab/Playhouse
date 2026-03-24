@@ -349,11 +349,11 @@ namespace Playhouse.UI.Resources.Localization {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Language of user interface display..
+        ///   Ищет локализованную строку, похожую на Sets parameters that affect the display of the user interface..
         /// </summary>
-        public static string LabelSettingsDescriptionLanguage {
+        public static string LabelSettingsDescriptionUserInterface {
             get {
-                return ResourceManager.GetString("LabelSettingsDescriptionLanguage", resourceCulture);
+                return ResourceManager.GetString("LabelSettingsDescriptionUserInterface", resourceCulture);
             }
         }
         
@@ -385,11 +385,20 @@ namespace Playhouse.UI.Resources.Localization {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Interface.
+        /// </summary>
+        public static string LabelSettingsHeaderUserInterface {
+            get {
+                return ResourceManager.GetString("LabelSettingsHeaderUserInterface", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Language.
         /// </summary>
-        public static string LabelSettingsHeaderLanguage {
+        public static string LabelSettingsLanguage {
             get {
-                return ResourceManager.GetString("LabelSettingsHeaderLanguage", resourceCulture);
+                return ResourceManager.GetString("LabelSettingsLanguage", resourceCulture);
             }
         }
         

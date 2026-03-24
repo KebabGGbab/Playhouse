@@ -21,4 +21,15 @@
 		<Setter Property="HorizontalAlignment" Value="Stretch" /> 
     </Style>
 
+    <Style Selector="Button.settings-group-item-inline">
+		<Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="MaxWidth" Value="130" />
+        <Setter Property="MinWidth" Value ="100" />
+    </Style>
+
+    <Style Selector="Button.settings-group-item-inline-right">
+		<Setter Property="Margin" Value="0,0,0,0" />
+        <Setter Property="HorizontalAlignment" Value="Right" />
+    </Style>
+
 </Styles>

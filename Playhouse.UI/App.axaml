@@ -4,32 +4,50 @@
              RequestedThemeVariant="Dark">
   
     <Application.Styles>
+
         <!-- Theme -->
+
         <FluentTheme />
 
         <!-- Libraries styles -->
+
         <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
         <StyleInclude Source="avares://KebabGGbab.Avalonia.Extensions/Resources/Styles/TabControl.axaml" />
         <StyleInclude Source="avares://KebabGGbab.Avalonia.Extensions/Resources/Styles/HeaderedContentControl.axaml" />
 
         <!-- Playhouse styles -->
+
         <StyleInclude Source="avares://Playhouse.UI/Resources/Assets/Styles/Button.axaml" />
         <StyleInclude Source="avares://Playhouse.UI/Resources/Assets/Styles/ComboBox.axaml" />
         <StyleInclude Source="avares://Playhouse.UI/Resources/Assets/Styles/DataGrid.axaml" />
         <StyleInclude Source="avares://Playhouse.UI/Resources/Assets/Styles/DataGridRow.axaml" />
+        <StyleInclude Source="avares://Playhouse.UI/Resources/Assets/Styles/DockPanel.axaml" />
         <StyleInclude Source="avares://Playhouse.UI/Resources/Assets/Styles/HeaderedContentControl.axaml" />
         <StyleInclude Source="avares://Playhouse.UI/Resources/Assets/Styles/Label.axaml" />
         <StyleInclude Source="avares://Playhouse.UI/Resources/Assets/Styles/StackPanel.axaml" />
         <StyleInclude Source="avares://Playhouse.UI/Resources/Assets/Styles/TabItem.axaml" />
         <StyleInclude Source="avares://Playhouse.UI/Resources/Assets/Styles/TextBlock.axaml" />
+        <StyleInclude Source="avares://Playhouse.UI/Resources/Assets/Styles/TextBox.axaml" />
         <StyleInclude Source="avares://Playhouse.UI/Resources/Assets/Styles/WrapPanel.axaml" />
+
     </Application.Styles>
 
     <Application.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
+
+                <!-- Library resources -->
+
                 <ResourceInclude Source="avares://KebabGGbab.Avalonia.Extensions/Resources/Generic.axaml" />
+
+                <!-- Brushes -->
+
 				<ResourceInclude Source="avares://Playhouse.UI/Resources/Assets/Brushes/SolidColorBrushes.axaml" />
+
+                <!-- DataTemplates -->
+
+                <ResourceInclude Source="avares://Playhouse.UI/Resources/Assets/DataTemplates/BrowserProfileViewModel.axaml" />
+
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

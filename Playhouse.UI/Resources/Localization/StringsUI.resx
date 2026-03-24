@@ -249,11 +249,11 @@
   <data name="LabelSettingsDescriptionInstalledBrowsers" xml:space="preserve">
     <value>Browsers and their channels that need to be installed.</value>
   </data>
-  <data name="LabelSettingsHeaderLanguage" xml:space="preserve">
-    <value>Language</value>
+  <data name="LabelSettingsHeaderUserInterface" xml:space="preserve">
+    <value>Interface</value>
   </data>
-  <data name="LabelSettingsDescriptionLanguage" xml:space="preserve">
-    <value>Language of user interface display.</value>
+  <data name="LabelSettingsDescriptionUserInterface" xml:space="preserve">
+    <value>Sets parameters that affect the display of the user interface.</value>
   </data>
   <data name="ButtonStart" xml:space="preserve">
     <value>Run</value>
@@ -266,5 +266,8 @@
   </data>
   <data name="ButtonCancel" xml:space="preserve">
     <value>Cancel</value>
+  </data>
+  <data name="LabelSettingsLanguage" xml:space="preserve">
+    <value>Language</value>
   </data>
 </root>
