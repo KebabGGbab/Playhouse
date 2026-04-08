@@ -2,6 +2,7 @@
   <Folder Name="/src/">
     <Project Path="src/Playhouse.Core/Playhouse.Core.csproj" />
     <Project Path="src/Playhouse.Domain.SharedKernel/Playhouse.Domain.SharedKernel.csproj" />
+    <Project Path="src/Playhouse.Infrastructure/Playhouse.Infrastructure.csproj" Id="b9a3122c-0ebe-40d7-924d-4a107ba100e6" />
     <Project Path="src/Playhouse.Share/Playhouse.Share.csproj" />
     <Project Path="src/Playhouse.UI/Playhouse.UI.csproj" />
     <Project Path="src/Playhouse.ViewModels/Playhouse.ViewModels.csproj" />
