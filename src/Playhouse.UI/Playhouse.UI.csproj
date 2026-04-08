@@ -60,7 +60,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Libraries\KebabGGbab.Avalonia.Extensions\KebabGGbab.Avalonia.Extensions\KebabGGbab.Avalonia.Extensions.csproj" />
     <ProjectReference Include="..\Playhouse.Core\Playhouse.Core.csproj" />
     <ProjectReference Include="..\Playhouse.ViewModels\Playhouse.ViewModels.csproj" />
   </ItemGroup>
@@ -92,6 +91,12 @@
   <ItemGroup>
     <Folder Include="Resources\Assets\Geometries\" />
     <Folder Include="Resources\Assets\Geometries\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="KebabGGbab.Avalonia.Extensions">
+      <HintPath>..\..\..\Libraries\KebabGGbab.Avalonia.Extensions\KebabGGbab.Avalonia.Extensions\bin\Debug\net10.0\KebabGGbab.Avalonia.Extensions.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>

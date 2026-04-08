@@ -1,0 +1,22 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Playhouse.Core/Playhouse.Core.csproj" />
+    <Project Path="src/Playhouse.Domain.SharedKernel/Playhouse.Domain.SharedKernel.csproj" />
+    <Project Path="src/Playhouse.Share/Playhouse.Share.csproj" />
+    <Project Path="src/Playhouse.UI/Playhouse.UI.csproj" />
+    <Project Path="src/Playhouse.ViewModels/Playhouse.ViewModels.csproj" />
+  </Folder>
+  <Folder Name="/src/Automation/">
+    <Project Path="src/Automation/Playhouse.Automation.Domain/Playhouse.Automation.Domain.csproj" />
+    <Project Path="src/Automation/Playhouse.Automation.Infrastructure/Playhouse.Automation.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/src/Settings/">
+    <Project Path="src/Settings/Playhouse.Settings.Domain/Playhouse.Settings.Domain.csproj" />
+    <Project Path="src/Settings/Playhouse.Settings.Infrastructure/Playhouse.Settings.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Playhouse.Core.Test/Playhouse.Core.Test.csproj" />
+    <Project Path="tests/Playhouse.Domain.SharedKernel.Test/Playhouse.Domain.SharedKernel.Test.csproj" Id="b019e50c-c4b1-47ec-a602-25f7340f7d03" />
+    <Project Path="tests/Playhouse.Settings.Domain.Test/Playhouse.Settings.Domain.Test.csproj" Id="c2f0c612-eea0-4100-abad-be54abd7d0f3" />
+  </Folder>
+</Solution>

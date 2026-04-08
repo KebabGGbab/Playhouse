@@ -7,7 +7,7 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="Playhouse.UI.Views.BotConstructorWindow" x:FieldModifier="internal"
         x:DataType="vm:BotConstructorViewModel"
-        Title="{localization:LocalizationMarkupExtensions WindowConstructorBotTitle}">
+        Title="{localization:Localization WindowConstructorBotTitle}">
   
     <Grid>
 		<Grid.ColumnDefinitions>

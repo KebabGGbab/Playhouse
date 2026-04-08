@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Playhouse.Core\Playhouse.Core.csproj" />
+    <ProjectReference Include="..\..\src\Playhouse.Core\Playhouse.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -27,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Playhouse.Desktop.Share\Playhouse.Desktop.Share.csproj" />
+    <ProjectReference Include="..\Playhouse.Share\Playhouse.Share.csproj" />
   </ItemGroup>
 
   <ItemGroup>
