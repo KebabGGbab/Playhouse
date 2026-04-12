@@ -13,9 +13,9 @@ namespace Playhouse.Settings.Domain.AggregatesModel.ApplicationSettingsAggregate
 
         public string Name { get; }
 
-        private Culture(string culture) 
+        private Culture(string name) 
         {
-            Name = culture;
+            Name = name;
         }
 
         public static Result<Culture> Create(string culture)

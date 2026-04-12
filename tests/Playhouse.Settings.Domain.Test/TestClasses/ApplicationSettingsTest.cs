@@ -14,8 +14,6 @@ namespace Playhouse.Settings.Domain.Test.TestClasses
             Assert.IsNotNull(applicationSettings);
             Assert.AreEqual(Culture.Default, applicationSettings.Culture);
             Assert.AreEqual(DirectoryPath.Default, applicationSettings.PathToData);
-            Assert.AreEqual(EntitySettings.Default, applicationSettings.BrowserProfileSettings);
-            Assert.AreEqual(EntitySettings.Default, applicationSettings.BotSettings);
             Assert.HasCount(0, applicationSettings.Browsers);
             Assert.HasCount(0, applicationSettings.Channels);
         }
@@ -25,17 +23,13 @@ namespace Playhouse.Settings.Domain.Test.TestClasses
         {
             Culture culture = Culture.Create("en").Value!;
             DirectoryPath directoryPath = DirectoryPath.Create(@"C:\Documents").Value!;
-            EntitySettings botSettings = EntitySettings.Create("Name").Value!;
-            EntitySettings profileSettings = EntitySettings.Create("Profile").Value!;
             IEnumerable<BrowserType> browsers = [BrowserType.Chromium, BrowserType.WebKit];
             IEnumerable<BrowserChannel> channels = [BrowserChannel.Chromium, BrowserChannel.Chrome, BrowserChannel.Msedge];
 
-            ApplicationSettings applicationSettings = ApplicationSettings.Create(culture, directoryPath, profileSettings, botSettings, browsers, channels);
+            ApplicationSettings applicationSettings = ApplicationSettings.Create(culture, directoryPath, browsers, channels);
 
             Assert.AreEqual(culture, applicationSettings.Culture);
             Assert.AreEqual(directoryPath, applicationSettings.PathToData);
-            Assert.AreEqual(botSettings, applicationSettings.BotSettings);
-            Assert.AreEqual(profileSettings, applicationSettings.BrowserProfileSettings);
             Assert.HasCount(2, applicationSettings.Browsers);
             Assert.Contains(BrowserType.Chromium, applicationSettings.Browsers);
             Assert.Contains(BrowserType.WebKit, applicationSettings.Browsers);
@@ -255,74 +249,6 @@ namespace Playhouse.Settings.Domain.Test.TestClasses
 
             Assert.HasCount(1, result.Errors);
             Assert.Contains("Новое значение пути к данным совпадает с текущим.", result.Errors);
-        }
-
-        [TestMethod]
-        public void ChangeBotSettings_Simple_SettingsChanged()
-        {
-            ApplicationSettings settings = ApplicationSettings.Create();
-            EntitySettings entitySettings = EntitySettings.Create(@"Name").Value!;
-
-            Result<ApplicationSettings> result = settings.ChangeBotSettings(entitySettings);
-
-            Assert.HasCount(0, result.Errors);
-            Assert.AreEqual(entitySettings, settings.BotSettings);
-        }
-
-        [TestMethod]
-        public void ChangeBotSettings_NewSettingsIsNull_ResultFail()
-        {
-            ApplicationSettings settings = ApplicationSettings.Create();
-
-            Result<ApplicationSettings> result = settings.ChangeBotSettings(null!);
-
-            Assert.HasCount(1, result.Errors);
-            Assert.Contains("Настройки бота не заданы.", result.Errors);
-        }
-
-        [TestMethod]
-        public void ChangeBotSettings_NewAndOldValuesIdentical_ResultFail()
-        {
-            ApplicationSettings settings = ApplicationSettings.Create();
-
-            Result<ApplicationSettings> result = settings.ChangeBotSettings(EntitySettings.Default);
-
-            Assert.HasCount(1, result.Errors);
-            Assert.Contains("Новые настройки бота совпадают с текущими.", result.Errors);
-        }
-
-        [TestMethod]
-        public void ChangeBrowserProfileSettings_Simple_SettingsChanged()
-        {
-            ApplicationSettings settings = ApplicationSettings.Create();
-            EntitySettings entitySettings = EntitySettings.Create(@"Name").Value!;
-
-            Result<ApplicationSettings> result = settings.ChangeBrowserProfileSettings(entitySettings);
-
-            Assert.HasCount(0, result.Errors);
-            Assert.AreEqual(entitySettings, settings.BrowserProfileSettings);
-        }
-
-        [TestMethod]
-        public void ChangeBrowserProfileSettings_NewSettingsIsNull_ResultFail()
-        {
-            ApplicationSettings settings = ApplicationSettings.Create();
-
-            Result<ApplicationSettings> result = settings.ChangeBrowserProfileSettings(null!);
-
-            Assert.HasCount(1, result.Errors);
-            Assert.Contains("Настройки профиля браузера не заданы.", result.Errors);
-        }
-
-        [TestMethod]
-        public void ChangeBrowserProfileSettings_NewAndOldValuesIdentical_ResultFail()
-        {
-            ApplicationSettings settings = ApplicationSettings.Create();
-
-            Result<ApplicationSettings> result = settings.ChangeBrowserProfileSettings(EntitySettings.Default);
-
-            Assert.HasCount(1, result.Errors);
-            Assert.Contains("Новые настройки профиля браузера совпадают с текущими.", result.Errors);
         }
     }
 }

@@ -61,15 +61,6 @@ namespace Playhouse.Settings.Domain.Resources.Strings {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Bot settings are not configured..
-        /// </summary>
-        internal static string ApplicationSettingsBotSettingsNotConfigured {
-            get {
-                return ResourceManager.GetString("ApplicationSettingsBotSettingsNotConfigured", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Ищет локализованную строку, похожую на The browser has already been added..
         /// </summary>
         internal static string ApplicationSettingsBrowserAlreadyAdded {
@@ -142,24 +133,6 @@ namespace Playhouse.Settings.Domain.Resources.Strings {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на New bot settings are identical to the current ones..
-        /// </summary>
-        internal static string ApplicationSettingsIdenticalBotAlreadySet {
-            get {
-                return ResourceManager.GetString("ApplicationSettingsIdenticalBotAlreadySet", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на New browser profile settings are identical to the current ones..
-        /// </summary>
-        internal static string ApplicationSettingsIdenticalBrowserProfileAlreadySet {
-            get {
-                return ResourceManager.GetString("ApplicationSettingsIdenticalBrowserProfileAlreadySet", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Ищет локализованную строку, похожую на New culture value is identical to the current one..
         /// </summary>
         internal static string ApplicationSettingsIdenticalCultureAlreadySet {
@@ -174,15 +147,6 @@ namespace Playhouse.Settings.Domain.Resources.Strings {
         internal static string ApplicationSettingsIdenticalPathToDataAlreadySet {
             get {
                 return ResourceManager.GetString("ApplicationSettingsIdenticalPathToDataAlreadySet", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Browser profile settings are not configured..
-        /// </summary>
-        internal static string ApplicationSettingsProfileSettingsNotConfigured {
-            get {
-                return ResourceManager.GetString("ApplicationSettingsProfileSettingsNotConfigured", resourceCulture);
             }
         }
         
@@ -228,24 +192,6 @@ namespace Playhouse.Settings.Domain.Resources.Strings {
         internal static string DirectoryPathNotSpecified {
             get {
                 return ResourceManager.GetString("DirectoryPathNotSpecified", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на The default length of an entity name cannot exceed {0} characters..
-        /// </summary>
-        internal static string EntitySettingsCannotExceed {
-            get {
-                return ResourceManager.GetString("EntitySettingsCannotExceed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на The default entity name is not set..
-        /// </summary>
-        internal static string EntitySettingsDefaultNameNotSet {
-            get {
-                return ResourceManager.GetString("EntitySettingsDefaultNameNotSet", resourceCulture);
             }
         }
     }

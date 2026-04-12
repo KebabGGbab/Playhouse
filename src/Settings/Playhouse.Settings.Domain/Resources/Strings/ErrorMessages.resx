@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ApplicationSettingsBotSettingsNotConfigured" xml:space="preserve">
-    <value>Bot settings are not configured.</value>
-  </data>
   <data name="ApplicationSettingsBrowserAlreadyAdded" xml:space="preserve">
     <value>The browser has already been added.</value>
   </data>
@@ -147,9 +144,6 @@
   <data name="ApplicationSettingsDirectoryNotSpecified" xml:space="preserve">
     <value>The path to the data directory is not specified.</value>
   </data>
-  <data name="ApplicationSettingsProfileSettingsNotConfigured" xml:space="preserve">
-    <value>Browser profile settings are not configured.</value>
-  </data>
   <data name="CultureIsNotSupported" xml:space="preserve">
     <value>The culture is not supported by the application.</value>
   </data>
@@ -165,19 +159,7 @@
   <data name="DirectoryPathNotSpecified" xml:space="preserve">
     <value>The directory path is not specified.</value>
   </data>
-  <data name="EntitySettingsCannotExceed" xml:space="preserve">
-    <value>The default length of an entity name cannot exceed {0} characters.</value>
-  </data>
-  <data name="EntitySettingsDefaultNameNotSet" xml:space="preserve">
-    <value>The default entity name is not set.</value>
-  </data>
   <data name="ApplicationSettingsIdenticalPathToDataAlreadySet" xml:space="preserve">
     <value>New data path is identical to the current one.</value>
-  </data>
-  <data name="ApplicationSettingsIdenticalBotAlreadySet" xml:space="preserve">
-    <value>New bot settings are identical to the current ones.</value>
-  </data>
-  <data name="ApplicationSettingsIdenticalBrowserProfileAlreadySet" xml:space="preserve">
-    <value>New browser profile settings are identical to the current ones.</value>
   </data>
 </root>

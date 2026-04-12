@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ApplicationSettingsBotSettingsNotConfigured" xml:space="preserve">
-    <value>Настройки бота не заданы.</value>
-  </data>
   <data name="ApplicationSettingsBrowserAlreadyAdded" xml:space="preserve">
     <value>Браузер уже добавлен.</value>
   </data>
@@ -147,9 +144,6 @@
   <data name="ApplicationSettingsDirectoryNotSpecified" xml:space="preserve">
     <value>Путь к каталогу с данными не указан.</value>
   </data>
-  <data name="ApplicationSettingsProfileSettingsNotConfigured" xml:space="preserve">
-    <value>Настройки профиля браузера не заданы.</value>
-  </data>
   <data name="CultureIsNotSupported" xml:space="preserve">
     <value>Данная культура не поддерживается приложением.</value>
   </data>
@@ -165,19 +159,7 @@
   <data name="DirectoryPathNotSpecified" xml:space="preserve">
     <value>Путь к каталогу не указан.</value>
   </data>
-  <data name="EntitySettingsCannotExceed" xml:space="preserve">
-    <value>Длина имени сущности по умолчанию не может превышать {0} символов.</value>
-  </data>
-  <data name="EntitySettingsDefaultNameNotSet" xml:space="preserve">
-    <value>Имя сущности по умолчанию не задано.</value>
-  </data>
   <data name="ApplicationSettingsIdenticalPathToDataAlreadySet" xml:space="preserve">
     <value>Новое значение пути к данным совпадает с текущим.</value>
-  </data>
-  <data name="ApplicationSettingsIdenticalBotAlreadySet" xml:space="preserve">
-    <value>Новые настройки бота совпадают с текущими.</value>
-  </data>
-  <data name="ApplicationSettingsIdenticalBrowserProfileAlreadySet" xml:space="preserve">
-    <value>Новые настройки профиля браузера совпадают с текущими.</value>
   </data>
 </root>

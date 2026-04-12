@@ -8,8 +8,8 @@ namespace Playhouse.Domain.SharedKernel.Test.TestClasses
         [TestMethod]
         public void Equals_OtherIsNull_ObjectsAreNotEqual()
         {
-            EntityMock mock = new(1, "name", 20);
-            EntityMock? otherMock = null;
+            MockEntity mock = new(1, "name", 20);
+            MockEntity? otherMock = null;
 
             bool isEquals = mock.Equals(otherMock);
 
@@ -19,7 +19,7 @@ namespace Playhouse.Domain.SharedKernel.Test.TestClasses
         [TestMethod]
         public void Equals_ReferenceEquals_ObjectsAreEqual()
         {
-            EntityMock mock = new(1, "name", 20);
+            MockEntity mock = new(1, "name", 20);
 
             bool isEquals = mock.Equals(mock);
 
@@ -32,8 +32,8 @@ namespace Playhouse.Domain.SharedKernel.Test.TestClasses
         [TestMethod]
         public void Equals_AnyObjectIsTransient_ObjectsAreNotEqual(int id, int idOther)
         {
-            EntityMock mock = new(id, "name", 20);
-            EntityMock otherMock = new(idOther, "name", 20);
+            MockEntity mock = new(id, "name", 20);
+            MockEntity otherMock = new(idOther, "name", 20);
 
             bool isEquals = mock.Equals(otherMock);
 
@@ -43,8 +43,8 @@ namespace Playhouse.Domain.SharedKernel.Test.TestClasses
         [TestMethod]
         public void Equals_EqualIdAndNotEqualOtherProperties_ObjectsAreEqual()
         {
-            EntityMock mock = new(1, "name", 20);
-            EntityMock otherMock = new(1, "otherName", 21);
+            MockEntity mock = new(1, "name", 20);
+            MockEntity otherMock = new(1, "otherName", 21);
 
             bool isEquals = mock.Equals(otherMock);
 
@@ -54,8 +54,8 @@ namespace Playhouse.Domain.SharedKernel.Test.TestClasses
         [TestMethod]
         public void Equals_NotEqualIdAndEqualsOtherProperties_ObjectsAreNotEqual()
         {
-            EntityMock mock = new(1, "name", 20);
-            EntityMock otherMock = new(2, "name", 20);
+            MockEntity mock = new(1, "name", 20);
+            MockEntity otherMock = new(2, "name", 20);
 
             bool isEquals = mock.Equals(otherMock);
 
@@ -65,7 +65,7 @@ namespace Playhouse.Domain.SharedKernel.Test.TestClasses
         [TestMethod]
         public void Equals_EntitiesDifferentType_ObjectsAreNotEqual()
         {
-            EntityMock mock = new(1, "name", 20);
+            MockEntity mock = new(1, "name", 20);
             EntityMock2 mock2 = new(1);
 
             bool isEquals = mock.Equals(mock2);
@@ -76,7 +76,7 @@ namespace Playhouse.Domain.SharedKernel.Test.TestClasses
         [TestMethod]
         public void IsTransient_IdIsDefault_ObjectIsTransient()
         {
-            EntityMock mock = new(default, "name", 20);
+            MockEntity mock = new(default, "name", 20);
 
             bool isTransient = mock.IsTransient();
 
@@ -86,7 +86,7 @@ namespace Playhouse.Domain.SharedKernel.Test.TestClasses
         [TestMethod]
         public void IsTransient_IdIsNotDefault_ObjectIsNotTransient()
         {
-            EntityMock mock = new(1, "name", 20);
+            MockEntity mock = new(1, "name", 20);
 
             bool isTransient = mock.IsTransient();
 
@@ -96,8 +96,8 @@ namespace Playhouse.Domain.SharedKernel.Test.TestClasses
         [TestMethod]
         public void GetHashCode_EntitiesWithEqualIds_HashCodesEqual()
         {
-            EntityMock mock = new(1, "name", 20);
-            EntityMock otherMock = new(1, "otherName", 21);
+            MockEntity mock = new(1, "name", 20);
+            MockEntity otherMock = new(1, "otherName", 21);
 
             int hashCode = mock.GetHashCode();
             int otherHashCode = otherMock.GetHashCode();
@@ -108,8 +108,8 @@ namespace Playhouse.Domain.SharedKernel.Test.TestClasses
         [TestMethod]
         public void GetHashCode_EntitiesWithNotEqualIds_HashCodesAreEqual()
         {
-            EntityMock mock = new(1, "name", 20);
-            EntityMock otherMock = new(2, "otherName", 21);
+            MockEntity mock = new(1, "name", 20);
+            MockEntity otherMock = new(2, "otherName", 21);
 
             int hashCode = mock.GetHashCode();
             int otherHashCode = otherMock.GetHashCode();
@@ -120,8 +120,8 @@ namespace Playhouse.Domain.SharedKernel.Test.TestClasses
         [TestMethod]
         public void MethodGetHashCodeReturnEqualValueWhenMethodEqualReturnTrue()
         {
-            EntityMock mock = new(1, "name", 20);
-            EntityMock otherMock = new(1, "otherName", 21);
+            MockEntity mock = new(1, "name", 20);
+            MockEntity otherMock = new(1, "otherName", 21);
 
             bool isEquals = mock.Equals(otherMock);
             int hashCode = mock.GetHashCode();
@@ -134,8 +134,8 @@ namespace Playhouse.Domain.SharedKernel.Test.TestClasses
         [TestMethod]
         public void EqualsOperator_ReferenceAreNull_EntitiesAreEqual()
         {
-            EntityMock? mock = null;
-            EntityMock? otherMock = null;
+            MockEntity? mock = null;
+            MockEntity? otherMock = null;
 
             bool isEquals = mock == otherMock;
 
@@ -145,8 +145,8 @@ namespace Playhouse.Domain.SharedKernel.Test.TestClasses
         [TestMethod]
         public void EqualsOperator_OneReferenceIsNull_EntitiesAreNotEqual()
         {
-            EntityMock? mock = new(1, "name", 20);
-            EntityMock? otherMock = null;
+            MockEntity? mock = new(1, "name", 20);
+            MockEntity? otherMock = null;
 
             bool isEquals = mock == otherMock;
 
@@ -156,8 +156,8 @@ namespace Playhouse.Domain.SharedKernel.Test.TestClasses
         [TestMethod]
         public void NotEqualsOperator_EntitiesWithNotEqualId_EntitiesAreNotEqual()
         {
-            EntityMock? mock = new(1, "name", 20);
-            EntityMock? otherMock = new(2, "name", 20);
+            MockEntity? mock = new(1, "name", 20);
+            MockEntity? otherMock = new(2, "name", 20);
 
             bool isEquals = mock != otherMock;
 
@@ -167,8 +167,8 @@ namespace Playhouse.Domain.SharedKernel.Test.TestClasses
         [TestMethod]
         public void NotEqualsOperator_EntitiesWithEqualId_EntitiesAreEqual()
         {
-            EntityMock? mock = new(1, "name", 20);
-            EntityMock? otherMock = new(1, "name", 20);
+            MockEntity? mock = new(1, "name", 20);
+            MockEntity? otherMock = new(1, "name", 20);
 
             bool isEquals = mock != otherMock;
 

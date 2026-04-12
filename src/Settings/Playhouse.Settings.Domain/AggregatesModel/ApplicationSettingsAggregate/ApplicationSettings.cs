@@ -12,36 +12,33 @@ namespace Playhouse.Settings.Domain.AggregatesModel.ApplicationSettingsAggregate
 
         public DirectoryPath PathToData { get; private set; }
 
-        public EntitySettings BrowserProfileSettings { get; private set; }
-
-        public EntitySettings BotSettings { get; private set; }
-
         public IEnumerable<BrowserType> Browsers => _browsers.AsReadOnly();
 
         public IEnumerable<BrowserChannel> Channels => _channels.AsReadOnly();
 
-        private ApplicationSettings(Culture culture, DirectoryPath pathToData, EntitySettings browserProfileSettings, 
-            EntitySettings botSettings, IEnumerable<BrowserType> browsers, IEnumerable<BrowserChannel> channels)
+#pragma warning disable CS8618 // Поле, не допускающее значения NULL, должно содержать значение, отличное от NULL, при выходе из конструктора. Рассмотрите возможность добавления модификатора "required" или объявления значения, допускающего значение NULL.
+        private ApplicationSettings()
+#pragma warning restore CS8618 // Поле, не допускающее значения NULL, должно содержать значение, отличное от NULL, при выходе из конструктора. Рассмотрите возможность добавления модификатора "required" или объявления значения, допускающего значение NULL.
+        {
+        }
+
+        private ApplicationSettings(Culture culture, DirectoryPath pathToData, IEnumerable<BrowserType> browsers, IEnumerable<BrowserChannel> channels)
         {
             Culture = culture;
             PathToData = pathToData;
-            BrowserProfileSettings = browserProfileSettings;
-            BotSettings = botSettings;
             _browsers = new HashSet<BrowserType>(browsers);
             _channels = new HashSet<BrowserChannel>(channels);
         }
 
-        public static ApplicationSettings Create(Culture? culture = null, DirectoryPath? pathToData = null, EntitySettings? browserProfileSettings = null,
-            EntitySettings? botSettings = null, IEnumerable<BrowserType>? browsers = null, IEnumerable<BrowserChannel>? channels = null)
+        public static ApplicationSettings Create(Culture? culture = null, DirectoryPath? pathToData = null, 
+            IEnumerable<BrowserType>? browsers = null, IEnumerable<BrowserChannel>? channels = null)
         {
             culture ??= Culture.Default;
             pathToData ??= DirectoryPath.Default;
-            botSettings ??= EntitySettings.Default;
-            browserProfileSettings ??= EntitySettings.Default;
             browsers ??= [];
             channels ??= [];
 
-            return new ApplicationSettings(culture, pathToData, browserProfileSettings, botSettings, browsers, channels);
+            return new ApplicationSettings(culture, pathToData, browsers, channels);
         }
 
         public Result<ApplicationSettings> AddBrowser(BrowserType browser)
@@ -122,40 +119,6 @@ namespace Playhouse.Settings.Domain.AggregatesModel.ApplicationSettingsAggregate
             }
 
             PathToData = pathToData;
-
-            return Result<ApplicationSettings>.Ok(this);
-        }
-
-        public Result<ApplicationSettings> ChangeBotSettings(EntitySettings entitySettings)
-        {
-            if (entitySettings == null)
-            {
-                return Result<ApplicationSettings>.Fail(ErrorMessages.ApplicationSettingsBotSettingsNotConfigured);
-            }
-
-            if (BotSettings == entitySettings)
-            {
-                return Result<ApplicationSettings>.Fail(ErrorMessages.ApplicationSettingsIdenticalBotAlreadySet);
-            }
-
-            BotSettings = entitySettings;
-
-            return Result<ApplicationSettings>.Ok(this);
-        }
-
-        public Result<ApplicationSettings> ChangeBrowserProfileSettings(EntitySettings entitySettings)
-        {
-            if (entitySettings == null)
-            {
-                return Result<ApplicationSettings>.Fail(ErrorMessages.ApplicationSettingsProfileSettingsNotConfigured);
-            }
-
-            if (BrowserProfileSettings == entitySettings)
-            {
-                return Result<ApplicationSettings>.Fail(ErrorMessages.ApplicationSettingsIdenticalBrowserProfileAlreadySet);
-            }
-
-            BrowserProfileSettings = entitySettings;
 
             return Result<ApplicationSettings>.Ok(this);
         }

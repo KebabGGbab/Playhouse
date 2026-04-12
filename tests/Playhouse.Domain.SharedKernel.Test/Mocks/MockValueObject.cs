@@ -2,13 +2,13 @@
 
 namespace Playhouse.Domain.SharedKernel.Test.Mocks
 {
-    internal class ValueObjectMock : ValueObject
+    internal class MockValueObject : ValueObject
     {
         public string Value { get; }
 
         public int Count { get; }
 
-        public ValueObjectMock(string value, int count)
+        public MockValueObject(string value, int count)
         {
             Value = value;
             Count = count;
