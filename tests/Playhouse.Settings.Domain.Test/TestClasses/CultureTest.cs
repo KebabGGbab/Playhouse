@@ -21,9 +21,10 @@ namespace Playhouse.Settings.Domain.Test.TestClasses
         {
             string cultureName = "ru";
 
-            Culture culture = Culture.Create(cultureName).Value!;
+            Result<Culture> result = Culture.Create(cultureName);
 
-            Assert.AreEqual(cultureName, culture.Name);
+            Assert.IsFalse(result.HasErrors());
+            Assert.AreEqual(cultureName, result.Value.Name);
         }
 
         [TestMethod]
@@ -31,9 +32,10 @@ namespace Playhouse.Settings.Domain.Test.TestClasses
         {
             string cultureName = "Ru";
 
-            Culture culture = Culture.Create(cultureName).Value!;
+            Result<Culture> result = Culture.Create(cultureName);
 
-            Assert.AreEqual(cultureName.ToLowerInvariant(), culture.Name);
+            Assert.IsFalse(result.HasErrors());
+            Assert.AreEqual(cultureName.ToLowerInvariant(), result.Value.Name);
         }
 
         [TestMethod]
@@ -43,7 +45,8 @@ namespace Playhouse.Settings.Domain.Test.TestClasses
 
             Result<Culture> result = Culture.Create(cultureName);
 
-            Assert.Contains("Данная культура не поддерживается приложением.", result.Errors!);
+            Assert.HasCount(1, result.Errors);
+            Assert.Contains("Данная культура не поддерживается приложением.", result.Errors);
         }
 
         [TestMethod]
@@ -54,8 +57,8 @@ namespace Playhouse.Settings.Domain.Test.TestClasses
         {
             Result<Culture> result = Culture.Create(cultureName!);
 
-            Assert.HasCount(1, result.Errors!);
-            Assert.Contains("Культура не указана.", result.Errors!);
+            Assert.HasCount(1, result.Errors);
+            Assert.Contains("Культура не указана.", result.Errors);
         }
     }
 }

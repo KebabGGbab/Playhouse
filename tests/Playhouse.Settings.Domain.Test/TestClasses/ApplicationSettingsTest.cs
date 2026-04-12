@@ -46,9 +46,9 @@ namespace Playhouse.Settings.Domain.Test.TestClasses
 
             Result<ApplicationSettings> result = applicationSettings.AddBrowser(BrowserType.Chromium);
 
+            Assert.IsTrue(result.IsSuccess);
             Assert.HasCount(2, applicationSettings.Browsers);
             Assert.Contains(BrowserType.Chromium, applicationSettings.Browsers);
-            Assert.HasCount(0, result.Errors);
         }
 
         [TestMethod]
@@ -58,9 +58,10 @@ namespace Playhouse.Settings.Domain.Test.TestClasses
 
             Result<ApplicationSettings> result = applicationSettings.AddBrowser(null!);
 
-            Assert.HasCount(1, applicationSettings.Browsers);
-            Assert.Contains("Браузер не указан.", result.Errors!);
+
             Assert.HasCount(1, result.Errors);
+            Assert.Contains("Браузер не указан.", result.Errors);
+            Assert.HasCount(1, applicationSettings.Browsers);
         }
 
         [TestMethod]
@@ -70,9 +71,9 @@ namespace Playhouse.Settings.Domain.Test.TestClasses
 
             Result<ApplicationSettings> result = applicationSettings.AddBrowser(BrowserType.WebKit);
 
-            Assert.HasCount(2, applicationSettings.Browsers);
-            Assert.Contains("Браузер уже добавлен.", result.Errors!);
             Assert.HasCount(1, result.Errors);
+            Assert.Contains("Браузер уже добавлен.", result.Errors);
+            Assert.HasCount(2, applicationSettings.Browsers);
         }
 
         [TestMethod]
@@ -82,9 +83,9 @@ namespace Playhouse.Settings.Domain.Test.TestClasses
 
             Result<ApplicationSettings> result = applicationSettings.RemoveBrowser(BrowserType.WebKit);
 
+            Assert.IsTrue(result.IsSuccess);
             Assert.HasCount(1, applicationSettings.Browsers);
             Assert.DoesNotContain(BrowserType.WebKit, applicationSettings.Browsers);
-            Assert.HasCount(0, result.Errors);
         }
 
         [TestMethod]
@@ -94,9 +95,9 @@ namespace Playhouse.Settings.Domain.Test.TestClasses
 
             Result<ApplicationSettings> result = applicationSettings.RemoveBrowser(null!);
 
-            Assert.HasCount(1, applicationSettings.Browsers);
-            Assert.Contains("Браузер не указан.", result.Errors!);
             Assert.HasCount(1, result.Errors);
+            Assert.Contains("Браузер не указан.", result.Errors);
+            Assert.HasCount(1, applicationSettings.Browsers);
         }
 
         [TestMethod]
@@ -106,9 +107,9 @@ namespace Playhouse.Settings.Domain.Test.TestClasses
 
             Result<ApplicationSettings> result = applicationSettings.RemoveBrowser(BrowserType.Chromium);
 
-            Assert.HasCount(1, applicationSettings.Browsers);
-            Assert.Contains("Браузер отсутствует.", result.Errors!);
             Assert.HasCount(1, result.Errors);
+            Assert.Contains("Браузер отсутствует.", result.Errors);
+            Assert.HasCount(1, applicationSettings.Browsers);
         }
 
         [TestMethod]
@@ -118,9 +119,9 @@ namespace Playhouse.Settings.Domain.Test.TestClasses
 
             Result<ApplicationSettings> result = applicationSettings.AddChannel(BrowserChannel.ChromeBeta);
 
+            Assert.IsTrue(result.IsSuccess);
             Assert.HasCount(4, applicationSettings.Channels);
             Assert.Contains(BrowserChannel.ChromeBeta, applicationSettings.Channels);
-            Assert.HasCount(0, result.Errors);
         }
 
         [TestMethod]
@@ -130,9 +131,9 @@ namespace Playhouse.Settings.Domain.Test.TestClasses
 
             Result<ApplicationSettings> result = applicationSettings.AddChannel(null!);
 
-            Assert.HasCount(3, applicationSettings.Channels);
-            Assert.Contains("Канал не указан.", result.Errors!);
             Assert.HasCount(1, result.Errors);
+            Assert.Contains("Канал не указан.", result.Errors);
+            Assert.HasCount(3, applicationSettings.Channels);
         }
 
         [TestMethod]
@@ -142,9 +143,9 @@ namespace Playhouse.Settings.Domain.Test.TestClasses
 
             Result<ApplicationSettings> result = applicationSettings.AddChannel(BrowserChannel.Chrome);
 
-            Assert.HasCount(3, applicationSettings.Channels);
-            Assert.Contains("Канал уже добавлен.", result.Errors!);
             Assert.HasCount(1, result.Errors);
+            Assert.Contains("Канал уже добавлен.", result.Errors);
+            Assert.HasCount(3, applicationSettings.Channels);
         }
 
         [TestMethod]
@@ -154,9 +155,9 @@ namespace Playhouse.Settings.Domain.Test.TestClasses
 
             Result<ApplicationSettings> result = applicationSettings.RemoveChannel(BrowserChannel.MsedgeCanary);
 
+            Assert.IsTrue(result.IsSuccess);
             Assert.HasCount(2, applicationSettings.Channels);
             Assert.DoesNotContain(BrowserChannel.MsedgeCanary, applicationSettings.Channels);
-            Assert.HasCount(0, result.Errors);
         }
 
         [TestMethod]
@@ -166,9 +167,9 @@ namespace Playhouse.Settings.Domain.Test.TestClasses
 
             Result<ApplicationSettings> result = applicationSettings.RemoveChannel(null!);
 
-            Assert.HasCount(3, applicationSettings.Channels);
-            Assert.Contains("Канал не указан.", result.Errors!);
             Assert.HasCount(1, result.Errors);
+            Assert.Contains("Канал не указан.", result.Errors);
+            Assert.HasCount(3, applicationSettings.Channels);
         }
 
         [TestMethod]
@@ -178,9 +179,9 @@ namespace Playhouse.Settings.Domain.Test.TestClasses
 
             Result<ApplicationSettings> result = applicationSettings.RemoveChannel(BrowserChannel.Chromium);
 
-            Assert.HasCount(3, applicationSettings.Channels);
-            Assert.Contains("Канал отсутствует.", result.Errors!);
             Assert.HasCount(1, result.Errors);
+            Assert.Contains("Канал отсутствует.", result.Errors);
+            Assert.HasCount(3, applicationSettings.Channels);
         }
 
         [TestMethod]
@@ -191,7 +192,7 @@ namespace Playhouse.Settings.Domain.Test.TestClasses
 
             Result<ApplicationSettings> result = settings.ChangeCulture(culture);
 
-            Assert.HasCount(0, result.Errors);
+            Assert.IsTrue(result.IsSuccess);
             Assert.AreEqual(culture, settings.Culture);
         }
 
@@ -225,7 +226,7 @@ namespace Playhouse.Settings.Domain.Test.TestClasses
 
             Result<ApplicationSettings> result = settings.ChangePathToData(path);
 
-            Assert.HasCount(0, result.Errors);
+            Assert.IsTrue(result.IsSuccess);
             Assert.AreEqual(path, settings.PathToData);
         }
 

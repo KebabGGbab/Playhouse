@@ -23,7 +23,8 @@ namespace Playhouse.Settings.Domain.Test.TestClasses
 
             Result<DirectoryPath> result = DirectoryPath.Create(path);
 
-            Assert.AreEqual(path, result.Value!.Path);
+            Assert.IsFalse(result.HasErrors());
+            Assert.AreEqual(path, result.Value.Path);
         }
 
         [TestMethod]
@@ -34,7 +35,8 @@ namespace Playhouse.Settings.Domain.Test.TestClasses
         {
             Result<DirectoryPath> result = DirectoryPath.Create(path);
 
-            Assert.Contains("Путь к каталогу должен быть абсолютным.", result.Errors!);
+            Assert.HasCount(1, result.Errors);
+            Assert.Contains("Путь к каталогу должен быть абсолютным.", result.Errors);
         }
 
         [TestMethod]
@@ -44,7 +46,8 @@ namespace Playhouse.Settings.Domain.Test.TestClasses
 
             Result<DirectoryPath> result = DirectoryPath.Create(path);
 
-            Assert.Contains("Путь к каталогу содержит недопустимые символы.", result.Errors!);
+            Assert.HasCount(1, result.Errors);
+            Assert.Contains("Путь к каталогу содержит недопустимые символы.", result.Errors);
         }
 
         [TestMethod]
@@ -55,8 +58,8 @@ namespace Playhouse.Settings.Domain.Test.TestClasses
         {
             Result<DirectoryPath> result = DirectoryPath.Create(path!);
 
-            Assert.HasCount(1, result.Errors!);
-            Assert.Contains("Путь к каталогу не указан.", result.Errors!);
+            Assert.HasCount(1, result.Errors);
+            Assert.Contains("Путь к каталогу не указан.", result.Errors);
         }
     }
 }
