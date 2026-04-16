@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using FluentValidation.Results;
 using Playhouse.Domain.SharedKernel.SeedWork;
 
 namespace Playhouse.Application.SharedKernel.Validators.PropertyValidators
@@ -10,9 +11,23 @@ namespace Playhouse.Application.SharedKernel.Validators.PropertyValidators
             return ruleBuilder.SetValidator(new CollectionContainsValidator<T, TElement>(collection));
         }
 
-        public static IRuleBuilderOptions<T, TValue> ValidValueObject<T, TValue, TValueObject>(this IRuleBuilder<T, TValue> ruleBuilder, Func<TValue, Result<TValueObject>> factory)
+        public static IRuleBuilderOptionsConditions<T, TValue> ValidValueObject<T, TValue, TValueObject>(this IRuleBuilder<T, TValue> ruleBuilder, Func<TValue, Result<TValueObject>> factory)
+            where TValueObject : ValueObject
         {
-            return ruleBuilder.SetValidator(new ValueObjectValidator<T, TValue, TValueObject>(factory));
+            return ruleBuilder.Custom((value, context) =>
+            {
+                Result<TValueObject> result = factory(value);
+
+                if (result.IsSuccess)
+                {
+                    return;
+                }
+
+                foreach (string error in result.Errors)
+                {
+                    context.AddFailure(new ValidationFailure(context.PropertyPath, error, value));
+                }
+            });
         }
     }
 }

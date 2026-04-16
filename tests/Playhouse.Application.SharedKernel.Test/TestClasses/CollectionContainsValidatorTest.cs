@@ -40,7 +40,8 @@ namespace Playhouse.Application.SharedKernel.Test.TestClasses
             TestValidationResult<MockUser> result = _validator.TestValidate(mockUser);
 
             result.ShouldHaveValidationErrorFor(u => u.Age)
-                .WithErrorMessage("The collection does not contain the element '2'.");
+                .WithErrorMessage("The collection does not contain the element '2'.")
+                .Only();
         }
     }
 }

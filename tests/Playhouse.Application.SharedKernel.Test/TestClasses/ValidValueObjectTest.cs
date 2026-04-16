@@ -5,11 +5,11 @@ using Playhouse.Application.SharedKernel.Test.Validation;
 namespace Playhouse.Application.SharedKernel.Test.TestClasses
 {
     [TestClass]
-    public sealed class ValueObjectValidatorTest
+    public sealed class ValidValueObjectTest
     {
         private readonly MockUserValidator _validator;
 
-        public ValueObjectValidatorTest()
+        public ValidValueObjectTest()
         {
             _validator = new MockUserValidator();
         }
@@ -45,7 +45,8 @@ namespace Playhouse.Application.SharedKernel.Test.TestClasses
             TestValidationResult<MockUser> result = _validator.TestValidate(mockUser);
 
             result.ShouldHaveValidationErrorFor(u => u.Name)
-                .WithErrorMessage(error);
+                .WithErrorMessage(error)
+                .Only();
         }
     }
 }
