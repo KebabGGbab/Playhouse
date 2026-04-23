@@ -6,7 +6,7 @@ namespace Playhouse.Domain.SharedKernel.Test.TestClasses
     public sealed class ValueObjectTest
     {
         [TestMethod]
-        public void Equals_OtherIsNull_ObjectsAreNotEqual()
+        public void Equals_OtherIsNull_False()
         {
             MockValueObject mock = new("value", 1);
             MockValueObject? mockOther = null;
@@ -17,7 +17,7 @@ namespace Playhouse.Domain.SharedKernel.Test.TestClasses
         }
 
         [TestMethod]
-        public void Equals_ValueObjectsDifferentType_ObjectsAreNotEqual()
+        public void Equals_DifferentTypes_False()
         {
             MockValueObject mock = new("value", 1);
             ValueObjectMock2 mockOther = new("value", 1);
@@ -28,7 +28,7 @@ namespace Playhouse.Domain.SharedKernel.Test.TestClasses
         }
 
         [TestMethod]
-        public void Equals_ValueObjectsWithEqualProperties_ObjectsAreEqual()
+        public void Equals_EqualProperties_True()
         {
             MockValueObject mock = new("value", 1);
             MockValueObject mockOther = new("value", 1);
@@ -39,7 +39,7 @@ namespace Playhouse.Domain.SharedKernel.Test.TestClasses
         }
 
         [TestMethod]
-        public void Equals_ValueObjectsWithNotEqualProperties_ObjectsAreNotEqual()
+        public void Equals_NotEqualProperties_False()
         {
             MockValueObject mock = new("value", 1);
             MockValueObject mockOther = new("value2", 1);
@@ -50,43 +50,31 @@ namespace Playhouse.Domain.SharedKernel.Test.TestClasses
         }
 
         [TestMethod]
-        public void GetHashCode_ValueObjectsWithEqualProperties_HashCodesAreEqual()
+        public void GetHashCode_EqualProperties_HashCodesEqual()
         {
             MockValueObject mock = new("value", 1);
             MockValueObject mockOther = new("value", 1);
 
-            bool isEqual = mock.Equals(mockOther);
-
-            Assert.IsTrue(isEqual);
-        }
-
-        [TestMethod]
-        public void GetHashCode_ValueObjectsWithNotEqualProperties_HashCodesAreNotEqual()
-        {
-            MockValueObject mock = new("value", 1);
-            MockValueObject mockOther = new("value2", 1);
-
-            bool isEqual = mock.Equals(mockOther);
-
-            Assert.IsFalse(isEqual);
-        }
-
-        [TestMethod]
-        public void MethodGetHashCodeReturnEqualValueWhenMethodEqualReturnTrue()
-        {
-            MockValueObject mock = new("value", 1);
-            MockValueObject mockOther = new("value", 1);
-
-            bool isEquals = mock.Equals(mockOther);
             int hashCode = mock.GetHashCode();
             int otherHashCode = mockOther.GetHashCode();
 
-            Assert.IsTrue(isEquals);
             Assert.AreEqual(hashCode, otherHashCode);
         }
 
         [TestMethod]
-        public void EqualsOperator_ValueObjectsAreNull_ObjectsAreEqual()
+        public void GetHashCode_NotEqualProperties_HashCodesNotEqual()
+        {
+            MockValueObject mock = new("value", 1);
+            MockValueObject mockOther = new("value2", 1);
+
+            int hashCode = mock.GetHashCode();
+            int otherHashCode = mockOther.GetHashCode();
+
+            Assert.AreNotEqual(hashCode, otherHashCode);
+        }
+
+        [TestMethod]
+        public void EqualsOperator_BothNull_True()
         {
             MockValueObject? mock = null;
             MockValueObject? otherMock = null;
@@ -97,9 +85,9 @@ namespace Playhouse.Domain.SharedKernel.Test.TestClasses
         }
 
         [TestMethod]
-        public void EqualsOperator_OneValueObjectIsNull_ObjectsAreNotEqual()
+        public void EqualsOperator_OneNull_False()
         {
-            MockValueObject? mock = new("value", 1);
+            MockValueObject mock = new("value", 1);
             MockValueObject? otherMock = null;
 
             bool isEquals = mock == otherMock;
@@ -108,10 +96,10 @@ namespace Playhouse.Domain.SharedKernel.Test.TestClasses
         }
 
         [TestMethod]
-        public void NotEqualsOperator_ValueObjectsWithNotEqualProperties_ValueObjectsAreNotEqual()
+        public void NotEqualsOperator_DifferentProperties_True()
         {
-            MockValueObject? mock = new("value", 1);
-            MockValueObject? otherMock = new("value", 2);
+            MockValueObject mock = new("value", 1);
+            MockValueObject otherMock = new("value", 2);
 
             bool isEquals = mock != otherMock;
 
@@ -119,10 +107,10 @@ namespace Playhouse.Domain.SharedKernel.Test.TestClasses
         }
 
         [TestMethod]
-        public void NotEqualsOperator_ValueObjectsWithEqualProperties_ValueObjectsAreEqual()
+        public void NotEqualsOperator_EqualProperties_False()
         {
-            MockValueObject? mock = new("value", 1);
-            MockValueObject? otherMock = new("value", 1);
+            MockValueObject mock = new("value", 1);
+            MockValueObject otherMock = new("value", 1);
 
             bool isEquals = mock != otherMock;
 

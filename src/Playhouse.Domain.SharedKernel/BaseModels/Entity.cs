@@ -1,4 +1,4 @@
-﻿namespace Playhouse.Domain.SharedKernel.SeedWork
+﻿namespace Playhouse.Domain.SharedKernel.BaseModels
 {
     public abstract class Entity
     {

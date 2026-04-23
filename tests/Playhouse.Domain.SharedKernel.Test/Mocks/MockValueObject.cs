@@ -1,4 +1,4 @@
-﻿using Playhouse.Domain.SharedKernel.SeedWork;
+﻿using Playhouse.Domain.SharedKernel.BaseModels;
 
 namespace Playhouse.Domain.SharedKernel.Test.Mocks
 {
