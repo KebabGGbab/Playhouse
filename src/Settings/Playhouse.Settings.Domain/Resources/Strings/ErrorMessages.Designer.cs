@@ -61,20 +61,20 @@ namespace Playhouse.Settings.Domain.Resources.Strings {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на The browser has already been added..
+        ///   Ищет локализованную строку, похожую на Browser &quot;{0} &quot;has already been added..
         /// </summary>
-        internal static string ApplicationSettingsBrowserAlreadyAdded {
+        internal static string ApplicationSettingsBrowserExist {
             get {
-                return ResourceManager.GetString("ApplicationSettingsBrowserAlreadyAdded", resourceCulture);
+                return ResourceManager.GetString("ApplicationSettingsBrowserExist", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Browser is missing..
+        ///   Ищет локализованную строку, похожую на Browser &quot;{0}&quot; is missing..
         /// </summary>
-        internal static string ApplicationSettingsBrowserMissing {
+        internal static string ApplicationSettingsBrowserNotFound {
             get {
-                return ResourceManager.GetString("ApplicationSettingsBrowserMissing", resourceCulture);
+                return ResourceManager.GetString("ApplicationSettingsBrowserNotFound", resourceCulture);
             }
         }
         
@@ -88,20 +88,20 @@ namespace Playhouse.Settings.Domain.Resources.Strings {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на The channel has already been added..
+        ///   Ищет локализованную строку, похожую на Channel &quot;{0}&quot; of browser &quot;{1}&quot; has already been added..
         /// </summary>
-        internal static string ApplicationSettingsChannelAlreadyAdded {
+        internal static string ApplicationSettingsChannelExist {
             get {
-                return ResourceManager.GetString("ApplicationSettingsChannelAlreadyAdded", resourceCulture);
+                return ResourceManager.GetString("ApplicationSettingsChannelExist", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на The channel is missing..
+        ///   Ищет локализованную строку, похожую на Channel &quot;{0}&quot; of browser &quot;{1}&quot; is missing..
         /// </summary>
-        internal static string ApplicationSettingsChannelMissing {
+        internal static string ApplicationSettingsChannelNotFound {
             get {
-                return ResourceManager.GetString("ApplicationSettingsChannelMissing", resourceCulture);
+                return ResourceManager.GetString("ApplicationSettingsChannelNotFound", resourceCulture);
             }
         }
         
@@ -115,83 +115,83 @@ namespace Playhouse.Settings.Domain.Resources.Strings {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Culture not specified..
+        ///   Ищет локализованную строку, похожую на The application language is not specified..
         /// </summary>
-        internal static string ApplicationSettingsCultureNotSpecified {
+        internal static string ApplicationSettingsLanguageNotSpecified {
             get {
-                return ResourceManager.GetString("ApplicationSettingsCultureNotSpecified", resourceCulture);
+                return ResourceManager.GetString("ApplicationSettingsLanguageNotSpecified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Language &quot;{0}&quot; is already in use..
+        /// </summary>
+        internal static string ApplicationSettingsLanguageSame {
+            get {
+                return ResourceManager.GetString("ApplicationSettingsLanguageSame", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на The path to the data directory is not specified..
         /// </summary>
-        internal static string ApplicationSettingsDirectoryNotSpecified {
+        internal static string ApplicationSettingsPathToDataNotSpecified {
             get {
-                return ResourceManager.GetString("ApplicationSettingsDirectoryNotSpecified", resourceCulture);
+                return ResourceManager.GetString("ApplicationSettingsPathToDataNotSpecified", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на New culture value is identical to the current one..
+        ///   Ищет локализованную строку, похожую на The data path &quot;{0}&quot; is already in use by this application..
         /// </summary>
-        internal static string ApplicationSettingsIdenticalCultureAlreadySet {
+        internal static string ApplicationSettingsPathToDataSame {
             get {
-                return ResourceManager.GetString("ApplicationSettingsIdenticalCultureAlreadySet", resourceCulture);
+                return ResourceManager.GetString("ApplicationSettingsPathToDataSame", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на New data path is identical to the current one..
+        ///   Ищет локализованную строку, похожую на Language &apos;{0}&apos; is not supported by the application..
         /// </summary>
-        internal static string ApplicationSettingsIdenticalPathToDataAlreadySet {
+        internal static string CultureCodeMustBeSupported {
             get {
-                return ResourceManager.GetString("ApplicationSettingsIdenticalPathToDataAlreadySet", resourceCulture);
+                return ResourceManager.GetString("CultureCodeMustBeSupported", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на The culture is not supported by the application..
+        ///   Ищет локализованную строку, похожую на The user interface language is not specified..
         /// </summary>
-        internal static string CultureIsNotSupported {
+        internal static string CultureCodeMustNotBeEmpty {
             get {
-                return ResourceManager.GetString("CultureIsNotSupported", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Culture not specified..
-        /// </summary>
-        internal static string CultureNotSpecified {
-            get {
-                return ResourceManager.GetString("CultureNotSpecified", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на The directory path contains invalid characters..
-        /// </summary>
-        internal static string DirectoryPathContainsInvalidChars {
-            get {
-                return ResourceManager.GetString("DirectoryPathContainsInvalidChars", resourceCulture);
+                return ResourceManager.GetString("CultureCodeMustNotBeEmpty", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на The directory path must be absolute..
         /// </summary>
-        internal static string DirectoryPathMustAbsolute {
+        internal static string DirectoryPathMustBeAbsolute {
             get {
-                return ResourceManager.GetString("DirectoryPathMustAbsolute", resourceCulture);
+                return ResourceManager.GetString("DirectoryPathMustBeAbsolute", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на The directory path is not specified..
         /// </summary>
-        internal static string DirectoryPathNotSpecified {
+        internal static string DirectoryPathMustNotBeEmpty {
             get {
-                return ResourceManager.GetString("DirectoryPathNotSpecified", resourceCulture);
+                return ResourceManager.GetString("DirectoryPathMustNotBeEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на The directory path contains invalid characters..
+        /// </summary>
+        internal static string DirectoryPathMustNotContainInvalidChars {
+            get {
+                return ResourceManager.GetString("DirectoryPathMustNotContainInvalidChars", resourceCulture);
             }
         }
     }

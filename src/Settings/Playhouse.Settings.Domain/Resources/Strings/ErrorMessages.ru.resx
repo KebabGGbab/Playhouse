@@ -117,49 +117,49 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ApplicationSettingsBrowserAlreadyAdded" xml:space="preserve">
-    <value>Браузер уже добавлен.</value>
+  <data name="ApplicationSettingsBrowserExist" xml:space="preserve">
+    <value>Браузер "{0}" уже добавлен.</value>
   </data>
-  <data name="ApplicationSettingsBrowserMissing" xml:space="preserve">
-    <value>Браузер отсутствует.</value>
+  <data name="ApplicationSettingsBrowserNotFound" xml:space="preserve">
+    <value>Браузер "{0}" отсутствует.</value>
   </data>
   <data name="ApplicationSettingsBrowserNotSpecified" xml:space="preserve">
     <value>Браузер не указан.</value>
   </data>
-  <data name="ApplicationSettingsChannelAlreadyAdded" xml:space="preserve">
-    <value>Канал уже добавлен.</value>
+  <data name="ApplicationSettingsChannelExist" xml:space="preserve">
+    <value>Канал "{0}" браузера "{1}" уже добавлен.</value>
   </data>
-  <data name="ApplicationSettingsChannelMissing" xml:space="preserve">
-    <value>Канал отсутствует.</value>
+  <data name="ApplicationSettingsChannelNotFound" xml:space="preserve">
+    <value>Отсутствует канал "{0}" браузера "{1}".</value>
   </data>
   <data name="ApplicationSettingsChannelNotSpecified" xml:space="preserve">
     <value>Канал не указан.</value>
   </data>
-  <data name="ApplicationSettingsIdenticalCultureAlreadySet" xml:space="preserve">
-    <value>Новое значение культуры совпадает с текущим.</value>
+  <data name="ApplicationSettingsLanguageSame" xml:space="preserve">
+    <value>Язык "{0}" уже используется.</value>
   </data>
-  <data name="ApplicationSettingsCultureNotSpecified" xml:space="preserve">
-    <value>Культура не указана.</value>
+  <data name="ApplicationSettingsLanguageNotSpecified" xml:space="preserve">
+    <value>Язык приложения не указан.</value>
   </data>
-  <data name="ApplicationSettingsDirectoryNotSpecified" xml:space="preserve">
+  <data name="ApplicationSettingsPathToDataNotSpecified" xml:space="preserve">
     <value>Путь к каталогу с данными не указан.</value>
   </data>
-  <data name="CultureIsNotSupported" xml:space="preserve">
-    <value>Данная культура не поддерживается приложением.</value>
+  <data name="CultureCodeMustNotBeEmpty" xml:space="preserve">
+    <value>Язык пользовательского интерфейса не указан.</value>
   </data>
-  <data name="CultureNotSpecified" xml:space="preserve">
-    <value>Культура не указана.</value>
-  </data>
-  <data name="DirectoryPathContainsInvalidChars" xml:space="preserve">
-    <value>Путь к каталогу содержит недопустимые символы.</value>
-  </data>
-  <data name="DirectoryPathMustAbsolute" xml:space="preserve">
+  <data name="DirectoryPathMustBeAbsolute" xml:space="preserve">
     <value>Путь к каталогу должен быть абсолютным.</value>
   </data>
-  <data name="DirectoryPathNotSpecified" xml:space="preserve">
+  <data name="DirectoryPathMustNotBeEmpty" xml:space="preserve">
     <value>Путь к каталогу не указан.</value>
   </data>
-  <data name="ApplicationSettingsIdenticalPathToDataAlreadySet" xml:space="preserve">
-    <value>Новое значение пути к данным совпадает с текущим.</value>
+  <data name="ApplicationSettingsPathToDataSame" xml:space="preserve">
+    <value>Путь к данным "{0}" уже используется этим приложением.</value>
+  </data>
+  <data name="CultureCodeMustBeSupported" xml:space="preserve">
+    <value>Язык '{0}' не поддерживается приложением.</value>
+  </data>
+  <data name="DirectoryPathMustNotContainInvalidChars" xml:space="preserve">
+    <value>Путь к каталогу содержит недопустимые символы.</value>
   </data>
 </root>

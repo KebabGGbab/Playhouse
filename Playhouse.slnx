@@ -20,7 +20,8 @@
     <Project Path="tests/Playhouse.Application.SharedKernel.Test/Playhouse.Application.SharedKernel.Test.csproj" Id="903f5c45-5e3e-4c85-9974-bb279ac225d9" />
     <Project Path="tests/Playhouse.Core.Test/Playhouse.Core.Test.csproj" />
   </Folder>
-    <Project Path="tests/Playhouse.Settings.Domain.Test/Playhouse.Settings.Domain.Test.csproj" Id="c2f0c612-eea0-4100-abad-be54abd7d0f3" />
+  <Folder Name="/tests/Settings/">
+    <Project Path="tests/Settings/Playhouse.Settings.Domain.Test/Playhouse.Settings.Domain.Test.csproj" />
     <Project Path="tests/SharedKernel/Playhouse.SharedKernel.Domain.Test/Playhouse.SharedKernel.Domain.Test.csproj" />
   </Folder>
 </Solution>
