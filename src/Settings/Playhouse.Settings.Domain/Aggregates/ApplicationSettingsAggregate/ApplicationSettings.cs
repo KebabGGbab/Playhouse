@@ -1,21 +1,18 @@
 ﻿using Playhouse.SharedKernel.Domain.BaseModels;
 using Playhouse.SharedKernel.Domain.Results;
-using Playhouse.Settings.Domain.Aggregates.ApplicationSettingsAggregate.Validations.ApplicationSettings.Channels;
-using Playhouse.Settings.Domain.Aggregates.ApplicationSettingsAggregate.Validations.ApplicationSettings.Browsers;
-using Playhouse.Settings.Domain.Aggregates.ApplicationSettingsAggregate.Validations.ApplicationSettings.Culture;
-using Playhouse.Settings.Domain.Aggregates.ApplicationSettingsAggregate.Validations.ApplicationSettings.PathToData;
 using Playhouse.Settings.Domain.Aggregates.ApplicationSettingsAggregate.DomainEvents;
+using Playhouse.Settings.Domain.Aggregates.ApplicationSettingsAggregate.Validations.ApplicationSettings;
 
 namespace Playhouse.Settings.Domain.Aggregates.ApplicationSettingsAggregate
 {
     public sealed class ApplicationSettings : AggregateRoot
     {
-        private readonly CanAddBrowserValidationSpecification _canAddBrowserRule;
-        private readonly CanRemoveBrowserValidationSpecification _canRemoveBrowserRule;
-        private readonly CanAddChannelValidationSpecification _canAddChannelRule;
-        private readonly CanRemoveChannelValidationSpecification _canRemoveChannelRule;
-        private readonly CanCultureChangeValidationSpecification _canCultureChangeRule;
-        private readonly CanPathToDataChangeValidationSpecification _canPathToDataChangeRule;
+        private readonly ApplicationSettingsBrowserCanAddValidationSpecification _canAddBrowserRule;
+        private readonly ApplicationSettingsBrowserCanRemoveValidationSpecification _canRemoveBrowserRule;
+        private readonly ApplicationSettingsChannelCanAddValidationSpecification _canAddChannelRule;
+        private readonly ApplicationSettingsChannelCanRemoveValidationSpecification _canRemoveChannelRule;
+        private readonly ApplicationSettingsLanguageCanChangeValidationSpecification _canCultureChangeRule;
+        private readonly ApplicationSettingsPathToDataCanChangeValidationSpecification _canPathToDataChangeRule;
 
         private readonly HashSet<BrowserType> _browsers;
         private readonly HashSet<BrowserChannel> _channels;

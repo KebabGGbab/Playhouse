@@ -1,6 +1,6 @@
 ﻿using Playhouse.SharedKernel.Domain.BaseModels;
 using Playhouse.SharedKernel.Domain.Results;
-using Playhouse.Settings.Domain.Aggregates.ApplicationSettingsAggregate.Validations.Culture.Code;
+using Playhouse.Settings.Domain.Aggregates.ApplicationSettingsAggregate.Validations.Culture;
 
 namespace Playhouse.Settings.Domain.Aggregates.ApplicationSettingsAggregate
 {
@@ -8,7 +8,7 @@ namespace Playhouse.Settings.Domain.Aggregates.ApplicationSettingsAggregate
     {
         private const string DEFAULT_CODE = "en";
 
-        private static readonly NotEmptyValidationSpecification _emptyValidation;
+        private static readonly CultureCodeNotEmptyValidationSpecification _emptyValidation;
         private static readonly CodeValidationSpecification _codeValidation;
 
         public static Culture Default { get; }
@@ -20,7 +20,7 @@ namespace Playhouse.Settings.Domain.Aggregates.ApplicationSettingsAggregate
             SupportedCultures = [DEFAULT_CODE, "ru"];
             Default = new(DEFAULT_CODE);
             _codeValidation = new CodeValidationSpecification(SupportedCultures);
-            _emptyValidation = new NotEmptyValidationSpecification();
+            _emptyValidation = new CultureCodeNotEmptyValidationSpecification();
         }
 
         public string Code { get; }

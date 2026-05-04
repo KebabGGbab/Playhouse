@@ -1,4 +1,4 @@
-﻿using Playhouse.Settings.Domain.Aggregates.ApplicationSettingsAggregate.Validations.DirectoryPath.Path;
+﻿using Playhouse.Settings.Domain.Aggregates.ApplicationSettingsAggregate.Validations.DirectoryPath;
 using Playhouse.SharedKernel.Domain.Results;
 
 namespace Playhouse.Settings.Domain.Test.TestClasses
@@ -13,7 +13,7 @@ namespace Playhouse.Settings.Domain.Test.TestClasses
         [TestMethod]
         public void Path_NotEmpty_NotEmpty_Ok()
         {
-            NotEmptyValidationSpecification rule = new();
+            DirectoryPathPathNotEmptyValidationSpecification rule = new();
             string path = @"C:\Documents";
 
             Result result = rule.IsSatisfiedBy(path!);
@@ -27,7 +27,7 @@ namespace Playhouse.Settings.Domain.Test.TestClasses
         [DataRow(null)]
         public void Path_NotEmpty_IsEmpty_Fail(string? path)
         {
-            NotEmptyValidationSpecification rule = new();
+            DirectoryPathPathNotEmptyValidationSpecification rule = new();
 
             Result result = rule.IsSatisfiedBy(path!);
 
@@ -37,7 +37,7 @@ namespace Playhouse.Settings.Domain.Test.TestClasses
         [TestMethod]
         public void Path_Absolute_IsAbsolute_Ok()
         {
-            AbsoluteValidationSpecification rule = new();
+            DirectoryPathPathAbsoluteValidationSpecification rule = new();
             string path = @"C:\Documents";
 
             Result result = rule.IsSatisfiedBy(path);
@@ -51,7 +51,7 @@ namespace Playhouse.Settings.Domain.Test.TestClasses
         [DataRow(@":\Documents")]
         public void Path_Absolute_NotAbsolute_Fail(string path)
         {
-            AbsoluteValidationSpecification rule = new();
+            DirectoryPathPathAbsoluteValidationSpecification rule = new();
 
             Result result = rule.IsSatisfiedBy(path);
 
@@ -61,7 +61,7 @@ namespace Playhouse.Settings.Domain.Test.TestClasses
         [TestMethod]
         public void Path_HasNotInvalidChars_HasNotInvalidChars_Ok()
         {
-            HasNotInvalidCharsValidationSpecifications rule = new();
+            DirectoryPathPathHasNotInvalidCharsValidationSpecifications rule = new();
             string path = @"C:\Documents";
 
             Result result = rule.IsSatisfiedBy(path);
@@ -72,7 +72,7 @@ namespace Playhouse.Settings.Domain.Test.TestClasses
         [TestMethod]
         public void Path_HasNotInvalidChars_HasInvalidChars_Fail()
         {
-            HasNotInvalidCharsValidationSpecifications rule = new();
+            DirectoryPathPathHasNotInvalidCharsValidationSpecifications rule = new();
             string path = @"C:\Documents|";
 
             Result result = rule.IsSatisfiedBy(path);
@@ -83,7 +83,7 @@ namespace Playhouse.Settings.Domain.Test.TestClasses
         [TestMethod]
         public void Path_Path_AbsoluteAndHasNotInvalidChars_Ok()
         {
-            PathValidationSpecification rule = new();
+            DirectoryPathPathValidationSpecification rule = new();
             string path = @"C:\Documents";
 
             Result result = rule.IsSatisfiedBy(path);
@@ -96,7 +96,7 @@ namespace Playhouse.Settings.Domain.Test.TestClasses
         [DataRow("C:Documents")]
         public void Path_Path_NotAbsoluteOrHasInvalidChars_Fail(string path)
         {
-            PathValidationSpecification rule = new();
+            DirectoryPathPathValidationSpecification rule = new();
 
             Result result = rule.IsSatisfiedBy(path);
 
@@ -107,7 +107,7 @@ namespace Playhouse.Settings.Domain.Test.TestClasses
         [TestMethod]
         public void Path_Path_NotAbsoluteAndHasInvalidChars_Fail()
         {
-            PathValidationSpecification rule = new();
+            DirectoryPathPathValidationSpecification rule = new();
             string path = @"C:Documents|";
 
             Result result = rule.IsSatisfiedBy(path);

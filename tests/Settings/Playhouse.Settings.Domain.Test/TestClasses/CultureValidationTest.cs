@@ -1,4 +1,4 @@
-﻿using Playhouse.Settings.Domain.Aggregates.ApplicationSettingsAggregate.Validations.Culture.Code;
+﻿using Playhouse.Settings.Domain.Aggregates.ApplicationSettingsAggregate.Validations.Culture;
 using Playhouse.SharedKernel.Domain.Results;
 
 namespace Playhouse.Settings.Domain.Test.TestClasses
@@ -14,7 +14,7 @@ namespace Playhouse.Settings.Domain.Test.TestClasses
         public void Code_NotEmpty_IsNotEmpty_Ok()
         {
             string code = "jn";
-            NotEmptyValidationSpecification rule = new();
+            CultureCodeNotEmptyValidationSpecification rule = new();
 
             Result result = rule.IsSatisfiedBy(code);
 
@@ -27,7 +27,7 @@ namespace Playhouse.Settings.Domain.Test.TestClasses
         [DataRow(null)]
         public void Code_NotEmpty_CultureIsEmpty_Fail(string? code)
         {
-            NotEmptyValidationSpecification rule = new();
+            CultureCodeNotEmptyValidationSpecification rule = new();
 
             Result result = rule.IsSatisfiedBy(code!);
 
@@ -38,7 +38,7 @@ namespace Playhouse.Settings.Domain.Test.TestClasses
         public void Code_NotSupported_Supported_Ok()
         {
             string code = "ru";
-            NotSupportedValidationSpecification rule = new(["ru"]);
+            CultureCodeNotSupportedValidationSpecification rule = new(["ru"]);
 
             Result result = rule.IsSatisfiedBy(code);
 
@@ -49,7 +49,7 @@ namespace Playhouse.Settings.Domain.Test.TestClasses
         public void Code_NotSupported_NotSupported_Fail()
         {
             string code = "jn";
-            NotSupportedValidationSpecification rule = new(["ru"]);
+            CultureCodeNotSupportedValidationSpecification rule = new(["ru"]);
 
             Result result = rule.IsSatisfiedBy(code);
 

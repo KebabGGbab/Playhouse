@@ -1,14 +1,14 @@
 ﻿using Playhouse.SharedKernel.Domain.BaseModels;
 using Playhouse.SharedKernel.Domain.Results;
-using Playhouse.Settings.Domain.Aggregates.ApplicationSettingsAggregate.Validations.DirectoryPath.Path;
 using Playhouse.Settings.Domain.Aggregates.ApplicationSettingsAggregate.Exceptions.DirectoryPath;
+using Playhouse.Settings.Domain.Aggregates.ApplicationSettingsAggregate.Validations.DirectoryPath;
 
 namespace Playhouse.Settings.Domain.Aggregates.ApplicationSettingsAggregate
 {
     public sealed class DirectoryPath : ValueObject
     {
-        private static readonly NotEmptyValidationSpecification _pathNotEmptyValidation;
-        private static readonly PathValidationSpecification _pathValidation;
+        private static readonly DirectoryPathPathNotEmptyValidationSpecification _pathNotEmptyValidation;
+        private static readonly DirectoryPathPathValidationSpecification _pathValidation;
 
         public static DirectoryPath Default { get; }
 
@@ -16,8 +16,8 @@ namespace Playhouse.Settings.Domain.Aggregates.ApplicationSettingsAggregate
 
         static DirectoryPath()
         {
-            _pathNotEmptyValidation = new NotEmptyValidationSpecification();
-            _pathValidation = new PathValidationSpecification();
+            _pathNotEmptyValidation = new DirectoryPathPathNotEmptyValidationSpecification();
+            _pathValidation = new DirectoryPathPathValidationSpecification();
 
             string defaultPath = GetDefaultPath();
             Result<DirectoryPath> defaultDirectoryPath = Create(defaultPath);
