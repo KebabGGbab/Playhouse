@@ -10,6 +10,7 @@
     <Project Path="src/Automation/Playhouse.Automation.Infrastructure/Playhouse.Automation.Infrastructure.csproj" />
   </Folder>
   <Folder Name="/src/Settings/">
+    <Project Path="src/Settings/Playhouse.Settings.Application/Playhouse.Settings.Application.csproj" />
     <Project Path="src/Settings/Playhouse.Settings.Domain/Playhouse.Settings.Domain.csproj" />
     <Project Path="src/Settings/Playhouse.Settings.Infrastructure/Playhouse.Settings.Infrastructure.csproj" />
     <Project Path="src/Settings/Playhouse.Settings.UI/Playhouse.Settings.UI.csproj" Id="3e0b24df-7b39-41d3-8730-c32237a39cad" />
