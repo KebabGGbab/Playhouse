@@ -25,6 +25,7 @@
     <Project Path="tests/Playhouse.Core.Test/Playhouse.Core.Test.csproj" />
   </Folder>
   <Folder Name="/tests/Settings/">
+    <Project Path="tests/Settings/Playhouse.Settings.Application.Test/Playhouse.Settings.Application.Test.csproj" />
     <Project Path="tests/Settings/Playhouse.Settings.Domain.Test/Playhouse.Settings.Domain.Test.csproj" />
   </Folder>
   <Folder Name="/tests/SharedKernel/">
