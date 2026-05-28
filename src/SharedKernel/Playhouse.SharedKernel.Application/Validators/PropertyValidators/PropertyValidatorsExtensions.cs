@@ -1,6 +1,6 @@
-﻿using FluentValidation;
+﻿using Ardalis.SmartEnum;
+using FluentValidation;
 using FluentValidation.Results;
-using Playhouse.SharedKernel.Domain.BaseModels;
 using Playhouse.SharedKernel.Domain.Results;
 
 namespace Playhouse.SharedKernel.Application.Validators.PropertyValidators
@@ -12,21 +12,27 @@ namespace Playhouse.SharedKernel.Application.Validators.PropertyValidators
             return ruleBuilder.SetValidator(new CollectionContainsValidator<T, TElement>(collection));
         }
 
-        public static IRuleBuilderOptionsConditions<T, TValue> ValidValueObject<T, TValue, TValueObject>(this IRuleBuilder<T, TValue> ruleBuilder, Func<TValue, Result<TValueObject>> factory)
-            where TValueObject : ValueObject
+        public static IRuleBuilderOptions<T, string?> IsSmartEnum<T, TSmartEnum, TEnumValue>(this IRuleBuilder<T, string?> ruleBuilder)
+            where TSmartEnum : SmartEnum<TSmartEnum, TEnumValue>
+            where TEnumValue : IEquatable<TEnumValue>, IComparable<TEnumValue>
+        {
+            return ruleBuilder.SetValidator(new IsSmartEnumValidator<T, TSmartEnum, TEnumValue>());
+        }
+
+        public static IRuleBuilderOptionsConditions<T, TValue> ValidValueObject<T, TValue>(this IRuleBuilder<T, TValue> ruleBuilder, Func<TValue, Result> validator)
         {
             return ruleBuilder.Custom((value, context) =>
             {
-                Result<TValueObject> result = factory(value);
+                Result result = validator(value);
 
                 if (result.IsSuccess)
                 {
                     return;
                 }
 
-                foreach (string error in result.Errors)
+                foreach (Error error in result.Errors)
                 {
-                    context.AddFailure(new ValidationFailure(context.PropertyPath, error, value));
+                    context.AddFailure(new ValidationFailure(context.PropertyPath, error.Message, value));
                 }
             });
         }

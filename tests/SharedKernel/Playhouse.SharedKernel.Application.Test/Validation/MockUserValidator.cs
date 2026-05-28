@@ -13,6 +13,8 @@ namespace Playhouse.SharedKernel.Application.Test.Validation
             RuleFor(u => u.Name).ValidValueObject(MockValueObject.Create!);
 
             RuleFor(u => u.Age).CollectionContains([1,3,4]);
+
+            RuleFor(u => u.DayOfBirthday).IsSmartEnum<MockUser, MockDayWeek, int>();
         }
     }
 }
