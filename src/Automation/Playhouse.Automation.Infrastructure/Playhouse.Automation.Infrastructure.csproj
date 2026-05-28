@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Playhouse.Infrastructure\Playhouse.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\SharedKernel\Playhouse.SharedKernel.Infrastructure\Playhouse.SharedKernel.Infrastructure.csproj" />
     <ProjectReference Include="..\Playhouse.Automation.Domain\Playhouse.Automation.Domain.csproj" />
   </ItemGroup>
 

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
 
-namespace Playhouse.Infrastructure
+namespace Playhouse.SharedKernel.Infrastructure.Converters.SmartEnum
 {
     public sealed class EnumerableValueComparer<T> : ValueComparer<IEnumerable<T>>
     {

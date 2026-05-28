@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Playhouse.Settings.Domain.AggregatesModel.ApplicationSettingsAggregate;
+using Playhouse.Settings.Domain.Aggregates.ApplicationSettingsAggregate;
 using Playhouse.Settings.Infrastructure.EntityConfigurations;
 
 namespace Playhouse.Settings.Infrastructure

@@ -1,10 +1,9 @@
-﻿using System.Linq.Expressions;
-using System.Text.Json;
+﻿using System.Text.Json;
 using Ardalis.SmartEnum;
 using Ardalis.SmartEnum.EFCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Playhouse.Infrastructure
+namespace Playhouse.SharedKernel.Infrastructure.Converters.SmartEnum
 {
     public class EnumerableSmartEnumConverter<TEnum, TValue> : ValueConverter<IEnumerable<TEnum>, string>
         where TEnum : SmartEnum<TEnum, TValue> 

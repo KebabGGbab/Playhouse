@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Playhouse.Infrastructure;
-using Playhouse.Settings.Domain.AggregatesModel.ApplicationSettingsAggregate;
+using Playhouse.Settings.Domain.Aggregates.ApplicationSettingsAggregate;
+using Playhouse.SharedKernel.Infrastructure.Converters.SmartEnum;
 
 namespace Playhouse.Settings.Infrastructure.EntityConfigurations
 {
@@ -12,13 +12,13 @@ namespace Playhouse.Settings.Infrastructure.EntityConfigurations
             builder.ToTable("application_settings")
                 .HasKey(a => a.Id);
 
-            builder.Ignore(a => a.DomainEvents);
+            builder.Ignore(a => a.Events);
 
             builder.OwnsOne(
                 a => a.Culture, 
                 culture =>
                 {
-                    culture.Property(p => p.Name)
+                    culture.Property(p => p.Code)
                         .HasColumnName("culture_name");
                 });
 
