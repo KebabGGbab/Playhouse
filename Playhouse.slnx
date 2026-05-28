@@ -15,7 +15,10 @@
     <Project Path="src/Settings/Playhouse.Settings.Domain/Playhouse.Settings.Domain.csproj" />
     <Project Path="src/Settings/Playhouse.Settings.Infrastructure/Playhouse.Settings.Infrastructure.csproj" />
   </Folder>
+  <Folder Name="/src/SharedKernel/">
     <Project Path="src/SharedKernel/Playhouse.SharedKernel.Domain/Playhouse.SharedKernel.Domain.csproj" />
+    <Project Path="src/SharedKernel/Playhouse.SharedKernel.UI/Playhouse.SharedKernel.UI.csproj" Id="73d13ce6-5253-412d-8040-7844e61d4959" />
+  </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/Playhouse.Application.SharedKernel.Test/Playhouse.Application.SharedKernel.Test.csproj" Id="903f5c45-5e3e-4c85-9974-bb279ac225d9" />
     <Project Path="tests/Playhouse.Core.Test/Playhouse.Core.Test.csproj" />
