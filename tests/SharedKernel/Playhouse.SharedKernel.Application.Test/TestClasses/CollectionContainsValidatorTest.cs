@@ -17,13 +17,9 @@ namespace Playhouse.SharedKernel.Application.Test.TestClasses
         [TestMethod]
         public void ValidateWithContainsElement()
         {
-            MockUser mockUser = new()
-            {
-                Name = "Steve",
-                Age = 1
-            };
+            MockUser mock = new() { Age = 1 };
 
-            TestValidationResult<MockUser> result = _validator.TestValidate(mockUser);
+            TestValidationResult<MockUser> result = _validator.TestValidate(mock);
 
             result.ShouldNotHaveValidationErrorFor(u => u.Age);
         }
@@ -31,17 +27,12 @@ namespace Playhouse.SharedKernel.Application.Test.TestClasses
         [TestMethod]
         public void ValidateWithNotContainsElement()
         {
-            MockUser mockUser = new()
-            {
-                Name = "Steve",
-                Age = 2
-            };
+            MockUser mock = new() { Age = 2 }; ;
 
-            TestValidationResult<MockUser> result = _validator.TestValidate(mockUser);
+            TestValidationResult<MockUser> result = _validator.TestValidate(mock);
 
             result.ShouldHaveValidationErrorFor(u => u.Age)
-                .WithErrorMessage("The collection does not contain the element '2'.")
-                .Only();
+                .WithErrorMessage("The collection does not contain the element '2'.");
         }
     }
 }

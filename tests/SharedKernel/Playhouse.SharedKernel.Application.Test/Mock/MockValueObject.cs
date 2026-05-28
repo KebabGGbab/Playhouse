@@ -1,5 +1,4 @@
-﻿using Playhouse.SharedKernel.Application.Test.Resources.Strings;
-using Playhouse.SharedKernel.Domain.BaseModels;
+﻿using Playhouse.SharedKernel.Domain.BaseModels;
 using Playhouse.SharedKernel.Domain.Results;
 
 namespace Playhouse.SharedKernel.Application.Test.Mock
@@ -17,15 +16,15 @@ namespace Playhouse.SharedKernel.Application.Test.Mock
         {
             if (string.IsNullOrWhiteSpace(name))
             {
-                return Result<MockValueObject>.Fail(ErrorMessages.MockValueObjectNameIsNull);
+                return Result.Fail<MockValueObject>([new MockNameIsNullError()]);
             }
 
             if (name.Length < 3)
             {
-                return Result<MockValueObject>.Fail(ErrorMessages.MockValueObjectShortName);
+                return Result.Fail<MockValueObject>([new MockNameIsShortError()]);
             }
 
-            return Result<MockValueObject>.Ok(new MockValueObject(name));
+            return Result.Ok(new MockValueObject(name));
 
         }
 
