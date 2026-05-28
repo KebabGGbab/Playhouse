@@ -1,7 +1,8 @@
-﻿using Playhouse.Application.SharedKernel.Test.Resources.Strings;
-using Playhouse.Domain.SharedKernel.SeedWork;
+﻿using Playhouse.SharedKernel.Application.Test.Resources.Strings;
+using Playhouse.SharedKernel.Domain.BaseModels;
+using Playhouse.SharedKernel.Domain.Results;
 
-namespace Playhouse.Application.SharedKernel.Test.Mock
+namespace Playhouse.SharedKernel.Application.Test.Mock
 {
     internal sealed class MockValueObject : ValueObject
     {
@@ -16,7 +17,7 @@ namespace Playhouse.Application.SharedKernel.Test.Mock
         {
             if (string.IsNullOrWhiteSpace(name))
             {
-                 return Result<MockValueObject>.Fail(ErrorMessages.MockValueObjectNameIsNull);
+                return Result<MockValueObject>.Fail(ErrorMessages.MockValueObjectNameIsNull);
             }
 
             if (name.Length < 3)
@@ -25,7 +26,7 @@ namespace Playhouse.Application.SharedKernel.Test.Mock
             }
 
             return Result<MockValueObject>.Ok(new MockValueObject(name));
-            
+
         }
 
         protected override IEnumerable<object> GetEqualityComponents()

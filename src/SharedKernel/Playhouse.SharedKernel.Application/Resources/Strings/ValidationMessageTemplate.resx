@@ -120,4 +120,7 @@
   <data name="CollectionContainsValidator" xml:space="preserve">
     <value>The collection does not contain the element '{Element}'.</value>
   </data>
+  <data name="IsSmartEnumValidator" xml:space="preserve">
+    <value>'{PropertyValue}' must be '{SmartEnum}'.</value>
+  </data>
 </root>

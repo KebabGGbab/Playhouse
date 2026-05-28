@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Playhouse.Domain.SharedKernel\Playhouse.Domain.SharedKernel.csproj" />
+    <ProjectReference Include="..\Playhouse.SharedKernel.Domain\Playhouse.SharedKernel.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>

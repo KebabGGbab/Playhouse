@@ -1,8 +1,8 @@
 ﻿using FluentValidation.TestHelper;
-using Playhouse.Application.SharedKernel.Test.Mock;
-using Playhouse.Application.SharedKernel.Test.Validation;
+using Playhouse.SharedKernel.Application.Test.Mock;
+using Playhouse.SharedKernel.Application.Test.Validation;
 
-namespace Playhouse.Application.SharedKernel.Test.TestClasses
+namespace Playhouse.SharedKernel.Application.Test.TestClasses
 {
     [TestClass]
     public sealed class ValidValueObjectTest

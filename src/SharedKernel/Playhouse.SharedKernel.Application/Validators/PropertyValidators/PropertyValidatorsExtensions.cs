@@ -1,8 +1,9 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
-using Playhouse.Domain.SharedKernel.SeedWork;
+using Playhouse.SharedKernel.Domain.BaseModels;
+using Playhouse.SharedKernel.Domain.Results;
 
-namespace Playhouse.Application.SharedKernel.Validators.PropertyValidators
+namespace Playhouse.SharedKernel.Application.Validators.PropertyValidators
 {
     public static class PropertyValidatorsExtensions
     {

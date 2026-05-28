@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Playhouse.Application.SharedKernel.Resources.Strings {
+namespace Playhouse.SharedKernel.Application.Resources.Strings {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Playhouse.Application.SharedKernel.Resources.Strings {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Playhouse.Application.SharedKernel.Resources.Strings.ValidationMessageTemplate", typeof(ValidationMessageTemplate).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Playhouse.SharedKernel.Application.Resources.Strings.ValidationMessageTemplate", typeof(ValidationMessageTemplate).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -66,6 +66,15 @@ namespace Playhouse.Application.SharedKernel.Resources.Strings {
         internal static string CollectionContainsValidator {
             get {
                 return ResourceManager.GetString("CollectionContainsValidator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на &apos;{PropertyValue}&apos; must be &apos;{SmartEnum}&apos;..
+        /// </summary>
+        internal static string IsSmartEnumValidator {
+            get {
+                return ResourceManager.GetString("IsSmartEnumValidator", resourceCulture);
             }
         }
     }

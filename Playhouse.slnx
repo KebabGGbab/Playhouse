@@ -1,6 +1,5 @@
 <Solution>
   <Folder Name="/src/">
-    <Project Path="src/Playhouse.Application.SharedKernel/Playhouse.Application.SharedKernel.csproj" Id="19460509-8be5-4fea-a36d-7b7c2255019f" />
     <Project Path="src/Playhouse.Core/Playhouse.Core.csproj" />
     <Project Path="src/Playhouse.Share/Playhouse.Share.csproj" />
     <Project Path="src/Playhouse.UI/Playhouse.UI.csproj" />
@@ -16,16 +15,19 @@
     <Project Path="src/Settings/Playhouse.Settings.UI/Playhouse.Settings.UI.csproj" Id="3e0b24df-7b39-41d3-8730-c32237a39cad" />
   </Folder>
   <Folder Name="/src/SharedKernel/">
+    <Project Path="src/SharedKernel/Playhouse.SharedKernel.Application/Playhouse.SharedKernel.Application.csproj" />
     <Project Path="src/SharedKernel/Playhouse.SharedKernel.Domain/Playhouse.SharedKernel.Domain.csproj" />
     <Project Path="src/SharedKernel/Playhouse.SharedKernel.Infrastructure/Playhouse.SharedKernel.Infrastructure.csproj" />
     <Project Path="src/SharedKernel/Playhouse.SharedKernel.UI/Playhouse.SharedKernel.UI.csproj" Id="73d13ce6-5253-412d-8040-7844e61d4959" />
   </Folder>
   <Folder Name="/tests/">
-    <Project Path="tests/Playhouse.Application.SharedKernel.Test/Playhouse.Application.SharedKernel.Test.csproj" Id="903f5c45-5e3e-4c85-9974-bb279ac225d9" />
     <Project Path="tests/Playhouse.Core.Test/Playhouse.Core.Test.csproj" />
   </Folder>
   <Folder Name="/tests/Settings/">
     <Project Path="tests/Settings/Playhouse.Settings.Domain.Test/Playhouse.Settings.Domain.Test.csproj" />
+  </Folder>
+  <Folder Name="/tests/SharedKernel/">
+    <Project Path="tests/SharedKernel/Playhouse.SharedKernel.Application.Test/Playhouse.SharedKernel.Application.Test.csproj" />
     <Project Path="tests/SharedKernel/Playhouse.SharedKernel.Domain.Test/Playhouse.SharedKernel.Domain.Test.csproj" />
   </Folder>
 </Solution>

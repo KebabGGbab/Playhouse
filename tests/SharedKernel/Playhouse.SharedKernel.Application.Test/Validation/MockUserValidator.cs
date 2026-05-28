@@ -1,8 +1,8 @@
 ﻿using FluentValidation;
-using Playhouse.Application.SharedKernel.Test.Mock;
-using Playhouse.Application.SharedKernel.Validators.PropertyValidators;
+using Playhouse.SharedKernel.Application.Test.Mock;
+using Playhouse.SharedKernel.Application.Validators.PropertyValidators;
 
-namespace Playhouse.Application.SharedKernel.Test.Validation
+namespace Playhouse.SharedKernel.Application.Test.Validation
 {
     internal sealed class MockUserValidator : AbstractValidator<MockUser>
     {

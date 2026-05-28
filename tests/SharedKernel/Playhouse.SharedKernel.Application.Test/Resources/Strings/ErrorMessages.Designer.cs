@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Playhouse.Application.SharedKernel.Test.Resources.Strings {
+namespace Playhouse.SharedKernel.Application.Test.Resources.Strings {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Playhouse.Application.SharedKernel.Test.Resources.Strings {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Playhouse.Application.SharedKernel.Test.Resources.Strings.ErrorMessages", typeof(ErrorMessages).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Playhouse.SharedKernel.Application.Test.Resources.Strings.ErrorMessages", typeof(ErrorMessages).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -72,9 +72,9 @@ namespace Playhouse.Application.SharedKernel.Test.Resources.Strings {
         /// <summary>
         ///   Ищет локализованную строку, похожую на The name must be at least 3 characters long..
         /// </summary>
-        internal static string MockValueObjectShortName {
+        internal static string MockValueObjectNameIsShort {
             get {
-                return ResourceManager.GetString("MockValueObjectShortName", resourceCulture);
+                return ResourceManager.GetString("MockValueObjectNameIsShort", resourceCulture);
             }
         }
     }

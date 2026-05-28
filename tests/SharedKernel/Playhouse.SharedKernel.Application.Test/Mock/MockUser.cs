@@ -1,4 +1,4 @@
-﻿namespace Playhouse.Application.SharedKernel.Test.Mock
+﻿namespace Playhouse.SharedKernel.Application.Test.Mock
 {
     internal sealed class MockUser
     {

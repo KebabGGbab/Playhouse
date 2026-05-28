@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Playhouse.Application.SharedKernel\Playhouse.Application.SharedKernel.csproj" />
+    <ProjectReference Include="..\..\..\src\SharedKernel\Playhouse.SharedKernel.Application\Playhouse.SharedKernel.Application.csproj" />
   </ItemGroup>
 
   <ItemGroup>

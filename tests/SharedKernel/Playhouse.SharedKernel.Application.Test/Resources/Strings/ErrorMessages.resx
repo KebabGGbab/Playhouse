@@ -120,7 +120,7 @@
   <data name="MockValueObjectNameIsNull" xml:space="preserve">
     <value>Name is required.</value>
   </data>
-  <data name="MockValueObjectShortName" xml:space="preserve">
+  <data name="MockValueObjectNameIsShort" xml:space="preserve">
     <value>The name must be at least 3 characters long.</value>
   </data>
 </root>
