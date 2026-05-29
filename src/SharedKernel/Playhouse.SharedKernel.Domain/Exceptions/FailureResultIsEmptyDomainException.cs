@@ -4,17 +4,17 @@ using Playhouse.SharedKernel.Domain.Results;
 
 namespace Playhouse.SharedKernel.Domain.Exceptions
 {
-    public sealed class FailureResultNotContainErrorDomainException : DomainException
+    public sealed class FailureResultIsEmptyDomainException : DomainException
     {
-        public FailureResultNotContainErrorDomainException()
+        public FailureResultIsEmptyDomainException()
         {
         }
 
-        public FailureResultNotContainErrorDomainException(string? message) : base(message)
+        public FailureResultIsEmptyDomainException(string? message) : base(message)
         {
         }
 
-        public FailureResultNotContainErrorDomainException(string? message, Exception? innerException) : base(message, innerException)
+        public FailureResultIsEmptyDomainException(string? message, Exception? innerException) : base(message, innerException)
         {
         }
 
@@ -29,7 +29,7 @@ namespace Playhouse.SharedKernel.Domain.Exceptions
         [DoesNotReturn]
         private static void Throw()
         {
-            throw new FailureResultNotContainErrorDomainException(DomainExceptionMessages.FailureResultNotContainError);
+            throw new FailureResultIsEmptyDomainException(DomainExceptionMessages.FailureResultIsEmpty);
         }
     }
 }

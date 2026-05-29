@@ -7,13 +7,12 @@ namespace Playhouse.SharedKernel.Domain.Test.TestClasses
     [TestClass]
     public sealed class DomainExceptionsTest
     {
-
         [TestMethod]
         public void FailureResultNotContainErrorDomainException_ThrowIfErrorCollectionEmpty_ErrorsIsNotEmpty_NotThrow()
         {
             IEnumerable<Error> errors = [new MockNameError("error")];
 
-            FailureResultNotContainErrorDomainException.ThrowIfErrorCollectionEmpty(errors);
+            FailureResultIsEmptyDomainException.ThrowIfErrorCollectionEmpty(errors);
         }
 
         [TestMethod]
@@ -21,9 +20,9 @@ namespace Playhouse.SharedKernel.Domain.Test.TestClasses
         {
             IEnumerable<Error>? errors = null;
 
-            void action() => FailureResultNotContainErrorDomainException.ThrowIfErrorCollectionEmpty(errors);
+            void action() => FailureResultIsEmptyDomainException.ThrowIfErrorCollectionEmpty(errors);
 
-            Assert.ThrowsExactly<FailureResultNotContainErrorDomainException>(action);
+            Assert.ThrowsExactly<FailureResultIsEmptyDomainException>(action);
         }
 
         [TestMethod]
@@ -31,9 +30,9 @@ namespace Playhouse.SharedKernel.Domain.Test.TestClasses
         {
             IEnumerable<Error> errors = [];
 
-            void action() => FailureResultNotContainErrorDomainException.ThrowIfErrorCollectionEmpty(errors);
+            void action() => FailureResultIsEmptyDomainException.ThrowIfErrorCollectionEmpty(errors);
 
-            Assert.ThrowsExactly<FailureResultNotContainErrorDomainException>(action);
+            Assert.ThrowsExactly<FailureResultIsEmptyDomainException>(action);
         }
 
         [TestMethod]
@@ -52,6 +51,24 @@ namespace Playhouse.SharedKernel.Domain.Test.TestClasses
             void action() => TryGetValueFromFailureResultDomainException.ThrowIfFailure(isFailure);
 
             Assert.ThrowsExactly<TryGetValueFromFailureResultDomainException>(action);
+        }
+
+        [TestMethod]
+        public void FailureResultContainsNullErrorDomainException_ThrowIfContainsNull_NotContainsNull_NotThrow()
+        {
+            IEnumerable<Error> errors = [new MockNameError("error"), new MockNameError("error2")];
+
+            FailureResultContainsNullErrorDomainException.ThrowIfContainsNull(errors);
+        }
+
+        [TestMethod]
+        public void FailureResultContainsNullErrorDomainException_ThrowIfContainsNull_ContainsNull_Throw()
+        {
+            IEnumerable<Error> errors = [new MockNameError("error"), null!];
+
+            void action() => FailureResultContainsNullErrorDomainException.ThrowIfContainsNull(errors);
+
+            Assert.ThrowsExactly<FailureResultContainsNullErrorDomainException>(action);
         }
     }
 }

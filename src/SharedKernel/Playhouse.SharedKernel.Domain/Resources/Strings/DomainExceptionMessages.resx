@@ -126,8 +126,11 @@
   <data name="ErrorMessageIsEmpty" xml:space="preserve">
     <value>The error message must not be empty.</value>
   </data>
-  <data name="FailureResultNotContainError" xml:space="preserve">
-    <value>The error result must contain at least one error.</value>
+  <data name="FailureResultContainsNullError" xml:space="preserve">
+    <value>The failure result must not contain 'null'.</value>
+  </data>
+  <data name="FailureResultIsEmpty" xml:space="preserve">
+    <value>The failure result must contain at least one error.</value>
   </data>
   <data name="QuerySpecificationisNull" xml:space="preserve">
     <value>Query rule cannot be equal to 'null'.</value>

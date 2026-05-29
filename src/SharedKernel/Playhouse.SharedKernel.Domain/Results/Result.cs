@@ -20,7 +20,8 @@ namespace Playhouse.SharedKernel.Domain.Results
 
         protected Result(IEnumerable<Error> errors)
         {
-            FailureResultNotContainErrorDomainException.ThrowIfErrorCollectionEmpty(errors);
+            FailureResultIsEmptyDomainException.ThrowIfErrorCollectionEmpty(errors);
+            FailureResultContainsNullErrorDomainException.ThrowIfContainsNull(errors);
 
             IsSuccess = false;
             Errors = errors.ToList().AsReadOnly();
@@ -30,7 +31,11 @@ namespace Playhouse.SharedKernel.Domain.Results
 
         public static Result<T> Ok<T>(T value) => new(value);
 
+        public static Result Fail(Error error) => new([error]);
+
         public static Result Fail(IEnumerable<Error> errors) => new(errors);
+
+        public static Result<T> Fail<T>(Error error) => new([error]);
 
         public static Result<T> Fail<T>(IEnumerable<Error> errors) => new(errors);
     }

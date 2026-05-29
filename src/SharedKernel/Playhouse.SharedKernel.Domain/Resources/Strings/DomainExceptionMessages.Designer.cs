@@ -88,11 +88,20 @@ namespace Playhouse.SharedKernel.Domain.Resources.Strings {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на The error result must contain at least one error..
+        ///   Ищет локализованную строку, похожую на The failure result must not contain &apos;null&apos;..
         /// </summary>
-        internal static string FailureResultNotContainError {
+        internal static string FailureResultContainsNullError {
             get {
-                return ResourceManager.GetString("FailureResultNotContainError", resourceCulture);
+                return ResourceManager.GetString("FailureResultContainsNullError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на The failure result must contain at least one error..
+        /// </summary>
+        internal static string FailureResultIsEmpty {
+            get {
+                return ResourceManager.GetString("FailureResultIsEmpty", resourceCulture);
             }
         }
         

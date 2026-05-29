@@ -37,7 +37,7 @@ namespace Playhouse.SharedKernel.Domain.Test.TestClasses
 
             void action() => Result.Fail(errors);
 
-            Assert.ThrowsExactly<FailureResultNotContainErrorDomainException>(action);
+            Assert.ThrowsExactly<FailureResultIsEmptyDomainException>(action);
         }
 
         [TestMethod]
@@ -47,9 +47,18 @@ namespace Playhouse.SharedKernel.Domain.Test.TestClasses
 
             void action() => Result.Fail(errors);
 
-            Assert.ThrowsExactly<FailureResultNotContainErrorDomainException>(action);
+            Assert.ThrowsExactly<FailureResultIsEmptyDomainException>(action);
         }
 
+        [TestMethod]
+        public void Fail_ErrorCollectionContainsNull_Throw()
+        {
+            IEnumerable<Error> errors = [new MockNameError("error"), null!];
+
+            void action() => Result.Fail(errors);
+
+            Assert.ThrowsExactly<FailureResultContainsNullErrorDomainException>(action);
+        }
 
         [TestMethod]
         public void Fail_OneError_ErrorAddInCollection()
@@ -60,6 +69,16 @@ namespace Playhouse.SharedKernel.Domain.Test.TestClasses
 
             Assert.ContainsSingle(result.Errors);
             Assert.Contains(error, result.Errors);
+        }
+
+        [TestMethod]
+        public void Fail_OneErrorIsNull_Throw()
+        {
+            MockNameError error = null!;
+
+            void action() => Result.Fail(error);
+
+            Assert.ThrowsExactly<FailureResultContainsNullErrorDomainException>(action);
         }
 
         [TestMethod]
@@ -94,7 +113,7 @@ namespace Playhouse.SharedKernel.Domain.Test.TestClasses
 
             void action() => Result.Fail<int>(errors);
 
-            Assert.ThrowsExactly<FailureResultNotContainErrorDomainException>(action);
+            Assert.ThrowsExactly<FailureResultIsEmptyDomainException>(action);
         }
 
         [TestMethod]
@@ -104,7 +123,17 @@ namespace Playhouse.SharedKernel.Domain.Test.TestClasses
 
             void action() => Result.Fail<object>(errors);
 
-            Assert.ThrowsExactly<FailureResultNotContainErrorDomainException>(action);
+            Assert.ThrowsExactly<FailureResultIsEmptyDomainException>(action);
+        }
+
+        [TestMethod]
+        public void FailOfT_ErrorCollectionContainsNull_Throw()
+        {
+            IEnumerable<Error> errors = [new MockNameError("error"), null!];
+
+            void action() => Result.Fail<int>(errors);
+
+            Assert.ThrowsExactly<FailureResultContainsNullErrorDomainException>(action);
         }
 
         [TestMethod]
@@ -116,6 +145,16 @@ namespace Playhouse.SharedKernel.Domain.Test.TestClasses
 
             Assert.ContainsSingle(result.Errors);
             Assert.Contains(error, result.Errors);
+        }
+
+        [TestMethod]
+        public void FailOfT_OneErrorIsNull_Throw()
+        {
+            MockNameError error = null!;
+
+            void action() => Result.Fail<int>(error);
+
+            Assert.ThrowsExactly<FailureResultContainsNullErrorDomainException>(action);
         }
 
         [TestMethod]
