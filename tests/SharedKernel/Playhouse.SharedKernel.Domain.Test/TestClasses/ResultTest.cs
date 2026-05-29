@@ -20,13 +20,13 @@ namespace Playhouse.SharedKernel.Domain.Test.TestClasses
         [TestMethod]
         public void Fail_Simple_IsFailureAndHasErrors()
         {
-            IEnumerable<Error> errors = [new MockNameError("error")];
+            IEnumerable<Error> errors = [new MockNameError("error"), new MockNameError("error2")];
 
             Result result = Result.Fail(errors);
 
             Assert.IsFalse(result.IsSuccess);
             Assert.IsTrue(result.IsFailure);
-            Assert.IsNotEmpty(result.Errors);
+            Assert.HasCount(2, result.Errors);
         }
 
 
@@ -50,27 +50,16 @@ namespace Playhouse.SharedKernel.Domain.Test.TestClasses
             Assert.ThrowsExactly<FailureResultNotContainErrorDomainException>(action);
         }
 
-        [TestMethod]
-        public void OkOfT_Simple_IsSuccessAndErrorsEmptyAndHasValue()
-        {
-            int value = 111;
-
-            Result<int> result = Result.Ok(value);
-
-            Assert.IsTrue(result.IsSuccess);
-            Assert.IsEmpty(result.Errors);
-            Assert.AreEqual(value, result.Value);
-        }
 
         [TestMethod]
-        public void GetValue_FailResult_Throw()
+        public void Fail_OneError_ErrorAddInCollection()
         {
-            IEnumerable<Error> errors = [new MockNameError("error")];
-            Result<int> result = Result.Fail<int>(errors);
+            MockNameError error = new("error");
 
-            void action() => _ = result.Value;
+            Result result = Result.Fail(error);
 
-            Assert.ThrowsExactly<TryGetValueFromFailureResultDomainException>(action);
+            Assert.ContainsSingle(result.Errors);
+            Assert.Contains(error, result.Errors);
         }
 
         [TestMethod]
@@ -84,6 +73,60 @@ namespace Playhouse.SharedKernel.Domain.Test.TestClasses
 
             Assert.ContainsSingle(result.Errors);
             Assert.Contains(firstError, result.Errors);
+        }
+
+        [TestMethod]
+        public void OkOfT_Simple_IsSuccessAndErrorsEmptyAndHasValue()
+        {
+            int value = 111;
+
+            Result<int> result = Result.Ok(value);
+
+            Assert.IsTrue(result.IsSuccess);
+            Assert.IsEmpty(result.Errors);
+            Assert.AreEqual(value, result.Value);
+        }
+
+        [TestMethod]
+        public void FailOfT_ErrorCollectionIsNull_Throw()
+        {
+            IEnumerable<Error> errors = null!;
+
+            void action() => Result.Fail<int>(errors);
+
+            Assert.ThrowsExactly<FailureResultNotContainErrorDomainException>(action);
+        }
+
+        [TestMethod]
+        public void FailOfT_ErrorCollectionIsEmpty_Throw()
+        {
+            IEnumerable<Error> errors = [];
+
+            void action() => Result.Fail<object>(errors);
+
+            Assert.ThrowsExactly<FailureResultNotContainErrorDomainException>(action);
+        }
+
+        [TestMethod]
+        public void FailOfT_OneError_ErrorAddInCollection()
+        {
+            MockNameError error = new("error");
+
+            Result result = Result.Fail<int>(error);
+
+            Assert.ContainsSingle(result.Errors);
+            Assert.Contains(error, result.Errors);
+        }
+
+        [TestMethod]
+        public void GetValue_FailResult_Throw()
+        {
+            IEnumerable<Error> errors = [new MockNameError("error")];
+            Result<int> result = Result.Fail<int>(errors);
+
+            void action() => _ = result.Value;
+
+            Assert.ThrowsExactly<TryGetValueFromFailureResultDomainException>(action);
         }
     }
 }
