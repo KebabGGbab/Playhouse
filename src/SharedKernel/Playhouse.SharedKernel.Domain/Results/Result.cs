@@ -1,39 +1,37 @@
-﻿using System.Collections.ObjectModel;
-using System.Diagnostics.CodeAnalysis;
-using Playhouse.SharedKernel.Domain.Exceptions;
+﻿using Playhouse.SharedKernel.Domain.Exceptions;
 
 namespace Playhouse.SharedKernel.Domain.Results
 {
     public class Result
     {
-        private readonly ReadOnlyCollection<Error>? _errors;
+        private readonly static IReadOnlyCollection<Error> _errorsEmpty = [];
 
-        [MemberNotNullWhen(false, nameof(Errors))]
         public bool IsSuccess { get; }
 
-        [MemberNotNullWhen(true, nameof(Errors))]
         public bool IsFailure => !IsSuccess;
 
-        public IReadOnlyCollection<Error>? Errors => _errors;
+        public IReadOnlyCollection<Error> Errors { get; }
 
-        protected Result(bool success, IEnumerable<Error>? errors)
+        protected Result()
         {
-            if (success == false)
-            {
-                FailureResultNotContainErrorDomainException.ThrowIfErrorCollectionEmpty(errors);
-
-                _errors = errors.ToList().AsReadOnly();
-            }
-
-            IsSuccess = success;
+            IsSuccess = true;
+            Errors = _errorsEmpty;
         }
 
-        public static Result Ok() => new(true, null);
+        protected Result(IEnumerable<Error> errors)
+        {
+            FailureResultNotContainErrorDomainException.ThrowIfErrorCollectionEmpty(errors);
 
-        public static Result<T> Ok<T>(T value) => new(value, true, null);
+            IsSuccess = false;
+            Errors = errors.ToList().AsReadOnly();
+        }
 
-        public static Result Fail(IEnumerable<Error> errors) => new(false, errors);
+        public static Result Ok() => new();
 
-        public static Result<T> Fail<T>(IEnumerable<Error> errors) => new(default, false, errors);
+        public static Result<T> Ok<T>(T value) => new(value);
+
+        public static Result Fail(IEnumerable<Error> errors) => new(errors);
+
+        public static Result<T> Fail<T>(IEnumerable<Error> errors) => new(errors);
     }
 }

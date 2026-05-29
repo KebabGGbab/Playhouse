@@ -14,7 +14,7 @@ namespace Playhouse.SharedKernel.Domain.Test.TestClasses
 
             Assert.IsTrue(result.IsSuccess);
             Assert.IsFalse(result.IsFailure);
-            Assert.IsNull(result.Errors);
+            Assert.IsEmpty(result.Errors);
         }
 
         [TestMethod]
@@ -26,7 +26,6 @@ namespace Playhouse.SharedKernel.Domain.Test.TestClasses
 
             Assert.IsFalse(result.IsSuccess);
             Assert.IsTrue(result.IsFailure);
-            Assert.IsNotNull(result.Errors);
             Assert.IsNotEmpty(result.Errors);
         }
 
@@ -59,6 +58,7 @@ namespace Playhouse.SharedKernel.Domain.Test.TestClasses
             Result<int> result = Result.Ok(value);
 
             Assert.IsTrue(result.IsSuccess);
+            Assert.IsEmpty(result.Errors);
             Assert.AreEqual(value, result.Value);
         }
 
@@ -74,14 +74,16 @@ namespace Playhouse.SharedKernel.Domain.Test.TestClasses
         }
 
         [TestMethod]
-        public void ErrorsCollectionIsImmutable()
+        public void Fail_TryAddNewErrorInSourceCollection_ErrorsCollectionIsImmutable()
         {
-            List<Error> errors = [new MockNameError("error1")];
+            MockNameError firstError = new("error1");
+            List<Error> errors = [firstError];
             Result result = Result.Fail(errors);
 
             errors.Add(new MockNameError("error2"));
 
-            Assert.ContainsSingle(result.Errors!);
+            Assert.ContainsSingle(result.Errors);
+            Assert.Contains(firstError, result.Errors);
         }
     }
 }

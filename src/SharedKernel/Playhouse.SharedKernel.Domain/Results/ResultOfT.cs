@@ -16,10 +16,17 @@ namespace Playhouse.SharedKernel.Domain.Results
             }
         }
 
-        internal Result(T? value, bool success, IEnumerable<Error>? errors)
-            : base(success, errors) 
+        internal Result(T value)
+            : base()
         {
+            ArgumentNullException.ThrowIfNull(value);
+
             _value = value;
+        }
+
+        internal Result(IEnumerable<Error> errors)
+            : base(errors)
+        {
         }
     }
 }
