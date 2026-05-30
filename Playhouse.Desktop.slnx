@@ -1,7 +1,17 @@
 <Solution>
-  <Project Path="Playhouse.Core.Test/Playhouse.Core.Test.csproj" Id="9c6bebfd-e328-4985-ae7c-9a1e070dd054" />
-  <Project Path="Playhouse.Core/Playhouse.Core.csproj" />
-  <Project Path="Playhouse.Desktop.Share/Playhouse.Desktop.Share.csproj" />
-  <Project Path="Playhouse.UI/Playhouse.UI.csproj" />
-  <Project Path="Playhouse.ViewModels/Playhouse.ViewModels.csproj" />
+  <Project Path="Playhouse.Core.Test/Playhouse.Core.Test.csproj" Id="9c6bebfd-e328-4985-ae7c-9a1e070dd054">
+    <Build Solution="Debug|*" Project="false" />
+  </Project>
+  <Project Path="Playhouse.Core/Playhouse.Core.csproj">
+    <Build Solution="Debug|*" Project="false" />
+  </Project>
+  <Project Path="Playhouse.Desktop.Share/Playhouse.Desktop.Share.csproj">
+    <Build Solution="Debug|*" Project="false" />
+  </Project>
+  <Project Path="Playhouse.UI/Playhouse.UI.csproj">
+    <Build Solution="Debug|*" Project="false" />
+  </Project>
+  <Project Path="Playhouse.ViewModels/Playhouse.ViewModels.csproj">
+    <Build Solution="Debug|*" Project="false" />
+  </Project>
 </Solution>
