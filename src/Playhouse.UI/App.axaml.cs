@@ -11,7 +11,7 @@ using Playhouse.Core.Services.FilePathResolverService;
 using Playhouse.UI.Resources.Localization;
 using Playhouse.UI.Services.WindowCreatorService;
 using Playhouse.UI.Services.WindowCreatorService.Abstractions;
-using Playhouse.UI.Views;
+using Playhouse.UI.Views.Windows;
 using Playhouse.ViewModels.DIExtensions.CoreServices;
 using Playhouse.ViewModels.DIExtensions.ViewModelsExtensions;
 using Playhouse.ViewModels.Services.LocalizationService;

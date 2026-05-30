@@ -3,14 +3,16 @@
 
     <ResourceDictionary.ThemeDictionaries>
         <ResourceDictionary x:Key="Dark">
-			<SolidColorBrush x:Key="SystemRegionBrush" Color="{StaticResource JetBlackColor}" />
+            <SolidColorBrush x:Key="SystemRegionBrush" Color="{StaticResource JetBlackColor}" />
             <SolidColorBrush x:Key="TabItemHeaderBackgroundSelected" Color="{StaticResource OnyxColor}" />
             <SolidColorBrush x:Key="TabItemHeaderBackgroundUnselectedPointerOver" Color="{StaticResource MatteBlackColor}" />
             <SolidColorBrush x:Key="HeaderedContentControlBorderBrush" Color="{StaticResource ChateauGrayColor}" />
             <SolidColorBrush x:Key="DataGridRowOddBackground" Color="{StaticResource GraphiteBlackColor}" />
             <SolidColorBrush x:Key="DataGridRowEvenBackground" Color="{StaticResource SignalBlackColor}" />
             <SolidColorBrush x:Key="DataGridBackground" Color="{StaticResource DarkCharcoalColor}" />
+            <SolidColorBrush x:Key="DataGridBorderBrush" Color="{StaticResource ChateauGrayColor}" />
             <SolidColorBrush x:Key="StatusBackground" Color="{StaticResource SootyColor}" />
+            <SolidColorBrush x:Key="IconLoaderBorderBrush" Color="{StaticResource HotMagenta}" />
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
 

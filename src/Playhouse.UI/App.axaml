@@ -12,23 +12,27 @@
         <!-- Libraries styles -->
 
         <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
-        <StyleInclude Source="avares://KebabGGbab.Avalonia.Extensions/Resources/Styles/TabControl.axaml" />
-        <StyleInclude Source="avares://KebabGGbab.Avalonia.Extensions/Resources/Styles/HeaderedContentControl.axaml" />
 
         <!-- Playhouse styles -->
 
-        <StyleInclude Source="avares://Playhouse.UI/Resources/Assets/Styles/Button.axaml" />
-        <StyleInclude Source="avares://Playhouse.UI/Resources/Assets/Styles/ComboBox.axaml" />
-        <StyleInclude Source="avares://Playhouse.UI/Resources/Assets/Styles/DataGrid.axaml" />
-        <StyleInclude Source="avares://Playhouse.UI/Resources/Assets/Styles/DataGridRow.axaml" />
-        <StyleInclude Source="avares://Playhouse.UI/Resources/Assets/Styles/DockPanel.axaml" />
-        <StyleInclude Source="avares://Playhouse.UI/Resources/Assets/Styles/HeaderedContentControl.axaml" />
-        <StyleInclude Source="avares://Playhouse.UI/Resources/Assets/Styles/Label.axaml" />
-        <StyleInclude Source="avares://Playhouse.UI/Resources/Assets/Styles/StackPanel.axaml" />
-        <StyleInclude Source="avares://Playhouse.UI/Resources/Assets/Styles/TabItem.axaml" />
-        <StyleInclude Source="avares://Playhouse.UI/Resources/Assets/Styles/TextBlock.axaml" />
-        <StyleInclude Source="avares://Playhouse.UI/Resources/Assets/Styles/TextBox.axaml" />
-        <StyleInclude Source="avares://Playhouse.UI/Resources/Assets/Styles/WrapPanel.axaml" />
+        <StyleInclude Source="avares://Playhouse.UI/Assets/Styles/Button.axaml" />
+        <StyleInclude Source="avares://Playhouse.UI/Assets/Styles/CheckBox.axaml" />
+        <StyleInclude Source="avares://Playhouse.UI/Assets/Styles/ComboBox.axaml" />
+        <StyleInclude Source="avares://Playhouse.UI/Assets/Styles/DataGrid.axaml" />
+        <StyleInclude Source="avares://Playhouse.UI/Assets/Styles/DataGridRow.axaml" />
+        <StyleInclude Source="avares://Playhouse.UI/Assets/Styles/DockPanel.axaml" />
+        <StyleInclude Source="avares://Playhouse.UI/Assets/Styles/Grid.axaml" />
+        <StyleInclude Source="avares://Playhouse.UI/Assets/Styles/HeaderedContentControl.axaml" />
+        <StyleInclude Source="avares://Playhouse.UI/Assets/Styles/Image.axaml" />
+        <StyleInclude Source="avares://Playhouse.UI/Assets/Styles/Label.axaml" />
+        <StyleInclude Source="avares://Playhouse.UI/Assets/Styles/NumericUpDown.axaml" />
+        <StyleInclude Source="avares://Playhouse.UI/Assets/Styles/ScrollViewer.axaml" />
+        <StyleInclude Source="avares://Playhouse.UI/Assets/Styles/StackPanel.axaml" />
+        <StyleInclude Source="avares://Playhouse.UI/Assets/Styles/TabControl.axaml" />
+        <StyleInclude Source="avares://Playhouse.UI/Assets/Styles/TabItem.axaml" />
+        <StyleInclude Source="avares://Playhouse.UI/Assets/Styles/TextBlock.axaml" />
+        <StyleInclude Source="avares://Playhouse.UI/Assets/Styles/TextBox.axaml" />
+        <StyleInclude Source="avares://Playhouse.UI/Assets/Styles/WrapPanel.axaml" />
 
     </Application.Styles>
 
@@ -38,15 +42,33 @@
 
                 <!-- Library resources -->
 
-                <ResourceInclude Source="avares://KebabGGbab.Avalonia.Extensions/Resources/Generic.axaml" />
+                <ResourceInclude Source="avares://KebabGGbab.Avalonia.Extensions/Assets/Generic.axaml" />
 
                 <!-- Brushes -->
 
-				<ResourceInclude Source="avares://Playhouse.UI/Resources/Assets/Brushes/SolidColorBrushes.axaml" />
+				<ResourceInclude Source="avares://Playhouse.UI/Assets/Brushes/SolidColorBrushes.axaml" />
 
                 <!-- DataTemplates -->
 
-                <ResourceInclude Source="avares://Playhouse.UI/Resources/Assets/DataTemplates/BrowserProfileViewModel.axaml" />
+                <ResourceInclude Source="avares://Playhouse.UI/Assets/DataTemplates/BrowserContextClosedBrowserEventViewModel.axaml" />
+                <ResourceInclude Source="avares://Playhouse.UI/Assets/DataTemplates/BrowserProfileViewModel.axaml" />
+                <ResourceInclude Source="avares://Playhouse.UI/Assets/DataTemplates/LocatorClickBrowserEventViewModel.axaml" />
+                <ResourceInclude Source="avares://Playhouse.UI/Assets/DataTemplates/PageClosedBrowserEventViewModel.axaml" />
+                <ResourceInclude Source="avares://Playhouse.UI/Assets/DataTemplates/PageCreatedBrowserEventViewModel.axaml" />
+                <ResourceInclude Source="avares://Playhouse.UI/Assets/DataTemplates/PageGoToBrowserEventViewModel.axaml" />
+
+                <!-- Multimedia -->
+
+                <ResourceInclude Source="avares://Playhouse.UI/Assets/Multimedia/WindowIcon.axaml" />
+
+                <!-- Primitives -->
+
+                <ResourceInclude Source="avares://Playhouse.UI/Assets/Primitives/Double.axaml" />
+                <ResourceInclude Source="avares://Playhouse.UI/Assets/Primitives/Thickness.axaml" />
+                
+                <!-- Themes -->
+
+                <ResourceInclude Source="avares://Playhouse.UI/Assets/Themes/TabItem.axaml" />
 
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

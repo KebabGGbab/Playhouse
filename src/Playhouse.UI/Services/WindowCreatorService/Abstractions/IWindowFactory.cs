@@ -1,4 +1,4 @@
-﻿using Playhouse.UI.Views;
+﻿using Playhouse.UI.Views.Windows;
 using Playhouse.ViewModels.ViewModels;
 
 namespace Playhouse.UI.Services.WindowCreatorService.Abstractions

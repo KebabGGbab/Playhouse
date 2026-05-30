@@ -1,0 +1,54 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="using:Playhouse.ViewModels.ViewModels"
+        xmlns:l="https://github.com/KebabGGbab"
+        mc:Ignorable="d"
+        x:Class="Playhouse.UI.Views.Windows.BotConstructorWindow" x:FieldModifier="internal"
+        x:DataType="vm:BotConstructorViewModel"
+        Title="{l:Localization WindowTitleBotConstructor}" 
+        Padding="10"
+        WindowStartupLocation="CenterScreen"
+        CanResize="False"
+        Width="720" Height="400">
+
+    <Window.DataTemplates>
+	    <StaticResource ResourceKey="BrowserContextClosedBrowserEventViewModel" />
+        <StaticResource ResourceKey="LocatorClickBrowserEventViewModel" />
+        <StaticResource ResourceKey="PageClosedBrowserEventViewModel" />
+        <StaticResource ResourceKey="PageCreatedBrowserEventViewModel" />
+        <StaticResource ResourceKey="PageGoToBrowserEventViewModel" />
+    </Window.DataTemplates>
+
+    <Grid RowDefinitions="*, auto" ColumnSpacing="15">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*" />
+            <ColumnDefinition Width="350" />
+        </Grid.ColumnDefinitions>
+
+        <HeaderedContentControl Grid.Column="0" Grid.Row="0"
+                                Classes="groupbox"
+                                Header="{l:Localization BoxEventSettingsHeader}">
+            <ContentControl Margin="10"
+                            Content="{Binding SelectedBrowserEvent}" />
+        </HeaderedContentControl>
+
+        <DataGrid Grid.Column="1" Grid.Row="0"
+                  ItemsSource="{Binding Path=Events}"
+                  SelectedItem="{Binding Path=SelectedBrowserEvent}">
+			<DataGrid.Columns>
+				<DataGridTextColumn Width="*" 
+                                    Header="{l:Localization DataGridColumnHeaderEvent}" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Grid Grid.Column="1" Grid.Row="1"
+              Classes="command-panel">
+			<Button HorizontalAlignment="Right"
+                    Content="{l:Localization ButtonSave}" />
+        </Grid>
+
+    </Grid>
+
+</Window>

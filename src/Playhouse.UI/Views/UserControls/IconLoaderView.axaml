@@ -1,0 +1,61 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Playhouse.UI.Views.UserControls.IconLoaderView">
+
+    <UserControl.Styles>
+		<Style Selector="Grid">
+				<Style.Animations>
+					<Animation Duration="0:0:3" 
+                                IterationCount="Infinite"
+                                Easing="QuinticEaseInOut">
+						<KeyFrame Cue="0%">
+							<Setter Property="RotateTransform.Angle" Value="0" />
+                        </KeyFrame>
+                        <KeyFrame Cue="20%">
+							<Setter Property="RotateTransform.Angle" Value="180" />
+                        </KeyFrame>
+                        <KeyFrame Cue="35%">
+							<Setter Property="RotateTransform.Angle" Value="360" />
+                        </KeyFrame>
+                        <KeyFrame Cue="45%">
+							<Setter Property="RotateTransform.Angle" Value="540" />
+                        </KeyFrame>
+                        <KeyFrame Cue="50%">
+							<Setter Property="RotateTransform.Angle" Value="720" />
+                        </KeyFrame>
+                        <KeyFrame Cue="55%">
+							<Setter Property="RotateTransform.Angle" Value="900" />
+                        </KeyFrame>
+                        <KeyFrame Cue="65%">
+							<Setter Property="RotateTransform.Angle" Value="1080" />
+                        </KeyFrame>
+                        <KeyFrame Cue="80%">
+							<Setter Property="RotateTransform.Angle" Value="1260" />
+                        </KeyFrame>
+                        <KeyFrame Cue="100%">
+							<Setter Property="RotateTransform.Angle" Value="1440" />
+                        </KeyFrame>
+                    </Animation>
+                </Style.Animations>
+            </Style>
+
+            <Style Selector="Border">
+				<Setter Property="CornerRadius" Value="15" />
+                <Setter Property="BorderThickness" Value="1" />
+            </Style>
+    </UserControl.Styles>
+    
+    <Grid Width="200" Height="200">
+        <Border ClipToBounds="True">
+            <Image Classes="ApplicationIcon"
+                   VerticalAlignment="Center" HorizontalAlignment="Center" />
+        </Border>
+        
+        <Border BorderBrush="{DynamicResource IconLoaderBorderBrush}"
+                IsHitTestVisible="False" /> 
+    </Grid>
+
+</UserControl>

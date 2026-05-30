@@ -1,0 +1,6 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <WindowIcon x:Key="ApplicationIcon">/Resources/Images/Playhouse_multicolored_icon.png</WindowIcon>
+
+</ResourceDictionary>

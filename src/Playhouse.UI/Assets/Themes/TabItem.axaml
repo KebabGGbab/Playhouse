@@ -1,0 +1,71 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <TabControl Width="300" Height="300" TabStripPlacement="Bottom">
+			    <TabItem Header="1" Theme="{StaticResource Minimalism}">
+				    <TextBlock Text="Content" />
+                </TabItem>
+               <TabItem Header="2" Theme="{StaticResource Minimalism}">
+				    <TextBlock Text="Content Content" />
+                </TabItem>
+            </TabControl>
+        </Border>
+    </Design.PreviewWith>
+
+    <ControlTheme x:Key="Minimalism" TargetType="TabItem">
+        <Setter Property="FontSize" Value="{DynamicResource TabItemHeaderFontSize}" />
+        <Setter Property="FontWeight" Value="{DynamicResource TabItemHeaderThemeFontWeight}" />
+        <Setter Property="Background" Value="{DynamicResource TabItemHeaderBackgroundUnselected}" />
+        <Setter Property="Foreground" Value="{DynamicResource TabItemHeaderForegroundUnselected}" />
+        <Setter Property="Padding" Value="{DynamicResource TabItemHeaderMargin}" />
+        <Setter Property="MinHeight" Value="{DynamicResource TabItemMinHeight}" />
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Template">
+          <ControlTemplate>
+            <Border Name="PART_LayoutRoot"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="{TemplateBinding CornerRadius}"
+                    Padding="{TemplateBinding Padding}">
+
+                <ContentPresenter Name="PART_ContentPresenter"
+                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                  Content="{TemplateBinding Header}"
+                                  ContentTemplate="{TemplateBinding HeaderTemplate}" />
+            </Border>
+          </ControlTemplate>
+        </Setter>
+
+        <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+          <Setter Property="RecognizesAccessKey" Value="True" />
+        </Style>
+
+        <!--  Selected state  -->
+
+        <Style Selector="^:pointerover">
+          <Setter Property="Background" Value="{DynamicResource TabItemHeaderBackgroundUnselectedPointerOver}" />
+          <Setter Property="Foreground" Value="{DynamicResource TabItemHeaderForegroundUnselectedPointerOver}" />
+        </Style>
+
+        <Style Selector="^:pressed">
+          <Setter Property="Background" Value="{DynamicResource TabItemHeaderBackgroundUnselectedPressed}" />
+          <Setter Property="Foreground" Value="{DynamicResource TabItemHeaderForegroundUnselectedPressed}" />
+        </Style>
+
+        <Style Selector="^:selected, ^:selected:pointerover, ^:selected:pressed">
+          <Setter Property="Background" Value="{DynamicResource TabItemHeaderBackgroundSelected}" />
+          <Setter Property="Foreground" Value="{DynamicResource TabItemHeaderForegroundSelected}" />
+        </Style>
+
+        <Style Selector="^:disabled">
+          <Setter Property="Background" Value="{DynamicResource TabItemHeaderBackgroundDisabled}" />
+          <Setter Property="Foreground" Value="{DynamicResource TabItemHeaderForegroundDisabled}" />
+        </Style>
+
+    </ControlTheme>
+
+</ResourceDictionary>

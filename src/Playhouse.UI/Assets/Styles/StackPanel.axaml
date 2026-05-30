@@ -25,4 +25,15 @@
 		<Setter Property="MaxWidth" Value="500" />
     </Style>
 
+    <Style Selector="StackPanel.browser-event-settings">
+		<Setter Property="Orientation" Value="Vertical" />
+        <Setter Property="Spacing" Value="25" />
+        <Setter Property="Margin" Value="20" />
+    </Style>
+
+    <Style Selector="StackPanel.browser-event-settings-item">
+		<Setter Property="Orientation" Value="Vertical" />
+        <Setter Property="Spacing" Value="8" />
+    </Style>
+
 </Styles>

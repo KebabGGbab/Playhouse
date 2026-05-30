@@ -1,6 +1,6 @@
 using Avalonia.Controls;
 
-namespace Playhouse.UI.Views;
+namespace Playhouse.UI.Views.Windows;
 
 internal sealed partial class UpdateWindow : Window
 {

@@ -11,11 +11,14 @@ namespace Playhouse.ViewModels.ViewModels
         private readonly IBotConstructorFactory _constructorFactory;
 
         private AsyncRelayCommand? _startConstructorBotCommand;
-        public BrowserEventViewModel? SelectBrowserEvent 
+        public BrowserEventViewModel? SelectedBrowserEvent 
         {
             get => field;
             set => SetProperty(ref field, value);
         }
+
+        // placeholder
+        public IEnumerable<BrowserEventViewModel> Events { get; set; }
 
         public BrowserProfileViewModel Profile { get; }
 

@@ -9,31 +9,23 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <AvaloniaResource Include="Resources\Assets\**" />  
+    <AvaloniaResource Include="Assets\**" />  
   </ItemGroup>
 
   <ItemGroup>
+    <AvaloniaResource Remove="Assets\Geometries\**" />
+    <AvaloniaXaml Remove="Assets\Geometries\**" />
     <AvaloniaXaml Remove="Models\**" />
+    <Compile Remove="Assets\Geometries\**" />
     <Compile Remove="Models\**" />
+    <EmbeddedResource Remove="Assets\Geometries\**" />
     <EmbeddedResource Remove="Models\**" />
+    <None Remove="Assets\Geometries\**" />
     <None Remove="Models\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <AvaloniaXaml Remove="Resources\Assets\Brushes\SolidColorBrushes.axaml" />
-    <AvaloniaXaml Remove="Resources\Assets\DataTemplates\BrowserProfileViewModel.axaml" />
-    <AvaloniaXaml Remove="Resources\Assets\Styles\Button.axaml" />
-    <AvaloniaXaml Remove="Resources\Assets\Styles\ComboBox.axaml" />
-    <AvaloniaXaml Remove="Resources\Assets\Styles\DataGrid.axaml" />
-    <AvaloniaXaml Remove="Resources\Assets\Styles\DataGridRow.axaml" />
-    <AvaloniaXaml Remove="Resources\Assets\Styles\DockPanel.axaml" />
-    <AvaloniaXaml Remove="Resources\Assets\Styles\HeaderedContentControl.axaml" />
-    <AvaloniaXaml Remove="Resources\Assets\Styles\Label.axaml" />
-    <AvaloniaXaml Remove="Resources\Assets\Styles\StackPanel.axaml" />
-    <AvaloniaXaml Remove="Resources\Assets\Styles\TabItem.axaml" />
-    <AvaloniaXaml Remove="Resources\Assets\Styles\TextBlock.axaml" />
-    <AvaloniaXaml Remove="Resources\Assets\Styles\TextBox.axaml" />
-    <AvaloniaXaml Remove="Resources\Assets\Styles\WrapPanel.axaml" />
+    <AvaloniaXaml Remove="Assets\Brushes\SolidColorBrushes.axaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -76,6 +68,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>StringsUI.resx</DependentUpon>
     </Compile>
+    <Compile Update="Views\UserControls\IconLoaderView.axaml.cs">
+      <DependentUpon>IconLoaderView.axaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -90,57 +85,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Resources\Assets\Geometries\" />
-    <Folder Include="Resources\Assets\Geometries\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Reference Include="KebabGGbab.Avalonia.Extensions">
       <HintPath>..\..\..\Libraries\KebabGGbab.Avalonia.Extensions\KebabGGbab.Avalonia.Extensions\bin\Debug\net10.0\KebabGGbab.Avalonia.Extensions.dll</HintPath>
     </Reference>
   </ItemGroup>
 
   <ItemGroup>
-    <AvaloniaResource Update="Resources\Assets\Brushes\SolidColorBrushes.axaml">
-      <SubType>Designer</SubType>
-    </AvaloniaResource>
-    <AvaloniaResource Update="Resources\Assets\DataTemplates\BrowserProfileViewModel.axaml">
-      <SubType>Designer</SubType>
-    </AvaloniaResource>
-    <AvaloniaResource Update="Resources\Assets\Styles\Button.axaml">
-      <SubType>Designer</SubType>
-    </AvaloniaResource>
-    <AvaloniaResource Update="Resources\Assets\Styles\ComboBox.axaml">
-      <SubType>Designer</SubType>
-    </AvaloniaResource>
-    <AvaloniaResource Update="Resources\Assets\Styles\DataGrid.axaml">
-      <SubType>Designer</SubType>
-    </AvaloniaResource>
-    <AvaloniaResource Update="Resources\Assets\Styles\DataGridRow.axaml">
-      <SubType>Designer</SubType>
-    </AvaloniaResource>
-    <AvaloniaResource Update="Resources\Assets\Styles\DockPanel.axaml">
-      <SubType>Designer</SubType>
-    </AvaloniaResource>
-    <AvaloniaResource Update="Resources\Assets\Styles\HeaderedContentControl.axaml">
-      <SubType>Designer</SubType>
-    </AvaloniaResource>
-    <AvaloniaResource Update="Resources\Assets\Styles\Label.axaml">
-      <SubType>Designer</SubType>
-    </AvaloniaResource>
-    <AvaloniaResource Update="Resources\Assets\Styles\StackPanel.axaml">
-      <SubType>Designer</SubType>
-    </AvaloniaResource>
-    <AvaloniaResource Update="Resources\Assets\Styles\TabItem.axaml">
-      <SubType>Designer</SubType>
-    </AvaloniaResource>
-    <AvaloniaResource Update="Resources\Assets\Styles\TextBlock.axaml">
-      <SubType>Designer</SubType>
-    </AvaloniaResource>
-    <AvaloniaResource Update="Resources\Assets\Styles\TextBox.axaml">
-      <SubType>Designer</SubType>
-    </AvaloniaResource>
-    <AvaloniaResource Update="Resources\Assets\Styles\WrapPanel.axaml">
+    <AvaloniaResource Update="Assets\Brushes\SolidColorBrushes.axaml">
       <SubType>Designer</SubType>
     </AvaloniaResource>
   </ItemGroup>

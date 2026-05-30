@@ -10,9 +10,9 @@
 		<Setter Property="HorizontalAlignment" Value="Stretch" />
     </Style>
 
-  <Style Selector="ComboBox.inline">
+    <Style Selector="ComboBox.inline">
 	  <Setter Property="VerticalAlignment" Value="Center" />
-  </Style>
+    </Style>
 
     <Style Selector="ComboBox.editable">
 		<Setter Property="IsEditable" Value="True" />

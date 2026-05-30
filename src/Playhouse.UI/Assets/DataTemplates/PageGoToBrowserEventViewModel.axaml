@@ -1,0 +1,32 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:vm="using:Playhouse.ViewModels.ViewModels.EventBrowserViewModels">
+
+    <DataTemplate x:Key="PageGoToBrowserEventViewModel" DataType="{x:Type vm:PageGoToBrowserEventViewModel}">
+        <ScrollViewer Classes="browser-event-settings">
+            <StackPanel Classes="browser-event-settings">
+
+			    <StackPanel Classes="browser-event-settings-item">
+				    <TextBlock Classes="browser-event-settings-item" 
+                               Text="URL-адрес страницы, на которую осуществляется переход:" />
+                    <TextBox Text="{Binding Path=Url, Mode=TwoWay}" />
+                </StackPanel>
+
+                <StackPanel Classes="browser-event-settings-item">
+				    <TextBlock Classes="browser-event-settings-item" 
+                               Text="URL-адрес страницы, с которой осуществляется переход" />
+                    <TextBox Text="{Binding Path=Referer, Mode=TwoWay}" />
+                </StackPanel>
+
+                <StackPanel Classes="browser-event-settings-item">
+				    <TextBlock Classes="browser-event-settings-item" 
+                               Text="Время ожидания:" />
+                    <NumericUpDown Classes="timeout"
+                                   Text="{Binding Path=Timeout, Mode=TwoWay}" />
+                </StackPanel>
+
+            </StackPanel>
+        </ScrollViewer>
+    </DataTemplate>
+
+</ResourceDictionary>

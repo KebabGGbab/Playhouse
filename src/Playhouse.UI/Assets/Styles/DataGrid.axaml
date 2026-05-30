@@ -14,6 +14,8 @@
         <Setter Property="IsReadOnly" Value="true" /> 
         <Setter Property="SelectionMode" Value="Single" />
         <Setter Property="Background" Value="{DynamicResource DataGridBackground}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource DataGridBorderBrush}" />
+        <Setter Property="BorderThickness" Value="{DynamicResource DataGridBorderThickness}" />
     </Style>
 
 </Styles>

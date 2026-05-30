@@ -1,0 +1,19 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:vm="using:Playhouse.ViewModels.ViewModels.EventBrowserViewModels">
+
+    <DataTemplate x:Key="PageClosedBrowserEventViewModel" DataType="{x:Type vm:PageClosedBrowserEventViewModel}">
+		<StackPanel Classes="browser-event-settings">
+			<StackPanel Classes="browser-event-settings-item">
+                <TextBlock Classes="browser-event-settings-item"
+                           Text="Причина закрытия окна:" />
+                <TextBox Text="{Binding Path=Reason, Mode=TwoWay}" />
+            </StackPanel>
+            <StackPanel Classes="browser-event-settings-item">
+				<CheckBox Content="Запускать событие выгрузки страницы"
+                          IsChecked="{Binding Path=RunBeforeUnload}" />
+            </StackPanel>
+        </StackPanel>
+    </DataTemplate>
+
+</ResourceDictionary>

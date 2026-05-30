@@ -4,7 +4,7 @@ using Playhouse.UI.Services.WindowCreatorService.Abstractions;
 using Playhouse.ViewModels.Messages;
 using Playhouse.ViewModels.ViewModels;
 
-namespace Playhouse.UI.Views
+namespace Playhouse.UI.Views.Windows
 {
     internal partial class MainWindow : Window
     {
