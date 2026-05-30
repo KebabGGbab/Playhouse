@@ -9,12 +9,12 @@ using Microsoft.Extensions.Logging;
 using Playhouse.Core.Models.ConfigurationOptions;
 using Playhouse.Core.Services.FilePathResolverService;
 using Playhouse.UI.Resources.Localization;
+using Playhouse.UI.Services.LocalizationService;
 using Playhouse.UI.Services.WindowCreatorService;
 using Playhouse.UI.Services.WindowCreatorService.Abstractions;
 using Playhouse.UI.Views.Windows;
 using Playhouse.ViewModels.DIExtensions.CoreServices;
 using Playhouse.ViewModels.DIExtensions.ViewModelsExtensions;
-using Playhouse.ViewModels.Services.LocalizationService;
 using Playhouse.ViewModels.Services.ViewModelFactories;
 using Playhouse.ViewModels.ViewModels;
 
@@ -93,8 +93,8 @@ namespace Playhouse.UI
             services.AddSettings();
             services.AddApplicationDbContext();
             services.AddFileManagers();
-            services.AddLocalization(StringsUI.ResourceManager);
             services.AddViewModelFactories();
+            services.AddLocalizationApp();
         }
 
         private static void ConfigureConfiguration(IServiceCollection services, ConfigurationManager configuration)

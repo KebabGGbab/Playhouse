@@ -2,12 +2,12 @@
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using KebabGGbab.Localization.Manager;
 using Microsoft.Extensions.Options;
 using Playhouse.Core.Enums;
 using Playhouse.Core.Models.ConfigurationOptions;
 using Playhouse.Core.Services.PlaywrightService.Abstractions;
 using Playhouse.Core.Services.SettingsService.Abstractions;
-using Playhouse.ViewModels.Services.LocalizationService.Abstractions;
 
 namespace Playhouse.ViewModels.ViewModels
 {
@@ -15,7 +15,7 @@ namespace Playhouse.ViewModels.ViewModels
     {
         private readonly ISettingsUpdater<UserSettings> _settingsUpdater;
         private readonly IPlaywrightBrowserInstaller _playwrightBrowserInstaller;
-        private readonly ILocalizator _localizator;
+        private readonly ILocalizationManager _localizator;
         private readonly UserSettings _userSettings;
 
         public IReadOnlyList<CultureInfo> Cultures => _localizator.Cultures; 
@@ -66,18 +66,18 @@ namespace Playhouse.ViewModels.ViewModels
             get => field ??= new RelayCommand(ExecuteSaveSettings);
         }
 
-		public SettingsViewModel(IOptions<UserSettings> userSettings, ISettingsUpdater<UserSettings> settingsUpdater, IPlaywrightBrowserInstaller playwrightBrowserInstaller, ILocalizator localizator) 
+		public SettingsViewModel(IOptions<UserSettings> userSettings, ISettingsUpdater<UserSettings> settingsUpdater, IPlaywrightBrowserInstaller playwrightBrowserInstaller, ILocalizationManager localizator) 
         {
             _settingsUpdater = settingsUpdater;
             _playwrightBrowserInstaller = playwrightBrowserInstaller;
             _localizator = localizator;
             _userSettings = userSettings.Value;
-            _localizator.SetUICulture(SelectedCulture);
+            _localizator.CurrentUICulture = SelectedCulture;
         }
 
         private async void ExecuteSaveSettings()
         {
-            _localizator.SetUICulture(SelectedCulture);
+            _localizator.CurrentUICulture = SelectedCulture;
             Task[] updateTasks = [
                 _settingsUpdater.UpdateAsync(_userSettings), 
                 _playwrightBrowserInstaller.InstallAsync()];
