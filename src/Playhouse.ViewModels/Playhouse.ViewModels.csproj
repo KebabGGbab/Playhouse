@@ -17,7 +17,7 @@
 
   <ItemGroup>
     <Reference Include="Jobs.Abstractions">
-      <HintPath>..\..\Libraries\Jobs.Abstractions\Jobs.Abstractions\bin\Debug\net10.0\Jobs.Abstractions.dll</HintPath>
+      <HintPath>..\..\..\Libraries\Jobs.Abstractions\Jobs.Abstractions\bin\Debug\net10.0\Jobs.Abstractions.dll</HintPath>
     </Reference>
   </ItemGroup>
 
