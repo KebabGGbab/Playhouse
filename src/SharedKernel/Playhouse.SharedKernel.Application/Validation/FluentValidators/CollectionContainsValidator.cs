@@ -2,7 +2,7 @@
 using FluentValidation.Validators;
 using Playhouse.SharedKernel.Application.Resources.Strings;
 
-namespace Playhouse.SharedKernel.Application.Validators.PropertyValidators
+namespace Playhouse.SharedKernel.Application.Validation.FluentValidators
 {
     public sealed class CollectionContainsValidator<T, TCollectionElement> : PropertyValidator<T, TCollectionElement>
     {

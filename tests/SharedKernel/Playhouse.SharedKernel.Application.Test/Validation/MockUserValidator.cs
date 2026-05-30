@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using Playhouse.SharedKernel.Application.Test.Mock;
-using Playhouse.SharedKernel.Application.Validators.PropertyValidators;
+using Playhouse.SharedKernel.Application.Validation.FluentValidators;
 
 namespace Playhouse.SharedKernel.Application.Test.Validation
 {

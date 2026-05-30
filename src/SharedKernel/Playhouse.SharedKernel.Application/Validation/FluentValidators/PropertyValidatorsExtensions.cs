@@ -3,7 +3,7 @@ using FluentValidation;
 using FluentValidation.Results;
 using Playhouse.SharedKernel.Domain.Results;
 
-namespace Playhouse.SharedKernel.Application.Validators.PropertyValidators
+namespace Playhouse.SharedKernel.Application.Validation.FluentValidators
 {
     public static class PropertyValidatorsExtensions
     {
