@@ -33,13 +33,13 @@
 
   <ItemGroup>
     <Reference Include="Jobs.Abstractions">
-      <HintPath>..\..\Libraries\Jobs.Abstractions\Jobs.Abstractions\bin\Debug\net10.0\Jobs.Abstractions.dll</HintPath>
+      <HintPath>..\..\..\Libraries\Jobs.Abstractions\Jobs.Abstractions\bin\Debug\net10.0\Jobs.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="KebabGGbab.Json">
-      <HintPath>..\..\Libraries\KebabGGbab.Json\src\bin\Debug\net9.0\KebabGGbab.Json.dll</HintPath>
+      <HintPath>..\..\..\Libraries\KebabGGbab.Json\src\bin\Debug\net9.0\KebabGGbab.Json.dll</HintPath>
     </Reference>
     <Reference Include="KebabGGbab.Primitives.Extensions">
-      <HintPath>..\..\Libraries\KebabGGbab.Primitives.Extensions\src\bin\Debug\net10.0\KebabGGbab.Primitives.Extensions.dll</HintPath>
+      <HintPath>..\..\..\Libraries\KebabGGbab.Primitives.Extensions\src\bin\Debug\net10.0\KebabGGbab.Primitives.Extensions.dll</HintPath>
     </Reference>
   </ItemGroup>
 
