@@ -1,72 +1,64 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using KebabGGbab.CommunityToolkit.MVVM.Extensions.ViewModelAbstractions;
 using Microsoft.Playwright;
-using Playhouse.ViewModels.EventArguments;
 
 namespace Playhouse.ViewModels.ViewModels.PlaywrightViewModels
 {
-    public class PositionViewModel : ObservableObject
+    public class PositionViewModel : EditableViewModel
     {
-        private Position? _position;
+        private readonly Position _position;
+
+        private float _x;
+        private float _y;
 
         public float X
         {
-            get => _position == null ? 0 : _position.X;
+            get => _position.X;
             set
             {
-                if (_position == null)
+                if (SetProperty(ref _x, value))
                 {
-                    throw new InvalidOperationException();
+                    IsModified = CheckModified();
                 }
-
-                SetProperty(_position.X, value, _position, (m, v) => m.X = v);
             }
         }
 
         public float Y
         {
-            get => _position == null ? 0 : _position.Y;
+            get => _position.Y;
             set
             {
-                if (_position == null)
+                if (SetProperty(ref _y, value))
                 {
-                    throw new InvalidOperationException();
+                    IsModified = CheckModified();
                 }
-
-                SetProperty(_position.Y, value, _position, (m, v) => m.Y = v);
             }
         }
 
-        public bool IsRandom
+        public PositionViewModel(Position position)
         {
-            get => _position == null;
-            set => SetProperty(IsRandom, value, (v) =>
-            {
-                if (v)
-                {
-                    _position = null;
-                    OnPropertyChanged(string.Empty);
-                }
-                else
-                {
-                    _position = new Position();
-                }
-
-                OnPositionChanged(_position);
-            });
-        }
-
-        public event EventHandler<PositionViewModel, PositionChangedEventArgs>? PositionChanged;
-
-        public PositionViewModel(Position? position = null)
-        {
-            ArgumentNullException.ThrowIfNull(position, nameof(position));
+            ArgumentNullException.ThrowIfNull(position);
 
             _position = position;
+            _x = position.X;
+            _y = position.Y;
         }
 
-        private void OnPositionChanged(Position? newPosition)
+        protected override bool CheckModified()
         {
-            PositionChanged?.Invoke(this, new PositionChangedEventArgs(newPosition));
+            return !(_x == _position.X
+                && _y == _position.Y);
+        }
+
+        protected override async Task SaveChangesCoreAsync()
+        {
+            _position.X = _x;
+            _position.Y = _y;
+        }
+
+        protected override void CancelChangesCore()
+        {
+            X = _position.X;
+            Y = _position.Y;
         }
     }
 }

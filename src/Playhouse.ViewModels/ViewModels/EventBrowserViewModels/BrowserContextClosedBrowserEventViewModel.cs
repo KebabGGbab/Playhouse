@@ -2,18 +2,40 @@
 
 namespace Playhouse.ViewModels.ViewModels.EventBrowserViewModels
 {
-    public class BrowserContextClosedBrowserEventViewModel : BrowserEventViewModel
+    public class BrowserContextClosedBrowserEventViewModel : BrowserEventViewModel<BrowserContextClosedBrowserEvent>
     {
-        protected new BrowserContextClosedBrowserEvent Event => (BrowserContextClosedBrowserEvent)base.Event;
+        private string? _reason;
 
         public string? Reason
         {
-            get => Event.CloseOptions.Reason;
-            set => SetProperty(Event.CloseOptions.Reason, value, Event, (m, v) => m.CloseOptions.Reason = v);
+            get => _reason;
+            set
+            {
+                if (SetProperty(ref _reason, value))
+                {
+                    IsModified = CheckModified();
+                }
+            }
         }
 
         public BrowserContextClosedBrowserEventViewModel(BrowserContextClosedBrowserEvent @event) : base(@event)
         {
+            _reason = @event.Options.Reason;
+        }
+
+        protected override bool CheckModified()
+        {
+            return !(_reason == Event.Options.Reason);
+        }
+
+        protected override async Task SaveChangesCoreAsync()
+        {
+            Event.Options.Reason = _reason;
+        }
+
+        protected override void CancelChangesCore()
+        {
+            Reason = Event.Options.Reason;
         }
     }
 }

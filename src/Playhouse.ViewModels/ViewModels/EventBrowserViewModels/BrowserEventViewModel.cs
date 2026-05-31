@@ -1,21 +1,9 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using Playhouse.Core.Models.BrowserEvents.Abstractions;
+﻿using KebabGGbab.CommunityToolkit.MVVM.Extensions.ViewModelAbstractions;
 
 namespace Playhouse.ViewModels.ViewModels.EventBrowserViewModels
 {
-    public class BrowserEventViewModel : ObservableObject
+    public abstract class BrowserEventViewModel : EditableViewModel
     {
-        private readonly BrowserEvent _event;
-
-        protected BrowserEvent Event => _event;
-
-        public int Id => _event.Id;
-
-        public BrowserEventViewModel(BrowserEvent @event)
-        {
-            ArgumentNullException.ThrowIfNull(@event, nameof(@event));
-
-            _event = @event;
-        }
+        public abstract int Id { get; }
     }
 }

@@ -2,12 +2,24 @@
 
 namespace Playhouse.ViewModels.ViewModels.EventBrowserViewModels
 {
-    public class PageCreatedBrowserEventViewModel : BrowserEventViewModel
+    public class PageCreatedBrowserEventViewModel : BrowserEventViewModel<PageCreatedBrowserEvent>
     {
-        protected new PageCreatedBrowserEvent Event => (PageCreatedBrowserEvent)base.Event; 
-
         public PageCreatedBrowserEventViewModel(PageCreatedBrowserEvent @event) 
             : base(@event)
+        {
+        }
+
+        protected override bool CheckModified()
+        {
+            return false;
+        }
+
+        protected override Task SaveChangesCoreAsync()
+        {
+            return Task.CompletedTask;
+        }
+
+        protected override void CancelChangesCore()
         {
         }
     }
