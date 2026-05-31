@@ -177,9 +177,6 @@
   <data name="WindowConstructorBotTitle" xml:space="preserve">
     <value>Playhouse - Конструктор Бота</value>
   </data>
-  <data name="BotPropertyID" xml:space="preserve">
-    <value>ID</value>
-  </data>
   <data name="BoxInformationProfileHeader" xml:space="preserve">
     <value>Информация</value>
   </data>
@@ -269,5 +266,8 @@
   </data>
   <data name="LabelSettingsLanguage" xml:space="preserve">
     <value>Язык</value>
+  </data>
+  <data name="BotPropertyID" xml:space="preserve">
+    <value>id</value>
   </data>
 </root>

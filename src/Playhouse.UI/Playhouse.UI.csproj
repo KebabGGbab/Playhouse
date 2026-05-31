@@ -3,29 +3,26 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
-    <ApplicationManifest>app.manifest</ApplicationManifest>
-    <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
     <ImplicitUsings>enable</ImplicitUsings>
+	  <NeutralLanguage>en</NeutralLanguage>
   </PropertyGroup>
+
+	<!-- AvaloniaUI -->
+	<PropertyGroup>
+		<ApplicationManifest>app.manifest</ApplicationManifest>
+		<AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+	</PropertyGroup>
 
   <ItemGroup>
     <AvaloniaResource Include="Assets\**" />  
   </ItemGroup>
 
   <ItemGroup>
-    <AvaloniaResource Remove="Assets\Geometries\**" />
-    <AvaloniaXaml Remove="Assets\Geometries\**" />
-    <AvaloniaXaml Remove="Models\**" />
-    <Compile Remove="Assets\Geometries\**" />
-    <Compile Remove="Models\**" />
-    <EmbeddedResource Remove="Assets\Geometries\**" />
-    <EmbeddedResource Remove="Models\**" />
-    <None Remove="Assets\Geometries\**" />
-    <None Remove="Models\**" />
+    <None Remove="Resources\Images\Playhouse_multicolored_icon.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <AvaloniaXaml Remove="Assets\Brushes\SolidColorBrushes.axaml" />
+    <AvaloniaResource Include="Resources\Images\Playhouse_multicolored_icon.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -58,11 +55,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Resources\Localization\StringsCode.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>StringsCode.resx</DependentUpon>
-    </Compile>
     <Compile Update="Resources\Localization\StringsUI.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -74,10 +66,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Resources\Localization\StringsCode.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>StringsCode.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Update="Resources\Localization\StringsUI.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>StringsUI.Designer.cs</LastGenOutput>

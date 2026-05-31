@@ -61,7 +61,7 @@ namespace Playhouse.UI.Resources.Localization {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на ID.
+        ///   Ищет локализованную строку, похожую на id.
         /// </summary>
         public static string BotPropertyID {
             get {
