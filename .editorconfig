@@ -1,0 +1,7 @@
+﻿[*.cs]
+
+# CA1054: Параметры, напоминающие URI, не должны быть строками
+dotnet_diagnostic.CA1054.severity = none
+
+# CA1056: Свойства, напоминающие URI, не должны быть строками
+dotnet_diagnostic.CA1056.severity = none

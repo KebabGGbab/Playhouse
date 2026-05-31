@@ -7,7 +7,7 @@ namespace Playhouse.Core.Models.BrowserEvents
     {
         public const string NAME = "click";
 
-        public LocatorClickOptionsStrictDecorator ClickOptions { get; init; } = null!;
+        public LocatorClickOptionsStrictDecorator Options { get; } = null!;
 
         // Конструктор для EntityFramework
         private LocatorClickBrowserEvent()
@@ -16,12 +16,12 @@ namespace Playhouse.Core.Models.BrowserEvents
 
         public LocatorClickBrowserEvent(LocatorClickOptionsStrictDecorator? options = null)
         {
-            ClickOptions = options ?? new LocatorClickOptionsStrictDecorator();
+            Options = options ?? new LocatorClickOptionsStrictDecorator();
         }
 
         public override void Accept(IBrowserEventVisitor visitor)
         {
-            ArgumentNullException.ThrowIfNull(visitor, nameof(visitor));
+            ArgumentNullException.ThrowIfNull(visitor);
 
             visitor.Visit(this);
         }

@@ -6,7 +6,7 @@ namespace Playhouse.Core.Models.BrowserEvents
     {
         public override void Accept(IBrowserEventVisitor visitor)
         {
-            ArgumentNullException.ThrowIfNull(visitor, nameof(visitor));
+            ArgumentNullException.ThrowIfNull(visitor);
 
             visitor.Visit(this);
         }

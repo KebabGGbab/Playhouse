@@ -72,7 +72,7 @@ namespace Playhouse.Core.Services.BotConstructorService
 
         private void Page_Loaded(object? sender, IPage e)
         {
-            OnBrowserEventHappend(new PageGoToBrowserEvent(new Uri(e.Url)) { BotInfo = BotConstruction, Number = _context.GetPageNumber(e) });
+            OnBrowserEventHappend(new PageGoToBrowserEvent(e.Url) { BotInfo = BotConstruction, Number = _context.GetPageNumber(e) });
         }
 
         private void Console_GetRecord(object? sender, IConsoleMessage e)

@@ -115,8 +115,8 @@ namespace Playhouse.Core.Test.TestingClasses
             BotInfo bot = await context.BotsInfo.Include(b => b.BrowserEvents).SingleAsync(b => b.Id == 2, CancellationToken.None);
 
             LocatorClickBrowserEvent @event = (LocatorClickBrowserEvent)bot.BrowserEvents[0];
-            Assert.AreEqual(10, @event.ClickOptions.Position?.X);
-            Assert.AreEqual(3, @event.ClickOptions.Position?.Y);
+            Assert.AreEqual(10, @event.Options.Position?.X);
+            Assert.AreEqual(3, @event.Options.Position?.Y);
         }
 
         [TestMethod]
@@ -133,11 +133,11 @@ namespace Playhouse.Core.Test.TestingClasses
             Assert.IsPositive(events[0].Id);
             Assert.IsPositive(events[0].Number);
             Assert.IsNotNull(events[0].BotInfo);
-            Assert.IsTrue(events[0].CloseOptions.RunBeforeUnload);
-            Assert.AreEqual("Так надо", events[0].CloseOptions.Reason);
-            Assert.IsFalse(events[1].CloseOptions.RunBeforeUnload);
-            Assert.IsNull(events[1].CloseOptions.Reason);
-            Assert.IsFalse(events[2].CloseOptions.RunBeforeUnload);
+            Assert.IsTrue(events[0].Options.RunBeforeUnload);
+            Assert.AreEqual("Так надо", events[0].Options.Reason);
+            Assert.IsFalse(events[1].Options.RunBeforeUnload);
+            Assert.IsNull(events[1].Options.Reason);
+            Assert.IsFalse(events[2].Options.RunBeforeUnload);
         }
 
         [TestMethod]
@@ -154,8 +154,8 @@ namespace Playhouse.Core.Test.TestingClasses
             Assert.IsPositive(events[0].Id);
             Assert.IsPositive(events[0].Number);
             Assert.IsNotNull(events[0].BotInfo);
-            Assert.IsNull(events[0].CloseOptions.Reason);
-            Assert.AreEqual("Причина", events[1].CloseOptions.Reason);
+            Assert.IsNull(events[0].Options.Reason);
+            Assert.AreEqual("Причина", events[1].Options.Reason);
         }
 
         [TestMethod]
@@ -173,13 +173,13 @@ namespace Playhouse.Core.Test.TestingClasses
             Assert.IsPositive(events[0].Id);
             Assert.IsPositive(events[0].Number);
             Assert.IsNotNull(events[0].BotInfo);
-            Assert.AreEqual("https://playhoouse.ru/", events[0].Url.AbsoluteUri);
-            Assert.IsNull(events[0].GotoOptions.Referer);
-            Assert.AreEqual(30000, events[0].GotoOptions.Timeout);
-            Assert.AreEqual(WaitUntilState.Load, events[0].GotoOptions.WaitUntil);
-            Assert.AreEqual("Строка", events[1].GotoOptions.Referer);
-            Assert.AreEqual(10000, events[1].GotoOptions.Timeout);
-            Assert.AreEqual(WaitUntilState.DOMContentLoaded, events[1].GotoOptions.WaitUntil);
+            Assert.AreEqual("https://playhoouse.ru/", events[0].Url);
+            Assert.IsNull(events[0].Options.Referer);
+            Assert.AreEqual(30000, events[0].Options.Timeout);
+            Assert.AreEqual(WaitUntilState.Load, events[0].Options.WaitUntil);
+            Assert.AreEqual("Строка", events[1].Options.Referer);
+            Assert.AreEqual(10000, events[1].Options.Timeout);
+            Assert.AreEqual(WaitUntilState.DOMContentLoaded, events[1].Options.WaitUntil);
         }
 
         [TestMethod]
@@ -197,20 +197,20 @@ namespace Playhouse.Core.Test.TestingClasses
             Assert.IsPositive(events[0].Id);
             Assert.IsPositive(events[0].Number);
             Assert.IsNotNull(events[0].BotInfo);
-            Assert.AreEqual(MouseButton.Middle, events[0].ClickOptions.Button);
-            Assert.AreEqual(3, events[0].ClickOptions.ClickCount);
-            Assert.AreEqual(530, events[0].ClickOptions.Delay);
-            Assert.IsTrue(events[0].ClickOptions.Force);
-            Assert.AreEqual(7, events[0].ClickOptions.Steps);
-            Assert.AreEqual(15000, events[0].ClickOptions.Timeout);
-            Assert.IsTrue(events[0].ClickOptions.Trial);
-            Assert.AreEqual(MouseButton.Left, events[1].ClickOptions.Button);
-            Assert.AreEqual(1, events[1].ClickOptions.ClickCount);
-            Assert.AreEqual(0, events[1].ClickOptions.Delay);
-            Assert.IsFalse(events[1].ClickOptions.Force);
-            Assert.AreEqual(1, events[1].ClickOptions.Steps);
-            Assert.AreEqual(30000, events[1].ClickOptions.Timeout);
-            Assert.IsFalse(events[1].ClickOptions.Trial);
+            Assert.AreEqual(MouseButton.Middle, events[0].Options.Button);
+            Assert.AreEqual(3, events[0].Options.ClickCount);
+            Assert.AreEqual(530, events[0].Options.Delay);
+            Assert.IsTrue(events[0].Options.Force);
+            Assert.AreEqual(7, events[0].Options.Steps);
+            Assert.AreEqual(15000, events[0].Options.Timeout);
+            Assert.IsTrue(events[0].Options.Trial);
+            Assert.AreEqual(MouseButton.Left, events[1].Options.Button);
+            Assert.AreEqual(1, events[1].Options.ClickCount);
+            Assert.AreEqual(0, events[1].Options.Delay);
+            Assert.IsFalse(events[1].Options.Force);
+            Assert.AreEqual(1, events[1].Options.Steps);
+            Assert.AreEqual(30000, events[1].Options.Timeout);
+            Assert.IsFalse(events[1].Options.Trial);
         }
     }
 }

@@ -5,7 +5,7 @@ namespace Playhouse.Core.Models.BrowserEvents
 {
     public class PageClosedBrowserEvent : PageBrowserEvent
     {
-        public PageCloseOptionsStrictDecorator CloseOptions { get; init; } = null!;
+        public PageCloseOptionsStrictDecorator Options { get; } = null!;
 
         // Конструктор для EntityFramework
         private PageClosedBrowserEvent()
@@ -14,12 +14,12 @@ namespace Playhouse.Core.Models.BrowserEvents
 
         public PageClosedBrowserEvent(PageCloseOptionsStrictDecorator? options = null)
         {
-            CloseOptions = options ?? new PageCloseOptionsStrictDecorator();
+            Options = options ?? new PageCloseOptionsStrictDecorator();
         }
 
         public override void Accept(IBrowserEventVisitor visitor)
         {
-            ArgumentNullException.ThrowIfNull(visitor, nameof(visitor));
+            ArgumentNullException.ThrowIfNull(visitor);
 
             visitor.Visit(this);
         }

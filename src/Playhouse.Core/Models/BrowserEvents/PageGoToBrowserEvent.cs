@@ -5,23 +5,33 @@ namespace Playhouse.Core.Models.BrowserEvents
 {
     public class PageGoToBrowserEvent : PageBrowserEvent
     {
-        public Uri Url { get; set; } = null!;
-        public PageGoToOptionsStrictDecorator GotoOptions { get; init; } = null!;
+        public string Url 
+        { 
+            get;
+            set
+            {
+                ArgumentException.ThrowIfNullOrWhiteSpace(value);
+
+                field = value;
+            }
+        } = null!;
+
+        public PageGoToOptionsStrictDecorator Options { get; } = null!;
 
         // Конструктор для EntityFramework
         private PageGoToBrowserEvent()
         {
         }
 
-        public PageGoToBrowserEvent(Uri url, PageGoToOptionsStrictDecorator? options = null)
+        public PageGoToBrowserEvent(string url, PageGoToOptionsStrictDecorator? options = null)
         {
             Url = url;
-            GotoOptions = options ?? new PageGoToOptionsStrictDecorator();
+            Options = options ?? new PageGoToOptionsStrictDecorator();
         }
 
         public override void Accept(IBrowserEventVisitor visitor)
         {
-            ArgumentNullException.ThrowIfNull(visitor, nameof(visitor));
+            ArgumentNullException.ThrowIfNull(visitor);
 
             visitor.Visit(this);
         }

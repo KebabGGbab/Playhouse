@@ -80,14 +80,14 @@ namespace Playhouse.Core.Test.Tools
             });
 
             botsInfo[4].BrowserEvents.Add(new PageGoToBrowserEvent(
-                new Uri("https://playhoouse.ru/"),
+                "https://playhoouse.ru/",
                 new PageGoToOptionsStrictDecorator())
             {
                 BotInfo = botsInfo[4],
                 Number = 1 }
             );
             botsInfo[4].BrowserEvents.Add(new PageGoToBrowserEvent(
-                new Uri("https://playhoouse2.ru/"),
+                "https://playhoouse2.ru/",
                 new PageGoToOptionsStrictDecorator()
                 {
                     WaitUntil = WaitUntilState.DOMContentLoaded,

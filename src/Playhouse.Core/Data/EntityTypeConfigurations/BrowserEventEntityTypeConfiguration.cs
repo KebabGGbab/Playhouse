@@ -41,7 +41,7 @@ namespace Playhouse.Core.Data.EntityTypeConfigurations
         public void Configure(EntityTypeBuilder<BrowserContextClosedBrowserEvent> builder)
         {
             builder.HasBaseType<BrowserContextBrowserEvent>();
-            builder.OwnsOne(c => c.CloseOptions);
+            builder.OwnsOne(c => c.Options);
         }
     }
 
@@ -75,7 +75,7 @@ namespace Playhouse.Core.Data.EntityTypeConfigurations
         public void Configure(EntityTypeBuilder<PageClosedBrowserEvent> builder)
         {
             builder.HasBaseType<PageBrowserEvent>();
-            builder.OwnsOne(p => p.CloseOptions);
+            builder.OwnsOne(p => p.Options);
         }
     }
 
@@ -87,7 +87,7 @@ namespace Playhouse.Core.Data.EntityTypeConfigurations
         public void Configure(EntityTypeBuilder<PageGoToBrowserEvent> builder)
         {
             builder.HasBaseType<PageBrowserEvent>();
-            builder.OwnsOne(p => p.GotoOptions);
+            builder.OwnsOne(p => p.Options);
         }
     }
 
@@ -110,7 +110,7 @@ namespace Playhouse.Core.Data.EntityTypeConfigurations
         public void Configure(EntityTypeBuilder<LocatorClickBrowserEvent> builder)
         {
             builder.HasBaseType<LocatorBrowserEvent>();
-            builder.OwnsOne(l => l.ClickOptions, b =>
+            builder.OwnsOne(l => l.Options, b =>
             {
                 b.OwnsOne(c => c.Position);
             });
