@@ -19,6 +19,9 @@
     <Reference Include="Jobs.Abstractions">
       <HintPath>..\..\..\Libraries\Jobs.Abstractions\Jobs.Abstractions\bin\Debug\net10.0\Jobs.Abstractions.dll</HintPath>
     </Reference>
+    <Reference Include="KebabGGbab.CommunityToolkit.MVVM.Extensions">
+      <HintPath>..\..\..\Libraries\KebabGGbab.CommunityToolkit.MVVM.Extensions\src\KebabGGbab.CommunityToolkit.MVVM.Extensions\bin\Debug\net10.0\KebabGGbab.CommunityToolkit.MVVM.Extensions.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
