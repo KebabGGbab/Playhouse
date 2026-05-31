@@ -25,12 +25,12 @@ namespace Playhouse.Core.Models.PlaywrightDecorator
 
         public static explicit operator BrowserContextCloseOptions(BrowserContextCloseOptionsStrictDecorator decorator)
         {
-            ArgumentNullException.ThrowIfNull(decorator, nameof(decorator));
+            ArgumentNullException.ThrowIfNull(decorator);
 
             return decorator._options;
         }
 
-        public static explicit operator BrowserContextCloseOptionsStrictDecorator(BrowserContextCloseOptions options)
+        public static implicit operator BrowserContextCloseOptionsStrictDecorator(BrowserContextCloseOptions options)
         {
             return new BrowserContextCloseOptionsStrictDecorator(options);
         }

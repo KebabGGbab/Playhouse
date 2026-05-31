@@ -42,12 +42,12 @@ namespace Playhouse.Core.Models.PlaywrightDecorator
 
         public static explicit operator PageGotoOptions(PageGoToOptionsStrictDecorator decorator)
         {
-            ArgumentNullException.ThrowIfNull(decorator, nameof(decorator));
+            ArgumentNullException.ThrowIfNull(decorator);
 
             return decorator._options; 
         }
 
-        public static explicit operator PageGoToOptionsStrictDecorator(PageGotoOptions options)
+        public static implicit operator PageGoToOptionsStrictDecorator(PageGotoOptions options)
         {
             return new PageGoToOptionsStrictDecorator(options);
         }

@@ -4,13 +4,13 @@ namespace Playhouse.Core.Models.PlaywrightDecorator
 {
     public class PageCloseOptionsStrictDecorator
     {
-        private const bool DEFAULTRUNBEFOREUNLOAD = false;
+        private const bool DEFAULT_RUN_BEFORE_UNLOAD = false;
 
         private readonly PageCloseOptions _options;
 
         public bool RunBeforeUnload
         {
-            get => _options.RunBeforeUnload ??= DEFAULTRUNBEFOREUNLOAD;
+            get => _options.RunBeforeUnload ??= DEFAULT_RUN_BEFORE_UNLOAD;
             set => _options.RunBeforeUnload = value;
         }
 
@@ -29,17 +29,17 @@ namespace Playhouse.Core.Models.PlaywrightDecorator
         public PageCloseOptionsStrictDecorator(PageCloseOptions? options = null)
         {
             _options = options ?? new PageCloseOptions();
-            _options.RunBeforeUnload ??= DEFAULTRUNBEFOREUNLOAD;
+            _options.RunBeforeUnload ??= DEFAULT_RUN_BEFORE_UNLOAD;
         }
 
         public static explicit operator PageCloseOptions(PageCloseOptionsStrictDecorator decorator)
         {
-            ArgumentNullException.ThrowIfNull(decorator, nameof(decorator));
+            ArgumentNullException.ThrowIfNull(decorator);
 
             return decorator._options;
         }
 
-        public static explicit operator PageCloseOptionsStrictDecorator(PageCloseOptions options)
+        public static implicit operator PageCloseOptionsStrictDecorator(PageCloseOptions options)
         {
             return new PageCloseOptionsStrictDecorator(options);
         }
