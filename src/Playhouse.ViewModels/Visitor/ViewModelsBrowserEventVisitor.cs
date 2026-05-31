@@ -10,7 +10,7 @@ namespace Playhouse.ViewModels.Visitor
 
         public void Visit(PageCreatedBrowserEvent browserEvent)
         {
-            CurrentViewModel = new BrowserEventViewModel(browserEvent);
+            CurrentViewModel = new PageCreatedBrowserEventViewModel(browserEvent);
         }
 
         public void Visit(PageClosedBrowserEvent browserEvent)
