@@ -1,0 +1,49 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:vm="using:Playhouse.ViewModels.ViewModels.BotActionViewModels">
+
+    <DataTemplate x:Key="LocatorClickBotActionViewModel" DataType="{x:Type vm:LocatorClickBotActionViewModel}">
+		<ScrollViewer Classes="browser-event-settings">
+			<StackPanel Classes="browser-event-settings">
+
+                <StackPanel Classes="browser-event-settings-item">
+                    <TextBlock Classes="browser-event-settings-item"
+                               Text="Кнопка:" />
+				    <ComboBox ItemsSource="{Binding Path=Buttons}"
+                              SelectedItem="{Binding Path=SelectedButton}" />
+                </StackPanel>
+
+			    <StackPanel Classes="browser-event-settings-item">
+				    <TextBlock Classes="browser-event-settings-item" 
+                               Text="Количество нажатий:" />
+                    <NumericUpDown Text="{Binding Path=ClickCount, Mode=TwoWay}" />
+                </StackPanel>
+
+                <StackPanel Classes="browser-event-settings-item">
+				    <TextBlock Classes="browser-event-settings-item" 
+                               Text="Длительность зажатия кнопки:" />
+                    <NumericUpDown Text="{Binding Path=Delay, Mode=TwoWay}" />
+                </StackPanel>
+
+                <StackPanel Classes="browser-event-settings-item">
+				    <CheckBox IsChecked="{Binding Path=Force, Mode=TwoWay}"
+                              Content="Нажать принудительно" />
+                </StackPanel>
+
+                <StackPanel Classes="browser-event-settings-item">
+				    <TextBlock Classes="browser-event-settings-item" 
+                               Text="Время ожидания:" />
+                    <NumericUpDown Classes="timeout" 
+                                   Text="{Binding Path=Timeout, Mode=TwoWay}" />
+                </StackPanel>
+
+                <StackPanel Classes="browser-event-settings-item">
+				    <CheckBox IsChecked="{Binding Path=Trial, Mode=TwoWay}"
+                              Content="Ожидать готовности нажатия, без самого нажатия" />
+                </StackPanel>
+
+            </StackPanel>
+        </ScrollViewer>
+    </DataTemplate>
+
+</ResourceDictionary>

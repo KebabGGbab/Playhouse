@@ -2,7 +2,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Playhouse.Core.Services.BotConstructorService.Abstractions;
-using Playhouse.ViewModels.ViewModels.EventBrowserViewModels;
+using Playhouse.ViewModels.ViewModels.BotActionViewModels;
 
 namespace Playhouse.ViewModels.ViewModels
 {
@@ -11,24 +11,24 @@ namespace Playhouse.ViewModels.ViewModels
         private readonly IBotConstructorFactory _constructorFactory;
 
         private AsyncRelayCommand? _startConstructorBotCommand;
-        public BrowserEventViewModel? SelectedBrowserEvent 
+        public BotActionViewModel? SelectedAction 
         {
             get => field;
             set => SetProperty(ref field, value);
         }
 
         // placeholder
-        public IEnumerable<BrowserEventViewModel> Events { get; set; }
+        public IEnumerable<BotActionViewModel> Actions { get; set; }
 
-        public BrowserProfileViewModel Profile { get; }
+        public BrowserConfigurationViewModel Profile { get; }
 
-        public BotInfoViewModel Bot { get; }
+        public BotConfigurationViewModel Bot { get; }
 
         public event EventHandler? ConstructorCompleted;
 
         public ICommand StartConstructorBotCommand => _startConstructorBotCommand ??= new AsyncRelayCommand(StartConstructorBotExecuteAsync);
 
-        public BotConstructorViewModel(IBotConstructorFactory constructorFactory, BrowserProfileViewModel profile, BotInfoViewModel bot)
+        public BotConstructorViewModel(IBotConstructorFactory constructorFactory, BrowserConfigurationViewModel profile, BotConfigurationViewModel bot)
         {
             ArgumentNullException.ThrowIfNull(constructorFactory, nameof(constructorFactory));
             ArgumentNullException.ThrowIfNull(profile, nameof(profile));
@@ -44,9 +44,9 @@ namespace Playhouse.ViewModels.ViewModels
             OnConstructorCompleted();
         }
 
-        private void OnBrowserEventHappend(IBotConstructor sender, BrowserEventHappenedEventArgs e)
+        private void OnActionHappend(IBotConstructor sender, BrowserEventHappenedEventArgs e)
         {
-            Bot.AddEvents(e.BrowserEvent);
+            Bot.AddAction(e.Action);
         }
 
         private void OnConstructorCompleted()
@@ -59,7 +59,7 @@ namespace Playhouse.ViewModels.ViewModels
         private async Task StartConstructorBotExecuteAsync()
         {
             IBotConstructor constructor = _constructorFactory.Create(Profile.Profile, Bot.Bot);
-            constructor.BrowserEventHappend += OnBrowserEventHappend;
+            constructor.ActionHappend += OnActionHappend;
             constructor.ConstructionCompleted += Constructor_ConstructionCompleted;
             await constructor.StartConstructorAsync().ConfigureAwait(true);
         }

@@ -96,8 +96,8 @@ namespace Playhouse.Core.Test.Tools
 
             public override void SetData(DbContext context, bool _)
             {
-                context.Set<BotInfo>().AddRange(GeneratorTestDbData.GenerateBotsInfo());
-                context.Set<BrowserProfile>().AddRange(GeneratorTestDbData.GenerateBrowserProfiles());
+                context.Set<BotConfiguration>().AddRange(GeneratorTestDbData.GenerateBots());
+                context.Set<BrowserConfiguration>().AddRange(GeneratorTestDbData.GenerateProfiles());
                 context.SaveChanges();
             }
         }
@@ -137,8 +137,8 @@ namespace Playhouse.Core.Test.Tools
             public void Refresh()
             {
                 using ApplicationDbContext context = CreateDbContext();
-                context.BrowserProfiles.RemoveRange(context.BrowserProfiles.ToList());
-                context.BotsInfo.RemoveRange(context.BotsInfo);
+                context.Profiles.RemoveRange(context.Profiles.ToList());
+                context.Bots.RemoveRange(context.Bots);
                 SetData(context, false);
                 context.SaveChanges();
             }

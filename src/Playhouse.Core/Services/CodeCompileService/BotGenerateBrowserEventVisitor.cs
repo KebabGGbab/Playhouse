@@ -1,21 +1,21 @@
 ﻿using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Playwright;
-using Playhouse.Core.Models.BrowserEvents;
-using Playhouse.Core.Models.BrowserEvents.Abstractions;
+using Playhouse.Core.Models.BotActions;
+using Playhouse.Core.Models.BotActions.Abstractions;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace Playhouse.Core.Services.CodeCompileService
 {
-    public sealed class BotGenerateBrowserEventVisitor : IBrowserEventVisitor
+    public sealed class BotGenerateBrowserEventVisitor : IBotActionVisitor
     {
         private readonly GenerateContext _context = new();
 
         public IList<StatementSyntax> Statements { get; } = [];
 
-        public void Visit(PageCreatedBrowserEvent browserEvent)
+        public void Visit(PageCreatedBotAction action)
         {
-            ArgumentNullException.ThrowIfNull(browserEvent, nameof(browserEvent));
+            ArgumentNullException.ThrowIfNull(action, nameof(action));
 
             Statements.Add(
                 LocalDeclarationStatement(
@@ -23,7 +23,7 @@ namespace Playhouse.Core.Services.CodeCompileService
                         IdentifierName(nameof(IPage)),
                         SeparatedList([
                         VariableDeclarator(
-                            Identifier(_context.GetPageName(browserEvent.Number)),
+                            Identifier(_context.GetPageName(action.Number)),
                             null,
                             EqualsValueClause(
                                 AwaitExpression(
@@ -34,14 +34,14 @@ namespace Playhouse.Core.Services.CodeCompileService
                                             IdentifierName(nameof(IBrowserContext.NewPageAsync)))))))]))));
         }
 
-        public void Visit(PageClosedBrowserEvent browserEvent)
+        public void Visit(PageClosedBotAction action)
         {
             
         }
 
-        public void Visit(PageGoToBrowserEvent browserEvent)
+        public void Visit(PageGoToBotAction action)
         {
-            ArgumentNullException.ThrowIfNull(browserEvent, nameof(browserEvent));
+            ArgumentNullException.ThrowIfNull(action, nameof(action));
 
             Statements.Add(
                 ExpressionStatement(
@@ -49,7 +49,7 @@ namespace Playhouse.Core.Services.CodeCompileService
                         InvocationExpression(
                             MemberAccessExpression(
                                 SyntaxKind.SimpleMemberAccessExpression,
-                                IdentifierName(_context.GetPageName(browserEvent.Number)),
+                                IdentifierName(_context.GetPageName(action.Number)),
                                 IdentifierName(nameof(IPage.GotoAsync))
                             ),
                             ArgumentList(
@@ -57,15 +57,15 @@ namespace Playhouse.Core.Services.CodeCompileService
                                     Argument(
                                         LiteralExpression(
                                             SyntaxKind.StringLiteralExpression,
-                                            Literal(browserEvent.Url.ToString())))]))))));
+                                            Literal(action.Url.ToString())))]))))));
         }
 
-        public void Visit(BrowserContextClosedBrowserEvent browserEvent)
+        public void Visit(BrowserContextClosedBotAction action)
         {
 
         }
 
-        public void Visit(LocatorClickBrowserEvent browserEvent)
+        public void Visit(LocatorClickBotAction action)
         {
             
         }

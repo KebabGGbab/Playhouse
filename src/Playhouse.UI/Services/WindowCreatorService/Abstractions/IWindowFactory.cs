@@ -5,6 +5,6 @@ namespace Playhouse.UI.Services.WindowCreatorService.Abstractions
 {
     internal interface IWindowFactory
     {
-        BotConstructorWindow CreateBotConstructorWindow(BrowserProfileViewModel profile, BotInfoViewModel botInfo);
+        BotConstructorWindow CreateBotConstructorWindow(BrowserConfigurationViewModel browser, BotConfigurationViewModel bot);
     }
 }

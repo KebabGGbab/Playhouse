@@ -1,0 +1,15 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:vm="using:Playhouse.ViewModels.ViewModels.BotActionViewModels">
+
+    <DataTemplate x:Key="BrowserContextClosedBotActionViewModel" DataType="{x:Type vm:BrowserContextClosedBotActionViewModel}">
+		<StackPanel Classes="browser-event-settings">
+			<StackPanel Classes="browser-event-settings-item">
+				<TextBlock Classes="browser-event-settings-item" 
+                           Text="Причина закрытия:" />
+                <TextBox Text="{Binding Path=Reason, Mode=TwoWay}" />
+            </StackPanel>
+        </StackPanel>
+    </DataTemplate>
+
+</ResourceDictionary>

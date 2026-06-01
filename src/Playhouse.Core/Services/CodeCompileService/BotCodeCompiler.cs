@@ -4,7 +4,7 @@ using Playhouse.Core.Services.FilePathResolverService.Abstractions;
 
 namespace Playhouse.Core.Services.CodeCompileService
 {
-    public class BotCodeCompiler : ICodeCompiler<BotInfo>
+    public class BotCodeCompiler : ICodeCompiler<BotConfiguration>
     {
         private readonly IFilePathResolver _filePathResolver;
         private readonly ICompiler _compiler;
@@ -18,7 +18,7 @@ namespace Playhouse.Core.Services.CodeCompileService
             _compiler = compiler;
         }
 
-        public bool Compile(BotInfo bot)
+        public bool Compile(BotConfiguration bot)
         {
             ArgumentNullException.ThrowIfNull(bot, nameof(bot));
 

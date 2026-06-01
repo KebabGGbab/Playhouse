@@ -10,16 +10,16 @@ namespace Playhouse.Core.Services.BotRunningService
     {
         private static readonly CompositeFormat PassedIncorrectImplementation = CompositeFormat.Parse(StringsCode.PassedIncorrectImplementation);
 
-        public BrowserProfile BrowserProfile { get; init; }
-        public BotInfo BotInfo { get; init; }
+        public BrowserConfiguration Profile { get; init; }
+        public BotConfiguration Bot { get; init; }
 
-        public BotJob(BrowserProfile browserProfile, BotInfo botInfo)
+        public BotJob(BrowserConfiguration profile, BotConfiguration bot)
         {
-            ArgumentNullException.ThrowIfNull(browserProfile, nameof(browserProfile));
-            ArgumentNullException.ThrowIfNull(botInfo, nameof(botInfo));
+            ArgumentNullException.ThrowIfNull(profile, nameof(profile));
+            ArgumentNullException.ThrowIfNull(bot, nameof(bot));
 
-            BrowserProfile = browserProfile;
-            BotInfo = botInfo;
+            Profile = profile;
+            Bot = bot;
         }
 
         protected override async Task RunAsync(RunArgs args, CancellationToken? cancellation = null)

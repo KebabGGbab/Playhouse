@@ -4,6 +4,6 @@ namespace Playhouse.Core.Services.BotConstructorService.Abstractions
 {
     public interface IBotConstructorFactory
     {
-        IBotConstructor Create(BrowserProfile profile, BotInfo bot);
+        IBotConstructor Create(BrowserConfiguration profile, BotConfiguration bot);
     }
 }

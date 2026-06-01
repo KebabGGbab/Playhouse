@@ -8,9 +8,9 @@ namespace Playhouse.Core.Data
 {
     public class ApplicationDbContext : DbContext
     {
-        public DbSet<BrowserProfile> BrowserProfiles { get; set; }
+        public DbSet<BrowserConfiguration> Profiles { get; set; }
 
-        public DbSet<BotInfo> BotsInfo { get; set; }
+        public DbSet<BotConfiguration> Bots { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) 
             : base(options)
@@ -22,17 +22,17 @@ namespace Playhouse.Core.Data
         {
             ArgumentNullException.ThrowIfNull(modelBuilder, nameof(modelBuilder));
 
-            new BrowserProfileEntityTypeConfiguration().Configure(modelBuilder.Entity<BrowserProfile>());
-            new BotInfoEntityTypeConfiguration().Configure(modelBuilder.Entity<BotInfo>());
-            new BrowserEventEntityTypeConfiguration().Configure(modelBuilder.Entity<BrowserEvent>());
-            new BrowserContextBrowserEventEntityTypeConfiguration().Configure(modelBuilder.Entity<BrowserContextBrowserEvent>());
-            new BrowserContextClosedBrowserEventEntityTypeConfiguration().Configure(modelBuilder.Entity<BrowserContextClosedBrowserEvent>());
-            new PageBrowserEventEntityTypeConfiguration().Configure(modelBuilder.Entity<PageBrowserEvent>());
-            new PageCreatedBrowserEventEntityTypeConfiguration().Configure(modelBuilder.Entity<PageCreatedBrowserEvent>());
-            new PageClosedBrowserEventEntityTypeConfiguration().Configure(modelBuilder.Entity<PageClosedBrowserEvent>());
-            new PageGoToBrowserEventEntityTypeConfiguration().Configure(modelBuilder.Entity<PageGoToBrowserEvent>());
-            new LocatorBrowserEventEntityTypeConfiguration().Configure(modelBuilder.Entity<LocatorBrowserEvent>());
-            new LocatorClickBrowserEventEntityTypeConfiguration().Configure(modelBuilder.Entity<LocatorClickBrowserEvent>());
+            modelBuilder.ApplyConfiguration(new BrowserConfigurationEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new BotConfigurationEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new BotActionEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new BrowserContextBotActionEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new BrowserContextClosedBotActionEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new PageBotActionEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new PageCreatedBotActionEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new PageClosedBotActionEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new PageGoToBotActionEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new LocatorBotActionEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new LocatorClickBotActionEntityTypeConfiguration());
         }
     }
 }

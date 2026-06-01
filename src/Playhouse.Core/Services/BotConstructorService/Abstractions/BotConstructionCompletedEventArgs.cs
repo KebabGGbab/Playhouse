@@ -4,13 +4,13 @@ namespace Playhouse.Core.Services.BotConstructorService.Abstractions
 {
     public class BotConstructionCompletedEventArgs : EventArgs
     {
-        public BotInfo BotInfo { get; set; }
+        public BotConfiguration Bot { get; set; }
 
-        public BotConstructionCompletedEventArgs(BotInfo botInfo)
+        public BotConstructionCompletedEventArgs(BotConfiguration bot)
         {
-            ArgumentNullException.ThrowIfNull(botInfo, nameof(botInfo));
+            ArgumentNullException.ThrowIfNull(bot, nameof(bot));
 
-            BotInfo = botInfo;
+            Bot = bot;
         }
     }
 }

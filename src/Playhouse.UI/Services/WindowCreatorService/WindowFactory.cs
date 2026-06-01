@@ -14,9 +14,9 @@ namespace Playhouse.UI.Services.WindowCreatorService
             _botConstructorFactory = botConstructorFactory;
         }
 
-        public BotConstructorWindow CreateBotConstructorWindow(BrowserProfileViewModel profile, BotInfoViewModel botInfo)
+        public BotConstructorWindow CreateBotConstructorWindow(BrowserConfigurationViewModel browser, BotConfigurationViewModel bot)
         {
-            BotConstructorViewModel viewModel = new(_botConstructorFactory, profile, botInfo);
+            BotConstructorViewModel viewModel = new(_botConstructorFactory, browser, bot);
             return new BotConstructorWindow(viewModel);
         }
     }

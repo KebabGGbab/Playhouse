@@ -16,29 +16,29 @@ namespace Playhouse.ViewModels.ViewModels
         private readonly IBotJobManagerFactory _jobManagerFactory;
         private readonly IFilePathResolver _filePathResolver;
 
-        private readonly ObservableCollection<BrowserProfileViewModel> _unselectedProfiles = [];
-        private readonly ObservableCollection<BrowserProfileViewModel> _selectedProfiles = [];
-        private readonly ObservableCollection<BotInfoViewModel> _bots = [];
+        private readonly ObservableCollection<BrowserConfigurationViewModel> _unselectedProfiles = [];
+        private readonly ObservableCollection<BrowserConfigurationViewModel> _selectedProfiles = [];
+        private readonly ObservableCollection<BotConfigurationViewModel> _bots = [];
         private readonly ObservableCollection<BotJobManager> _runningTasks = [];
-        private readonly Dictionary<BotJobManager, BrowserProfileViewModel[]> _busyProfiles = [];
+        private readonly Dictionary<BotJobManager, BrowserConfigurationViewModel[]> _busyProfiles = [];
 
-        public ReadOnlyObservableCollection<BrowserProfileViewModel> UnselectedProfiles { get; }
+        public ReadOnlyObservableCollection<BrowserConfigurationViewModel> UnselectedProfiles { get; }
 
-        public ReadOnlyObservableCollection<BrowserProfileViewModel> SelectedProfiles { get; }
+        public ReadOnlyObservableCollection<BrowserConfigurationViewModel> SelectedProfiles { get; }
 
-        public ReadOnlyObservableCollection<BotInfoViewModel> Bots { get; }
+        public ReadOnlyObservableCollection<BotConfigurationViewModel> Bots { get; }
 
         public ReadOnlyObservableCollection<BotJobManager> RunningTasks { get; }
 
-		public BotInfoViewModel? SelectedBotStart
+		public BotConfigurationViewModel? SelectedBotStart
 		{
 			get => field;
             set => SetProperty(ref field, value);
 		}
 
-		public ICommand SelectProfileCommand => field ??= new RelayCommand<BrowserProfileViewModel>(ExecuteSelectProfile);
+		public ICommand SelectProfileCommand => field ??= new RelayCommand<BrowserConfigurationViewModel>(ExecuteSelectProfile);
 
-        public ICommand ExcludeProfileCommand => field ??= new RelayCommand<BrowserProfileViewModel>(ExecuteExcludeProfile);
+        public ICommand ExcludeProfileCommand => field ??= new RelayCommand<BrowserConfigurationViewModel>(ExecuteExcludeProfile);
 
         public ICommand RunBotCommand => field ??= new RelayCommand(ExecuteRunBot, CanExecuteRunBot);
 
@@ -50,11 +50,11 @@ namespace Playhouse.ViewModels.ViewModels
             SelectedProfiles = new(_selectedProfiles);
             Bots = new(_bots);
             RunningTasks = new(_runningTasks);
-            WeakReferenceMessenger.Default.Register<RunViewModel, CollectionChangedMessage<BrowserProfileViewModel>>(this, OnSourceProfilesCollectionChanged);
-            WeakReferenceMessenger.Default.Register<RunViewModel, CollectionChangedMessage<BotInfoViewModel>>(this, OnSourceBotsCollectionChanged);
+            WeakReferenceMessenger.Default.Register<RunViewModel, CollectionChangedMessage<BrowserConfigurationViewModel>>(this, OnSourceProfilesCollectionChanged);
+            WeakReferenceMessenger.Default.Register<RunViewModel, CollectionChangedMessage<BotConfigurationViewModel>>(this, OnSourceBotsCollectionChanged);
         }
 
-        private static void OnSourceProfilesCollectionChanged(RunViewModel recipient, CollectionChangedMessage<BrowserProfileViewModel> e)
+        private static void OnSourceProfilesCollectionChanged(RunViewModel recipient, CollectionChangedMessage<BrowserConfigurationViewModel> e)
         {
             switch (e.Action)
             {
@@ -62,7 +62,7 @@ namespace Playhouse.ViewModels.ViewModels
                     recipient._unselectedProfiles.Add(e.Items);
                     break;
                 case CollectionChangedAction.Remove:
-                    foreach (BrowserProfileViewModel vm in e.Items)
+                    foreach (BrowserConfigurationViewModel vm in e.Items)
                     {
                         if (!recipient._unselectedProfiles.Remove(vm))
                             recipient._selectedProfiles.Remove(vm);
@@ -71,7 +71,7 @@ namespace Playhouse.ViewModels.ViewModels
             }
         }
 
-        private static void OnSourceBotsCollectionChanged(RunViewModel recipient, CollectionChangedMessage<BotInfoViewModel> e)
+        private static void OnSourceBotsCollectionChanged(RunViewModel recipient, CollectionChangedMessage<BotConfigurationViewModel> e)
         {
             switch (e.Action)
             {
@@ -84,7 +84,7 @@ namespace Playhouse.ViewModels.ViewModels
             }
         }
 
-        private void ExecuteSelectProfile(BrowserProfileViewModel? arg)
+        private void ExecuteSelectProfile(BrowserConfigurationViewModel? arg)
         {
             ArgumentNullException.ThrowIfNull(arg, nameof(arg));
 
@@ -92,7 +92,7 @@ namespace Playhouse.ViewModels.ViewModels
 			_selectedProfiles.Add(arg);
         }
 
-        private void ExecuteExcludeProfile(BrowserProfileViewModel? arg)
+        private void ExecuteExcludeProfile(BrowserConfigurationViewModel? arg)
         {
             ArgumentNullException.ThrowIfNull(arg, nameof(arg));
 
