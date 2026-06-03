@@ -1,16 +1,16 @@
 ﻿using Microsoft.Playwright;
 using Playhouse.Core.Enums;
 using Playhouse.Core.Models;
-using Playhouse.Core.Models.BrowserEvents;
+using Playhouse.Core.Models.BotActions;
 using Playhouse.Core.Models.PlaywrightDecorator;
 
 namespace Playhouse.Core.Test.Tools
 {
     internal static class GeneratorTestDbData
     {
-        public static BotInfo[] GenerateBotsInfo()
+        public static BotConfiguration[] GenerateBots()
         {
-            BotInfo[] botsInfo =
+            BotConfiguration[] botsInfo =
                 [
                     new() { Name = "test", Browser = Enums.BrowserType.WebKit },
                     new() { Name = "2", Browser = Enums.BrowserType.Chromium },
@@ -20,73 +20,69 @@ namespace Playhouse.Core.Test.Tools
                     new() { Name="6", Browser = Enums.BrowserType.Chromium },
                 ];
 
-            botsInfo[0].BrowserEvents.Add(new PageCreatedBrowserEvent()
+            botsInfo[0].Actions.Add(new PageCreatedBotAction()
             {
-                BotInfo = botsInfo[0],
+                Bot = botsInfo[0],
                 Number = 1
             });
 
-            botsInfo[1].BrowserEvents.Add(new LocatorClickBrowserEvent(
-                new LocatorClickOptionsStrictDecorator() {
-                    Position = new Position()
-                    {
-                        X = 10,
-                        Y = 3
-                    }
-                })
-            {
-                BotInfo = botsInfo[1],
+            LocatorClickBotAction locatorClick = new(new LocatorClickOptionsStrictDecorator())
+            { 
+                Bot = botsInfo[1], 
                 Number = 1
-            });
+            };
+            locatorClick.Options.Position.X = 10;
+            locatorClick.Options.Position.Y = 3;
+            botsInfo[1].Actions.Add(locatorClick);
 
-            botsInfo[2].BrowserEvents.Add(new PageClosedBrowserEvent(
+            botsInfo[2].Actions.Add(new PageClosedBotAction(
                 new PageCloseOptionsStrictDecorator()
                 {
                     RunBeforeUnload = true,
                     Reason = "Так надо"
                 })
             {
-                BotInfo = botsInfo[2],
+                Bot = botsInfo[2],
                 Number = 1
             });
-            botsInfo[2].BrowserEvents.Add(new PageClosedBrowserEvent(
+            botsInfo[2].Actions.Add(new PageClosedBotAction(
                 new PageCloseOptionsStrictDecorator()
                 {
                     RunBeforeUnload = false
                 })
             {
-                BotInfo = botsInfo[2],
+                Bot = botsInfo[2],
                 Number = 2
             });
-            botsInfo[2].BrowserEvents.Add(new PageClosedBrowserEvent()
+            botsInfo[2].Actions.Add(new PageClosedBotAction()
             {
-                BotInfo = botsInfo[2],
+                Bot = botsInfo[2],
                 Number = 3
             });
 
-            botsInfo[3].BrowserEvents.Add(new BrowserContextClosedBrowserEvent()
+            botsInfo[3].Actions.Add(new BrowserContextClosedBotAction()
             {
-                BotInfo = botsInfo[3],
+                Bot = botsInfo[3],
                 Number = 1
             });
-            botsInfo[3].BrowserEvents.Add(new BrowserContextClosedBrowserEvent(
+            botsInfo[3].Actions.Add(new BrowserContextClosedBotAction(
                 new BrowserContextCloseOptionsStrictDecorator()
                 {
                     Reason = "Причина"
                 })
             {
-                BotInfo = botsInfo[3],
+                Bot = botsInfo[3],
                 Number = 2
             });
 
-            botsInfo[4].BrowserEvents.Add(new PageGoToBrowserEvent(
+            botsInfo[4].Actions.Add(new PageGoToBotAction(
                 "https://playhoouse.ru/",
                 new PageGoToOptionsStrictDecorator())
             {
-                BotInfo = botsInfo[4],
+                Bot = botsInfo[4],
                 Number = 1 }
             );
-            botsInfo[4].BrowserEvents.Add(new PageGoToBrowserEvent(
+            botsInfo[4].Actions.Add(new PageGoToBotAction(
                 "https://playhoouse2.ru/",
                 new PageGoToOptionsStrictDecorator()
                 {
@@ -95,11 +91,11 @@ namespace Playhouse.Core.Test.Tools
                     Referer = "Строка"
                 })
             {
-                BotInfo = botsInfo[4],
+                Bot = botsInfo[4],
                 Number = 2
             });
 
-            botsInfo[5].BrowserEvents.Add(new LocatorClickBrowserEvent(
+            botsInfo[5].Actions.Add(new LocatorClickBotAction(
                 new LocatorClickOptionsStrictDecorator()
                 {
                     Button = MouseButton.Middle,
@@ -111,23 +107,23 @@ namespace Playhouse.Core.Test.Tools
                     Trial = true
                 })
             {
-                BotInfo = botsInfo[5],
+                Bot = botsInfo[5],
                 Number = 1
             });
-            botsInfo[5].BrowserEvents.Add(new LocatorClickBrowserEvent()
+            botsInfo[5].Actions.Add(new LocatorClickBotAction()
             {
-                BotInfo = botsInfo[5],
+                Bot = botsInfo[5],
                 Number = 2
             });
 
             return botsInfo;
         }
 
-        public static BrowserProfile[] GenerateBrowserProfiles()
+        public static BrowserConfiguration[] GenerateProfiles()
         {
-            BrowserProfile[] profiles =
+            BrowserConfiguration[] profiles =
                 [
-                    new BrowserProfile()
+                    new BrowserConfiguration()
                     {
                         Name = "test",
                         Options = new()
@@ -137,12 +133,12 @@ namespace Playhouse.Core.Test.Tools
                             SlowMo = 1,
                         }
                     },
-                    new BrowserProfile()
+                    new BrowserConfiguration()
                     {
                         Name = "Profile1",
                         Options = new()
                     },
-                    new BrowserProfile()
+                    new BrowserConfiguration()
                     {
                         Name = "Profile2",
                         Options = new()

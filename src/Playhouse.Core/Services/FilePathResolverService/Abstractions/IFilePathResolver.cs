@@ -2,19 +2,19 @@
 {
 	public interface IFilePathResolver
 	{
-        string DirectoryProfiles { get; }
+        DirectoryInfo Browsers { get; }
 
-        string DirectoryBots { get; }
+        DirectoryInfo Bots { get; }
 
-        string FileJSEventScripts { get; }
+        FileInfo FileJSEventScripts { get; }
 
-        string GetPathToDirectoryProfile(int id);
+        DirectoryInfo GetBrowserDirectory(int browserId);
 
-        string GetPathToDirectoryUserDataDirProfile(int id);
+        DirectoryInfo GetUserDataDir(int browserId);
 
-        string GetPathToDirectoryBot(int id);
+        DirectoryInfo GetBotDirectory(int botId);
 
-        string GetPathToFileDllBot(int id);
+        FileInfo GetBotDllFile(int botId);
 
     }
 }

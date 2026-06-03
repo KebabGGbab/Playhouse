@@ -1,9 +1,0 @@
-<ResourceDictionary xmlns="https://github.com/avaloniaui"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:vm="using:Playhouse.ViewModels.ViewModels.EventBrowserViewModels">
-
-    <DataTemplate x:Key="PageCreatedBrowserEventViewModel" DataType="{x:Type vm:PageCreatedBrowserEventViewModel}">
-		
-    </DataTemplate>
-
-</ResourceDictionary>

@@ -3,7 +3,7 @@ using Microsoft.Playwright;
 using Playhouse.Core.Data;
 using Playhouse.Core.Enums;
 using Playhouse.Core.Models;
-using Playhouse.Core.Models.BrowserEvents;
+using Playhouse.Core.Models.BotActions;
 using Playhouse.Core.Test.Tools;
 
 namespace Playhouse.Core.Test.TestingClasses
@@ -22,15 +22,15 @@ namespace Playhouse.Core.Test.TestingClasses
         {
             using ApplicationDbContext context = DbFactory.GetSimpleAppContext();
 
-            await Assert.ThrowsAsync<InvalidOperationException>(async () => await context.BrowserProfiles.SingleAsync(p => p.Id == 4, CancellationToken.None));
+            await Assert.ThrowsAsync<InvalidOperationException>(async () => await context.Profiles.SingleAsync(p => p.Id == 4, CancellationToken.None));
         }
 
         [TestMethod]
-        public async Task ReadAllTableBrowserProfile_AllObjectNotNullAndUnique()
+        public async Task ReadAllTableProfile_AllObjectNotNullAndUnique()
         {
             using ApplicationDbContext context = DbFactory.GetSimpleAppContext();
 
-            List<BrowserProfile> profiles = await context.BrowserProfiles.ToListAsync(CancellationToken.None);
+            List<BrowserConfiguration> profiles = await context.Profiles.ToListAsync(CancellationToken.None);
 
             CollectionAssert.AllItemsAreNotNull(profiles);
             CollectionAssert.AllItemsAreUnique(profiles);
@@ -38,11 +38,11 @@ namespace Playhouse.Core.Test.TestingClasses
         }
 
         [TestMethod]
-        public async Task ReadOneBrowserProfile_PopertiesSameAsWhenWrite()
+        public async Task ReadOneProfile_PopertiesSameAsWhenWrite()
         {
             using ApplicationDbContext context = DbFactory.GetSimpleAppContext();
 
-            BrowserProfile profile = await context.BrowserProfiles.SingleAsync(p => p.Id == 1, CancellationToken.None);
+            BrowserConfiguration profile = await context.Profiles.SingleAsync(p => p.Id == 1, CancellationToken.None);
 
             Assert.AreEqual("test", profile.Name);
             Assert.IsFalse(profile.Options.AcceptDownloads);
@@ -58,7 +58,7 @@ namespace Playhouse.Core.Test.TestingClasses
         {
             using ApplicationDbContext context = DbFactory.GetSimpleAppContext();
 
-            BrowserProfile profile = await context.BrowserProfiles.SingleAsync(p => p.Id == 2, CancellationToken.None);
+            BrowserConfiguration profile = await context.Profiles.SingleAsync(p => p.Id == 2, CancellationToken.None);
 
             Assert.IsTrue(profile.Options.AcceptDownloads);
             Assert.IsNull(profile.Options.Channel);
@@ -73,7 +73,7 @@ namespace Playhouse.Core.Test.TestingClasses
         {
             using ApplicationDbContext context = DbFactory.GetSimpleAppContext();
 
-            BrowserProfile profile = await context.BrowserProfiles.SingleAsync(p => p.Id == 3, CancellationToken.None);
+            BrowserConfiguration profile = await context.Profiles.SingleAsync(p => p.Id == 3, CancellationToken.None);
 
             Assert.IsFalse(profile.Options.AcceptDownloads);
             Assert.AreEqual(BrowserChannels.ChromeBeta.ToString(), profile.Options.Channel);
@@ -84,11 +84,11 @@ namespace Playhouse.Core.Test.TestingClasses
         }
 
         [TestMethod]
-        public async Task ReadAllTableBotInfo_AllObjectNotNullAndUnique()
+        public async Task ReadAllTableBot_AllObjectNotNullAndUnique()
         {
             using ApplicationDbContext context = DbFactory.GetSimpleAppContext();
 
-            List<BotInfo> bots = await context.BotsInfo.ToListAsync(CancellationToken.None);
+            List<BotConfiguration> bots = await context.Bots.ToListAsync(CancellationToken.None);
 
             CollectionAssert.AllItemsAreNotNull(bots);
             CollectionAssert.AllItemsAreUnique(bots);
@@ -96,15 +96,15 @@ namespace Playhouse.Core.Test.TestingClasses
         }
 
         [TestMethod]
-        public async Task ReadOneBotInfo_PopertiesSameAsWhenWrite()
+        public async Task ReadOneBot_PopertiesSameAsWhenWrite()
         {
             using ApplicationDbContext context = DbFactory.GetSimpleAppContext();
 
-            BotInfo bot = await context.BotsInfo.Include(b => b.BrowserEvents).SingleAsync(b => b.Id == 1, CancellationToken.None);
+            BotConfiguration bot = await context.Bots.Include(b => b.Actions).SingleAsync(b => b.Id == 1, CancellationToken.None);
 
             Assert.AreEqual("test", bot.Name);
             Assert.AreEqual(Enums.BrowserType.WebKit, bot.Browser);
-            Assert.HasCount(1, bot.BrowserEvents);
+            Assert.HasCount(1, bot.Actions);
         }
 
         [TestMethod]
@@ -112,27 +112,27 @@ namespace Playhouse.Core.Test.TestingClasses
         {
             using ApplicationDbContext context = DbFactory.GetSimpleAppContext();
 
-            BotInfo bot = await context.BotsInfo.Include(b => b.BrowserEvents).SingleAsync(b => b.Id == 2, CancellationToken.None);
+            BotConfiguration bot = await context.Bots.Include(b => b.Actions).SingleAsync(b => b.Id == 2, CancellationToken.None);
 
-            LocatorClickBrowserEvent @event = (LocatorClickBrowserEvent)bot.BrowserEvents[0];
+            LocatorClickBotAction @event = (LocatorClickBotAction)bot.Actions[0];
             Assert.AreEqual(10, @event.Options.Position?.X);
             Assert.AreEqual(3, @event.Options.Position?.Y);
         }
 
         [TestMethod]
-        public async Task PageClosedBrowserEvent_And_PageCloseOptionsStrictDecorator()
+        public async Task PageClosedBotAction_And_PageCloseOptionsStrictDecorator()
         {
             using ApplicationDbContext context = DbFactory.GetSimpleAppContext();
 
-            BotInfo bot = await context.BotsInfo.Include(b => b.BrowserEvents).SingleAsync(b => b.Id == 3, CancellationToken.None);
+            BotConfiguration bot = await context.Bots.Include(b => b.Actions).SingleAsync(b => b.Id == 3, CancellationToken.None);
 
-            List<PageClosedBrowserEvent> events = bot.BrowserEvents
-                .Select(e => (PageClosedBrowserEvent)e)
+            List<PageClosedBotAction> events = bot.Actions
+                .Select(e => (PageClosedBotAction)e)
                 .OrderBy(e => e.Number)
                 .ToList();
             Assert.IsPositive(events[0].Id);
             Assert.IsPositive(events[0].Number);
-            Assert.IsNotNull(events[0].BotInfo);
+            Assert.IsNotNull(events[0].Bot);
             Assert.IsTrue(events[0].Options.RunBeforeUnload);
             Assert.AreEqual("Так надо", events[0].Options.Reason);
             Assert.IsFalse(events[1].Options.RunBeforeUnload);
@@ -145,34 +145,34 @@ namespace Playhouse.Core.Test.TestingClasses
         {
             using ApplicationDbContext context = DbFactory.GetSimpleAppContext();
 
-            BotInfo bot = await context.BotsInfo.Include(b => b.BrowserEvents).SingleAsync(b => b.Id == 4, CancellationToken.None);
+            BotConfiguration bot = await context.Bots.Include(b => b.Actions).SingleAsync(b => b.Id == 4, CancellationToken.None);
 
-            List<BrowserContextClosedBrowserEvent> events = bot.BrowserEvents
-                .Select(e => (BrowserContextClosedBrowserEvent)e)
+            List<BrowserContextClosedBotAction> events = bot.Actions
+                .Select(e => (BrowserContextClosedBotAction)e)
                 .OrderBy(e => e.Number)
                 .ToList();
             Assert.IsPositive(events[0].Id);
             Assert.IsPositive(events[0].Number);
-            Assert.IsNotNull(events[0].BotInfo);
+            Assert.IsNotNull(events[0].Bot);
             Assert.IsNull(events[0].Options.Reason);
             Assert.AreEqual("Причина", events[1].Options.Reason);
         }
 
         [TestMethod]
-        public async Task PageGoToBrowserEvent_And_PageGoToOptionsStrictDecorator()
+        public async Task PageGoToBotAction_And_PageGoToOptionsStrictDecorator()
         {
             using ApplicationDbContext context = DbFactory.GetSimpleAppContext();
 
-            BotInfo bot = await context.BotsInfo.Include(b => b.BrowserEvents).SingleAsync(b => b.Id == 5, CancellationToken.None);
+            BotConfiguration bot = await context.Bots.Include(b => b.Actions).SingleAsync(b => b.Id == 5, CancellationToken.None);
 
-            List<PageGoToBrowserEvent> events = bot.BrowserEvents
-                .Select(e => (PageGoToBrowserEvent)e)
+            List<PageGoToBotAction> events = bot.Actions
+                .Select(e => (PageGoToBotAction)e)
                 .OrderBy(e => e.Number)
                 .ToList();
 
             Assert.IsPositive(events[0].Id);
             Assert.IsPositive(events[0].Number);
-            Assert.IsNotNull(events[0].BotInfo);
+            Assert.IsNotNull(events[0].Bot);
             Assert.AreEqual("https://playhoouse.ru/", events[0].Url);
             Assert.IsNull(events[0].Options.Referer);
             Assert.AreEqual(30000, events[0].Options.Timeout);
@@ -183,20 +183,20 @@ namespace Playhouse.Core.Test.TestingClasses
         }
 
         [TestMethod]
-        public async Task LocatorClickBrowserEvent_And_LocatorClickOptionsStrictDecorator()
+        public async Task LocatorClickBotAction_And_LocatorClickOptionsStrictDecorator()
         {
             using ApplicationDbContext context = DbFactory.GetSimpleAppContext();
 
-            BotInfo bot = await context.BotsInfo.Include(b => b.BrowserEvents).SingleAsync(b => b.Id == 6, CancellationToken.None);
+            BotConfiguration bot = await context.Bots.Include(b => b.Actions).SingleAsync(b => b.Id == 6, CancellationToken.None);
 
-            List<LocatorClickBrowserEvent> events = bot.BrowserEvents
-                .Select(e => (LocatorClickBrowserEvent)e)
+            List<LocatorClickBotAction> events = bot.Actions
+                .Select(e => (LocatorClickBotAction)e)
                 .OrderBy(e => e.Number)
                 .ToList();
 
             Assert.IsPositive(events[0].Id);
             Assert.IsPositive(events[0].Number);
-            Assert.IsNotNull(events[0].BotInfo);
+            Assert.IsNotNull(events[0].Bot);
             Assert.AreEqual(MouseButton.Middle, events[0].Options.Button);
             Assert.AreEqual(3, events[0].Options.ClickCount);
             Assert.AreEqual(530, events[0].Options.Delay);

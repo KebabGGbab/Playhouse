@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 using KebabGGbab.Localization;
 using Microsoft.Extensions.DependencyInjection;
+using Playhouse.Core.Services.LocalizationService;
 using Playhouse.UI.Resources.Localization;
 
 namespace Playhouse.UI.Services.LocalizationService
@@ -13,6 +14,7 @@ namespace Playhouse.UI.Services.LocalizationService
 
             services.AddLocalization();
             services.AddResxLocalization(StringsUI.ResourceManager, [CultureInfo.GetCultureInfo("ru-RU"), CultureInfo.GetCultureInfo("en-US")]);
+            services.AddLocalizator();
 
             return services;
         }

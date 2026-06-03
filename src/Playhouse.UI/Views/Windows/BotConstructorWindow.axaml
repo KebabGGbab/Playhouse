@@ -14,11 +14,11 @@
         Width="720" Height="400">
 
     <Window.DataTemplates>
-	    <StaticResource ResourceKey="BrowserContextClosedBrowserEventViewModel" />
-        <StaticResource ResourceKey="LocatorClickBrowserEventViewModel" />
-        <StaticResource ResourceKey="PageClosedBrowserEventViewModel" />
-        <StaticResource ResourceKey="PageCreatedBrowserEventViewModel" />
-        <StaticResource ResourceKey="PageGoToBrowserEventViewModel" />
+	    <StaticResource ResourceKey="BrowserContextClosedBotActionViewModel" />
+        <StaticResource ResourceKey="LocatorClickBotActionViewModel" />
+        <StaticResource ResourceKey="PageClosedBotActionViewModel" />
+        <StaticResource ResourceKey="PageCreatedBotActionViewModel" />
+        <StaticResource ResourceKey="PageGoToBotActionViewModel" />
     </Window.DataTemplates>
 
     <Grid RowDefinitions="*, auto" ColumnSpacing="15">
@@ -31,12 +31,12 @@
                                 Classes="groupbox"
                                 Header="{l:Localization BoxEventSettingsHeader}">
             <ContentControl Margin="10"
-                            Content="{Binding SelectedBrowserEvent}" />
+                            Content="{Binding Path=SelectedAction}" />
         </HeaderedContentControl>
 
         <DataGrid Grid.Column="1" Grid.Row="0"
-                  ItemsSource="{Binding Path=Events}"
-                  SelectedItem="{Binding Path=SelectedBrowserEvent}">
+                  ItemsSource="{Binding Path=Actions}"
+                  SelectedItem="{Binding Path=SelectedAction}">
 			<DataGrid.Columns>
 				<DataGridTextColumn Width="*" 
                                     Header="{l:Localization DataGridColumnHeaderEvent}" />

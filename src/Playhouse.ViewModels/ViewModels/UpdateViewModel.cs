@@ -1,42 +1,35 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using Playhouse.Core.Services.PlaywrightService.Abstractions;
+﻿using KebabGGbab.CommunityToolkit.MVVM.Extensions.ViewModelAbstractions;
+using Playhouse.Core.Services;
+using Playhouse.Core.Services.ApplicationSettingsService;
 
 namespace Playhouse.ViewModels.ViewModels
 {
-	public class UpdateViewModel : ObservableObject
+	public class UpdateViewModel : ViewModelBase
 	{
-		public byte TotalSteps { get; init; } = 1;
+		private readonly ISettingsService _settings;
 
-		private readonly IPlaywrightBrowserInstaller _playwrightBrowserInstaller;
+		private readonly IEnumerable<IInitializer> _inits;
 
-		public bool IsUpdateSuccessful { get; private set; }
-
-		public byte Step
+		public UpdateViewModel(ISettingsService settings, IEnumerable<IInitializer> inits)
 		{
-			get => field;
-			set => SetProperty(ref field, value);
-		}
-		public string Message
-		{
-			get => field;
-			set => SetProperty(ref field, value);
+			ArgumentNullException.ThrowIfNull(settings);
+			ArgumentNullException.ThrowIfNull(inits);
+
+			_settings = settings;
+			_inits = inits;
 		}
 
+        protected override async Task InitializeCoreAsync()
+        {
+			await _settings.LoadAsync().ConfigureAwait(false);
+			List<Task> tasks = new(_inits.Count());
 
-		public UpdateViewModel(IPlaywrightBrowserInstaller playwrightBrowserInstaller)
-		{
-			_playwrightBrowserInstaller = playwrightBrowserInstaller;
-		}
-
-		public async Task CheckAndInstallUpdateAsync()
-		{
-			await Task.Run(() =>
+			foreach (IInitializer init in _inits)
 			{
-				Step = 1;
-				Message = "Поиск, установка и обновление браузеров";
-				_playwrightBrowserInstaller.InstallAsync();
-			}).ConfigureAwait(false);
-			IsUpdateSuccessful = true;
+				tasks.Add(Task.Run(() => init.InitializeAsync()));
+			}
+
+			await Task.WhenAll(tasks);
 		}
 	}
 }

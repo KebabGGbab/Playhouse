@@ -2,7 +2,7 @@
 {
     public interface IBotConstructor
     {
-        event EventHandler<IBotConstructor, BrowserEventHappenedEventArgs> BrowserEventHappend;
+        event EventHandler<IBotConstructor, BrowserEventHappenedEventArgs> ActionHappend;
         event EventHandler<IBotConstructor, BotConstructionCompletedEventArgs> ConstructionCompleted;
 
         Task StartConstructorAsync();

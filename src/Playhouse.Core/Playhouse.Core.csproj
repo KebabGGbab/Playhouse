@@ -56,7 +56,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Resources\JS\BrowserEventsListener.js">
+    <None Update="Resources\js\BrowserEventsListener.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

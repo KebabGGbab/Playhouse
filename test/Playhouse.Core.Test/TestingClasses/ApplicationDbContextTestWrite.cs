@@ -10,11 +10,11 @@ namespace Playhouse.Core.Test.TestingClasses
     public sealed class ApplicationDbContextTestWrite
     {
         [TestMethod]
-        public async Task AddNewBrowserProfile()
+        public async Task AddNewProfile()
         {
             using ApplicationDbContext context = DbFactory.GetTransactionAppContext();
             context.Database.BeginTransaction();
-            BrowserProfile newProfile = new() 
+            BrowserConfiguration newProfile = new() 
             { 
                 Name = "NewProfile",
                 Options =
@@ -28,12 +28,12 @@ namespace Playhouse.Core.Test.TestingClasses
                 }
             };
 
-            await context.BrowserProfiles.AddAsync(newProfile, CancellationToken.None);
+            await context.Profiles.AddAsync(newProfile, CancellationToken.None);
             await context.SaveChangesAsync(CancellationToken.None);
 
             context.ChangeTracker.Clear();
 
-            BrowserProfile profile = await context.BrowserProfiles.OrderBy(p => p.Id).LastAsync(CancellationToken.None);
+            BrowserConfiguration profile = await context.Profiles.OrderBy(p => p.Id).LastAsync(CancellationToken.None);
             Assert.AreEqual("NewProfile", profile.Name);
             Assert.IsTrue(profile.Options.AcceptDownloads);
             Assert.AreEqual(BrowserChannels.ChromeBeta.ToString(), profile.Options.Channel);
@@ -44,25 +44,25 @@ namespace Playhouse.Core.Test.TestingClasses
         }
 
         [TestMethod]
-        public async Task AddNewBotInfo()
+        public async Task AddNewBot()
         {
             using ApplicationDbContext context = DbFactory.GetTransactionAppContext();
             context.Database.BeginTransaction();
-            BotInfo newBot = new()
+            BotConfiguration newBot = new()
             {
                 Name = "NewBot",
                 Browser = BrowserType.Chromium,
             };
 
-            await context.BotsInfo.AddAsync(newBot, CancellationToken.None);
+            await context.Bots.AddAsync(newBot, CancellationToken.None);
             await context.SaveChangesAsync(CancellationToken.None);
 
             context.ChangeTracker.Clear();
 
-            BotInfo bot = await context.BotsInfo.OrderBy(b => b.Id).LastAsync(CancellationToken.None);
+            BotConfiguration bot = await context.Bots.OrderBy(b => b.Id).LastAsync(CancellationToken.None);
             Assert.AreEqual("NewBot", bot.Name);
             Assert.AreEqual(BrowserType.Chromium, bot.Browser);
-            Assert.HasCount(0, bot.BrowserEvents);
+            Assert.HasCount(0, bot.Actions);
         }
 
         [TestMethod]
@@ -70,13 +70,13 @@ namespace Playhouse.Core.Test.TestingClasses
         {
             using ApplicationDbContext context = DbFactory.GetTransactionAppContext();
             context.Database.BeginTransaction();
-            BotInfo bot = await context.BotsInfo.SingleAsync(b => b.Id == 2, CancellationToken.None);
+            BotConfiguration bot = await context.Bots.SingleAsync(b => b.Id == 2, CancellationToken.None);
 
             bot.Name = "2bot";
             await context.SaveChangesAsync(CancellationToken.None);
 
             context.ChangeTracker.Clear();
-            bot = await context.BotsInfo.SingleAsync(b => b.Id == 2, CancellationToken.None);
+            bot = await context.Bots.SingleAsync(b => b.Id == 2, CancellationToken.None);
             Assert.AreEqual("2bot", bot.Name);
         }
     }

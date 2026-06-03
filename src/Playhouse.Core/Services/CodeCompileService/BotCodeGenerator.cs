@@ -4,19 +4,19 @@ using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Playwright;
 using PlayhouseShare;
-using Playhouse.Core.Models.BrowserEvents.Abstractions;
 using Playhouse.Core.Models;
 using Playhouse.Core.Services.CodeCompileService.Abstractions;
+using Playhouse.Core.Models.BotActions.Abstractions;
 
 namespace Playhouse.Core.Services.CodeCompileService
 {
     public sealed class BotCodeGenerator : ICodeGenerator
     {
-        private readonly BotInfo _botInfo;
+        private readonly BotConfiguration _bot;
 
-        public BotCodeGenerator(BotInfo botInfo)
+        public BotCodeGenerator(BotConfiguration botInfo)
         {
-            _botInfo = botInfo;
+            _bot = botInfo;
         }
 
         public IEnumerable<SyntaxTree> Generate()
@@ -139,7 +139,7 @@ namespace Playhouse.Core.Services.CodeCompileService
         {
             BotGenerateBrowserEventVisitor visitor = new();
             
-            foreach (BrowserEvent eventArg in _botInfo.BrowserEvents)
+            foreach (BotAction eventArg in _bot.Actions)
             {
                 eventArg.Accept(visitor);
             }

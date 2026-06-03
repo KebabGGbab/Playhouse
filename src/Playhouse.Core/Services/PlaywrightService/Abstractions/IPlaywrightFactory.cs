@@ -5,6 +5,6 @@ namespace Playhouse.Core.Services.PlaywrightService.Abstractions
 {
 	public interface IPlaywrightFactory
 	{
-		Task<IBrowserContext> CreateBrowserAsync(BrowserProfile profile, BotInfo bot);
+		Task<IBrowserContext> CreateBrowserAsync(BrowserConfiguration profile, BotConfiguration bot);
 	}
 }

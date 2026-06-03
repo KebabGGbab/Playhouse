@@ -6,9 +6,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Playhouse.Core.Models.ConfigurationOptions;
+using Playhouse.Core.Data;
+using Playhouse.Core.Services.ApplicationSettingsService;
 using Playhouse.Core.Services.FilePathResolverService;
-using Playhouse.UI.Resources.Localization;
 using Playhouse.UI.Services.LocalizationService;
 using Playhouse.UI.Services.WindowCreatorService;
 using Playhouse.UI.Services.WindowCreatorService.Abstractions;
@@ -30,7 +30,7 @@ namespace Playhouse.UI
         {
             HostApplicationBuilder hostBuilder = Host.CreateApplicationBuilder();
             ConfigureServices(hostBuilder.Services);
-            ConfigureConfiguration(hostBuilder.Services, hostBuilder.Configuration);
+            ConfigureConfiguration(hostBuilder.Configuration);
             ConfigureLogging(hostBuilder.Logging);
             _host = hostBuilder.Build();
             _host.RunAsync();
@@ -91,25 +91,20 @@ namespace Playhouse.UI
             services.AddFilePathResolver();
             services.AddPlaywright();
             services.AddSettings();
-            services.AddApplicationDbContext();
             services.AddFileManagers();
             services.AddViewModelFactories();
             services.AddLocalizationApp();
+            services.AddData("LocalDb");
         }
 
-        private static void ConfigureConfiguration(IServiceCollection services, ConfigurationManager configuration)
+        private static void ConfigureConfiguration(ConfigurationManager configuration)
         {
             configuration.Sources.Clear();
-            if (!Design.IsDesignMode)
+
+            if (Design.IsDesignMode == false)
             {
-                configuration.AddJsonFile(FilePathResolver.AppSettings, true, true);
-                configuration.AddJsonFile(FilePathResolver.UserSettings, false, true);
+                configuration.AddJsonFile(FilePathResolver.AppSettings.FullName, false, true);
             }
-            services.Configure<FileLocationsOptions>(configuration.GetSection(FileLocationsOptions.OPTIONSNAME));
-            services.Configure<EntityOptions>(configuration.GetSection(EntityOptions.OPTIONSNAME));
-            services.Configure<PlaywrightOptions>(configuration.GetSection(PlaywrightOptions.OPTIONSNAME));
-            services.Configure<CultureOptions>(configuration.GetSection(CultureOptions.OPTIONSNAME));
-            services.Configure<UserSettings>(configuration);
         }
 
         private static void ConfigureLogging(ILoggingBuilder logging)

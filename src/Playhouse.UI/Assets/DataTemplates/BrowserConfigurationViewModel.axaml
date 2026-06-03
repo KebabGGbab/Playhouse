@@ -1,0 +1,9 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:vm="using:Playhouse.ViewModels.ViewModels">
+
+    <DataTemplate x:Key="NameOnlyTemplate" DataType="{x:Type vm:BrowserConfigurationViewModel}">
+		<TextBlock Text="{Binding Path=Name}" />
+    </DataTemplate>
+
+</ResourceDictionary>

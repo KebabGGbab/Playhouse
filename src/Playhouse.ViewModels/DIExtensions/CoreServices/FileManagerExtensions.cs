@@ -11,8 +11,8 @@ namespace Playhouse.ViewModels.DIExtensions.CoreServices
         {
             ArgumentNullException.ThrowIfNull(services, nameof(services));
 
-            return services.AddSingleton<FileManager<BrowserProfile>, BrowserProfileFileManager>()
-                .AddSingleton<FileManager<BotInfo>, BotInfoFileManager>();
+            return services.AddSingleton<FileManager<BrowserConfiguration>, BrowserProfileFileManager>()
+                .AddSingleton<FileManager<BotConfiguration>, BotConfigurationFileManager>();
         }
     }
 }

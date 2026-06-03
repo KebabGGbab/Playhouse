@@ -41,7 +41,11 @@ namespace Playhouse.Core.Models.PlaywrightDecorator
 
         public ISet<KeyboardModifier> Modifiers => _modifiers;
 
-        public Position Position => _options.Position!;
+        public Position Position
+        {
+            get => _options.Position!;
+            private set => _options.Position = value;
+        }
 
         public int Steps
         {

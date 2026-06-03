@@ -18,17 +18,17 @@ namespace Playhouse.Core.Services.BotRunningService
         private readonly IPlaywrightFactory _playwrightFactory;
         private readonly AssemblyLoadContext _context;
 
-        public BotInfo Bot { get; init; }
+        public BotConfiguration Bot { get; init; }
 
         public BotJobManager(BotJobContext jobContext, IPlaywrightFactory playwrightFactory) 
-            : base(jobContext.Profiles.Select(p => new BotJob(p, jobContext.BotInfo)).ToList(), new JobManagerOptions() { Clear = false })
+            : base(jobContext.Profiles.Select(p => new BotJob(p, jobContext.Bot)).ToList(), new JobManagerOptions() { Clear = false })
         {
             ArgumentNullException.ThrowIfNull(jobContext, nameof(jobContext));
             ArgumentNullException.ThrowIfNull(playwrightFactory, nameof(playwrightFactory));
 
             _playwrightFactory = playwrightFactory;
             _context = new AssemblyLoadContext(Assembly.GetExecutingAssembly().Location, true);
-            Bot = jobContext.BotInfo;
+            Bot = jobContext.Bot;
         }
 
         public override async Task RunJobsAsync(RunArgs args, CancellationToken? cancellation = null)
@@ -46,7 +46,7 @@ namespace Playhouse.Core.Services.BotRunningService
             {
                 return Task.Run(async () =>
                 {
-                    IBrowserContext browserContext = await _playwrightFactory.CreateBrowserAsync(job.BrowserProfile, job.BotInfo).ConfigureAwait(false);
+                    IBrowserContext browserContext = await _playwrightFactory.CreateBrowserAsync(job.Profile, job.Bot).ConfigureAwait(false);
                     BotRunArgs argsRunJob = new(bot, browserContext);
                     await job.ExecuteAsync(argsRunJob).ConfigureAwait(false);
                     await browserContext.CloseAsync().ConfigureAwait(false);

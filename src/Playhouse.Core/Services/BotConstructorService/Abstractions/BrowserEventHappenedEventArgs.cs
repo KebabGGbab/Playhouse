@@ -1,16 +1,16 @@
-﻿using Playhouse.Core.Models.BrowserEvents.Abstractions;
+﻿using Playhouse.Core.Models.BotActions.Abstractions;
 
 namespace Playhouse.Core.Services.BotConstructorService.Abstractions
 {
     public class BrowserEventHappenedEventArgs : EventArgs
     {
-        public BrowserEvent BrowserEvent { get; }
+        public BotAction Action { get; }
 
-        public BrowserEventHappenedEventArgs(BrowserEvent browserevent)
+        public BrowserEventHappenedEventArgs(BotAction action)
         {
-            ArgumentNullException.ThrowIfNull(browserevent, nameof(browserevent));
+            ArgumentNullException.ThrowIfNull(action, nameof(action));
 
-            BrowserEvent = browserevent;
+            Action = action;
         }
     }
 }

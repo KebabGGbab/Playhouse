@@ -28,14 +28,14 @@ namespace Playhouse.UI.Views.Windows
             _windowFactory = windowFactory;
             InitializeComponent();
             DataContext = vm;
-            WeakReferenceMessenger.Default.Register<MainWindow, GetBrowserEventsMessage>(this, OnGetBrowserEventsMessage);
+            WeakReferenceMessenger.Default.Register<MainWindow, GetBotActionsMessage>(this, OnGetBotActionsMessage);
         }
 
-        private static void OnGetBrowserEventsMessage(MainWindow recepient, GetBrowserEventsMessage message)
+        private static void OnGetBotActionsMessage(MainWindow recepient, GetBotActionsMessage message)
         {
-            recepient._windowFactory.CreateBotConstructorWindow(message.BrowserProfile, message.BotInfo).ShowDialog(recepient);
+            recepient._windowFactory.CreateBotConstructorWindow(message.Profile, message.Bot).ShowDialog(recepient);
 
-            message.Reply(message.BotInfo);
+            message.Reply(message.Bot);
         }
     }
 }

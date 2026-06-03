@@ -1,8 +1,8 @@
 ﻿using System.Text.RegularExpressions;
 using Microsoft.Playwright;
 using Playhouse.Core.Models;
-using Playhouse.Core.Models.BrowserEvents;
-using Playhouse.Core.Models.BrowserEvents.Abstractions;
+using Playhouse.Core.Models.BotActions;
+using Playhouse.Core.Models.BotActions.Abstractions;
 using Playhouse.Core.Services.BotConstructorService.Abstractions;
 using Playhouse.Core.Services.FilePathResolverService.Abstractions;
 using Playhouse.Core.Services.PlaywrightService.Abstractions;
@@ -16,15 +16,15 @@ namespace Playhouse.Core.Services.BotConstructorService
 
         private readonly ConstructorContext _context = new();
 
-        public BotInfo BotConstruction { get; }
+        public BotConfiguration Bot { get; }
 
-        public BrowserProfile ProfileConstruct { get; }
+        public BrowserConfiguration Profile { get; }
 
-        public event EventHandler<IBotConstructor, BrowserEventHappenedEventArgs>? BrowserEventHappend;
+        public event EventHandler<IBotConstructor, BrowserEventHappenedEventArgs>? ActionHappend;
 
         public event EventHandler<IBotConstructor, BotConstructionCompletedEventArgs>? ConstructionCompleted;
 
-        public BotConstructor(IPlaywrightFactory playwrightFactory, IFilePathResolver filePathResolver, BrowserProfile profile, BotInfo bot)
+        public BotConstructor(IPlaywrightFactory playwrightFactory, IFilePathResolver filePathResolver, BrowserConfiguration profile, BotConfiguration bot)
         {
             ArgumentNullException.ThrowIfNull(playwrightFactory, nameof(playwrightFactory));
             ArgumentNullException.ThrowIfNull(filePathResolver, nameof(filePathResolver));
@@ -33,14 +33,14 @@ namespace Playhouse.Core.Services.BotConstructorService
 
             _playwrightFactory = playwrightFactory;
             _filePathResolver = filePathResolver;
-            BotConstruction = bot;
-            ProfileConstruct = profile;
+            Bot = bot;
+            Profile = profile;
         }
 
         public async Task StartConstructorAsync()
         {
-            IBrowserContext browser = await _playwrightFactory.CreateBrowserAsync(ProfileConstruct, BotConstruction).ConfigureAwait(false);
-            await browser.AddInitScriptAsync(scriptPath: _filePathResolver.FileJSEventScripts).ConfigureAwait(false);
+            IBrowserContext browser = await _playwrightFactory.CreateBrowserAsync(Profile, Bot).ConfigureAwait(false);
+            await browser.AddInitScriptAsync(scriptPath: _filePathResolver.FileJSEventScripts.FullName).ConfigureAwait(false);
 
             browser.Console += Console_GetRecord;
             browser.Close += Browser_Closed;
@@ -49,7 +49,7 @@ namespace Playhouse.Core.Services.BotConstructorService
 
         private void Browser_Closed(object? sender, IBrowserContext e)
         {
-            OnBrowserEventHappend(new BrowserContextClosedBrowserEvent() { BotInfo = BotConstruction, Number = _context.GetBrowserContextNumber(e) });
+            OnActionHappend(new BrowserContextClosedBotAction() { Bot = Bot, Number = _context.GetBrowserContextNumber(e) });
             e.Console -= Console_GetRecord;
             e.Close -= Browser_Closed;
             e.Page -= Page_Created;
@@ -58,21 +58,21 @@ namespace Playhouse.Core.Services.BotConstructorService
 
         private void Page_Created(object? sender, IPage e)
         {
-            OnBrowserEventHappend(new PageCreatedBrowserEvent() { BotInfo = BotConstruction, Number = _context.GetPageNumber(e) });
+            OnActionHappend(new PageCreatedBotAction() { Bot = Bot, Number = _context.GetPageNumber(e) });
             e.Load += Page_Loaded;
             e.Close += Page_Closed;
         }
 
         private void Page_Closed(object? sender, IPage e)
         {
-            OnBrowserEventHappend(new PageClosedBrowserEvent() { BotInfo = BotConstruction, Number = _context.GetPageNumber(e) });
+            OnActionHappend(new PageClosedBotAction() { Bot = Bot, Number = _context.GetPageNumber(e) });
             e.Load -= Page_Loaded;
             e.Close -= Page_Closed;
         }
 
         private void Page_Loaded(object? sender, IPage e)
         {
-            OnBrowserEventHappend(new PageGoToBrowserEvent(e.Url) { BotInfo = BotConstruction, Number = _context.GetPageNumber(e) });
+            OnActionHappend(new PageGoToBotAction(e.Url) { Bot = Bot, Number = _context.GetPageNumber(e) });
         }
 
         private void Console_GetRecord(object? sender, IConsoleMessage e)
@@ -84,22 +84,22 @@ namespace Playhouse.Core.Services.BotConstructorService
 
             Match match = ParseConsoleMessage().Match(e.Text);
 
-            BrowserEvent browserEvent = match.Groups["event"].Value switch
+            BotAction action = match.Groups["event"].Value switch
             {
                 _ => throw new NotSupportedException("Не поддерживаемое действие")
             };
 
-            OnBrowserEventHappend(browserEvent);
+            OnActionHappend(action);
         }
 
-        private void OnBrowserEventHappend(BrowserEvent browserEvent)
+        private void OnActionHappend(BotAction action)
         {
-            BrowserEventHappend?.Invoke(this, new BrowserEventHappenedEventArgs(browserEvent));
+            ActionHappend?.Invoke(this, new BrowserEventHappenedEventArgs(action));
         }
 
         private void OnConstructionCompleted()
         {
-            ConstructionCompleted?.Invoke(this, new BotConstructionCompletedEventArgs(BotConstruction));
+            ConstructionCompleted?.Invoke(this, new BotConstructionCompletedEventArgs(Bot));
         }
 
         [GeneratedRegex(@"^(?:\[Playhouse\]):!:(?<event>\w{3,20}):!:(?<id>[a-zA-Z0-9_\-.]{0,}):!:(?<text>.{0,})$", RegexOptions.Singleline)]

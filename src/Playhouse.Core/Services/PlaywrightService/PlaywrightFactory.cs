@@ -22,13 +22,13 @@ namespace Playhouse.Core.Services.PlaywrightService
 			_fullPathResolver = fullPathResolver;
 		}
 
-		public async Task<IBrowserContext> CreateBrowserAsync(BrowserProfile profile, BotInfo bot)
+		public async Task<IBrowserContext> CreateBrowserAsync(BrowserConfiguration profile, BotConfiguration bot)
 		{
 			ArgumentNullException.ThrowIfNull(profile, nameof(profile));
 			ArgumentNullException.ThrowIfNull(bot, nameof(bot));
 
 			IPlaywright playwright = await Playwright.CreateAsync().ConfigureAwait(false);
-			string pathToUserDataDir = _fullPathResolver.GetPathToDirectoryUserDataDirProfile(profile.Id);
+			string pathToUserDataDir = _fullPathResolver.GetUserDataDir(profile.Id).FullName;
             BrowserTypeLaunchPersistentContextOptions options = (BrowserTypeLaunchPersistentContextOptions)profile.Options;
 
             return bot.Browser switch

@@ -29,7 +29,7 @@ namespace Playhouse.ViewModels.DIExtensions.CoreServices
 
                 return new Compiler(options, references);
             });
-            services.AddSingleton<ICodeCompiler<BotInfo>, BotCodeCompiler>();
+            services.AddSingleton<ICodeCompiler<BotConfiguration>, BotCodeCompiler>();
 
             return services;
         }

@@ -1,87 +1,110 @@
-﻿using System.Globalization;
-using System.Windows.Input;
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
+﻿using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
+using Humanizer;
+using KebabGGbab.CommunityToolkit.MVVM.Extensions.ViewModelAbstractions;
 using KebabGGbab.Localization.Manager;
-using Microsoft.Extensions.Options;
 using Playhouse.Core.Enums;
-using Playhouse.Core.Models.ConfigurationOptions;
-using Playhouse.Core.Services.PlaywrightService.Abstractions;
-using Playhouse.Core.Services.SettingsService.Abstractions;
+using Playhouse.Core.Services.ApplicationSettingsService;
+using Playhouse.UI.Services.LocalizationService;
+using Playhouse.ViewModels.ViewModels.Abstractions;
 
 namespace Playhouse.ViewModels.ViewModels
 {
-    public sealed class SettingsViewModel : ObservableObject
+    public sealed class SettingsViewModel : EditableViewModel
     {
-        private readonly ISettingsUpdater<UserSettings> _settingsUpdater;
-        private readonly IPlaywrightBrowserInstaller _playwrightBrowserInstaller;
-        private readonly ILocalizationManager _localizator;
-        private readonly UserSettings _userSettings;
+        private readonly ISettingsService _settings;
+        private readonly ILocalizator _localizator;
 
-        public IReadOnlyList<CultureInfo> Cultures => _localizator.Cultures; 
+        public IReadOnlyCollection<CultureInfo> Cultures => _localizator.SupportedUICultures; 
 
         public CultureInfo SelectedCulture 
-        { 
-            get => CultureInfo.GetCultureInfo(_userSettings.Culture.Name);
-            set => SetProperty(_userSettings.Culture.Name, value.Name, _userSettings, (m, v) => m.Culture.Name = v);
+        {
+            get;
+            set
+            {
+                if (SetProperty(ref field, value))
+                {
+                    IsModified = CheckModified();
+                }
+            }
         }
 
-        public string PathToProfiles
+        public string PathToData
         {
-            get => _userSettings.FileLocations.Profiles;
-            set => SetProperty(_userSettings.FileLocations.Profiles, value, _userSettings, (m, v) => m.FileLocations.Profiles = v);
+            get;
+            set
+            {
+                if (SetProperty(ref field, value))
+                {
+                    IsModified = CheckModified();
+                }
+            }
         }
 
-        public string PathToBots
-        {
-            get => _userSettings.FileLocations.Bots;
-            set => SetProperty(_userSettings.FileLocations.Bots, value, _userSettings, (m, v) => m.FileLocations.Bots = v);
-        }
+        public IReadOnlyCollection<SelectableItem<string>> Browsers { get; }
 
-        public string DefaultProfileName
-        {
-            get => _userSettings.Entity.DefaultProfileName;
-            set => SetProperty(_userSettings.Entity.DefaultProfileName, value, _userSettings, (m, v) => m.Entity.DefaultProfileName = v);
-        }
-        public string DefaultBotName
-        {
-            get => _userSettings.Entity.DefaultBotName;
-            set => SetProperty(_userSettings.Entity.DefaultBotName, value, _userSettings, (m, v) => m.Entity.DefaultBotName = v);
-        }
+        public IReadOnlyCollection<SelectableItem<string>> Channels { get; }
 
-        public BrowserType InstalledBrowsers
+		public SettingsViewModel(ISettingsService settings, ILocalizator localizator) 
         {
-            get => _userSettings.Playwright.BrowserTypes;
-            set => SetProperty(_userSettings.Playwright.BrowserTypes, value, _userSettings, (m, v) => m.Playwright.BrowserTypes = v);
-        }
+            ArgumentNullException.ThrowIfNull(settings);
+            ArgumentNullException.ThrowIfNull(localizator);
 
-        public BrowserChannels InstalledChannels
-        {
-            get => _userSettings.Playwright.Channels;
-            set => SetProperty(_userSettings.Playwright.Channels, value, _userSettings, (m, v) => m.Playwright.Channels = v);
-        }
-
-        public ICommand SaveSettings
-        {
-            get => field ??= new RelayCommand(ExecuteSaveSettings);
-        }
-
-		public SettingsViewModel(IOptions<UserSettings> userSettings, ISettingsUpdater<UserSettings> settingsUpdater, IPlaywrightBrowserInstaller playwrightBrowserInstaller, ILocalizationManager localizator) 
-        {
-            _settingsUpdater = settingsUpdater;
-            _playwrightBrowserInstaller = playwrightBrowserInstaller;
+            _settings = settings;
             _localizator = localizator;
-            _userSettings = userSettings.Value;
-            _localizator.CurrentUICulture = SelectedCulture;
+            Browsers = Enum.GetValues<BrowserType>().Select(b => new SelectableItem<string>(b.Humanize())).ToList().AsReadOnly();
+            foreach (SelectableItem<string> browser in Browsers)
+            {
+                browser.PropertyChanged += Browser_PropertyChanged;
+            }
+            Channels = Enum.GetValues<BrowserChannels>().Select(c => new SelectableItem<string>(c.Humanize())).ToList().AsReadOnly();
+            foreach (SelectableItem<string> channel in Channels)
+            {
+                channel.PropertyChanged += Channel_PropertyChanged;
+            }
+            CancelChangesCore();
         }
 
-        private async void ExecuteSaveSettings()
+        private void Browser_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            _localizator.CurrentUICulture = SelectedCulture;
-            Task[] updateTasks = [
-                _settingsUpdater.UpdateAsync(_userSettings), 
-                _playwrightBrowserInstaller.InstallAsync()];
-            await Task.WhenAll(updateTasks);
+            IsModified = CheckModified();
+        }
+        private void Channel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            IsModified = CheckModified();
+        }
+
+        protected override async Task SaveChangesCoreAsync()
+        {
+            await _settings.SaveAsync(
+                SelectedCulture,
+                PathToData, 
+                Browsers.Where(b => b.IsSelected).Select(b => b.Item.DehumanizeTo<BrowserType>()),
+                Channels.Where(b => b.IsSelected).Select(c => c.Item.DehumanizeTo<BrowserChannels>()));
+        }
+
+        [MemberNotNull(nameof(SelectedCulture), nameof(PathToData))]
+        protected override void CancelChangesCore()
+        {
+            SelectedCulture = _settings.CurrentUICulture;
+            PathToData = _settings.PathToData;
+            foreach (SelectableItem<string> browser in Browsers)
+            {
+                browser.IsSelected = _settings.Browsers.Contains(browser.Item.DehumanizeTo<BrowserType>());
+            }
+            foreach (SelectableItem<string> channel in Channels)
+            {
+                channel.IsSelected = _settings.Channels.Contains(channel.Item.DehumanizeTo<BrowserChannels>());
+            }
+        }
+
+        protected override bool CheckModified()
+        {
+            return !(SelectedCulture == _settings.CurrentUICulture
+                && PathToData == _settings.PathToData
+                && Browsers.Where(b => b.IsSelected).Select(b => b.Item.DehumanizeTo<BrowserType>()).SequenceEqual(_settings.Browsers)
+                && Channels.Where(b => b.IsSelected).Select(c => c.Item.DehumanizeTo<BrowserChannels>()).SequenceEqual(_settings.Channels));
         }
 	}
 }

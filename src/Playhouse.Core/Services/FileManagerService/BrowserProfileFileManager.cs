@@ -4,24 +4,24 @@ using Playhouse.Core.Services.FilePathResolverService.Abstractions;
 
 namespace Playhouse.Core.Services.FileManagerService
 {
-    public class BrowserProfileFileManager : FileManager<BrowserProfile>
+    public class BrowserProfileFileManager : FileManager<BrowserConfiguration>
     {
         public BrowserProfileFileManager(IFilePathResolver pathResolver) : base(pathResolver) 
         {
         } 
 
-        public override void Create(BrowserProfile model)
+        public override void Create(BrowserConfiguration model)
         {
             ArgumentNullException.ThrowIfNull(model, nameof(model));
 
-            Directory.CreateDirectory(PathResolver.GetPathToDirectoryUserDataDirProfile(model.Id));
+            PathResolver.GetUserDataDir(model.Id).Create();
         }
 
-        public override void Delete(BrowserProfile model)
+        public override void Delete(BrowserConfiguration model)
         {
             ArgumentNullException.ThrowIfNull(model, nameof(model));
 
-            Directory.Delete(PathResolver.GetPathToDirectoryProfile(model.Id), true);
+            PathResolver.GetBrowserDirectory(model.Id).Delete(true);
         }
     }
 }

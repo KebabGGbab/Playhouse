@@ -1,36 +1,36 @@
-﻿using Playhouse.Core.Models.BrowserEvents;
-using Playhouse.Core.Models.BrowserEvents.Abstractions;
-using Playhouse.ViewModels.ViewModels.EventBrowserViewModels;
+﻿using Playhouse.Core.Models.BotActions;
+using Playhouse.Core.Models.BotActions.Abstractions;
+using Playhouse.ViewModels.ViewModels.BotActionViewModels;
 
 namespace Playhouse.ViewModels.Visitor
 {
-    public class ViewModelsBrowserEventVisitor : IBrowserEventVisitor
+    public class ViewModelsBrowserEventVisitor : IBotActionVisitor
     {
-        public BrowserEventViewModel? CurrentViewModel { get; private set; }
+        public BotActionViewModel? CurrentViewModel { get; private set; }
 
-        public void Visit(PageCreatedBrowserEvent browserEvent)
+        public void Visit(PageCreatedBotAction browserEvent)
         {
-            CurrentViewModel = new BrowserEventViewModel(browserEvent);
+            CurrentViewModel = new PageCreatedBotActionViewModel(browserEvent);
         }
 
-        public void Visit(PageClosedBrowserEvent browserEvent)
+        public void Visit(PageClosedBotAction browserEvent)
         {
-            CurrentViewModel = new PageClosedBrowserEventViewModel(browserEvent);
+            CurrentViewModel = new PageClosedBotActionViewModel(browserEvent);
         }
 
-        public void Visit(PageGoToBrowserEvent browserEvent)
+        public void Visit(PageGoToBotAction browserEvent)
         {
-            CurrentViewModel = new PageGoToBrowserEventViewModel(browserEvent);
+            CurrentViewModel = new PageGoToBotActionViewModel(browserEvent);
         }
 
-        public void Visit(BrowserContextClosedBrowserEvent browserEvent)
+        public void Visit(BrowserContextClosedBotAction browserEvent)
         {
-            CurrentViewModel = new BrowserContextClosedBrowserEventViewModel(browserEvent);
+            CurrentViewModel = new BrowserContextClosedBotActionViewModel(browserEvent);
         }
 
-        public void Visit(LocatorClickBrowserEvent browserEvent)
+        public void Visit(LocatorClickBotAction browserEvent)
         {
-            CurrentViewModel = new LocatorClickBrowserEventViewModel(browserEvent);
+            CurrentViewModel = new LocatorClickBotActionViewModel(browserEvent);
         }
     }
 }

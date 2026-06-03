@@ -16,7 +16,7 @@ namespace Playhouse.Core.Services.BotConstructorService
             _filePathResolver = filePathResolver;
         }
 
-        public IBotConstructor Create(BrowserProfile profile, BotInfo bot)
+        public IBotConstructor Create(BrowserConfiguration profile, BotConfiguration bot)
         {
             return new BotConstructor(_playwrightFactory, _filePathResolver, profile, bot);
         }

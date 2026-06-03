@@ -12,8 +12,8 @@ namespace Playhouse.ViewModels.DIExtensions.ViewModelsExtensions
 
             services.TryAddSingleton<UpdateViewModel>();
             services.TryAddSingleton<RunViewModel>();
-            services.TryAddSingleton<BrowserProfilesViewModel>();
-            services.TryAddSingleton<BotsInfoViewModel>();
+            services.TryAddSingleton<BrowserConfigurationsViewModel>();
+            services.TryAddSingleton<BotConfigurationsViewModel>();
             services.TryAddSingleton<SettingsViewModel>();
             services.AddSingleton<MainWindowViewModel>();
         }
