@@ -28,7 +28,7 @@ namespace Playhouse.Core.Services.PlaywrightService
 			ArgumentNullException.ThrowIfNull(bot, nameof(bot));
 
 			IPlaywright playwright = await Playwright.CreateAsync().ConfigureAwait(false);
-			string pathToUserDataDir = _fullPathResolver.GetPathToDirectoryUserDataDirProfile(profile.Id);
+			string pathToUserDataDir = _fullPathResolver.GetUserDataDir(profile.Id).FullName;
             BrowserTypeLaunchPersistentContextOptions options = (BrowserTypeLaunchPersistentContextOptions)profile.Options;
 
             return bot.Browser switch

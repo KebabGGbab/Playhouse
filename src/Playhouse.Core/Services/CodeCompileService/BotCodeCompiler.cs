@@ -25,7 +25,7 @@ namespace Playhouse.Core.Services.CodeCompileService
             BotCodeGenerator generator = new(bot);
             CompilationInfo info = new()
             {
-                Path = _filePathResolver.GetPathToFileDllBot(bot.Id),
+                Path = _filePathResolver.GetBotDllFile(bot.Id).FullName,
                 Trees = generator.Generate()
             };
 

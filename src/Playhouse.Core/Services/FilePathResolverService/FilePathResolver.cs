@@ -1,64 +1,48 @@
-﻿using Microsoft.Extensions.Options;
-using Playhouse.Core.Models.ConfigurationOptions;
+﻿using Playhouse.Core.Services.ApplicationSettingsService;
 using Playhouse.Core.Services.FilePathResolverService.Abstractions;
 using System.Globalization;
 
 namespace Playhouse.Core.Services.FilePathResolverService
 {
-    public class FilePathResolver : IFilePathResolver, IDisposable
+    public class FilePathResolver : IFilePathResolver
 	{
-        private readonly IDisposable? _onConfigChangeToken;
-		private bool _disposed;
-        private FileLocationsOptions _currentConfig;
+        private readonly ISettingsService _settings;
 
-        public static readonly string AppData = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Playhouse");
-		public static readonly string AppSettings = Path.Combine(AppData, "appsettings.json");
-		public static readonly string UserSettings = Path.Combine(AppData, "usersettings.json");
+        public static FileInfo AppSettings { get; } = new FileInfo(Path.Combine(Environment.CurrentDirectory, "appsettings.json"));
 
-		public string DirectoryProfiles => _currentConfig.Profiles;
+        public DirectoryInfo Browsers => new(Path.Combine(_settings.PathToData, nameof(Browsers)));
 
-		public string DirectoryBots => _currentConfig.Bots;
+        public DirectoryInfo Bots => new(Path.Combine(_settings.PathToData, nameof(Bots)));
 
-		public string FileJSEventScripts => field ??= Path.Combine(Environment.CurrentDirectory, "Resources", "JS", "BrowserEventsListener.js");
+		public FileInfo FileJSEventScripts { get; }
 
-
-        public FilePathResolver(IOptionsMonitor<FileLocationsOptions> config)
+        public FilePathResolver(ISettingsService settings)
 		{
-			ArgumentNullException.ThrowIfNull(config, nameof(config));
+            ArgumentNullException.ThrowIfNull(settings);
 
-			_currentConfig = config.CurrentValue;
-			_onConfigChangeToken = config.OnChange(updatedConfig => _currentConfig = updatedConfig);
-		}
-
-		public string GetPathToDirectoryProfile(int id) => Path.Combine(DirectoryProfiles, id.ToString(CultureInfo.InvariantCulture));
-
-		public string GetPathToDirectoryUserDataDirProfile(int id) => Path.Combine(GetPathToDirectoryProfile(id), "UserDataDir");
-
-		public string GetPathToDirectoryBot(int id) => Path.Combine(DirectoryBots, id.ToString(CultureInfo.InvariantCulture));
-
-		public string GetPathToFileDllBot(int id) => Path.Combine(GetPathToDirectoryBot(id), "Main.dll");
-
-        public void Dispose()
-        {
-			Dispose(true);
-			GC.SuppressFinalize(this);
+            _settings = settings;
+			FileJSEventScripts = new FileInfo(Path.Combine(Environment.CurrentDirectory, "Resources", "js", "BrowserEventsListener.js"));
         }
 
-		protected virtual void Dispose(bool disposing)
-		{
-			if (_disposed) return;
+        public DirectoryInfo GetBrowserDirectory(int browserId)
+        {
+            return new DirectoryInfo(Path.Combine(Browsers.FullName, browserId.ToString(CultureInfo.InvariantCulture)));
+        }
 
-			_disposed = true;
+        public DirectoryInfo GetUserDataDir(int browserId)
+        {
+            return new DirectoryInfo(Path.Combine(GetBrowserDirectory(browserId).FullName, "UserDataDir"));
+        }
 
-			if (disposing)
-			{
-				_onConfigChangeToken?.Dispose();
-			}
-		}
+        public DirectoryInfo GetBotDirectory(int botId)
+        {
+            return new DirectoryInfo(Path.Combine(Bots.FullName, botId.ToString(CultureInfo.InvariantCulture)));
+        }
 
-		~FilePathResolver()
-		{
-			Dispose(false);
-		}
+        public FileInfo GetBotDllFile(int botId)
+        {
+            return new FileInfo(Path.Combine(GetBotDirectory(botId).FullName, "Main.dll"));
+        }
+
     }
 }

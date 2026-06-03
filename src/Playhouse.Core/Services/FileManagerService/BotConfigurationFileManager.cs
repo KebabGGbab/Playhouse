@@ -18,7 +18,7 @@ namespace Playhouse.Core.Services.FileManagerService
         {
             ArgumentNullException.ThrowIfNull(model, nameof(model));
 
-            Directory.CreateDirectory(PathResolver.GetPathToDirectoryBot(model.Id));
+            PathResolver.GetBotDirectory(model.Id).Create();
             _compiler.Compile(model);
         }
 
@@ -26,7 +26,7 @@ namespace Playhouse.Core.Services.FileManagerService
         {
             ArgumentNullException.ThrowIfNull(model, nameof(model));
 
-            Directory.Delete(PathResolver.GetPathToDirectoryBot(model.Id), true);
+            PathResolver.GetBotDirectory(model.Id).Delete(true);
         }
     }
 }

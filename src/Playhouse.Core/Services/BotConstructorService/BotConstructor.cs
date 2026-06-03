@@ -40,7 +40,7 @@ namespace Playhouse.Core.Services.BotConstructorService
         public async Task StartConstructorAsync()
         {
             IBrowserContext browser = await _playwrightFactory.CreateBrowserAsync(Profile, Bot).ConfigureAwait(false);
-            await browser.AddInitScriptAsync(scriptPath: _filePathResolver.FileJSEventScripts).ConfigureAwait(false);
+            await browser.AddInitScriptAsync(scriptPath: _filePathResolver.FileJSEventScripts.FullName).ConfigureAwait(false);
 
             browser.Console += Console_GetRecord;
             browser.Close += Browser_Closed;

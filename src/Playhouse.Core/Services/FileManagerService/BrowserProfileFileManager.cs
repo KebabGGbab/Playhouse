@@ -14,14 +14,14 @@ namespace Playhouse.Core.Services.FileManagerService
         {
             ArgumentNullException.ThrowIfNull(model, nameof(model));
 
-            Directory.CreateDirectory(PathResolver.GetPathToDirectoryUserDataDirProfile(model.Id));
+            PathResolver.GetUserDataDir(model.Id).Create();
         }
 
         public override void Delete(BrowserConfiguration model)
         {
             ArgumentNullException.ThrowIfNull(model, nameof(model));
 
-            Directory.Delete(PathResolver.GetPathToDirectoryProfile(model.Id), true);
+            PathResolver.GetBrowserDirectory(model.Id).Delete(true);
         }
     }
 }
