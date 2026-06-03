@@ -1,77 +1,52 @@
-﻿using KebabGGbab.Primitives.Extensions;
-using Microsoft.Extensions.Options;
-using Playhouse.Core.Enums;
-using Playhouse.Core.Models.ConfigurationOptions;
+﻿using Playhouse.Core.Enums;
 using Playhouse.Core.Services.PlaywrightService.Abstractions;
-using Humanizer;
-using Playhouse.Core.Resources.Localization;
+using Playhouse.Core.Services.ApplicationSettingsService;
+using KebabGGbab.Primitives.Extensions;
 
 namespace Playhouse.Core.Services.PlaywrightService
 {
-    public class PlaywrightBrowserInstaller : IPlaywrightBrowserInstaller, IDisposable
+    public class PlaywrightBrowserInstaller : IPlaywrightBrowserInstaller, IInitializer
 	{
-        private readonly IDisposable? _onConfigChangeToken;
-		private bool _disposed;
-		private PlaywrightOptions _currentConfig;
+		private readonly ISettingsService _settings;
 
-		public PlaywrightBrowserInstaller(IOptionsMonitor<PlaywrightOptions> config)
+		public PlaywrightBrowserInstaller(ISettingsService settings)
 		{
-			ArgumentNullException.ThrowIfNull(config, nameof(config));
+			ArgumentNullException.ThrowIfNull(settings);
 
-			_currentConfig = config.CurrentValue;
-			_onConfigChangeToken = config.OnChange(updatedConfig => _currentConfig = updatedConfig);
+			_settings = settings;
+            _settings.SettingsChanged += SettingsChanged;
 		}
 
-		public async Task InstallAsync()
-		{
-			string[] request = GetRequestString(_currentConfig);
-
-			int exitCode = await Task.Run(() => Microsoft.Playwright.Program.Main(request)).ConfigureAwait(false);
-
-			if (exitCode != 0)
-			{
-				throw new InvalidOperationException(StringsCode.UnableInstallBrowsers);
-			}
-		}
-
-		private static string[] GetRequestString(PlaywrightOptions options)
-		{
-			List<string> request = ["install"];
-
-			foreach (BrowserType browserType in Enum.GetValues<BrowserType>())
-			{
-				if (browserType == BrowserType.None) continue;
-
-				if (options.BrowserTypes.HasFlag(browserType))
-				{
-					request.Add(browserType.Humanize());
-				}
-			}
-
-			return [.. request];
-		}
-
-        public void Dispose()
+        private async void SettingsChanged(ISettingsService sender, EventArgs e)
         {
-			Dispose(true);
-			GC.SuppressFinalize(this);
+			await InstallAsync().ConfigureAwait(false);
         }
 
-		protected virtual void Dispose(bool disposing)
+        public async Task InstallAsync()
 		{
-			if (_disposed) return;
+			string[][] requests = GetRequestStrings();
+			List<Task> tasks = new(requests.Length);
 
-			_disposed = true;
-
-			if (disposing)
+			foreach (string[] request in requests)
 			{
-				_onConfigChangeToken?.Dispose();
+				tasks.Add(Task.Run(() => Microsoft.Playwright.Program.Main(request)));
 			}
+			
+			await Task.WhenAll(tasks).ConfigureAwait(false);
 		}
 
-		~PlaywrightBrowserInstaller()
+		private string[][] GetRequestStrings()
 		{
-			Dispose(false);
+			return _settings
+				.Browsers
+				.Where(b => b != BrowserType.None)
+				.Select(b => new string[] { "install", "--with-deps", b.GetDisplayNameField()! })
+				.ToArray();
 		}
+
+        public async Task InitializeAsync()
+        {
+            await InstallAsync().ConfigureAwait(false);
+        }
     }
 }

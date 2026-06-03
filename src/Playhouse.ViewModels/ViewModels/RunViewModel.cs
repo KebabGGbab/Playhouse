@@ -112,7 +112,7 @@ namespace Playhouse.ViewModels.ViewModels
             _busyProfiles.Add(jobManager, _selectedProfiles.ToArray());
             _selectedProfiles.Clear();
             jobManager.Completed += OnJobManager_Completed;
-            await jobManager.ExecuteJobsAsync(new BotManagerRunArgs(_filePathResolver.GetPathToFileDllBot(SelectedBotStart!.Bot.Id))).ConfigureAwait(false);
+            await jobManager.ExecuteJobsAsync(new BotManagerRunArgs(_filePathResolver.GetBotDllFile(SelectedBotStart!.Bot.Id).FullName)).ConfigureAwait(false);
         }
 
         private void OnJobManager_Completed(object? sender, EventArgs e)
