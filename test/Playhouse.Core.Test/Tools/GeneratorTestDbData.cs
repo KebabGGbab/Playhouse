@@ -26,18 +26,14 @@ namespace Playhouse.Core.Test.Tools
                 Number = 1
             });
 
-            botsInfo[1].Actions.Add(new LocatorClickBotAction(
-                new LocatorClickOptionsStrictDecorator() {
-                    Position = new Position()
-                    {
-                        X = 10,
-                        Y = 3
-                    }
-                })
-            {
-                Bot = botsInfo[1],
+            LocatorClickBotAction locatorClick = new(new LocatorClickOptionsStrictDecorator())
+            { 
+                Bot = botsInfo[1], 
                 Number = 1
-            });
+            };
+            locatorClick.Options.Position.X = 10;
+            locatorClick.Options.Position.Y = 3;
+            botsInfo[1].Actions.Add(locatorClick);
 
             botsInfo[2].Actions.Add(new PageClosedBotAction(
                 new PageCloseOptionsStrictDecorator()
