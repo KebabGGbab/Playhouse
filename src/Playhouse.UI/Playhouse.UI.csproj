@@ -76,12 +76,21 @@
     <Reference Include="KebabGGbab.Avalonia.Extensions">
       <HintPath>..\..\..\Libraries\KebabGGbab.Avalonia.Extensions\KebabGGbab.Avalonia.Extensions\bin\Debug\net10.0\KebabGGbab.Avalonia.Extensions.dll</HintPath>
     </Reference>
+    <Reference Include="KebabGGbab.CommunityToolkit.MVVM.Extensions">
+      <HintPath>..\..\..\Libraries\KebabGGbab.CommunityToolkit.MVVM.Extensions\src\KebabGGbab.CommunityToolkit.MVVM.Extensions\bin\Debug\net10.0\KebabGGbab.CommunityToolkit.MVVM.Extensions.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>
     <AvaloniaResource Update="Assets\Brushes\SolidColorBrushes.axaml">
       <SubType>Designer</SubType>
     </AvaloniaResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 	
 </Project>
