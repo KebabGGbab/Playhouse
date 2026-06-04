@@ -4,7 +4,7 @@
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-	  <NeutralLanguage>en</NeutralLanguage>
+	<NeutralLanguage>en</NeutralLanguage>
   </PropertyGroup>
 
 	<!-- AvaloniaUI -->
@@ -15,10 +15,6 @@
 
   <ItemGroup>
     <AvaloniaResource Include="Assets\**" />  
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="Resources\Images\Playhouse_multicolored_icon.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -60,9 +56,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>StringsUI.resx</DependentUpon>
     </Compile>
-    <Compile Update="Views\UserControls\IconLoaderView.axaml.cs">
-      <DependentUpon>IconLoaderView.axaml</DependentUpon>
-    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -81,18 +74,6 @@
     </Reference>
   </ItemGroup>
 
-  <ItemGroup>
-    <AvaloniaResource Update="Assets\Brushes\SolidColorBrushes.axaml">
-      <SubType>Designer</SubType>
-    </AvaloniaResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="appsettings.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-	
   <ItemGroup>
     <None Update="appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
