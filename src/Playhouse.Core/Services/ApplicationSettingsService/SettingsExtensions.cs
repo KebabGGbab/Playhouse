@@ -8,9 +8,8 @@ namespace Playhouse.Core.Services.ApplicationSettingsService
         {
             ArgumentNullException.ThrowIfNull(services);
 
-            services.AddSingleton<ISettingsService, SettingsService>();
-
-            return services;
+            return services.AddSingleton<ISettingsService, SettingsService>()
+                .AddSingleton<IInitializer, SettingsService>((s) => (SettingsService)s.GetRequiredService<ISettingsService>());
         }
     }
 }

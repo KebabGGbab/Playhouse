@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace Playhouse.UI.Services.LocalizationService
+namespace Playhouse.Core.Services.LocalizationService
 {
     public interface ILocalizator
     {

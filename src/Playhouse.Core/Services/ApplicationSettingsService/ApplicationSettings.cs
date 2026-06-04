@@ -43,14 +43,40 @@ namespace Playhouse.Core.Services.ApplicationSettingsService
             Channels = new HashSet<BrowserChannels>();
         }
 
-        public ApplicationSettings(string cultureCode, string pathToData, IEnumerable<BrowserType> browsers, IEnumerable<BrowserChannels> channels)
+        public void Update(string cultureCode, string pathToData, IEnumerable<BrowserTypes> browsers, IEnumerable<BrowserChannels> channels)
         {
             Validate(cultureCode, pathToData, browsers, channels);
 
+            HashSet<BrowserTypes> browserTypes = browsers.ToHashSet();
+            HashSet<BrowserChannels> browserChannels = channels.ToHashSet();
             _uiCultureCode = cultureCode;
             PathToData = pathToData;
-            Browsers = new HashSet<BrowserType>(browsers);
-            Channels = new HashSet<BrowserChannels>(channels);
+            foreach (BrowserTypes browser in BrowserTypes.List)
+            {
+                bool isSaved = Browsers.Contains(browser);
+                bool isNotSaved = browserTypes.Contains(browser);
+                if (isSaved && !isNotSaved)
+                {
+                    Browsers.Remove(browser);
+                }
+                else if (!isSaved && isNotSaved)
+                {
+                    Browsers.Add(browser);
+                }
+            }
+            foreach (BrowserChannels channel in BrowserChannels.List)
+            {
+                bool isSaved = Channels.Contains(channel);
+                bool isNotSaved = browserChannels.Contains(channel);
+                if (isSaved && !isNotSaved)
+                {
+                    Channels.Remove(channel);
+                }
+                else if (!isSaved && isNotSaved)
+                {
+                    Channels.Add(channel);
+                }
+            }
         }
 
         private static void Validate([NotNull]string cultureCode, string pathToData, IEnumerable<BrowserTypes> browsers, IEnumerable<BrowserChannels> channels)

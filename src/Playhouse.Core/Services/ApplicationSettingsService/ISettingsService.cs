@@ -15,8 +15,6 @@ namespace Playhouse.Core.Services.ApplicationSettingsService
 
         event EventHandler<ISettingsService, EventArgs>? SettingsChanged;
 
-        Task LoadAsync();
-
-        Task SaveAsync(CultureInfo cultureUI, string pathToData, IEnumerable<BrowserType> browsers, IEnumerable<BrowserChannels> channels);
+        Task SaveAsync(CultureInfo cultureUI, string pathToData, IEnumerable<BrowserTypes> browsers, IEnumerable<BrowserChannels> channels);
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Playhouse.UI.Services.LocalizationService;
 
 namespace Playhouse.Core.Services.LocalizationService
 {
@@ -9,9 +8,8 @@ namespace Playhouse.Core.Services.LocalizationService
         {
             ArgumentNullException.ThrowIfNull(services);
 
-            services.AddSingleton<ILocalizator, Localizator>();
-
-            return services;
+            return services.AddSingleton<ILocalizator, Localizator>()
+                .AddSingleton<IInitializer, Localizator>((s) => (Localizator)s.GetRequiredService<ILocalizator>());
         }
     }
 }

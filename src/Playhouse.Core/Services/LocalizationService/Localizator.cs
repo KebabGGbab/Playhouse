@@ -1,7 +1,6 @@
 ﻿using System.Globalization;
 using KebabGGbab.Localization.Manager;
 using Playhouse.Core.Services.ApplicationSettingsService;
-using Playhouse.UI.Services.LocalizationService;
 
 namespace Playhouse.Core.Services.LocalizationService
 {

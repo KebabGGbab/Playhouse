@@ -4,7 +4,7 @@ using Playhouse.Core.Models;
 
 namespace Playhouse.Core.Services.ApplicationSettingsService
 {
-    public sealed class SettingsService : ISettingsService
+    public sealed class SettingsService : ISettingsService, IInitializer
     {
         private readonly ISettingsRepository _repository;
 
@@ -28,7 +28,7 @@ namespace Playhouse.Core.Services.ApplicationSettingsService
             _settings = new ApplicationSettings();
         }
 
-        public async Task LoadAsync()
+        public async Task InitializeAsync()
         {
             _settings = await _repository.GetSettingsAsync().ConfigureAwait(false)
                 ?? new ApplicationSettings();
@@ -39,8 +39,8 @@ namespace Playhouse.Core.Services.ApplicationSettingsService
         {
             ArgumentNullException.ThrowIfNull(cultureUI);
 
-            ApplicationSettings newSettings = new(cultureUI.Name, pathToData, browsers, channels); 
-            await _repository.UpdateSettingsAsync(newSettings).ConfigureAwait(false);
+            _settings.Update(cultureUI.Name, pathToData, browsers, channels);
+            await _repository.UpdateSettingsAsync(_settings).ConfigureAwait(false);
             OnSettingsChanged();
         }
 
