@@ -2,9 +2,9 @@
 
 namespace Playhouse.Core.Data.Comparers
 {
-    internal sealed class EnumerableValueComparer<T> : ValueComparer<IEnumerable<T>>
+    internal sealed class HashSetValueComparer<T> : ValueComparer<ISet<T>>
     {
-        public EnumerableValueComparer()
+        public HashSetValueComparer()
             : base(
                   (left, right) => EqualsCollections(left, right),
                   collection => GetHashCodeCollection(collection),
@@ -12,7 +12,7 @@ namespace Playhouse.Core.Data.Comparers
         {
         }
 
-        public static bool EqualsCollections(IEnumerable<T>? left, IEnumerable<T>? right)
+        public static bool EqualsCollections(ISet<T>? left, ISet<T>? right)
         {
             if (left is null ^ right is null)
             {
@@ -22,14 +22,14 @@ namespace Playhouse.Core.Data.Comparers
             return left is null || left.SequenceEqual(right!); /* right не может быть null во втором выражении */
         }
 
-        public static int GetHashCodeCollection(IEnumerable<T> collection)
+        public static int GetHashCodeCollection(ISet<T> collection)
         {
             return collection.Aggregate(0, (total, next) => HashCode.Combine(total, next?.GetHashCode()));
         }
 
-        public static IEnumerable<T> SnapshotCollection(IEnumerable<T> collection)
+        public static ISet<T> SnapshotCollection(ISet<T> collection)
         {
-            return collection.ToList();
+            return collection.ToHashSet();
         }
     }
 }
