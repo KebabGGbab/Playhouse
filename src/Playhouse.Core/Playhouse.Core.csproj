@@ -35,9 +35,6 @@
     <Reference Include="Jobs.Abstractions">
       <HintPath>..\..\..\Libraries\Jobs.Abstractions\Jobs.Abstractions\bin\Debug\net10.0\Jobs.Abstractions.dll</HintPath>
     </Reference>
-    <Reference Include="KebabGGbab.Primitives.Extensions">
-      <HintPath>..\..\..\Libraries\KebabGGbab.Primitives.Extensions\src\bin\Debug\net10.0\KebabGGbab.Primitives.Extensions.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
   <ItemGroup>
