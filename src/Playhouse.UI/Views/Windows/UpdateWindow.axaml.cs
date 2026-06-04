@@ -15,5 +15,6 @@ internal sealed partial class UpdateWindow : Window
     private async void Window_Loaded(object? sender, RoutedEventArgs e)
     {
         await ((UpdateViewModel)DataContext!).InitializeCommand.ExecuteAsync(null);
+        Close();
     }
 }

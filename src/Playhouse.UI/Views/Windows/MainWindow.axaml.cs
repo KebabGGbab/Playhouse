@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using Avalonia.Interactivity;
 using CommunityToolkit.Mvvm.Messaging;
 using Playhouse.UI.Services.WindowCreatorService.Abstractions;
 using Playhouse.ViewModels.Messages;
@@ -36,6 +37,12 @@ namespace Playhouse.UI.Views.Windows
             recepient._windowFactory.CreateBotConstructorWindow(message.Profile, message.Bot).ShowDialog(recepient);
 
             message.Reply(message.Bot);
+        }
+
+        private void Window_Loaded(object? sender, RoutedEventArgs e)
+        {
+            MainWindowViewModel vm = (MainWindowViewModel)DataContext!;
+            vm.SettingsViewModel.InitializeCommand.Execute(null);
         }
     }
 }

@@ -45,10 +45,18 @@ namespace Playhouse.UI
         {
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                desktop.MainWindow = _host.Services.GetRequiredService<MainWindow>();
+                desktop.ShutdownMode = ShutdownMode.OnLastWindowClose;
+                UpdateWindow window = _host.Services.GetRequiredService<UpdateWindow>();
+                window.Closed += UpdateWindowClosed;
+                window.Show();
             }
 
             base.OnFrameworkInitializationCompleted();
+        }
+
+        private void UpdateWindowClosed(object? sender, EventArgs e)
+        {
+            _host.Services.GetRequiredService<MainWindow>().Show();
         }
 
         public void Dispose()
