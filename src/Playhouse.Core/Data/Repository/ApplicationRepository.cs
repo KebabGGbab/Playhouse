@@ -14,10 +14,10 @@ namespace Playhouse.Core.Data.Repository
             _dbFactory = dbFactory;
         }
 
-        public async Task<ApplicationSettings> GetSettingsAsync()
+        public async Task<ApplicationSettings?> GetSettingsAsync()
         {
             using ApplicationDbContext db = await _dbFactory.CreateDbContextAsync().ConfigureAwait(false);
-            return await db.Settings.FirstAsync(s => s.Id == 0).ConfigureAwait(false);
+            return await db.Settings.FirstOrDefaultAsync(s => s.Id == 1).ConfigureAwait(false);
         }
 
         public async Task UpdateSettingsAsync(ApplicationSettings settings)
