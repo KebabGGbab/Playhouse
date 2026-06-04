@@ -1,7 +1,5 @@
-﻿using Playhouse.Core.Enums;
+﻿using Playhouse.Core.Services.ApplicationSettingsService;
 using Playhouse.Core.Services.PlaywrightService.Abstractions;
-using Playhouse.Core.Services.ApplicationSettingsService;
-using KebabGGbab.Primitives.Extensions;
 
 namespace Playhouse.Core.Services.PlaywrightService
 {
@@ -31,7 +29,7 @@ namespace Playhouse.Core.Services.PlaywrightService
 			{
 				tasks.Add(Task.Run(() => Microsoft.Playwright.Program.Main(request)));
 			}
-			
+
 			await Task.WhenAll(tasks).ConfigureAwait(false);
 		}
 
@@ -39,8 +37,7 @@ namespace Playhouse.Core.Services.PlaywrightService
 		{
 			return _settings
 				.Browsers
-				.Where(b => b != BrowserType.None)
-				.Select(b => new string[] { "install", "--with-deps", b.GetDisplayNameField()! })
+				.Select(b => new string[] { "install", "--with-deps", b.Name })
 				.ToArray();
 		}
 

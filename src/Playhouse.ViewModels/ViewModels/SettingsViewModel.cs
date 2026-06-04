@@ -1,13 +1,10 @@
 ﻿using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
-using Humanizer;
 using KebabGGbab.CommunityToolkit.MVVM.Extensions.ViewModelAbstractions;
-using KebabGGbab.Localization.Manager;
-using Playhouse.Core.Enums;
+using Playhouse.Core.Models;
 using Playhouse.Core.Services.ApplicationSettingsService;
-using Playhouse.UI.Services.LocalizationService;
-using Playhouse.ViewModels.ViewModels.Abstractions;
+using Playhouse.Core.Services.LocalizationService;
 
 namespace Playhouse.ViewModels.ViewModels
 {
@@ -42,26 +39,27 @@ namespace Playhouse.ViewModels.ViewModels
             }
         }
 
-        public IReadOnlyCollection<SelectableItem<string>> Browsers { get; }
-
-        public IReadOnlyCollection<SelectableItem<string>> Channels { get; }
+        public IReadOnlyCollection<BrowserTypesViewModel> Browsers { get; }
 
 		public SettingsViewModel(ISettingsService settings, ILocalizator localizator) 
         {
             ArgumentNullException.ThrowIfNull(settings);
             ArgumentNullException.ThrowIfNull(localizator);
 
+            _ = BrowserChannels.Chrome;
             _settings = settings;
             _localizator = localizator;
-            Browsers = Enum.GetValues<BrowserType>().Select(b => new SelectableItem<string>(b.Humanize())).ToList().AsReadOnly();
-            foreach (SelectableItem<string> browser in Browsers)
+            Browsers = BrowserTypes.List.Select(b => new BrowserTypesViewModel(b)).ToList().AsReadOnly();
+            foreach (BrowserTypesViewModel browser in Browsers)
             {
+                browser.IsSelected = _settings.Browsers.Contains(browser.Browser);
                 browser.PropertyChanged += Browser_PropertyChanged;
-            }
-            Channels = Enum.GetValues<BrowserChannels>().Select(c => new SelectableItem<string>(c.Humanize())).ToList().AsReadOnly();
-            foreach (SelectableItem<string> channel in Channels)
-            {
-                channel.PropertyChanged += Channel_PropertyChanged;
+
+                foreach (BrowserChannelsViewModel channel in browser.Channels)
+                {
+                    channel.IsSelected = _settings.Channels.Contains(channel.Channel);
+                    channel.PropertyChanged += Channel_PropertyChanged;
+                }
             }
             CancelChangesCore();
         }
@@ -78,10 +76,10 @@ namespace Playhouse.ViewModels.ViewModels
         protected override async Task SaveChangesCoreAsync()
         {
             await _settings.SaveAsync(
-                SelectedCulture,
-                PathToData, 
-                Browsers.Where(b => b.IsSelected).Select(b => b.Item.DehumanizeTo<BrowserType>()),
-                Channels.Where(b => b.IsSelected).Select(c => c.Item.DehumanizeTo<BrowserChannels>()));
+                cultureUI: SelectedCulture,
+                pathToData: PathToData, 
+                browsers: Browsers.Where(b => b.IsSelected).Select(b => b.Browser),
+                channels: Browsers.Where(b => b.IsSelected).SelectMany(b => b.Channels.Where(c => c.IsSelected)).Select(c => c.Channel));
         }
 
         [MemberNotNull(nameof(SelectedCulture), nameof(PathToData))]
@@ -89,13 +87,14 @@ namespace Playhouse.ViewModels.ViewModels
         {
             SelectedCulture = _settings.CurrentUICulture;
             PathToData = _settings.PathToData;
-            foreach (SelectableItem<string> browser in Browsers)
+            foreach (BrowserTypesViewModel browser in Browsers)
             {
-                browser.IsSelected = _settings.Browsers.Contains(browser.Item.DehumanizeTo<BrowserType>());
-            }
-            foreach (SelectableItem<string> channel in Channels)
-            {
-                channel.IsSelected = _settings.Channels.Contains(channel.Item.DehumanizeTo<BrowserChannels>());
+                browser.IsSelected = _settings.Browsers.Contains(browser.Browser);
+
+                foreach (BrowserChannelsViewModel channel in browser.Channels)
+                {
+                    channel.IsSelected = _settings.Channels.Contains(channel.Channel);
+                }
             }
         }
 
@@ -103,8 +102,8 @@ namespace Playhouse.ViewModels.ViewModels
         {
             return !(SelectedCulture == _settings.CurrentUICulture
                 && PathToData == _settings.PathToData
-                && Browsers.Where(b => b.IsSelected).Select(b => b.Item.DehumanizeTo<BrowserType>()).SequenceEqual(_settings.Browsers)
-                && Channels.Where(b => b.IsSelected).Select(c => c.Item.DehumanizeTo<BrowserChannels>()).SequenceEqual(_settings.Channels));
+                && Browsers.Where(b => b.IsSelected).Select(b => b.Browser).SequenceEqual(_settings.Browsers)
+                && Browsers.Where(b => b.IsSelected).SelectMany(b => b.Channels.Where(c => c.IsSelected)).Select(c => c.Channel).SequenceEqual(_settings.Channels));
         }
 	}
 }

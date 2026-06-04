@@ -5,8 +5,6 @@ using Playhouse.Core.Models;
 using Playhouse.Core.Resources.Localization;
 using Playhouse.Core.Services.FilePathResolverService.Abstractions;
 using Playhouse.Core.Services.PlaywrightService.Abstractions;
-using BrowserType = Playhouse.Core.Enums.BrowserType;
-
 namespace Playhouse.Core.Services.PlaywrightService
 {
     public class PlaywrightFactory : IPlaywrightFactory
@@ -31,15 +29,15 @@ namespace Playhouse.Core.Services.PlaywrightService
 			string pathToUserDataDir = _fullPathResolver.GetUserDataDir(profile.Id).FullName;
             BrowserTypeLaunchPersistentContextOptions options = (BrowserTypeLaunchPersistentContextOptions)profile.Options;
 
-            return bot.Browser switch
+            return bot.Browser.Name switch
 			{
-                BrowserType.Chromium => await playwright.Chromium.
+                nameof(BrowserTypes.Chromium) => await playwright.Chromium.
 					LaunchPersistentContextAsync(pathToUserDataDir, options)
 					.ConfigureAwait(false),
-                BrowserType.Firefox => await playwright.Firefox
+                nameof(BrowserTypes.Firefox) => await playwright.Firefox
 					.LaunchPersistentContextAsync(pathToUserDataDir, options)
 					.ConfigureAwait(false),
-                BrowserType.WebKit => await playwright.Webkit
+                nameof(BrowserTypes.WebKit) => await playwright.Webkit
 					.LaunchPersistentContextAsync(pathToUserDataDir, options)
 					.ConfigureAwait(false),
 				_ => throw new NotSupportedException(string.Format(CultureInfo.CurrentCulture, _unsupportedBrowserFormat, bot.Browser))

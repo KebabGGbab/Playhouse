@@ -1,5 +1,4 @@
 ﻿using Microsoft.Playwright;
-using Playhouse.Core.Enums;
 using Playhouse.Core.Models;
 using Playhouse.Core.Models.BotActions;
 using Playhouse.Core.Models.PlaywrightDecorator;
@@ -12,12 +11,12 @@ namespace Playhouse.Core.Test.Tools
         {
             BotConfiguration[] botsInfo =
                 [
-                    new() { Name = "test", Browser = Enums.BrowserType.WebKit },
-                    new() { Name = "2", Browser = Enums.BrowserType.Chromium },
-                    new() { Name = "Play", Browser = Enums.BrowserType.Firefox },
-                    new() { Name = "we", Browser = Enums.BrowserType.Chromium },
-                    new() { Name="Bot5", Browser = Enums.BrowserType.Firefox },
-                    new() { Name="6", Browser = Enums.BrowserType.Chromium },
+                    new(BrowserTypes.WebKit) { Name = "test" },
+                    new(BrowserTypes.Chromium) { Name = "2" },
+                    new(BrowserTypes.Firefox) { Name = "Play" },
+                    new(BrowserTypes.Chromium) { Name = "we" },
+                    new(BrowserTypes.Firefox) { Name="Bot5" },
+                    new(BrowserTypes.Chromium) { Name="6" },
                 ];
 
             botsInfo[0].Actions.Add(new PageCreatedBotAction()

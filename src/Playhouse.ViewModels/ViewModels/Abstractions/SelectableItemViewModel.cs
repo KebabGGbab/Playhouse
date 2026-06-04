@@ -2,7 +2,7 @@
 
 namespace Playhouse.ViewModels.ViewModels.Abstractions
 {
-    public sealed class SelectableItem<T> : ObservableObject
+    public class SelectableItemViewModel<T> : ObservableObject
     {
         public bool IsSelected
         {
@@ -12,16 +12,16 @@ namespace Playhouse.ViewModels.ViewModels.Abstractions
 
         public T Item { get; }
 
-        public SelectableItem(T item)
+        public SelectableItemViewModel(T item)
+            : this(item, false)
+        {
+        }
+
+        public SelectableItemViewModel(T item, bool isSelected)
         {
             ArgumentNullException.ThrowIfNull(item);
 
             Item = item;
-        }
-
-        public SelectableItem(T item, bool isSelected)
-            : this(item)
-        {
             IsSelected = isSelected;
         }
     }

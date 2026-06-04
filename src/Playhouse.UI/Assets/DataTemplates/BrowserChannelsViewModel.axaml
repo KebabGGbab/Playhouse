@@ -1,0 +1,13 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:vm="using:Playhouse.ViewModels.ViewModels">
+
+    <DataTemplate x:Key="SettingsBrowserChannelsViewModel" DataType="{x:Type vm:BrowserChannelsViewModel}">
+        <StackPanel Orientation="Vertical">
+            <CheckBox Classes="inline settings-installed-channel"
+                      Content="{Binding Path=Item}"
+                      IsChecked="{Binding Path=IsSelected}" />
+        </StackPanel>
+    </DataTemplate>
+
+</ResourceDictionary>

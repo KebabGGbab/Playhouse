@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Playhouse.Core.Data;
-using Playhouse.Core.Enums;
 using Playhouse.Core.Models;
 using Playhouse.Core.Test.Tools;
 
@@ -48,10 +47,9 @@ namespace Playhouse.Core.Test.TestingClasses
         {
             using ApplicationDbContext context = DbFactory.GetTransactionAppContext();
             context.Database.BeginTransaction();
-            BotConfiguration newBot = new()
+            BotConfiguration newBot = new(BrowserTypes.Chromium)
             {
                 Name = "NewBot",
-                Browser = BrowserType.Chromium,
             };
 
             await context.Bots.AddAsync(newBot, CancellationToken.None);
@@ -61,7 +59,7 @@ namespace Playhouse.Core.Test.TestingClasses
 
             BotConfiguration bot = await context.Bots.OrderBy(b => b.Id).LastAsync(CancellationToken.None);
             Assert.AreEqual("NewBot", bot.Name);
-            Assert.AreEqual(BrowserType.Chromium, bot.Browser);
+            Assert.AreEqual(BrowserTypes.Chromium, bot.Browser);
             Assert.HasCount(0, bot.Actions);
         }
 

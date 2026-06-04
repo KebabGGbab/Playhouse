@@ -50,6 +50,8 @@
 
                 <!-- DataTemplates -->
 
+                <ResourceInclude Source="avares://Playhouse.UI/Assets/DataTemplates/BrowserTypesViewModel.axaml" />
+                <ResourceInclude Source="avares://Playhouse.UI/Assets/DataTemplates/BrowserChannelsViewModel.axaml" />
                 <ResourceInclude Source="avares://Playhouse.UI/Assets/DataTemplates/BrowserConfigurationViewModel.axaml" />
                 <ResourceInclude Source="avares://Playhouse.UI/Assets/DataTemplates/BrowserContextClosedBotActionViewModel.axaml" />
                 <ResourceInclude Source="avares://Playhouse.UI/Assets/DataTemplates/LocatorClickBotActionViewModel.axaml" />

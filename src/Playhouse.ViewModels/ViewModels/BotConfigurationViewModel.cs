@@ -2,7 +2,6 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.EntityFrameworkCore;
 using Playhouse.Core.Data;
-using Playhouse.Core.Enums;
 using Playhouse.Core.Models;
 using Playhouse.Core.Models.BotActions.Abstractions;
 using Playhouse.Core.Services.FileManagerService.Abstractions;
@@ -25,12 +24,12 @@ namespace Playhouse.ViewModels.ViewModels
 
         public string Name => Bot.Name;
 
-        public BrowserType Browser => Bot.Browser;
+        public BrowserTypes Browser => Bot.Browser;
 
         public ReadOnlyObservableCollection<BotActionViewModel> Actions { get; }
 
         public BotConfigurationViewModel(IDbContextFactory<ApplicationDbContext> dbFactory, FileManager<BotConfiguration> fileManager)
-            : this(dbFactory, fileManager, new BotConfiguration())
+            : this(dbFactory, fileManager, new BotConfiguration(BrowserTypes.Chromium))
         {
         }
 

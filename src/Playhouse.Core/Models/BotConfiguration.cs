@@ -1,5 +1,4 @@
-﻿using Playhouse.Core.Enums;
-using Playhouse.Core.Models.BotActions.Abstractions;
+﻿using Playhouse.Core.Models.BotActions.Abstractions;
 
 namespace Playhouse.Core.Models
 {
@@ -7,11 +6,24 @@ namespace Playhouse.Core.Models
     {
         public int Id { get; private set; }
 
-        public string Name { get; set; } = string.Empty;
+        public string Name { get; set; } = null!;
 
-        public BrowserType Browser { get; init; }
+        public BrowserTypes Browser { get; } = null!;
 
-        public IList<BotAction> Actions { get; } = [];
+        public IList<BotAction> Actions { get; } = null!;
+
+        private BotConfiguration()
+        {
+        }
+
+        public BotConfiguration(BrowserTypes browser)
+        {
+            ArgumentNullException.ThrowIfNull(browser);
+
+            Name = string.Empty;
+            Browser = browser;
+            Actions = [];
+        }
 
         public override string ToString() => $"{$"[{Id}]",-8}{Name}";
     }

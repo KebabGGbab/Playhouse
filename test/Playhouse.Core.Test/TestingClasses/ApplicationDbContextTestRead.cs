@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Playwright;
 using Playhouse.Core.Data;
-using Playhouse.Core.Enums;
 using Playhouse.Core.Models;
 using Playhouse.Core.Models.BotActions;
 using Playhouse.Core.Test.Tools;
@@ -103,7 +102,7 @@ namespace Playhouse.Core.Test.TestingClasses
             BotConfiguration bot = await context.Bots.Include(b => b.Actions).SingleAsync(b => b.Id == 1, CancellationToken.None);
 
             Assert.AreEqual("test", bot.Name);
-            Assert.AreEqual(Enums.BrowserType.WebKit, bot.Browser);
+            Assert.AreEqual(BrowserTypes.WebKit, bot.Browser);
             Assert.HasCount(1, bot.Actions);
         }
 

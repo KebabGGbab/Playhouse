@@ -1,5 +1,5 @@
 ﻿using System.Globalization;
-using Playhouse.Core.Enums;
+using Playhouse.Core.Models;
 
 namespace Playhouse.Core.Services.ApplicationSettingsService
 {
@@ -9,7 +9,7 @@ namespace Playhouse.Core.Services.ApplicationSettingsService
 
         string PathToData { get; }
 
-        public IReadOnlySet<BrowserType> Browsers { get; }
+        public IReadOnlySet<BrowserTypes> Browsers { get; }
 
         public IReadOnlySet<BrowserChannels> Channels { get; }
 

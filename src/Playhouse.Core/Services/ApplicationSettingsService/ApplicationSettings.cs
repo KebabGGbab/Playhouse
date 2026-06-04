@@ -1,5 +1,6 @@
-﻿using System.Globalization;
-using Playhouse.Core.Enums;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
+using Playhouse.Core.Models;
 
 namespace Playhouse.Core.Services.ApplicationSettingsService
 {
@@ -30,7 +31,7 @@ namespace Playhouse.Core.Services.ApplicationSettingsService
             }
         }
 
-        public ISet<BrowserType> Browsers { get; } 
+        public ISet<BrowserTypes> Browsers { get; } 
 
         public ISet<BrowserChannels> Channels { get; }
 
@@ -38,7 +39,7 @@ namespace Playhouse.Core.Services.ApplicationSettingsService
         {
             _uiCultureCode = CultureInfo.CurrentUICulture.Name;
             PathToData = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Playhouse");
-            Browsers = new HashSet<BrowserType>();
+            Browsers = new HashSet<BrowserTypes>();
             Channels = new HashSet<BrowserChannels>();
         }
 
@@ -52,7 +53,7 @@ namespace Playhouse.Core.Services.ApplicationSettingsService
             Channels = new HashSet<BrowserChannels>(channels);
         }
 
-        private static void Validate(string cultureCode, string pathToData, IEnumerable<BrowserType> browsers, IEnumerable<BrowserChannels> channels)
+        private static void Validate([NotNull]string cultureCode, string pathToData, IEnumerable<BrowserTypes> browsers, IEnumerable<BrowserChannels> channels)
         {
             CultureInfo.GetCultureInfo(cultureCode); // В этом методе есть все проверки для культуры
             ArgumentException.ThrowIfNullOrWhiteSpace(pathToData);

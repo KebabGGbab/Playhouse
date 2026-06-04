@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 using Playhouse.Core.Data.Repository;
-using Playhouse.Core.Enums;
+using Playhouse.Core.Models;
 
 namespace Playhouse.Core.Services.ApplicationSettingsService
 {
@@ -14,7 +14,7 @@ namespace Playhouse.Core.Services.ApplicationSettingsService
 
         public string PathToData => _settings.PathToData;
 
-        public IReadOnlySet<BrowserType> Browsers => _settings.Browsers.AsReadOnly();
+        public IReadOnlySet<BrowserTypes> Browsers => _settings.Browsers.AsReadOnly();
 
         public IReadOnlySet<BrowserChannels> Channels => _settings.Channels.AsReadOnly();
 
@@ -35,7 +35,7 @@ namespace Playhouse.Core.Services.ApplicationSettingsService
             OnSettingsChanged();
         }
 
-        public async Task SaveAsync(CultureInfo cultureUI, string pathToData, IEnumerable<BrowserType> browsers, IEnumerable<BrowserChannels> channels)
+        public async Task SaveAsync(CultureInfo cultureUI, string pathToData, IEnumerable<BrowserTypes> browsers, IEnumerable<BrowserChannels> channels)
         {
             ArgumentNullException.ThrowIfNull(cultureUI);
 

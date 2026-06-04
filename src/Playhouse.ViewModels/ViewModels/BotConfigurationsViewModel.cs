@@ -3,7 +3,6 @@ using CommunityToolkit.Mvvm.Messaging;
 using DynamicData;
 using Microsoft.EntityFrameworkCore;
 using Playhouse.Core.Data;
-using Playhouse.Core.Enums;
 using Playhouse.Core.Models;
 using Playhouse.ViewModels.Messages;
 using Playhouse.ViewModels.Services.ViewModelFactories.Abstractions;
@@ -54,7 +53,7 @@ namespace Playhouse.ViewModels.ViewModels
             });
         } = string.Empty;
 
-        public BrowserType? BrowserType
+        public BrowserTypes? BrowserType
         {
             get => field;
             set => SetProperty(field, value, t =>
@@ -148,9 +147,8 @@ namespace Playhouse.ViewModels.ViewModels
                 return;
             }
 
-            BotConfigurationViewModel newBot = _viewModelFactory.Create(new BotConfiguration()
+            BotConfigurationViewModel newBot = _viewModelFactory.Create(new BotConfiguration(BrowserType)
             {
-                Browser = (BrowserType)BrowserType,
                 Name = BotNameCreate,
             });
             BrowserType = null;
