@@ -1,8 +1,22 @@
-document.addEventListener('click', e => {
-    const selector = e.target?.outerHTML?.slice(0, 200);
-    console.log('[Playhouse]:!:click:!::!:' + selector);
-});
-document.addEventListener('input', e => {
-    const selector = e.target?.outerHTML?.slice(0, 200);
-    console.log('[Playhouse]:!:input:!::!:' + selector + ' => ' + e.target.value);
-});
+{
+    function handleAction(event) {
+        const elem = event.type;
+
+        if (!elem || elem === document) {
+            return;
+        }
+
+        const data = {
+            action: event.type,
+            id: elem.id,
+            role: getAccessibleRole(elem),
+            text: (elem.innerText || elem.value || '').slice(0, 100),
+            alt: elem.alt || ''
+        }
+
+        console.log('[Playhouse]' + JSON.stringify(data));
+    }
+
+    document.addEventListener('click', handleAction, true);
+    document.addEventListener('input', handleAction, true);
+}
