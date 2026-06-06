@@ -3,18 +3,22 @@ using Microsoft.Playwright;
 using Playhouse.Core.Models;
 using Playhouse.Core.Models.BotActions;
 using Playhouse.Core.Models.BotActions.Abstractions;
+using Playhouse.Core.Resources.Strings;
 using Playhouse.Core.Services.ConstructorService.Abstractions;
 using Playhouse.Core.Services.FilePathResolverService.Abstractions;
 using Playhouse.Core.Services.PlaywrightService.Abstractions;
 
 namespace Playhouse.Core.Services.BotConstructorService
 {
-    public sealed partial class Constructor : IConstructor
+    public sealed partial class Constructor : IConstructor, IAsyncDisposable
     {
         private readonly IPlaywrightFactory _playwrightFactory;
         private readonly IFilePathResolver _filePathResolver;
 
         private readonly ConstructorContext _context = new();
+
+        private IBrowserContext? _browserContext;
+        private bool _disposed;
 
         public BotConfiguration Bot { get; }
 
@@ -37,45 +41,69 @@ namespace Playhouse.Core.Services.BotConstructorService
             Profile = profile;
         }
 
-        public async Task StartConstructorAsync()
+        public async Task StartConstructionAsync()
         {
-            IBrowserContext browser = await _playwrightFactory.CreateBrowserAsync(Profile, Bot).ConfigureAwait(false);
-            await browser.AddInitScriptAsync(scriptPath: _filePathResolver.FileJSEventScripts.FullName).ConfigureAwait(false);
+            if (_disposed)
+            {
+                throw new InvalidOperationException(ExceptionMessages.Constructor_RunCompletedConstruction);
+            }
+            if (_browserContext is not null)
+            {
+                throw new InvalidOperationException(ExceptionMessages.Constructor_RunRunningConstructor);
+            }
 
-            browser.Console += Console_GetRecord;
-            browser.Close += Browser_Closed;
-            browser.Page += Page_Created;
+            _browserContext = await _playwrightFactory.CreateBrowserAsync(Profile, Bot).ConfigureAwait(false);
+            await _browserContext.AddInitScriptAsync(scriptPath: _filePathResolver.FileJSEventScripts.FullName).ConfigureAwait(false);
+
+            _browserContext.Console += ConsoleGetRecord;
+            _browserContext.Close += BrowserClosed;
+            _browserContext.Page += PageCreated;
         }
 
-        private void Browser_Closed(object? sender, IBrowserContext e)
+        public async Task CompleteConstructionAsync()
+        {
+            if (_disposed)
+            {
+                throw new InvalidOperationException(ExceptionMessages.Constructor_StopCompletedConstruction);
+            }
+            if (_browserContext is null)
+            {
+                throw new InvalidOperationException(ExceptionMessages.Constructor_StopUnrunningConstruction);
+            }
+
+            await _browserContext.CloseAsync()
+                .ConfigureAwait(false);
+        }
+
+        private void BrowserClosed(object? sender, IBrowserContext e)
         {
             OnActionHappend(new BrowserContextClosedBotAction() { Bot = Bot, Number = _context.GetBrowserContextNumber(e) });
-            e.Console -= Console_GetRecord;
-            e.Close -= Browser_Closed;
-            e.Page -= Page_Created;
+            e.Console -= ConsoleGetRecord;
+            e.Close -= BrowserClosed;
+            e.Page -= PageCreated;
             OnConstructionCompleted();
         }
 
-        private void Page_Created(object? sender, IPage e)
+        private void PageCreated(object? sender, IPage e)
         {
             OnActionHappend(new PageCreatedBotAction() { Bot = Bot, Number = _context.GetPageNumber(e) });
-            e.Load += Page_Loaded;
-            e.Close += Page_Closed;
+            e.Load += PageLoaded;
+            e.Close += PageClosed;
         }
 
-        private void Page_Closed(object? sender, IPage e)
+        private void PageClosed(object? sender, IPage e)
         {
             OnActionHappend(new PageClosedBotAction() { Bot = Bot, Number = _context.GetPageNumber(e) });
-            e.Load -= Page_Loaded;
-            e.Close -= Page_Closed;
+            e.Load -= PageLoaded;
+            e.Close -= PageClosed;
         }
 
-        private void Page_Loaded(object? sender, IPage e)
+        private void PageLoaded(object? sender, IPage e)
         {
             OnActionHappend(new PageGoToBotAction(e.Url) { Bot = Bot, Number = _context.GetPageNumber(e) });
         }
 
-        private void Console_GetRecord(object? sender, IConsoleMessage e)
+        private void ConsoleGetRecord(object? sender, IConsoleMessage e)
         {
             if (!e.Text.StartsWith("[Playhouse]", StringComparison.Ordinal))
             {
@@ -104,6 +132,21 @@ namespace Playhouse.Core.Services.BotConstructorService
 
         [GeneratedRegex(@"^(?:\[Playhouse\]):!:(?<event>\w{3,20}):!:(?<id>[a-zA-Z0-9_\-.]{0,}):!:(?<text>.{0,})$", RegexOptions.Singleline)]
         private static partial Regex ParseConsoleMessage();
+
+        public async ValueTask DisposeAsync()
+        {
+            if (_disposed || _browserContext is null)
+            {
+                return;
+            }
+
+            _disposed = true;
+
+            await _browserContext.DisposeAsync()
+                .ConfigureAwait(false);
+
+            GC.SuppressFinalize(this);
+        }
 
         private class ConstructorContext
         {

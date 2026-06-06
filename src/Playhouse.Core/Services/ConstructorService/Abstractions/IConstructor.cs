@@ -5,6 +5,8 @@
         event EventHandler<IConstructor, BrowserEventHappenedEventArgs> ActionHappend;
         event EventHandler<IConstructor, ConstructionCompletedEventArgs> ConstructionCompleted;
 
-        Task StartConstructorAsync();
+        Task StartConstructionAsync();
+
+        Task CompleteConstructionAsync();
     }
 }
