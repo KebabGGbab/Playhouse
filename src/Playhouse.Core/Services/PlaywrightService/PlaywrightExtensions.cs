@@ -1,9 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Playhouse.Core.Services;
-using Playhouse.Core.Services.PlaywrightService;
 using Playhouse.Core.Services.PlaywrightService.Abstractions;
 
-namespace Playhouse.ViewModels.DIExtensions.CoreServices
+namespace Playhouse.Core.Services.PlaywrightService
 {
     public static class PlaywrightExtensions
     {

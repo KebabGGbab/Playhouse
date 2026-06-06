@@ -1,6 +1,6 @@
 ﻿using Playhouse.Core.Models.BotActions.Abstractions;
 
-namespace Playhouse.Core.Services.BotConstructorService.Abstractions
+namespace Playhouse.Core.Services.ConstructorService.Abstractions
 {
     public class BrowserEventHappenedEventArgs : EventArgs
     {

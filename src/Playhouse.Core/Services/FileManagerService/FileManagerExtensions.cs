@@ -1,15 +1,14 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Playhouse.Core.Models;
-using Playhouse.Core.Services.FileManagerService;
 using Playhouse.Core.Services.FileManagerService.Abstractions;
 
-namespace Playhouse.ViewModels.DIExtensions.CoreServices
+namespace Playhouse.Core.Services.FileManagerService
 {
     public static class FileManagerExtensions
     {
         public static IServiceCollection AddFileManagers(this IServiceCollection services)
         {
-            ArgumentNullException.ThrowIfNull(services, nameof(services));
+            ArgumentNullException.ThrowIfNull(services);
 
             return services.AddSingleton<FileManager<BrowserConfiguration>, BrowserProfileFileManager>()
                 .AddSingleton<FileManager<BotConfiguration>, BotConfigurationFileManager>();

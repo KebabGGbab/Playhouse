@@ -3,11 +3,10 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Playwright;
 using Playhouse.Core.Models;
-using Playhouse.Core.Services.CodeCompileService;
 using Playhouse.Core.Services.CodeCompileService.Abstractions;
 using PlayhouseShare;
 
-namespace Playhouse.ViewModels.DIExtensions.CoreServices
+namespace Playhouse.Core.Services.CodeCompileService
 {
     public static class BotCodeCompilerExtensions
     {

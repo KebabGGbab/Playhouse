@@ -8,12 +8,16 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Playhouse.Core.Data;
 using Playhouse.Core.Services.ApplicationSettingsService;
+using Playhouse.Core.Services.BotRunningService;
+using Playhouse.Core.Services.CodeCompileService;
+using Playhouse.Core.Services.ConstructorService;
+using Playhouse.Core.Services.FileManagerService;
 using Playhouse.Core.Services.FilePathResolverService;
+using Playhouse.Core.Services.PlaywrightService;
 using Playhouse.UI.Services.LocalizationService;
 using Playhouse.UI.Services.WindowCreatorService;
 using Playhouse.UI.Services.WindowCreatorService.Abstractions;
 using Playhouse.UI.Views.Windows;
-using Playhouse.ViewModels.DIExtensions.CoreServices;
 using Playhouse.ViewModels.DIExtensions.ViewModelsExtensions;
 using Playhouse.ViewModels.Services.ViewModelFactories;
 using Playhouse.ViewModels.ViewModels;
@@ -45,10 +49,17 @@ namespace Playhouse.UI
         {
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                desktop.ShutdownMode = ShutdownMode.OnLastWindowClose;
-                UpdateWindow window = _host.Services.GetRequiredService<UpdateWindow>();
-                window.Closed += UpdateWindowClosed;
-                window.Show();
+                if (Design.IsDesignMode)
+                {
+                    desktop.MainWindow = _host.Services.GetRequiredService<MainWindow>();
+                }
+                else
+                {
+                    desktop.ShutdownMode = ShutdownMode.OnLastWindowClose;
+                    UpdateWindow window = _host.Services.GetRequiredService<UpdateWindow>();
+                    window.Closed += UpdateWindowClosed;
+                    window.Show();
+                }
             }
 
             base.OnFrameworkInitializationCompleted();

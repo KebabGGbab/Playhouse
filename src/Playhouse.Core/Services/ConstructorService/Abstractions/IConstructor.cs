@@ -1,6 +1,4 @@
-﻿using Playhouse.Core.Services.BotConstructorService.Abstractions;
-
-namespace Playhouse.Core.Services.ConstructorService.Abstractions
+﻿namespace Playhouse.Core.Services.ConstructorService.Abstractions
 {
     public interface IConstructor
     {
