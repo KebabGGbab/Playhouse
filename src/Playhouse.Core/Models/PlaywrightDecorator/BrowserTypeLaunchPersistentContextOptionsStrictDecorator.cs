@@ -4,17 +4,22 @@ namespace Playhouse.Core.Models.PlaywrightDecorator
 {
     public class BrowserTypeLaunchPersistentContextOptionsStrictDecorator
     {
-        private const bool DEFAULTACCEPTDOWNLOADS = true;
-        private const bool DEFAULTCHROMIUMSANDBOX = false;
-        private const bool DEFAULTHEADLESS = true;
+        private const bool DEFAULT_ACCEPT_DOWNLOADS = true;
+        private const bool DEFAULT_CHROMIUM_SANDBOX = false;
+        private const bool DEFAULT_HEADLESS = true;
+
+        private static readonly string[] _defaultArgs = ["--disable-blink-features=AutomationControlled"];
 
         private readonly BrowserTypeLaunchPersistentContextOptions _options;
+        private readonly HashSet<string> _args;
 
         public bool AcceptDownloads
         {
-            get => _options.AcceptDownloads ??= DEFAULTACCEPTDOWNLOADS;
+            get => _options.AcceptDownloads ??= DEFAULT_ACCEPT_DOWNLOADS;
             set => _options.AcceptDownloads = value;
         }
+
+        public ISet<string> Args => _args;
 
         public string? Channel
         {
@@ -24,7 +29,7 @@ namespace Playhouse.Core.Models.PlaywrightDecorator
 
         public bool ChromiumSandbox
         {
-            get => _options.ChromiumSandbox ??= DEFAULTCHROMIUMSANDBOX;
+            get => _options.ChromiumSandbox ??= DEFAULT_CHROMIUM_SANDBOX;
             set => _options.ChromiumSandbox = value;
         }
 
@@ -36,7 +41,7 @@ namespace Playhouse.Core.Models.PlaywrightDecorator
 
         public bool Headless
         {
-            get => _options.Headless ??= DEFAULTHEADLESS;
+            get => _options.Headless ??= DEFAULT_HEADLESS;
             set => _options.Headless = value;
         }
 
@@ -55,9 +60,11 @@ namespace Playhouse.Core.Models.PlaywrightDecorator
         public BrowserTypeLaunchPersistentContextOptionsStrictDecorator(BrowserTypeLaunchPersistentContextOptions? options = null)
         {
             _options = options ?? new BrowserTypeLaunchPersistentContextOptions();
-            _options.AcceptDownloads ??= DEFAULTACCEPTDOWNLOADS;
-            _options.ChromiumSandbox ??= DEFAULTCHROMIUMSANDBOX;
-            _options.Headless ??= DEFAULTHEADLESS;
+            _options.AcceptDownloads ??= DEFAULT_ACCEPT_DOWNLOADS;
+            _options.ChromiumSandbox ??= DEFAULT_CHROMIUM_SANDBOX;
+            _options.Headless ??= DEFAULT_HEADLESS;
+            _args = new(_options.Args ?? _defaultArgs);
+            _options.Args = _args;
         }
 
         public static explicit operator BrowserTypeLaunchPersistentContextOptions(BrowserTypeLaunchPersistentContextOptionsStrictDecorator decorator)
