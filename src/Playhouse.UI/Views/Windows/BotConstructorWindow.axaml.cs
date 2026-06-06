@@ -1,13 +1,30 @@
 using Avalonia.Controls;
+using Avalonia.Interactivity;
 using Playhouse.ViewModels.ViewModels;
 
 namespace Playhouse.UI.Views.Windows;
 
-internal partial class BotConstructorWindow : Window
+internal sealed partial class BotConstructorWindow : Window
 {
+    private readonly BotConstructorViewModel _vm;
+
     public BotConstructorWindow(BotConstructorViewModel viewModel)
     {
-        InitializeComponent();
+        ArgumentNullException.ThrowIfNull(viewModel);
+
+        _vm = viewModel;
         DataContext = viewModel;
+        InitializeComponent();
+    }
+
+    private async void Window_Loaded(object? sender, RoutedEventArgs e)
+    {
+        await _vm.StartConstructionCommand.ExecuteAsync(null);
+    }
+
+    private async void Save(object? sender, RoutedEventArgs e)
+    {
+        await _vm.CompleteConstructionCommand.ExecuteAsync(null);
+        Close(_vm.Bot);
     }
 }
