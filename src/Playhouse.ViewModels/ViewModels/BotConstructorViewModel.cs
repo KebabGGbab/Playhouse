@@ -1,24 +1,19 @@
-﻿using System.Windows.Input;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Playhouse.Core.Services.BotConstructorService.Abstractions;
+using Playhouse.Core.Services.ConstructorService.Abstractions;
 using Playhouse.ViewModels.ViewModels.BotActionViewModels;
 
 namespace Playhouse.ViewModels.ViewModels
 {
     public sealed class BotConstructorViewModel: ObservableObject
     {
-        private readonly IBotConstructorFactory _constructorFactory;
+        private readonly IConstructor _constructor;
 
-        private AsyncRelayCommand? _startConstructorBotCommand;
         public BotActionViewModel? SelectedAction 
         {
-            get => field;
+            get;
             set => SetProperty(ref field, value);
         }
-
-        // placeholder
-        public IEnumerable<BotActionViewModel> Actions { get; set; }
 
         public BrowserConfigurationViewModel Profile { get; }
 
@@ -26,17 +21,20 @@ namespace Playhouse.ViewModels.ViewModels
 
         public event EventHandler? ConstructorCompleted;
 
-        public ICommand StartConstructorBotCommand => _startConstructorBotCommand ??= new AsyncRelayCommand(StartConstructorBotExecuteAsync);
+        public IAsyncRelayCommand StartConstructionCommand { get; }
+        public IAsyncRelayCommand CompleteConstructionCommand { get;}
 
-        public BotConstructorViewModel(IBotConstructorFactory constructorFactory, BrowserConfigurationViewModel profile, BotConfigurationViewModel bot)
+        public BotConstructorViewModel(IConstructorFactory constructorFactory, BrowserConfigurationViewModel profile, BotConfigurationViewModel bot)
         {
-            ArgumentNullException.ThrowIfNull(constructorFactory, nameof(constructorFactory));
-            ArgumentNullException.ThrowIfNull(profile, nameof(profile));
-            ArgumentNullException.ThrowIfNull(bot, nameof(bot));
+            ArgumentNullException.ThrowIfNull(constructorFactory);
+            ArgumentNullException.ThrowIfNull(profile);
+            ArgumentNullException.ThrowIfNull(bot);
 
-            _constructorFactory = constructorFactory;
+            _constructor = constructorFactory.Create(profile.Profile, bot.Bot);
             Profile = profile;
             Bot = bot;
+            StartConstructionCommand = new AsyncRelayCommand(StartConstructionAsync);
+            CompleteConstructionCommand = new AsyncRelayCommand(CompleteConstructionAsync);
         }
 
         private void Constructor_ConstructionCompleted(object? sender, EventArgs e)
@@ -44,7 +42,7 @@ namespace Playhouse.ViewModels.ViewModels
             OnConstructorCompleted();
         }
 
-        private void OnActionHappend(IBotConstructor sender, BrowserEventHappenedEventArgs e)
+        private void OnActionHappend(IConstructor sender, BrowserEventHappenedEventArgs e)
         {
             Bot.AddAction(e.Action);
         }
@@ -54,16 +52,18 @@ namespace Playhouse.ViewModels.ViewModels
             ConstructorCompleted?.Invoke(this, EventArgs.Empty);
         }
 
-        #region Method for commands
-
-        private async Task StartConstructorBotExecuteAsync()
+        private async Task StartConstructionAsync()
         {
-            IBotConstructor constructor = _constructorFactory.Create(Profile.Profile, Bot.Bot);
-            constructor.ActionHappend += OnActionHappend;
-            constructor.ConstructionCompleted += Constructor_ConstructionCompleted;
-            await constructor.StartConstructorAsync().ConfigureAwait(true);
+            _constructor.ActionHappend += OnActionHappend;
+            _constructor.ConstructionCompleted += Constructor_ConstructionCompleted;
+            await _constructor.StartConstructionAsync().ConfigureAwait(true);
         }
 
-        #endregion
+        private async Task CompleteConstructionAsync()
+        {
+            await _constructor.CompleteConstructionAsync().ConfigureAwait(true);
+            _constructor.ActionHappend -= OnActionHappend;
+            _constructor.ConstructionCompleted -= Constructor_ConstructionCompleted;
+        }
     }
 }
