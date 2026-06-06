@@ -313,24 +313,6 @@ namespace Playhouse.UI.Resources.Localization {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Bots.
-        /// </summary>
-        public static string LabelSettingsBots {
-            get {
-                return ResourceManager.GetString("LabelSettingsBots", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Specifies the name of the objects if it is not specified by the user..
-        /// </summary>
-        public static string LabelSettingsDescriptionDefaultNaming {
-            get {
-                return ResourceManager.GetString("LabelSettingsDescriptionDefaultNaming", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Ищет локализованную строку, похожую на Locating files in a computer&apos;s file system..
         /// </summary>
         public static string LabelSettingsDescriptionFileLocation {
@@ -354,24 +336,6 @@ namespace Playhouse.UI.Resources.Localization {
         public static string LabelSettingsDescriptionUserInterface {
             get {
                 return ResourceManager.GetString("LabelSettingsDescriptionUserInterface", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Default naming.
-        /// </summary>
-        public static string LabelSettingsHeaderDefaultNaming {
-            get {
-                return ResourceManager.GetString("LabelSettingsHeaderDefaultNaming", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на File location.
-        /// </summary>
-        public static string LabelSettingsHeaderFileLocation {
-            get {
-                return ResourceManager.GetString("LabelSettingsHeaderFileLocation", resourceCulture);
             }
         }
         
@@ -403,15 +367,6 @@ namespace Playhouse.UI.Resources.Localization {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Profiles.
-        /// </summary>
-        public static string LabelSettingsProfiles {
-            get {
-                return ResourceManager.GetString("LabelSettingsProfiles", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Ищет локализованную строку, похожую на Slow motion (milliseconds).
         /// </summary>
         public static string LabelSlowMo {
@@ -435,6 +390,24 @@ namespace Playhouse.UI.Resources.Localization {
         public static string LabelStatusSelectedProfile {
             get {
                 return ResourceManager.GetString("LabelStatusSelectedProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Data.
+        /// </summary>
+        public static string MainWindow_TabSettings_DataHeader {
+            get {
+                return ResourceManager.GetString("MainWindow_TabSettings_DataHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Path to the directory where the data is stored.
+        /// </summary>
+        public static string MainWindow_TabSettings_DataPath {
+            get {
+                return ResourceManager.GetString("MainWindow_TabSettings_DataPath", resourceCulture);
             }
         }
         

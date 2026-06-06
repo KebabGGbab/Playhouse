@@ -19,7 +19,7 @@
 
     <TabControl Classes="middle" 
                 TabStripPlacement="Left" 
-                SelectedIndex="3">
+                SelectedIndex="0">
 		<TabItem Theme="{StaticResource Minimalism}">
 			<TabItem.Header>
 				<TextBlock Text="{l:Localization TabRunHeader}" />
@@ -56,20 +56,23 @@
                         <ComboBox x:Name="ComboBoxSelectBotRun"
                                   Grid.Column="1" Grid.Row="0"
                                   Classes="inline, editable"
-                                  MinWidth="150" MaxWidth="300" 
+                                  MinWidth="150" MaxWidth="300"
+                                  ItemsSource="{Binding Path=BotsViewModel.Bots}"
                                   SelectedItem="{Binding Path=RunViewModel.SelectedBotStart}"
-                                  IsEditable="True" />
+                                  DisplayMemberBinding="{Binding Path=Name}" />
 
                         <TextBlock Grid.Column="0" Grid.Row="1"
                                    Text="{l:Localization LabelSelectProfiles}" />
 
                         <ListBox Grid.Column="0" Grid.Row="2"
                                  ItemsSource="{Binding Path=RunViewModel.UnselectedProfiles}"
-                                 ItemTemplate="{StaticResource NameOnlyTemplate}" />
+                                 ItemTemplate="{StaticResource NameOnlyTemplate}"
+                                 DisplayMemberBinding="{Binding Path=Name}" />
 
                         <ListBox Grid.Column="1" Grid.Row="2"
                                  ItemsSource="{Binding Path=RunViewModel.SelectedProfiles}" 
-                                 ItemTemplate="{StaticResource NameOnlyTemplate}" />
+                                 ItemTemplate="{StaticResource NameOnlyTemplate}"
+                                 DisplayMemberBinding="{Binding Path=Name}" />
 
                         <Button Grid.ColumnSpan="2" Grid.Row="3"
                                 Classes="box-action"
@@ -101,9 +104,9 @@
                                 <ComboBox x:Name="ComboBoxBotsCreateSelectProfile"
                                           Classes="editable"
                                           ItemsSource="{Binding Path=BotsViewModel.Profiles}"
-                                          Text="{Binding Path=BotsViewModel.ProfileNameFilterForCreateBot}"
                                           SelectedItem="{Binding Path=BotsViewModel.SelectedProfileCreate}"
-                                          ItemTemplate="{StaticResource NameOnlyTemplate}" />
+                                          DisplayMemberBinding="{Binding Path=Name}"
+                                          Text="{Binding Path=BotsViewModel.ProfileNameFilterForCreateBot}" />
                             </StackPanel>
 
                             <StackPanel Classes="middle-group">
@@ -118,7 +121,9 @@
                                 <Label Classes="overline" 
                                        Target="ComboBoxBotsCreateBrowserType"
                                        Content="{l:Localization LabelSelectBrowser}" />
-                                <ComboBox x:Name="ComboBoxBotsCreateBrowserType" />
+                                <ComboBox x:Name="ComboBoxBotsCreateBrowserType"
+                                          ItemsSource="{Binding Path=BotsViewModel.Browsers}"
+                                          SelectedItem="{Binding Path=BotsViewModel.SelectedBrowserType}" />
                             </StackPanel>
 
                             <Button Classes="box-action"
@@ -139,8 +144,9 @@
                                 <ComboBox x:Name="ComboBoxBotDeleteSelectBot"
                                           Classes="editable"
                                           ItemsSource="{Binding Path=BotsViewModel.BotsDelete}"
-                                          Text="{Binding Path=BotsViewModel.BotNameFilterForDelete}"
-                                          SelectedItem="{Binding Path=BotsViewModel.SelectedBotDelete}" />								
+                                          SelectedItem="{Binding Path=BotsViewModel.SelectedBotDelete}"
+                                          DisplayMemberBinding="{Binding Path=Name}"
+                                          Text="{Binding Path=BotsViewModel.BotNameFilterForDelete}" />
                             </StackPanel>
 
                             <CheckBox Margin="0,10,0,0"
@@ -323,18 +329,15 @@
 
                     <HeaderedContentControl Classes="settings-group">
                         <HeaderedContentControl.Header>
-							<TextBlock Text="{l:Localization LabelSettingsHeaderFileLocation}"
+							<TextBlock Text="{l:Localization MainWindow_TabSettings_DataHeader}"
                                        Classes="settings-group-header" />
                         </HeaderedContentControl.Header>
 
 						<StackPanel Classes="settings-body">
 
-                            <TextBlock Text="{l:Localization LabelSettingsDescriptionFileLocation}"
-                                       Classes="settings-group-description" />
-
                             <StackPanel>
-								<TextBlock Text="{l:Localization MainWindowTabSettingsFileLocationDirectoryPath}"
-                                           Classes="settings-group-item" />
+								<TextBlock Text="{l:Localization MainWindow_TabSettings_DataPath}"
+                                       Classes="settings-group-description" />
                                 <DockPanel Classes="settings-group-box-items">
                                     <Button DockPanel.Dock="Right"
                                             Classes="settings-group-item-inline settings-group-item-inline-right"

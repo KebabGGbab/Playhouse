@@ -219,26 +219,14 @@
   <data name="ButtonSave" xml:space="preserve">
     <value>Save</value>
   </data>
-  <data name="LabelSettingsHeaderFileLocation" xml:space="preserve">
-    <value>File location</value>
+  <data name="MainWindow_TabSettings_DataHeader" xml:space="preserve">
+    <value>Data</value>
   </data>
   <data name="LabelSettingsDescriptionFileLocation" xml:space="preserve">
     <value>Locating files in a computer's file system.</value>
   </data>
-  <data name="LabelSettingsProfiles" xml:space="preserve">
-    <value>Profiles</value>
-  </data>
-  <data name="LabelSettingsBots" xml:space="preserve">
-    <value>Bots</value>
-  </data>
   <data name="ButtonSearchFile" xml:space="preserve">
     <value>Browse..</value>
-  </data>
-  <data name="LabelSettingsHeaderDefaultNaming" xml:space="preserve">
-    <value>Default naming</value>
-  </data>
-  <data name="LabelSettingsDescriptionDefaultNaming" xml:space="preserve">
-    <value>Specifies the name of the objects if it is not specified by the user.</value>
   </data>
   <data name="LabelSettingsHeaderInstalledBrowsers" xml:space="preserve">
     <value>Installed browsers</value>
@@ -269,5 +257,8 @@
   </data>
   <data name="BotPropertyID" xml:space="preserve">
     <value>id</value>
+  </data>
+  <data name="MainWindow_TabSettings_DataPath" xml:space="preserve">
+    <value>Path to the directory where the data is stored</value>
   </data>
 </root>
