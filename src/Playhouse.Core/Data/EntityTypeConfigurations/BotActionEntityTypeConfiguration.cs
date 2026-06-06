@@ -1,5 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.Playwright;
+using Playhouse.Core.Data.Comparers;
+using Playhouse.Core.Data.Converters;
 using Playhouse.Core.Models.BotActions;
 using Playhouse.Core.Models.BotActions.Abstractions;
 
@@ -113,6 +116,9 @@ namespace Playhouse.Core.Data.EntityTypeConfigurations
             builder.OwnsOne(l => l.Options, b =>
             {
                 b.OwnsOne(c => c.Position);
+
+                b.Property(p => p.Modifiers)
+                    .HasConversion(new HashSetEnumToJsonConverter<KeyboardModifier>(), new HashSetValueComparer<KeyboardModifier>());
             });
         }
     }

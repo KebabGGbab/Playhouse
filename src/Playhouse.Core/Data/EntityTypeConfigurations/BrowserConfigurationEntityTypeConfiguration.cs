@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Playhouse.Core.Data.Comparers;
+using Playhouse.Core.Data.Converters;
 using Playhouse.Core.Models;
 
 namespace Playhouse.Core.Data.EntityTypeConfigurations
@@ -12,7 +14,11 @@ namespace Playhouse.Core.Data.EntityTypeConfigurations
         public void Configure(EntityTypeBuilder<BrowserConfiguration> builder)
         {
             builder.ToTable("Browser_Configurations", t => t.HasComment("Конфигурации браузеров."));
-            builder.OwnsOne(p => p.Options);
+            builder.OwnsOne(p => p.Options, b =>
+            {
+                b.Property(p => p.Args)
+                    .HasConversion(new HashSetToJsonConverter<string>(), new HashSetValueComparer<string>());
+            });
         }
     }
 }
