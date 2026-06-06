@@ -11,6 +11,8 @@ namespace Playhouse.ViewModels.Services.ViewModelFactories
 
         public BrowserConfigurationViewModelFactory(FileManager<BrowserConfiguration> fileManager)
         {
+            ArgumentNullException.ThrowIfNull(fileManager);
+
             _fileManager = fileManager;
         }
 

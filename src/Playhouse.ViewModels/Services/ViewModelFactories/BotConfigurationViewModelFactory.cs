@@ -14,8 +14,8 @@ namespace Playhouse.ViewModels.Services.ViewModelFactories
 
         public BotConfigurationViewModelFactory(IDbContextFactory<ApplicationDbContext> dbFactory, FileManager<BotConfiguration> fileManager)
         {
-            ArgumentNullException.ThrowIfNull(dbFactory, nameof(dbFactory));
-            ArgumentNullException.ThrowIfNull(fileManager, nameof(fileManager));
+            ArgumentNullException.ThrowIfNull(dbFactory);
+            ArgumentNullException.ThrowIfNull(fileManager);
 
             _dbFactory = dbFactory;
             _fileManager = fileManager;
