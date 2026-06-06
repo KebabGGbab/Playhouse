@@ -1,5 +1,7 @@
 ﻿using System.Collections.ObjectModel;
+using System.Reactive.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
+using DynamicData;
 using Microsoft.EntityFrameworkCore;
 using Playhouse.Core.Data;
 using Playhouse.Core.Models;
@@ -7,6 +9,7 @@ using Playhouse.Core.Models.BotActions.Abstractions;
 using Playhouse.Core.Services.FileManagerService.Abstractions;
 using Playhouse.ViewModels.ViewModels.BotActionViewModels;
 using Playhouse.ViewModels.Visitor;
+using ReactiveUI;
 
 namespace Playhouse.ViewModels.ViewModels
 {
@@ -15,7 +18,8 @@ namespace Playhouse.ViewModels.ViewModels
         private readonly IDbContextFactory<ApplicationDbContext> _dbFactory;
         private readonly FileManager<BotConfiguration> _fileManager;
 
-        private readonly ObservableCollection<BotActionViewModel> _actions = [];
+        private readonly SourceCache<BotActionViewModel, int> _actionSource;
+        private readonly ReadOnlyObservableCollection<BotActionViewModel> _actions;
         private readonly ViewModelsBrowserEventVisitor _visitor = new();
 
         internal BotConfiguration Bot { get; }
@@ -26,7 +30,7 @@ namespace Playhouse.ViewModels.ViewModels
 
         public BrowserTypes Browser => Bot.Browser;
 
-        public ReadOnlyObservableCollection<BotActionViewModel> Actions { get; }
+        public ReadOnlyObservableCollection<BotActionViewModel> Actions => _actions;
 
         public BotConfigurationViewModel(IDbContextFactory<ApplicationDbContext> dbFactory, FileManager<BotConfiguration> fileManager)
             : this(dbFactory, fileManager, new BotConfiguration(BrowserTypes.Chromium))
@@ -42,7 +46,11 @@ namespace Playhouse.ViewModels.ViewModels
             _dbFactory = dbFactory;
             _fileManager = fileManager;
             Bot = bot;
-            Actions = new ReadOnlyObservableCollection<BotActionViewModel>(_actions);
+            _actionSource = new SourceCache<BotActionViewModel, int>((b) => b.Id);
+            _actionSource.Connect()
+                .ObserveOn(RxSchedulers.MainThreadScheduler)
+                .Bind(out _actions)
+                .Subscribe();
 
             foreach (BotAction @event in Bot.Actions)
             {
@@ -53,7 +61,7 @@ namespace Playhouse.ViewModels.ViewModels
         internal void AddAction(BotAction @event)
         {
             @event.Accept(_visitor);
-            _actions.Add(_visitor.CurrentViewModel!);
+            _actionSource.AddOrUpdate(_visitor.CurrentViewModel!);
         }
     }
 }
