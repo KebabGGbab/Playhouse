@@ -30,6 +30,7 @@ namespace Playhouse.UI.Views.Windows
             _windowFactory = windowFactory;
             InitializeComponent();
             DataContext = vm;
+            _vm = vm;
             WeakReferenceMessenger.Default.Register<MainWindow, GetBotActionsMessage>(this, OnGetBotActionsMessage);
         }
 
