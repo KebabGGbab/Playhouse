@@ -11,12 +11,14 @@ namespace Playhouse.Core.Services.FileManagerService
 
         public BotConfigurationFileManager(IFilePathResolver pathResolver, ICodeCompiler<BotConfiguration> compiler) : base(pathResolver)
         {
+            ArgumentNullException.ThrowIfNull(compiler);
+
             _compiler = compiler;
         }
 
         public override void Create(BotConfiguration model)
         {
-            ArgumentNullException.ThrowIfNull(model, nameof(model));
+            ArgumentNullException.ThrowIfNull(model);
 
             PathResolver.GetBotDirectory(model.Id).Create();
             _compiler.Compile(model);
@@ -24,7 +26,7 @@ namespace Playhouse.Core.Services.FileManagerService
 
         public override void Delete(BotConfiguration model)
         {
-            ArgumentNullException.ThrowIfNull(model, nameof(model));
+            ArgumentNullException.ThrowIfNull(model);
 
             PathResolver.GetBotDirectory(model.Id).Delete(true);
         }

@@ -8,7 +8,7 @@ namespace Playhouse.Core.Services.FileManagerService.Abstractions
 
         protected FileManager(IFilePathResolver pathResolver)
         {
-            ArgumentNullException.ThrowIfNull(pathResolver, nameof(pathResolver));
+            ArgumentNullException.ThrowIfNull(pathResolver);
 
             PathResolver = pathResolver;
         }

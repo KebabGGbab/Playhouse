@@ -12,14 +12,14 @@ namespace Playhouse.Core.Services.FileManagerService
 
         public override void Create(BrowserConfiguration model)
         {
-            ArgumentNullException.ThrowIfNull(model, nameof(model));
+            ArgumentNullException.ThrowIfNull(model);
 
             PathResolver.GetUserDataDir(model.Id).Create();
         }
 
         public override void Delete(BrowserConfiguration model)
         {
-            ArgumentNullException.ThrowIfNull(model, nameof(model));
+            ArgumentNullException.ThrowIfNull(model);
 
             PathResolver.GetBrowserDirectory(model.Id).Delete(true);
         }
