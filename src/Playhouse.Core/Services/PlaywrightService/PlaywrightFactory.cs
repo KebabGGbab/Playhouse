@@ -2,28 +2,28 @@
 using System.Text;
 using Microsoft.Playwright;
 using Playhouse.Core.Models;
-using Playhouse.Core.Resources.Localization;
+using Playhouse.Core.Resources.Strings;
 using Playhouse.Core.Services.FilePathResolverService.Abstractions;
 using Playhouse.Core.Services.PlaywrightService.Abstractions;
 namespace Playhouse.Core.Services.PlaywrightService
 {
     public class PlaywrightFactory : IPlaywrightFactory
 	{
-		private readonly static CompositeFormat _unsupportedBrowserFormat = CompositeFormat.Parse(StringsCode.UnsupportedBrowser);
+		private readonly static CompositeFormat _unsupportedBrowserFormat = CompositeFormat.Parse(ExceptionMessages.PlaywrightFactory_UnsupportedBrowser);
 
         private readonly IFilePathResolver _fullPathResolver;
 
 		public PlaywrightFactory(IFilePathResolver fullPathResolver)
 		{
-			ArgumentNullException.ThrowIfNull(fullPathResolver, nameof(fullPathResolver));
+			ArgumentNullException.ThrowIfNull(fullPathResolver);
 
 			_fullPathResolver = fullPathResolver;
 		}
 
 		public async Task<IBrowserContext> CreateBrowserAsync(BrowserConfiguration profile, BotConfiguration bot)
 		{
-			ArgumentNullException.ThrowIfNull(profile, nameof(profile));
-			ArgumentNullException.ThrowIfNull(bot, nameof(bot));
+			ArgumentNullException.ThrowIfNull(profile);
+			ArgumentNullException.ThrowIfNull(bot);
 
 			IPlaywright playwright = await Playwright.CreateAsync().ConfigureAwait(false);
 			string pathToUserDataDir = _fullPathResolver.GetUserDataDir(profile.Id).FullName;

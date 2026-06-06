@@ -129,4 +129,10 @@
   <data name="Constructor_StopCompletedConstruction" xml:space="preserve">
     <value>The stop command was called for a bot construction process that has already completed.</value>
   </data>
+  <data name="BotJob_IncorrectImplementation" xml:space="preserve">
+    <value>Expected implementation "{0}" of abstract type "{1}" but received "{2}".</value>
+  </data>
+  <data name="PlaywrightFactory_UnsupportedBrowser" xml:space="preserve">
+    <value>Browser {0} is not supported.</value>
+  </data>
 </root>

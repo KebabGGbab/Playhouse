@@ -2,21 +2,21 @@
 using System.Text;
 using Jobs.Abstractions;
 using Playhouse.Core.Models;
-using Playhouse.Core.Resources.Localization;
+using Playhouse.Core.Resources.Strings;
 
 namespace Playhouse.Core.Services.BotRunningService
 {
     public class BotJob : Job
     {
-        private static readonly CompositeFormat PassedIncorrectImplementation = CompositeFormat.Parse(StringsCode.PassedIncorrectImplementation);
+        private static readonly CompositeFormat PassedIncorrectImplementation = CompositeFormat.Parse(ExceptionMessages.BotJob_IncorrectImplementation);
 
         public BrowserConfiguration Profile { get; init; }
         public BotConfiguration Bot { get; init; }
 
         public BotJob(BrowserConfiguration profile, BotConfiguration bot)
         {
-            ArgumentNullException.ThrowIfNull(profile, nameof(profile));
-            ArgumentNullException.ThrowIfNull(bot, nameof(bot));
+            ArgumentNullException.ThrowIfNull(profile);
+            ArgumentNullException.ThrowIfNull(bot);
 
             Profile = profile;
             Bot = bot;
@@ -24,7 +24,7 @@ namespace Playhouse.Core.Services.BotRunningService
 
         protected override async Task RunAsync(RunArgs args, CancellationToken? cancellation = null)
         {
-            ArgumentNullException.ThrowIfNull(args, nameof(args));
+            ArgumentNullException.ThrowIfNull(args);
 
             if (args is not BotRunArgs runArgs)
             {

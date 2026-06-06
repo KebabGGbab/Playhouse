@@ -7,13 +7,13 @@ using Microsoft.Playwright;
 using PlayhouseShare;
 using Playhouse.Core.Models;
 using Playhouse.Core.Services.PlaywrightService.Abstractions;
-using Playhouse.Core.Resources.Localization;
+using Playhouse.Core.Resources.Strings;
 
 namespace Playhouse.Core.Services.BotRunningService
 {
     public sealed class BotJobManager : JobManager<BotJob>
     {
-        private static readonly CompositeFormat _passedIncorrectImplementation = CompositeFormat.Parse(StringsCode.PassedIncorrectImplementation);
+        private static readonly CompositeFormat _passedIncorrectImplementation = CompositeFormat.Parse(ExceptionMessages.BotJob_IncorrectImplementation);
 
         private readonly IPlaywrightFactory _playwrightFactory;
         private readonly AssemblyLoadContext _context;
@@ -23,8 +23,8 @@ namespace Playhouse.Core.Services.BotRunningService
         public BotJobManager(BotJobContext jobContext, IPlaywrightFactory playwrightFactory) 
             : base(jobContext.Profiles.Select(p => new BotJob(p, jobContext.Bot)).ToList(), new JobManagerOptions() { Clear = false })
         {
-            ArgumentNullException.ThrowIfNull(jobContext, nameof(jobContext));
-            ArgumentNullException.ThrowIfNull(playwrightFactory, nameof(playwrightFactory));
+            ArgumentNullException.ThrowIfNull(jobContext);
+            ArgumentNullException.ThrowIfNull(playwrightFactory);
 
             _playwrightFactory = playwrightFactory;
             _context = new AssemblyLoadContext(Assembly.GetExecutingAssembly().Location, true);
