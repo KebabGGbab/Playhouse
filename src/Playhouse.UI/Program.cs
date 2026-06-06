@@ -1,5 +1,6 @@
 ﻿using Avalonia;
 using Playhouse.UI;
+using ReactiveUI.Avalonia;
 
 namespace Playhouse
 {
@@ -16,6 +17,7 @@ namespace Playhouse
         public static AppBuilder BuildAvaloniaApp()
             => AppBuilder.Configure<App>()
                 .UsePlatformDetect()
+                .UseReactiveUI((b) => { })
                 .WithInterFont()
                 .LogToTrace();
     }
