@@ -78,9 +78,9 @@ namespace Playhouse.Core.Models.PlaywrightDecorator
             _options.ClickCount ??= DEFAULT_CLICK_COUNT;
             _options.Delay ??= DEFAULT_DELAY;
             _options.Force ??= DEFAULT_FORCE;
-            _modifiers = new(_options.Modifiers ?? []);
-            _options.Position ??= new Position();
+            _modifiers = new(_options.Modifiers ??= []);
             _options.Modifiers = _modifiers;
+            _options.Position ??= new Position();
             _options.Steps ??= DEFAULT_STEPS;
             _options.Timeout ??= DEFAULT_TIMEOUT;
             _options.Trial ??= DEFAULT_TRIAL;
