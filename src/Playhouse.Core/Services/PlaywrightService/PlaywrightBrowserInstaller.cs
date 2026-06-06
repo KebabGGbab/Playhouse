@@ -37,7 +37,7 @@ namespace Playhouse.Core.Services.PlaywrightService
 		{
 			return _settings
 				.Browsers
-				.Select(b => new string[] { "install", "--with-deps", b.Name })
+				.Select(b => new string[] { "install", "--with-deps", b.CliName })
 				.ToArray();
 		}
 

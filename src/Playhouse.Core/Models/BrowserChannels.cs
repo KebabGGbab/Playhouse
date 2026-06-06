@@ -1,4 +1,5 @@
-﻿using Ardalis.SmartEnum;
+﻿using System.Globalization;
+using Ardalis.SmartEnum;
 
 namespace Playhouse.Core.Models
 {
@@ -16,10 +17,13 @@ namespace Playhouse.Core.Models
 
         public BrowserTypes Owner { get; }
 
-        public BrowserChannels(string name, int value, BrowserTypes owner) : base(name, value)
+        public string CliName { get; }
+
+        private BrowserChannels(string name, int value, BrowserTypes owner) : base(name, value)
         {
             Owner = owner;
             Owner.AddChannel(this);
+            CliName = name.ToLower(CultureInfo.InvariantCulture);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Ardalis.SmartEnum;
+﻿using System.Globalization;
+using Ardalis.SmartEnum;
 
 namespace Playhouse.Core.Models
 {
@@ -6,16 +7,19 @@ namespace Playhouse.Core.Models
     {
         private readonly HashSet<BrowserChannels> _channels;
 
-        public static readonly BrowserTypes Chromium = new("chromium", 1);
-        public static readonly BrowserTypes Firefox = new("firefox", 2);
-        public static readonly BrowserTypes WebKit = new("webKit", 3);
+        public static readonly BrowserTypes Chromium = new("Chromium", 1);
+        public static readonly BrowserTypes Firefox = new("Firefox", 2);
+        public static readonly BrowserTypes WebKit = new("WebKit", 3);
 
         public IReadOnlyCollection<BrowserChannels> Channels { get; }
 
-        public BrowserTypes(string name, int value) : base(name, value)
+        public string CliName { get; }
+
+        private BrowserTypes(string name, int value) : base(name, value)
         {
             _channels = [];
             Channels = _channels.AsReadOnly();
+            CliName = name.ToLower(CultureInfo.InvariantCulture);
         }
 
         internal void AddChannel(BrowserChannels channel)
