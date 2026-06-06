@@ -9,6 +9,7 @@ using Playhouse.ViewModels.Services.ViewModelFactories.Abstractions;
 using Playhouse.ViewModels.ViewModels.Abstractions;
 using Playhouse.ViewModels.ViewModelsExtensions;
 using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Playhouse.ViewModels.ViewModels
 {
@@ -17,85 +18,118 @@ namespace Playhouse.ViewModels.ViewModels
         private readonly IDbContextFactory<ApplicationDbContext> _dbFactory;
         private readonly IViewModelFactory<BotConfigurationViewModel, BotConfiguration> _viewModelFactory;
         private readonly SourceCache<BotConfigurationViewModel, int> _botsSource = new(b => b.Id);
-        private ReadOnlyObservableCollection<BotConfigurationViewModel> _bots;
+        private readonly ReadOnlyObservableCollection<BotConfigurationViewModel> _bots;
         public ReadOnlyObservableCollection<BotConfigurationViewModel> Bots => _bots;
 
         #region Property for create bot
 
         private readonly SourceCache<BrowserConfigurationViewModel, int> _profilesSource = new(p => p.Id);
-        private ReadOnlyObservableCollection<BrowserConfigurationViewModel> _profiles;
+        private readonly ReadOnlyObservableCollection<BrowserConfigurationViewModel> _profiles;
+
+        private string _profileNameFilterCreate;
+        private string _botNameCreate;
 
         public ReadOnlyObservableCollection<BrowserConfigurationViewModel> Profiles => _profiles;
 
 		public string ProfileNameFilterForCreateBot
         {
-            get => field;
-            set => SetProperty(ref field, value);
-        } = string.Empty;
+            get => _profileNameFilterCreate;
+            set
+            {
+                if (SetProperty(ref _profileNameFilterCreate, value))
+                {
+                    CreateBotCommand.NotifyCanExecuteChanged();
+                }
+            }
+        }
 
         public BrowserConfigurationViewModel? SelectedProfileCreate
         {
-            get => field;
-            set => SetProperty(field, value, p =>
+            get;
+            set
             {
-                field = p;
+                if (SetProperty(ref field, value))
+                {
                 CreateBotCommand.NotifyCanExecuteChanged();
-            });
+        }
+            }
         }
 
         public string BotNameCreate
         {
-            get => field;
-            set => SetProperty(field, value, n =>
+            get => _botNameCreate;
+            set
             {
-                field = n;
+                if (SetProperty(ref _botNameCreate, value))
+            {
                 CreateBotCommand.NotifyCanExecuteChanged();
-            });
-        } = string.Empty;
+                }
+            }
+        }
 
-        public BrowserTypes? BrowserType
+        public IReadOnlyCollection<BrowserTypes> Browsers { get; } = BrowserTypes.List;
+
+        public BrowserTypes? SelectedBrowserType
         {
-            get => field;
-            set => SetProperty(field, value, t =>
+            get;
+            set
             {
-                field = t;
+                if (SetProperty(ref field, value))
+            {
                 CreateBotCommand.NotifyCanExecuteChanged();
-            });
+                }
+            }
         }
 
         #endregion
 
         #region Property for delete bot
-        private ReadOnlyObservableCollection<BotConfigurationViewModel> _botsDelete;
+        private readonly ReadOnlyObservableCollection<BotConfigurationViewModel> _botsDelete;
+
+        private string _botNameFilterDelete;
 
         public ReadOnlyObservableCollection<BotConfigurationViewModel> BotsDelete => _botsDelete;
+
 		public BotConfigurationViewModel? SelectedBotDelete
         {
-            get => field;
+            get;
             set => SetProperty(ref field, value);
         }
-        public string BotNameFilterForDelete { get; set; } = string.Empty;
+
+        public string BotNameFilterForDelete 
+        {
+            get => _botNameFilterDelete;
+            set => SetProperty(ref _botNameFilterDelete, value);
+        }
+
         public bool IsConfirmDelete
         {
-            get => field;
+            get;
             set => SetProperty(ref field, value);
         }
 
         #endregion
 
-        public IAsyncRelayCommand LoadDataCommand => field ??= new AsyncRelayCommand(LoadDataAsync);
+        public IAsyncRelayCommand LoadDataCommand { get; }
 
-		public IRelayCommand CreateBotCommand => field ??= new AsyncRelayCommand(CreateBot, CanCreateBot);
+		public IAsyncRelayCommand CreateBotCommand { get; }
 
-        public IRelayCommand DeleteBotCommand => field ??= new AsyncRelayCommand(ExecuteDeleteBot, CanExecuteDeleteBot);
+        public IAsyncRelayCommand DeleteBotCommand { get; }
 
-        public IRelayCommand SaveBotCommand => field ??= new AsyncRelayCommand<BotConfigurationViewModel>(SaveBot);
+        public IAsyncRelayCommand<BotConfigurationViewModel> SaveBotCommand { get; }
 
 		public BotConfigurationsViewModel(IDbContextFactory<ApplicationDbContext> dbFactory, IViewModelFactory<BotConfigurationViewModel, BotConfiguration> viewModelFactory)
 		{
             _dbFactory = dbFactory;
             _viewModelFactory = viewModelFactory;
-
+            Browsers = BrowserTypes.List;
+            _botNameCreate = string.Empty;
+            _profileNameFilterCreate = string.Empty;
+            _botNameFilterDelete = string.Empty;
+            LoadDataCommand = new AsyncRelayCommand(LoadDataAsync);
+            CreateBotCommand = new AsyncRelayCommand(CreateBot, CanCreateBot);
+            DeleteBotCommand = new AsyncRelayCommand(ExecuteDeleteBot, CanExecuteDeleteBot);
+            SaveBotCommand = new AsyncRelayCommand<BotConfigurationViewModel>(SaveBot);
             WeakReferenceMessenger.Default.Register<BotConfigurationsViewModel, CollectionChangedMessage<BrowserConfigurationViewModel>>(this, OnSourceProfilesCollectionChanged);
             _profilesSource.Connect()
                 .Filter(p => p.FilterByName(ProfileNameFilterForCreateBot))

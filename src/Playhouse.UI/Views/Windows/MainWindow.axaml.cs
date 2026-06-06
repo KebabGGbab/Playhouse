@@ -10,6 +10,7 @@ namespace Playhouse.UI.Views.Windows
     internal partial class MainWindow : Window
     {
         private readonly IWindowFactory _windowFactory = null!;
+        private readonly MainWindowViewModel _vm = null!;
 
         /// <summary>
         /// Конструктор для дизайнера
@@ -41,8 +42,12 @@ namespace Playhouse.UI.Views.Windows
 
         private void Window_Loaded(object? sender, RoutedEventArgs e)
         {
-            MainWindowViewModel vm = (MainWindowViewModel)DataContext!;
-            vm.SettingsViewModel.InitializeCommand.Execute(null);
+            if (Design.IsDesignMode)
+            {
+                return;
+            }
+
+            _vm.SettingsViewModel.InitializeCommand.Execute(null);
         }
     }
 }
