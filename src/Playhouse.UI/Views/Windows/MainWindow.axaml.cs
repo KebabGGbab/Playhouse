@@ -35,9 +35,9 @@ namespace Playhouse.UI.Views.Windows
 
         private static void OnGetBotActionsMessage(MainWindow recepient, GetBotActionsMessage message)
         {
-            recepient._windowFactory.CreateBotConstructorWindow(message.Profile, message.Bot).ShowDialog(recepient);
-
-            message.Reply(message.Bot);
+            message.Reply(recepient._windowFactory
+                .CreateBotConstructorWindow(message.Profile, message.Bot)
+                .ShowDialog<BotConfigurationViewModel>(recepient));
         }
 
         private void Window_Loaded(object? sender, RoutedEventArgs e)

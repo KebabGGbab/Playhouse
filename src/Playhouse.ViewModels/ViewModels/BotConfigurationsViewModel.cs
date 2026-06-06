@@ -50,8 +50,8 @@ namespace Playhouse.ViewModels.ViewModels
             {
                 if (SetProperty(ref field, value))
                 {
-                CreateBotCommand.NotifyCanExecuteChanged();
-        }
+                    CreateBotCommand.NotifyCanExecuteChanged();
+                }
             }
         }
 
@@ -61,8 +61,8 @@ namespace Playhouse.ViewModels.ViewModels
             set
             {
                 if (SetProperty(ref _botNameCreate, value))
-            {
-                CreateBotCommand.NotifyCanExecuteChanged();
+                {
+                    CreateBotCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -75,8 +75,8 @@ namespace Playhouse.ViewModels.ViewModels
             set
             {
                 if (SetProperty(ref field, value))
-            {
-                CreateBotCommand.NotifyCanExecuteChanged();
+                {
+                    CreateBotCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -118,7 +118,7 @@ namespace Playhouse.ViewModels.ViewModels
 
         public IAsyncRelayCommand<BotConfigurationViewModel> SaveBotCommand { get; }
 
-		public BotConfigurationsViewModel(IDbContextFactory<ApplicationDbContext> dbFactory, IViewModelFactory<BotConfigurationViewModel, BotConfiguration> viewModelFactory)
+        public BotConfigurationsViewModel(IDbContextFactory<ApplicationDbContext> dbFactory, IViewModelFactory<BotConfigurationViewModel, BotConfiguration> viewModelFactory)
 		{
             _dbFactory = dbFactory;
             _viewModelFactory = viewModelFactory;
@@ -176,22 +176,24 @@ namespace Playhouse.ViewModels.ViewModels
 
         private async Task CreateBot()
         {
-            if (SelectedProfileCreate == null || BrowserType == null)
+            if (!CanCreateBot())
             {
                 return;
             }
 
-            BotConfigurationViewModel newBot = _viewModelFactory.Create(new BotConfiguration(BrowserType)
+            BotConfigurationViewModel newBot = _viewModelFactory.Create(new BotConfiguration(SelectedBrowserType)
             {
                 Name = BotNameCreate,
             });
-            BrowserType = null;
+            SelectedBrowserType = null;
             BotNameCreate = string.Empty;
-            await WeakReferenceMessenger.Default.Send(new GetBotActionsMessage(newBot, SelectedProfileCreate));
+            newBot = await WeakReferenceMessenger.Default.Send(new GetBotActionsMessage(newBot, SelectedProfileCreate));
             await SaveBot(newBot);
 		}
 
-		private bool CanCreateBot() => SelectedProfileCreate != null  && BrowserType != null;
+
+        [MemberNotNullWhen(true, nameof(SelectedProfileCreate), nameof(SelectedBrowserType))]
+		private bool CanCreateBot() => !(SelectedProfileCreate == null || SelectedBrowserType == null);
 
         private async Task ExecuteDeleteBot()
         {
