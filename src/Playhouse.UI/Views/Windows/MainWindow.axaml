@@ -84,10 +84,16 @@
 
         <!-- Таба ботов -->
 
-        <TabItem Theme="{StaticResource Minimalism}">
+        <TabItem x:Name="BotsTab" 
+                 Theme="{StaticResource Minimalism}">
 			<TabItem.Header>
 				<TextBlock Text="{l:Localization TabBotsHeader}" />
             </TabItem.Header>
+            <i:Interaction.Behaviors>
+				<ia:EventTriggerBehavior EventName="Loaded" SourceObject="{Binding ElementName=BotsTab}">
+					<ia:InvokeCommandAction Command="{Binding Path=BotsViewModel.LoadDataCommand}" />
+                </ia:EventTriggerBehavior>
+            </i:Interaction.Behaviors>
             <Grid ColumnDefinitions="*, auto"
                   Margin="10">
                 <WrapPanel Grid.Column="0"
@@ -170,7 +176,7 @@
                         <DataGridTextColumn x:DataType="models:BotConfiguration" 
                                             Width="*"
                                             Header="{l:Localization BotPropertyName}" 
-                                            Binding="{Binding Path=Id}" />
+                                            Binding="{Binding Path=Name}" />
                     </DataGrid.Columns>
                 </DataGrid>
 
