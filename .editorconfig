@@ -8,3 +8,6 @@ dotnet_diagnostic.CA1056.severity = none
 
 # CA1308: Нормализуйте строки до прописных букв
 dotnet_diagnostic.CA1308.severity = none
+
+# MVVMTK0056: Prefer using [ObservableProperty] over semi-auto properties
+dotnet_diagnostic.MVVMTK0056.severity = none
