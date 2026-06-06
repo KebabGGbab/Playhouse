@@ -18,7 +18,6 @@ using Playhouse.UI.Services.LocalizationService;
 using Playhouse.UI.Services.WindowCreatorService;
 using Playhouse.UI.Services.WindowCreatorService.Abstractions;
 using Playhouse.UI.Views.Windows;
-using Playhouse.ViewModels.DIExtensions.ViewModelsExtensions;
 using Playhouse.ViewModels.Services.ViewModelFactories;
 using Playhouse.ViewModels.ViewModels;
 
