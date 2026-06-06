@@ -4,12 +4,13 @@ using Playhouse.Core.Models;
 using Playhouse.Core.Models.BotActions;
 using Playhouse.Core.Models.BotActions.Abstractions;
 using Playhouse.Core.Services.BotConstructorService.Abstractions;
+using Playhouse.Core.Services.ConstructorService.Abstractions;
 using Playhouse.Core.Services.FilePathResolverService.Abstractions;
 using Playhouse.Core.Services.PlaywrightService.Abstractions;
 
 namespace Playhouse.Core.Services.BotConstructorService
 {
-    public sealed partial class BotConstructor : IBotConstructor
+    public sealed partial class Constructor : IConstructor
     {
         private readonly IPlaywrightFactory _playwrightFactory;
         private readonly IFilePathResolver _filePathResolver;
@@ -20,16 +21,16 @@ namespace Playhouse.Core.Services.BotConstructorService
 
         public BrowserConfiguration Profile { get; }
 
-        public event EventHandler<IBotConstructor, BrowserEventHappenedEventArgs>? ActionHappend;
+        public event EventHandler<IConstructor, BrowserEventHappenedEventArgs>? ActionHappend;
 
-        public event EventHandler<IBotConstructor, BotConstructionCompletedEventArgs>? ConstructionCompleted;
+        public event EventHandler<IConstructor, ConstructionCompletedEventArgs>? ConstructionCompleted;
 
-        public BotConstructor(IPlaywrightFactory playwrightFactory, IFilePathResolver filePathResolver, BrowserConfiguration profile, BotConfiguration bot)
+        public Constructor(IPlaywrightFactory playwrightFactory, IFilePathResolver filePathResolver, BrowserConfiguration profile, BotConfiguration bot)
         {
-            ArgumentNullException.ThrowIfNull(playwrightFactory, nameof(playwrightFactory));
-            ArgumentNullException.ThrowIfNull(filePathResolver, nameof(filePathResolver));
-            ArgumentNullException.ThrowIfNull(profile, nameof(profile));
-            ArgumentNullException.ThrowIfNull(bot, nameof(bot));
+            ArgumentNullException.ThrowIfNull(playwrightFactory);
+            ArgumentNullException.ThrowIfNull(filePathResolver);
+            ArgumentNullException.ThrowIfNull(profile);
+            ArgumentNullException.ThrowIfNull(bot);
 
             _playwrightFactory = playwrightFactory;
             _filePathResolver = filePathResolver;
@@ -99,7 +100,7 @@ namespace Playhouse.Core.Services.BotConstructorService
 
         private void OnConstructionCompleted()
         {
-            ConstructionCompleted?.Invoke(this, new BotConstructionCompletedEventArgs(Bot));
+            ConstructionCompleted?.Invoke(this, new ConstructionCompletedEventArgs(Bot));
         }
 
         [GeneratedRegex(@"^(?:\[Playhouse\]):!:(?<event>\w{3,20}):!:(?<id>[a-zA-Z0-9_\-.]{0,}):!:(?<text>.{0,})$", RegexOptions.Singleline)]
@@ -107,8 +108,8 @@ namespace Playhouse.Core.Services.BotConstructorService
 
         private class ConstructorContext
         {
-            private Dictionary<IPage, int> _pageNumbers = [];
-            private Dictionary<IBrowserContext, int> _browserContextNumbers = [];
+            private readonly Dictionary<IPage, int> _pageNumbers = [];
+            private readonly Dictionary<IBrowserContext, int> _browserContextNumbers = [];
 
             public int GetPageNumber(IPage page)
             {

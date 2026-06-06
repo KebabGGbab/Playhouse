@@ -1,12 +1,12 @@
 ﻿using Playhouse.Core.Models;
 
-namespace Playhouse.Core.Services.BotConstructorService.Abstractions
+namespace Playhouse.Core.Services.ConstructorService.Abstractions
 {
-    public class BotConstructionCompletedEventArgs : EventArgs
+    public class ConstructionCompletedEventArgs : EventArgs
     {
         public BotConfiguration Bot { get; set; }
 
-        public BotConstructionCompletedEventArgs(BotConfiguration bot)
+        public ConstructionCompletedEventArgs(BotConfiguration bot)
         {
             ArgumentNullException.ThrowIfNull(bot, nameof(bot));
 
