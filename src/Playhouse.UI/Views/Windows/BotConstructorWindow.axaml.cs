@@ -6,7 +6,20 @@ namespace Playhouse.UI.Views.Windows;
 
 internal sealed partial class BotConstructorWindow : Window
 {
-    private readonly BotConstructorViewModel _vm;
+    private readonly BotConstructorViewModel _vm = null!;
+
+    /// <summary>
+    /// Конструктор для дизайнера
+    /// </summary>
+    public BotConstructorWindow()
+    {
+        if (!Design.IsDesignMode)
+        {
+            throw new InvalidOperationException();
+        }
+
+        InitializeComponent();
+    }
 
     public BotConstructorWindow(BotConstructorViewModel viewModel)
     {
@@ -19,11 +32,21 @@ internal sealed partial class BotConstructorWindow : Window
 
     private async void Window_Loaded(object? sender, RoutedEventArgs e)
     {
+        if (Design.IsDesignMode)
+        {
+            return;
+        }
+
         await _vm.StartConstructionCommand.ExecuteAsync(null);
     }
 
     private async void Save(object? sender, RoutedEventArgs e)
     {
+        if (Design.IsDesignMode)
+        {
+            return;
+        }
+
         await _vm.CompleteConstructionCommand.ExecuteAsync(null);
         Close(_vm.Bot);
     }
