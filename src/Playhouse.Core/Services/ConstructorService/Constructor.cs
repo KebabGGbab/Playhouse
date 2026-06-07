@@ -1,5 +1,4 @@
-﻿using System.Text.RegularExpressions;
-using Microsoft.Playwright;
+﻿using Microsoft.Playwright;
 using Playhouse.Core.Models;
 using Playhouse.Core.Models.BotActions;
 using Playhouse.Core.Models.BotActions.Abstractions;
@@ -8,9 +7,9 @@ using Playhouse.Core.Services.ConstructorService.Abstractions;
 using Playhouse.Core.Services.FilePathResolverService.Abstractions;
 using Playhouse.Core.Services.PlaywrightService.Abstractions;
 
-namespace Playhouse.Core.Services.BotConstructorService
+namespace Playhouse.Core.Services.ConstructorService
 {
-    public sealed partial class Constructor : IConstructor, IAsyncDisposable
+    public sealed class Constructor : IConstructor, IAsyncDisposable
     {
         private readonly IPlaywrightFactory _playwrightFactory;
         private readonly IFilePathResolver _filePathResolver;
@@ -59,8 +58,7 @@ namespace Playhouse.Core.Services.BotConstructorService
                 Number = _context.GetBrowserContextNumber(_browserContext) 
             });
             await _browserContext.AddInitScriptAsync(scriptPath: _filePathResolver.FileJSEventScripts.FullName).ConfigureAwait(false);
-
-            _browserContext.Console += ConsoleGetRecord;
+            await _browserContext.ExposeBindingAsync<LocatorActionDataDto>(nameof(SendAction), SendAction).ConfigureAwait(false);
             _browserContext.Close += BrowserClosed;
             _browserContext.Page += PageCreated;
         }
@@ -123,18 +121,21 @@ namespace Playhouse.Core.Services.BotConstructorService
             });
         }
 
-        private void ConsoleGetRecord(object? sender, IConsoleMessage e)
+        private void SendAction(BindingSource source, LocatorActionDataDto data)
         {
-            if (!e.Text.StartsWith("[Playhouse]", StringComparison.Ordinal))
+            BotAction action = data.Action switch
             {
-                return;
-            }
-
-            Match match = ParseConsoleMessage().Match(e.Text);
-
-            BotAction action = match.Groups["event"].Value switch
-            {
-                _ => throw new NotSupportedException("Не поддерживаемое действие")
+                LocatorClickBotAction.NAME => new LocatorClickBotAction(Bot, data.ToLocatorActionData())
+                {
+                    ActionNumber = Bot.Actions.Count,
+                    Number = _context.GetPageNumber(source.Page!)
+                },
+                LocatorFillBotAction.NAME => new LocatorFillBotAction(data.Value!, Bot, data.ToLocatorActionData())
+                {
+                    ActionNumber = Bot.Actions.Count,
+                    Number = _context.GetPageNumber(source.Page!)
+                },
+                _ => throw new NotSupportedException(ExceptionMessages.Constructor_NotSupportedAction)
             };
 
             OnActionHappend(action);
@@ -149,9 +150,6 @@ namespace Playhouse.Core.Services.BotConstructorService
         {
             ConstructionCompleted?.Invoke(this, new ConstructionCompletedEventArgs(Bot));
         }
-
-        [GeneratedRegex(@"^(?:\[Playhouse\]):!:(?<event>\w{3,20}):!:(?<id>[a-zA-Z0-9_\-.]{0,}):!:(?<text>.{0,})$", RegexOptions.Singleline)]
-        private static partial Regex ParseConsoleMessage();
 
         public async ValueTask DisposeAsync()
         {
