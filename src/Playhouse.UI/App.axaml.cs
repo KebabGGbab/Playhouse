@@ -9,7 +9,6 @@ using Microsoft.Extensions.Logging;
 using Playhouse.Core.Data;
 using Playhouse.Core.Services.ApplicationSettingsService;
 using Playhouse.Core.Services.BotRunningService;
-using Playhouse.Core.Services.CodeCompileService;
 using Playhouse.Core.Services.ConstructorService;
 using Playhouse.Core.Services.FileManagerService;
 using Playhouse.Core.Services.FilePathResolverService;
@@ -104,7 +103,6 @@ namespace Playhouse.UI
             services.AddSingleton<BotConstructorViewModel>();
             services.AddSingleton<IWindowFactory, WindowFactory>();
             services.AddBotConstruction();
-            services.AddBotCompiler();
             services.AddBotRunning();
             services.AddFilePathResolver();
             services.AddPlaywright();

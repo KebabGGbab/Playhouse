@@ -9,26 +9,14 @@ namespace Playhouse.ViewModels.Services.ViewModelFactories
 {
     public class BotConfigurationViewModelFactory : IViewModelFactory<BotConfigurationViewModel, BotConfiguration>
     {
-        private readonly IDbContextFactory<ApplicationDbContext> _dbFactory;
-        private readonly FileManager<BotConfiguration> _fileManager;
-
-        public BotConfigurationViewModelFactory(IDbContextFactory<ApplicationDbContext> dbFactory, FileManager<BotConfiguration> fileManager)
-        {
-            ArgumentNullException.ThrowIfNull(dbFactory);
-            ArgumentNullException.ThrowIfNull(fileManager);
-
-            _dbFactory = dbFactory;
-            _fileManager = fileManager;
-        }
-
         public BotConfigurationViewModel Create()
         {
-            return new BotConfigurationViewModel(_dbFactory, _fileManager);
+            return new BotConfigurationViewModel();
         }
 
         public BotConfigurationViewModel Create(BotConfiguration model)
         {
-            return new BotConfigurationViewModel(_dbFactory, _fileManager, model);
+            return new BotConfigurationViewModel(model);
         }
     }
 }

@@ -10,8 +10,7 @@ namespace Playhouse.Core.Services.FileManagerService
         {
             ArgumentNullException.ThrowIfNull(services);
 
-            return services.AddSingleton<FileManager<BrowserConfiguration>, BrowserProfileFileManager>()
-                .AddSingleton<FileManager<BotConfiguration>, BotConfigurationFileManager>();
+            return services.AddSingleton<FileManager<BrowserConfiguration>, BrowserProfileFileManager>();
         }
     }
 }
