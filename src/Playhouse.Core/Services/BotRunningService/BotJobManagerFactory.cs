@@ -9,12 +9,14 @@ namespace Playhouse.Core.Services.BotRunningService
 
         public BotJobManagerFactory(IPlaywrightFactory playwrightFactory)
         {
+            ArgumentNullException.ThrowIfNull(playwrightFactory);
+
             _playwrightFactory = playwrightFactory;
         }
 
         public BotJobManager Create(BotJobContext context)
         {
-            ArgumentNullException.ThrowIfNull(context, nameof(context));
+            ArgumentNullException.ThrowIfNull(context);
 
             return new BotJobManager(
                 jobContext: context,

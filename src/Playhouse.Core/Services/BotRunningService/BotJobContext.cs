@@ -10,8 +10,8 @@ namespace Playhouse.Core.Services.BotRunningService
 
         public BotJobContext(IList<BrowserConfiguration> profiles, BotConfiguration bot)
         {
-            ArgumentNullException.ThrowIfNull(profiles, nameof(profiles));
-            ArgumentNullException.ThrowIfNull(bot, nameof(bot));
+            ArgumentNullException.ThrowIfNull(profiles);
+            ArgumentNullException.ThrowIfNull(bot);
 
             Profiles = profiles;
             Bot = bot;
