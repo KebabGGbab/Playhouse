@@ -99,9 +99,14 @@ namespace Playhouse.ViewModels.ViewModels
                 return; 
             }
 
+            bool isNew = profile.IsNew;
             using ApplicationDbContext db = await _dbFactory.CreateDbContextAsync();
             await profile.SaveAsync(db);
             await db.SaveChangesAsync();
+            if (isNew)
+            {
+                SendMessageAddItems([profile]);
+            }
         }
 
         private bool CanSaveProfile([NotNullWhen(true)] BrowserConfigurationViewModel? profile) => profile != null;
