@@ -6,7 +6,10 @@ namespace Playhouse.ViewModels.Visitor
 {
     public class ViewModelsBrowserEventVisitor : IBotActionVisitor<BotActionViewModel>
     {
-        public BotActionViewModel? CurrentViewModel { get; private set; }
+        public BotActionViewModel Visit(BrowserContextCreatedBotAction action)
+        {
+            return new BrowserContextCreatedBotActionViewModel(action);
+        }
 
         public BotActionViewModel Visit(BrowserContextClosedBotAction action)
         {
@@ -33,9 +36,9 @@ namespace Playhouse.ViewModels.Visitor
             return new LocatorClickBotActionViewModel(action);
         }
 
-        public void Visit(LocatorClickBotAction browserEvent)
+        public BotActionViewModel Visit(LocatorFillBotAction action)
         {
-            CurrentViewModel = new LocatorClickBotActionViewModel(browserEvent);
+            return new LocatorFillBotActionViewModel(action);
         }
     }
 }

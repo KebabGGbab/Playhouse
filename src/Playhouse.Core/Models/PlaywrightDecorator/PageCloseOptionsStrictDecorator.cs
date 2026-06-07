@@ -39,7 +39,7 @@ namespace Playhouse.Core.Models.PlaywrightDecorator
             return decorator._options;
         }
 
-        public static implicit operator PageCloseOptionsStrictDecorator(PageCloseOptions options)
+        public static implicit operator PageCloseOptionsStrictDecorator(PageCloseOptions? options)
         {
             return new PageCloseOptionsStrictDecorator(options);
         }

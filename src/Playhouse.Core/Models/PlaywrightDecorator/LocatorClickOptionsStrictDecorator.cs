@@ -93,7 +93,7 @@ namespace Playhouse.Core.Models.PlaywrightDecorator
             return decorator._options;
         }
 
-        public static implicit operator LocatorClickOptionsStrictDecorator(LocatorClickOptions options)
+        public static implicit operator LocatorClickOptionsStrictDecorator(LocatorClickOptions? options)
         {
             return new LocatorClickOptionsStrictDecorator(options);
         }

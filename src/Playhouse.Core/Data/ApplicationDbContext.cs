@@ -23,10 +23,12 @@ namespace Playhouse.Core.Data
         {
             ArgumentNullException.ThrowIfNull(modelBuilder);
 
+            modelBuilder.ApplyConfiguration(new ApplicationSettingsEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new BrowserConfigurationEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new BotConfigurationEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new BotActionEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new BrowserContextBotActionEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new BrowserContextCreatedBotActionEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new BrowserContextClosedBotActionEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new PageBotActionEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new PageCreatedBotActionEntityTypeConfiguration());
@@ -34,7 +36,7 @@ namespace Playhouse.Core.Data
             modelBuilder.ApplyConfiguration(new PageGoToBotActionEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new LocatorBotActionEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new LocatorClickBotActionEntityTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new ApplicationSettingsEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new LocatorFillBotActionEntityTypeConfiguration());
         }
     }
 }

@@ -69,12 +69,12 @@ namespace Playhouse.Core.Models.PlaywrightDecorator
 
         public static explicit operator BrowserTypeLaunchPersistentContextOptions(BrowserTypeLaunchPersistentContextOptionsStrictDecorator decorator)
         {
-            ArgumentNullException.ThrowIfNull(decorator, nameof(decorator));
+            ArgumentNullException.ThrowIfNull(decorator);
 
             return decorator._options;
         }
 
-        public static implicit operator BrowserTypeLaunchPersistentContextOptionsStrictDecorator(BrowserTypeLaunchPersistentContextOptions options)
+        public static implicit operator BrowserTypeLaunchPersistentContextOptionsStrictDecorator(BrowserTypeLaunchPersistentContextOptions? options)
         {
             return new BrowserTypeLaunchPersistentContextOptionsStrictDecorator(options);
         }

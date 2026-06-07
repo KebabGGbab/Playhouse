@@ -30,7 +30,7 @@ namespace Playhouse.Core.Models.PlaywrightDecorator
             return decorator._options;
         }
 
-        public static implicit operator BrowserContextCloseOptionsStrictDecorator(BrowserContextCloseOptions options)
+        public static implicit operator BrowserContextCloseOptionsStrictDecorator(BrowserContextCloseOptions? options)
         {
             return new BrowserContextCloseOptionsStrictDecorator(options);
         }

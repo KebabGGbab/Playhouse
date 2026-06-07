@@ -37,6 +37,17 @@ namespace Playhouse.Core.Data.EntityTypeConfigurations
     }
 
     /// <summary>
+    /// Конфигурация типа сущности <see cref="BrowserContextCreatedBotAction"/>.
+    /// </summary>
+    internal sealed class BrowserContextCreatedBotActionEntityTypeConfiguration : IEntityTypeConfiguration<BrowserContextCreatedBotAction>
+    {
+        public void Configure(EntityTypeBuilder<BrowserContextCreatedBotAction> builder)
+        {
+            builder.HasBaseType<BrowserContextBotAction>();
+        }
+    }
+
+    /// <summary>
     /// Конфигурация типа сущности <see cref="BrowserContextClosedBotAction"/>.
     /// </summary>
     internal sealed class BrowserContextClosedBotActionEntityTypeConfiguration : IEntityTypeConfiguration<BrowserContextClosedBotAction>
@@ -120,6 +131,18 @@ namespace Playhouse.Core.Data.EntityTypeConfigurations
                 b.Property(p => p.Modifiers)
                     .HasConversion(new HashSetEnumToJsonConverter<KeyboardModifier>(), new HashSetValueComparer<KeyboardModifier>());
             });
+        }
+    }
+
+    /// <summary>
+    /// Конфигурация типа сущности <see cref="LocatorClickBotAction"/>.
+    /// </summary>
+    internal sealed class LocatorFillBotActionEntityTypeConfiguration : IEntityTypeConfiguration<LocatorFillBotAction>
+    {
+        public void Configure(EntityTypeBuilder<LocatorFillBotAction> builder)
+        {
+            builder.HasBaseType<LocatorBotAction>();
+            builder.OwnsOne(p => p.Options);
         }
     }
 }
