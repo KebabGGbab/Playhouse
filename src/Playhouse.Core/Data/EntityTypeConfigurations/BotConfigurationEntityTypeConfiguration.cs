@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Ardalis.SmartEnum.EFCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Playhouse.Core.Models;
 
@@ -12,6 +13,9 @@ namespace Playhouse.Core.Data.EntityTypeConfigurations
         public void Configure(EntityTypeBuilder<BotConfiguration> builder)
         {
             builder.ToTable("Bot_Configurations", t => t.HasComment("Конфигурации ботов."));
+
+            builder.Property(b => b.Browser)
+                .HasConversion(new SmartEnumConverter<BrowserTypes, int>());
         }
     }
 }
