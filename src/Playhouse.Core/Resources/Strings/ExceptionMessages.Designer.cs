@@ -70,6 +70,15 @@ namespace Playhouse.Core.Resources.Strings {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на The action performed by the user in the browser is not supported..
+        /// </summary>
+        internal static string Constructor_NotSupportedAction {
+            get {
+                return ResourceManager.GetString("Constructor_NotSupportedAction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на The start command was called for a bot construction process that had already completed..
         /// </summary>
         internal static string Constructor_RunCompletedConstruction {

@@ -135,4 +135,7 @@
   <data name="PlaywrightFactory_UnsupportedBrowser" xml:space="preserve">
     <value>Browser {0} is not supported.</value>
   </data>
+  <data name="Constructor_NotSupportedAction" xml:space="preserve">
+    <value>The action performed by the user in the browser is not supported.</value>
+  </data>
 </root>
