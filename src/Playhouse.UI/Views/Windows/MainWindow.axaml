@@ -65,18 +65,31 @@
                                    Text="{l:Localization LabelSelectProfiles}" />
 
                         <ListBox Grid.Column="0" Grid.Row="2"
-                                 ItemsSource="{Binding Path=RunViewModel.UnselectedProfiles}"
-                                 ItemTemplate="{StaticResource NameOnlyTemplate}"
-                                 DisplayMemberBinding="{Binding Path=Name}" />
+                                 ItemsSource="{Binding Path=RunViewModel.UnselectedProfiles}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Button Content="{Binding Path=Name}" 
+                                            Command="{Binding $parent[Window].DataContext.RunViewModel.SelectProfileCommand}"
+                                            CommandParameter="{Binding .}" />
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
 
                         <ListBox Grid.Column="1" Grid.Row="2"
-                                 ItemsSource="{Binding Path=RunViewModel.SelectedProfiles}" 
-                                 ItemTemplate="{StaticResource NameOnlyTemplate}"
-                                 DisplayMemberBinding="{Binding Path=Name}" />
+                                 ItemsSource="{Binding Path=RunViewModel.SelectedProfiles}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Button Content="{Binding Path=Name}"
+                                            Command="{Binding $parent[Window].DataContext.RunViewModel.ExcludeProfileCommand}"
+                                            CommandParameter="{Binding .}" />
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
 
                         <Button Grid.ColumnSpan="2" Grid.Row="3"
                                 Classes="box-action"
-                                Content="{l:Localization ButtonStart}" />
+                                Content="{l:Localization ButtonStart}"
+                                Command="{Binding Path=RunViewModel.RunBotCommand}" />
                     </Grid>
                 </HeaderedContentControl>
             </DockPanel>
