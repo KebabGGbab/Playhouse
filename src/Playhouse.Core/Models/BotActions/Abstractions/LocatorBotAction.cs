@@ -2,15 +2,19 @@
 {
     public abstract class LocatorBotAction : PageBotAction
     {
-        public string? Text { get; set; }
+        public LocatorActionData LocatorData { get; } = null!;
+
         // Конструктор для EntityFramework
         protected LocatorBotAction()
         {
-    }
+        }
 
-        protected LocatorBotAction(BotConfiguration configuration)
+        protected LocatorBotAction(BotConfiguration configuration, LocatorActionData locatorData)
             : base(configuration)
         {
+            ArgumentNullException.ThrowIfNull(locatorData);
+
+            LocatorData = locatorData;
         }
     }
 }

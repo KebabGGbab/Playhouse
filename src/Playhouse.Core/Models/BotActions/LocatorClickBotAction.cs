@@ -14,8 +14,8 @@ namespace Playhouse.Core.Models.BotActions
         {
         }
 
-        public LocatorClickBotAction(BotConfiguration configuration, LocatorClickOptionsStrictDecorator? options = null)
-            : base(configuration)
+        public LocatorClickBotAction(BotConfiguration configuration, LocatorActionData locatorData, LocatorClickOptionsStrictDecorator? options = null)
+            : base(configuration, locatorData)
         {
             Options = options ?? new LocatorClickOptionsStrictDecorator();
         }

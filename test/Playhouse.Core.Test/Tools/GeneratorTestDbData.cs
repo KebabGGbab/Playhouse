@@ -1,6 +1,7 @@
 ﻿using Microsoft.Playwright;
 using Playhouse.Core.Models;
 using Playhouse.Core.Models.BotActions;
+using Playhouse.Core.Models.BotActions.Abstractions;
 using Playhouse.Core.Models.PlaywrightDecorator;
 
 namespace Playhouse.Core.Test.Tools
@@ -19,69 +20,69 @@ namespace Playhouse.Core.Test.Tools
                     new(BrowserTypes.Chromium) { Name="6" },
                 ];
 
-            botsInfo[0].Actions.Add(new PageCreatedBotAction()
+            botsInfo[0].Actions.Add(new PageCreatedBotAction(botsInfo[0])
             {
-                Bot = botsInfo[0],
+                ActionNumber = 0,
                 Number = 1
             });
 
-            LocatorClickBotAction locatorClick = new(new LocatorClickOptionsStrictDecorator())
-            { 
-                Bot = botsInfo[1], 
+            LocatorClickBotAction locatorClick = new(botsInfo[1], new LocatorActionData(), new LocatorClickOptionsStrictDecorator())
+            {
+                ActionNumber = 0,
                 Number = 1
             };
             locatorClick.Options.Position.X = 10;
             locatorClick.Options.Position.Y = 3;
             botsInfo[1].Actions.Add(locatorClick);
 
-            botsInfo[2].Actions.Add(new PageClosedBotAction(
+            botsInfo[2].Actions.Add(new PageClosedBotAction(botsInfo[2],
                 new PageCloseOptionsStrictDecorator()
                 {
                     RunBeforeUnload = true,
                     Reason = "Так надо"
                 })
             {
-                Bot = botsInfo[2],
+                ActionNumber = 0,
                 Number = 1
             });
-            botsInfo[2].Actions.Add(new PageClosedBotAction(
+            botsInfo[2].Actions.Add(new PageClosedBotAction(botsInfo[2],
                 new PageCloseOptionsStrictDecorator()
                 {
                     RunBeforeUnload = false
                 })
             {
-                Bot = botsInfo[2],
+                ActionNumber = 0,
                 Number = 2
             });
-            botsInfo[2].Actions.Add(new PageClosedBotAction()
+            botsInfo[2].Actions.Add(new PageClosedBotAction(botsInfo[2])
             {
-                Bot = botsInfo[2],
+                ActionNumber = 0,
                 Number = 3
             });
 
-            botsInfo[3].Actions.Add(new BrowserContextClosedBotAction()
+            botsInfo[3].Actions.Add(new BrowserContextClosedBotAction(botsInfo[3])
             {
-                Bot = botsInfo[3],
+                ActionNumber = 0,
                 Number = 1
             });
-            botsInfo[3].Actions.Add(new BrowserContextClosedBotAction(
+            botsInfo[3].Actions.Add(new BrowserContextClosedBotAction(botsInfo[3],
                 new BrowserContextCloseOptionsStrictDecorator()
                 {
                     Reason = "Причина"
                 })
             {
-                Bot = botsInfo[3],
+                ActionNumber = 0,
                 Number = 2
             });
 
-            botsInfo[4].Actions.Add(new PageGoToBotAction(
+            botsInfo[4].Actions.Add(new PageGoToBotAction(botsInfo[4],
                 "https://playhoouse.ru/",
                 new PageGoToOptionsStrictDecorator())
             {
-                Bot = botsInfo[4],
+                ActionNumber = 0,
                 Number = 1 }
             );
-            botsInfo[4].Actions.Add(new PageGoToBotAction(
+            botsInfo[4].Actions.Add(new PageGoToBotAction(botsInfo[4],
                 "https://playhoouse2.ru/",
                 new PageGoToOptionsStrictDecorator()
                 {
@@ -90,11 +91,11 @@ namespace Playhouse.Core.Test.Tools
                     Referer = "Строка"
                 })
             {
-                Bot = botsInfo[4],
+                ActionNumber = 0,
                 Number = 2
             });
 
-            botsInfo[5].Actions.Add(new LocatorClickBotAction(
+            botsInfo[5].Actions.Add(new LocatorClickBotAction(botsInfo[5], new LocatorActionData(),
                 new LocatorClickOptionsStrictDecorator()
                 {
                     Button = MouseButton.Middle,
@@ -106,12 +107,12 @@ namespace Playhouse.Core.Test.Tools
                     Trial = true
                 })
             {
-                Bot = botsInfo[5],
+                ActionNumber = 0,
                 Number = 1
             });
-            botsInfo[5].Actions.Add(new LocatorClickBotAction()
+            botsInfo[5].Actions.Add(new LocatorClickBotAction(botsInfo[5], new LocatorActionData())
             {
-                Bot = botsInfo[5],
+                ActionNumber = 0,
                 Number = 2
             });
 
