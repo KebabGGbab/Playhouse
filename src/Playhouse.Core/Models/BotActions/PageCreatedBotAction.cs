@@ -4,7 +4,15 @@ namespace Playhouse.Core.Models.BotActions
 {
     public class PageCreatedBotAction : PageBotAction
     {
-        public override void Accept(IBotActionVisitor visitor)
+        // Конструктор для EntityFramework
+        private PageCreatedBotAction() 
+        {
+        }
+
+        public PageCreatedBotAction(BotConfiguration configuration)
+            : base(configuration)
+        {
+        }
         {
             ArgumentNullException.ThrowIfNull(visitor);
 

@@ -12,7 +12,8 @@ namespace Playhouse.Core.Models.BotActions
         {
         }
 
-        public PageClosedBotAction(PageCloseOptionsStrictDecorator? options = null)
+        public PageClosedBotAction(BotConfiguration configuration, PageCloseOptionsStrictDecorator? options = null)
+            : base(configuration)
         {
             Options = options ?? new PageCloseOptionsStrictDecorator();
         }

@@ -6,6 +6,18 @@
 
         public required BotConfiguration Bot { get; init; }
 
-        public virtual void Accept(IBotActionVisitor visitor) { }
+        public BotConfiguration Bot { get; } = null!;
+
+        // Конструктор для EntityFramework
+        protected BotAction()
+        { 
+        } 
+
+        protected BotAction(BotConfiguration configuration)
+        {
+            ArgumentNullException.ThrowIfNull(configuration);
+
+            Bot = configuration;
+        }
     }
 }

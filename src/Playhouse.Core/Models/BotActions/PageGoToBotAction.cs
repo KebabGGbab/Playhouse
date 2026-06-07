@@ -23,7 +23,8 @@ namespace Playhouse.Core.Models.BotActions
         {
         }
 
-        public PageGoToBotAction(string url, PageGoToOptionsStrictDecorator? options = null)
+        public PageGoToBotAction(BotConfiguration configuration, string url, PageGoToOptionsStrictDecorator? options = null)
+            : base(configuration)
         {
             Url = url;
             Options = options ?? new PageGoToOptionsStrictDecorator();

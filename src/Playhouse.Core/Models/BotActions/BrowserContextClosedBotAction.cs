@@ -12,7 +12,8 @@ namespace Playhouse.Core.Models.BotActions
         {
         }
 
-        public BrowserContextClosedBotAction(BrowserContextCloseOptionsStrictDecorator? options = null)
+        public BrowserContextClosedBotAction(BotConfiguration configuration, BrowserContextCloseOptionsStrictDecorator? options = null)
+            : base(configuration)
         {
             Options = options ?? new BrowserContextCloseOptionsStrictDecorator();
         }
