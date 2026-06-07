@@ -1,12 +1,12 @@
 ﻿using System.Collections.ObjectModel;
-using System.Windows.Input;
+using System.Diagnostics.CodeAnalysis;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using DynamicData;
+using Jobs.Abstractions;
 using Playhouse.Core.Services.BotRunningService;
 using Playhouse.Core.Services.BotRunningService.Abstrtactions;
-using Playhouse.Core.Services.FilePathResolverService.Abstractions;
 using Playhouse.ViewModels.Messages;
 
 namespace Playhouse.ViewModels.ViewModels
@@ -14,7 +14,6 @@ namespace Playhouse.ViewModels.ViewModels
     public class RunViewModel : ObservableObject
     {
         private readonly IBotJobManagerFactory _jobManagerFactory;
-        private readonly IFilePathResolver _filePathResolver;
 
         private readonly ObservableCollection<BrowserConfigurationViewModel> _unselectedProfiles = [];
         private readonly ObservableCollection<BrowserConfigurationViewModel> _selectedProfiles = [];
@@ -32,26 +31,34 @@ namespace Playhouse.ViewModels.ViewModels
 
 		public BotConfigurationViewModel? SelectedBotStart
 		{
-			get => field;
-            set => SetProperty(ref field, value);
+            get;
+            set
+            {
+                if (SetProperty(ref field, value))
+                {
+                    RunBotCommand.NotifyCanExecuteChanged();
+                }
+            }
 		}
 
-		public ICommand SelectProfileCommand => field ??= new RelayCommand<BrowserConfigurationViewModel>(ExecuteSelectProfile);
+		public IRelayCommand<BrowserConfigurationViewModel> SelectProfileCommand { get; }
 
-        public ICommand ExcludeProfileCommand => field ??= new RelayCommand<BrowserConfigurationViewModel>(ExecuteExcludeProfile);
+        public IRelayCommand<BrowserConfigurationViewModel> ExcludeProfileCommand { get; }
 
-        public ICommand RunBotCommand => field ??= new RelayCommand(ExecuteRunBot, CanExecuteRunBot);
+        public IRelayCommand RunBotCommand { get; }
 
-        public RunViewModel(IBotJobManagerFactory botJobManagerFactory, IFilePathResolver pathResolver)
+        public RunViewModel(IBotJobManagerFactory botJobManagerFactory)
         {
             _jobManagerFactory = botJobManagerFactory;
-            _filePathResolver = pathResolver;
             UnselectedProfiles = new(_unselectedProfiles);
             SelectedProfiles = new(_selectedProfiles);
             Bots = new(_bots);
             RunningTasks = new(_runningTasks);
             WeakReferenceMessenger.Default.Register<RunViewModel, CollectionChangedMessage<BrowserConfigurationViewModel>>(this, OnSourceProfilesCollectionChanged);
             WeakReferenceMessenger.Default.Register<RunViewModel, CollectionChangedMessage<BotConfigurationViewModel>>(this, OnSourceBotsCollectionChanged);
+            SelectProfileCommand = new RelayCommand<BrowserConfigurationViewModel>(SelectProfile);
+            ExcludeProfileCommand = new RelayCommand<BrowserConfigurationViewModel>(ExcludeProfile);
+            RunBotCommand = new RelayCommand(ExecuteRunBot, CanExecuteRunBot);
         }
 
         private static void OnSourceProfilesCollectionChanged(RunViewModel recipient, CollectionChangedMessage<BrowserConfigurationViewModel> e)
@@ -84,35 +91,43 @@ namespace Playhouse.ViewModels.ViewModels
             }
         }
 
-        private void ExecuteSelectProfile(BrowserConfigurationViewModel? arg)
+        private void SelectProfile(BrowserConfigurationViewModel? arg)
         {
-            ArgumentNullException.ThrowIfNull(arg, nameof(arg));
+            ArgumentNullException.ThrowIfNull(arg);
 
 			_unselectedProfiles.Remove(arg);
 			_selectedProfiles.Add(arg);
+            RunBotCommand.NotifyCanExecuteChanged();
         }
 
-        private void ExecuteExcludeProfile(BrowserConfigurationViewModel? arg)
+        private void ExcludeProfile(BrowserConfigurationViewModel? arg)
         {
-            ArgumentNullException.ThrowIfNull(arg, nameof(arg));
+            ArgumentNullException.ThrowIfNull(arg);
 
             _selectedProfiles.Remove(arg);
 			_unselectedProfiles.Add(arg);
-        }
-
-        private bool CanExecuteRunBot()
-        {
-            return SelectedBotStart != null && _selectedProfiles.Count > 0;
+            RunBotCommand.NotifyCanExecuteChanged();
         }
 
         private async void ExecuteRunBot()
         {
-            BotJobManager jobManager = _jobManagerFactory.Create(new BotJobContext(_selectedProfiles.Select(vm => vm.Profile).ToList(), SelectedBotStart!.Bot));
+            if (!CanExecuteRunBot())
+            {
+                return;
+            }
+
+            BotJobManager jobManager = _jobManagerFactory.Create(new BotJobContext(_selectedProfiles.Select(vm => vm.Profile).ToList(), SelectedBotStart.Bot));
             _runningTasks.Add(jobManager);
             _busyProfiles.Add(jobManager, _selectedProfiles.ToArray());
             _selectedProfiles.Clear();
             jobManager.Completed += OnJobManager_Completed;
-            await jobManager.ExecuteJobsAsync(new BotManagerRunArgs(_filePathResolver.GetBotDllFile(SelectedBotStart!.Bot.Id).FullName)).ConfigureAwait(false);
+            await jobManager.ExecuteJobsAsync(RunArgs.Empty).ConfigureAwait(false);
+        }
+
+        [MemberNotNullWhen(true, nameof(SelectedBotStart))]
+        private bool CanExecuteRunBot()
+        {
+            return SelectedBotStart != null && _selectedProfiles.Count > 0;
         }
 
         private void OnJobManager_Completed(object? sender, EventArgs e)
