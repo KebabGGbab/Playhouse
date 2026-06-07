@@ -4,28 +4,33 @@ using Playhouse.ViewModels.ViewModels.BotActionViewModels;
 
 namespace Playhouse.ViewModels.Visitor
 {
-    public class ViewModelsBrowserEventVisitor : IBotActionVisitor
+    public class ViewModelsBrowserEventVisitor : IBotActionVisitor<BotActionViewModel>
     {
         public BotActionViewModel? CurrentViewModel { get; private set; }
 
-        public void Visit(PageCreatedBotAction browserEvent)
+        public BotActionViewModel Visit(BrowserContextClosedBotAction action)
         {
-            CurrentViewModel = new PageCreatedBotActionViewModel(browserEvent);
+            return new BrowserContextClosedBotActionViewModel(action);
         }
 
-        public void Visit(PageClosedBotAction browserEvent)
+        public BotActionViewModel Visit(PageCreatedBotAction action)
         {
-            CurrentViewModel = new PageClosedBotActionViewModel(browserEvent);
+            return new PageCreatedBotActionViewModel(action);
         }
 
-        public void Visit(PageGoToBotAction browserEvent)
+        public BotActionViewModel Visit(PageClosedBotAction action)
         {
-            CurrentViewModel = new PageGoToBotActionViewModel(browserEvent);
+            return new PageClosedBotActionViewModel(action);
         }
 
-        public void Visit(BrowserContextClosedBotAction browserEvent)
+        public BotActionViewModel Visit(PageGoToBotAction action)
         {
-            CurrentViewModel = new BrowserContextClosedBotActionViewModel(browserEvent);
+            return new PageGoToBotActionViewModel(action);
+        }
+
+        public BotActionViewModel Visit(LocatorClickBotAction action)
+        {
+            return new LocatorClickBotActionViewModel(action);
         }
 
         public void Visit(LocatorClickBotAction browserEvent)

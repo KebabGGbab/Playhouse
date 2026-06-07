@@ -19,5 +19,9 @@
 
             Bot = configuration;
         }
+
+        public abstract T Accept<T>(IBotActionVisitor<T> visitor);
+
+        public abstract Task Accept(IBotActionAsyncVisitor visitor);
     }
 }

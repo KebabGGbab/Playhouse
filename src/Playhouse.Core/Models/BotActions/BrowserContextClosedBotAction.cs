@@ -18,11 +18,19 @@ namespace Playhouse.Core.Models.BotActions
             Options = options ?? new BrowserContextCloseOptionsStrictDecorator();
         }
 
-        public override void Accept(IBotActionVisitor visitor)
+        public override T Accept<T>(IBotActionVisitor<T> visitor)
         {
             ArgumentNullException.ThrowIfNull(visitor);
 
-            visitor.Visit(this);
+            return visitor.Visit(this);
+        }
+
+        public override async Task Accept(IBotActionAsyncVisitor visitor)
+        {
+            ArgumentNullException.ThrowIfNull(visitor);
+
+            await visitor.VisitAsync(this)
+                .ConfigureAwait(false);
         }
     }
 }

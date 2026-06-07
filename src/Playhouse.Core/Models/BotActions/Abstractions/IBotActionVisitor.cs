@@ -1,11 +1,12 @@
 ﻿namespace Playhouse.Core.Models.BotActions.Abstractions
 {
-    public interface IBotActionVisitor
+    public interface IBotActionVisitor<T>
     {
-        void Visit(PageCreatedBotAction action);
-        void Visit(PageClosedBotAction action);
-        void Visit(PageGoToBotAction action);
-        void Visit(BrowserContextClosedBotAction action);
-        void Visit(LocatorClickBotAction action);
+     
+        T Visit(BrowserContextClosedBotAction action);
+        T Visit(PageCreatedBotAction action);
+        T Visit(PageClosedBotAction action);
+        T Visit(PageGoToBotAction action);
+        T Visit(LocatorClickBotAction action);
     }
 }
