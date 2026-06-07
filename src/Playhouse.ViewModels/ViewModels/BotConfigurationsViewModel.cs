@@ -149,7 +149,7 @@ namespace Playhouse.ViewModels.ViewModels
             using ApplicationDbContext dbContext = await _dbFactory.CreateDbContextAsync();
 
             List<BotConfigurationViewModel> bots = await dbContext.Bots
-                .Include(b => b.Actions)
+                .Include(b => b.Actions.OrderBy(i => i.ActionNumber))
                 .Select(b => _viewModelFactory.Create(b))
                 .ToListAsync();
 

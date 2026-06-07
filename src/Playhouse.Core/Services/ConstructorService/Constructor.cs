@@ -53,6 +53,11 @@ namespace Playhouse.Core.Services.BotConstructorService
             }
 
             _browserContext = await _playwrightFactory.CreateBrowserAsync(Profile, Bot).ConfigureAwait(false);
+            OnActionHappend(new BrowserContextCreatedBotAction(Bot) 
+            { 
+                ActionNumber = Bot.Actions.Count,
+                Number = _context.GetBrowserContextNumber(_browserContext) 
+            });
             await _browserContext.AddInitScriptAsync(scriptPath: _filePathResolver.FileJSEventScripts.FullName).ConfigureAwait(false);
 
             _browserContext.Console += ConsoleGetRecord;
@@ -77,8 +82,11 @@ namespace Playhouse.Core.Services.BotConstructorService
 
         private void BrowserClosed(object? sender, IBrowserContext e)
         {
-            OnActionHappend(new BrowserContextClosedBotAction() { Bot = Bot, Number = _context.GetBrowserContextNumber(e) });
-            e.Console -= ConsoleGetRecord;
+            OnActionHappend(new BrowserContextClosedBotAction(Bot)
+            {
+                ActionNumber = Bot.Actions.Count,
+                Number = _context.GetBrowserContextNumber(e) 
+            });
             e.Close -= BrowserClosed;
             e.Page -= PageCreated;
             OnConstructionCompleted();
@@ -86,21 +94,33 @@ namespace Playhouse.Core.Services.BotConstructorService
 
         private void PageCreated(object? sender, IPage e)
         {
-            OnActionHappend(new PageCreatedBotAction() { Bot = Bot, Number = _context.GetPageNumber(e) });
+            OnActionHappend(new PageCreatedBotAction(Bot) 
+            {
+                ActionNumber = Bot.Actions.Count,
+                Number = _context.GetPageNumber(e) 
+            });
             e.Load += PageLoaded;
             e.Close += PageClosed;
         }
 
         private void PageClosed(object? sender, IPage e)
         {
-            OnActionHappend(new PageClosedBotAction() { Bot = Bot, Number = _context.GetPageNumber(e) });
+            OnActionHappend(new PageClosedBotAction(Bot) 
+            {
+                ActionNumber = Bot.Actions.Count,
+                Number = _context.GetPageNumber(e) 
+            });
             e.Load -= PageLoaded;
             e.Close -= PageClosed;
         }
 
         private void PageLoaded(object? sender, IPage e)
         {
-            OnActionHappend(new PageGoToBotAction(e.Url) { Bot = Bot, Number = _context.GetPageNumber(e) });
+            OnActionHappend(new PageGoToBotAction(Bot, e.Url) 
+            {
+                ActionNumber = Bot.Actions.Count,
+                Number = _context.GetPageNumber(e) 
+            });
         }
 
         private void ConsoleGetRecord(object? sender, IConsoleMessage e)

@@ -4,7 +4,7 @@
     {
         public int Id { get; private set; }
 
-        public required BotConfiguration Bot { get; init; }
+        public required int ActionNumber { get; init; }
 
         public BotConfiguration Bot { get; } = null!;
 
