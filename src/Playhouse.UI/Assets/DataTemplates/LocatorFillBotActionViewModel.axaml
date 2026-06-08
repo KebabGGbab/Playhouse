@@ -1,0 +1,65 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:vm="using:Playhouse.ViewModels.ViewModels.BotActionViewModels">
+
+    <DataTemplate x:Key="LocatorFillBotActionViewModel" DataType="{x:Type vm:LocatorFillBotActionViewModel}">
+		<ScrollViewer Classes="browser-event-settings">
+            <StackPanel Classes="browser-event-settings">
+
+			    <StackPanel Classes="browser-event-settings-item">
+				    <TextBlock Classes="browser-event-settings-item" 
+                               Text="Текст:" />
+                    <TextBox Text="{Binding Path=Value, Mode=TwoWay}" />
+                </StackPanel>
+
+                <StackPanel Classes="browser-event-settings-item">
+			        <CheckBox IsChecked="{Binding Path=Force, Mode=TwoWay}"
+                              Content="Принудительно" />
+                </StackPanel>
+
+                <StackPanel Classes="browser-event-settings-item">
+				    <TextBlock Classes="browser-event-settings-item" 
+                               Text="Время ожидания:" />
+                    <NumericUpDown Classes="timeout" 
+                                   Value="{Binding Path=Timeout, Mode=TwoWay}" />
+                </StackPanel>
+            
+                <Separator />
+
+                <StackPanel Classes="browser-event-settings-item">
+				    <TextBlock Classes="browser-event-settings-item" 
+                                Text="Действие" />
+                    <ComboBox ItemsSource="{Binding Path=LocatorData.Actions}"
+                                SelectedItem="{Binding Path=LocatorData.Action}" />
+                </StackPanel>
+                
+                <StackPanel Classes="browser-event-settings-item">
+				    <TextBlock Classes="browser-event-settings-item" 
+                                Text="Роль" />
+                    <ComboBox ItemsSource="{Binding Path=LocatorData.Roles}"
+                                SelectedItem="{Binding Path=LocatorData.Role}" />
+                </StackPanel>
+
+                <StackPanel Classes="browser-event-settings-item">
+				    <TextBlock Classes="browser-event-settings-item" 
+                                Text="Текст:" />
+                    <TextBox Text="{Binding Path=LocatorData.Text, Mode=TwoWay}" />
+                </StackPanel>
+
+                <StackPanel Classes="browser-event-settings-item">
+				    <TextBlock Classes="browser-event-settings-item" 
+                                Text="Идентификатор:" />
+                    <TextBox Text="{Binding Path=LocatorData.Id, Mode=TwoWay}" />
+                </StackPanel>
+
+                <StackPanel Classes="browser-event-settings-item">
+				    <TextBlock Classes="browser-event-settings-item" 
+                                Text="Селектор:" />
+                    <TextBox Text="{Binding Path=LocatorData.Selector, Mode=TwoWay}" />
+                </StackPanel>
+
+            </StackPanel>
+        </ScrollViewer>
+    </DataTemplate>
+
+</ResourceDictionary>
