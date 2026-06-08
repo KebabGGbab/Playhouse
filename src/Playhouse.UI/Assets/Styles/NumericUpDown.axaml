@@ -10,4 +10,12 @@
 		<Setter Property="Increment" Value="500" />
     </Style>
 
+    <Style Selector="NumericUpDown.delay">
+		<Setter Property="Increment" Value="100" />
+    </Style>
+
+    <Style Selector="NumericUpDown.slow-mo">
+		<Setter Property="Increment" Value="500" />
+    </Style>
+
 </Styles>

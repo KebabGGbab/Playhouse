@@ -16,30 +16,65 @@
 			    <StackPanel Classes="browser-event-settings-item">
 				    <TextBlock Classes="browser-event-settings-item" 
                                Text="Количество нажатий:" />
-                    <NumericUpDown Text="{Binding Path=ClickCount, Mode=TwoWay}" />
+                    <NumericUpDown Value="{Binding Path=ClickCount, Mode=TwoWay}" />
                 </StackPanel>
 
                 <StackPanel Classes="browser-event-settings-item">
 				    <TextBlock Classes="browser-event-settings-item" 
                                Text="Длительность зажатия кнопки:" />
-                    <NumericUpDown Text="{Binding Path=Delay, Mode=TwoWay}" />
+                    <NumericUpDown Classes="delay"
+                                   Value="{Binding Path=Delay, Mode=TwoWay}" />
                 </StackPanel>
 
                 <StackPanel Classes="browser-event-settings-item">
 				    <CheckBox IsChecked="{Binding Path=Force, Mode=TwoWay}"
-                              Content="Нажать принудительно" />
+                              Content="Принудительно" />
                 </StackPanel>
 
                 <StackPanel Classes="browser-event-settings-item">
 				    <TextBlock Classes="browser-event-settings-item" 
                                Text="Время ожидания:" />
                     <NumericUpDown Classes="timeout" 
-                                   Text="{Binding Path=Timeout, Mode=TwoWay}" />
+                                   Value="{Binding Path=Timeout, Mode=TwoWay}" />
                 </StackPanel>
 
                 <StackPanel Classes="browser-event-settings-item">
 				    <CheckBox IsChecked="{Binding Path=Trial, Mode=TwoWay}"
                               Content="Ожидать готовности нажатия, без самого нажатия" />
+                </StackPanel>
+                
+                <Separator />
+
+                <StackPanel Classes="browser-event-settings-item">
+				    <TextBlock Classes="browser-event-settings-item" 
+                               Text="Действие" />
+                    <ComboBox ItemsSource="{Binding Path=LocatorData.Actions}"
+                              SelectedItem="{Binding Path=LocatorData.Action}" />
+                </StackPanel>
+                
+                <StackPanel Classes="browser-event-settings-item">
+				    <TextBlock Classes="browser-event-settings-item" 
+                               Text="Роль" />
+                    <ComboBox ItemsSource="{Binding Path=LocatorData.Roles}"
+                              SelectedItem="{Binding Path=LocatorData.Role}" />
+                </StackPanel>
+
+                <StackPanel Classes="browser-event-settings-item">
+				    <TextBlock Classes="browser-event-settings-item" 
+                               Text="Текст:" />
+                    <TextBox Text="{Binding Path=LocatorData.Text, Mode=TwoWay}" />
+                </StackPanel>
+
+                <StackPanel Classes="browser-event-settings-item">
+				    <TextBlock Classes="browser-event-settings-item" 
+                               Text="Идентификатор:" />
+                    <TextBox Text="{Binding Path=LocatorData.Id, Mode=TwoWay}" />
+                </StackPanel>
+
+                <StackPanel Classes="browser-event-settings-item">
+				    <TextBlock Classes="browser-event-settings-item" 
+                               Text="Селектор:" />
+                    <TextBox Text="{Binding Path=LocatorData.Selector, Mode=TwoWay}" />
                 </StackPanel>
 
             </StackPanel>

@@ -4,11 +4,13 @@
 
     <DataTemplate x:Key="BrowserContextClosedBotActionViewModel" DataType="{x:Type vm:BrowserContextClosedBotActionViewModel}">
 		<StackPanel Classes="browser-event-settings">
+
 			<StackPanel Classes="browser-event-settings-item">
 				<TextBlock Classes="browser-event-settings-item" 
                            Text="Причина закрытия:" />
                 <TextBox Text="{Binding Path=Reason, Mode=TwoWay}" />
             </StackPanel>
+
         </StackPanel>
     </DataTemplate>
 

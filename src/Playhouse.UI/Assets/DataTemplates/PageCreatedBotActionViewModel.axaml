@@ -3,7 +3,12 @@
                     xmlns:vm="using:Playhouse.ViewModels.ViewModels.BotActionViewModels">
 
     <DataTemplate x:Key="PageCreatedBotActionViewModel" DataType="{x:Type vm:PageCreatedBotActionViewModel}">
-		
+		<StackPanel Classes="browser-event-settings">
+
+			<StackPanel Classes="browser-event-settings-item">
+            </StackPanel>
+
+        </StackPanel>
     </DataTemplate>
 
 </ResourceDictionary>

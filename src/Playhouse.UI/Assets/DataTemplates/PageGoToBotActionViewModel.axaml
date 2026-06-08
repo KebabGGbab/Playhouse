@@ -22,7 +22,7 @@
 				    <TextBlock Classes="browser-event-settings-item" 
                                Text="Время ожидания:" />
                     <NumericUpDown Classes="timeout"
-                                   Text="{Binding Path=Timeout, Mode=TwoWay}" />
+                                   Value="{Binding Path=Timeout, Mode=TwoWay}" />
                 </StackPanel>
 
             </StackPanel>
