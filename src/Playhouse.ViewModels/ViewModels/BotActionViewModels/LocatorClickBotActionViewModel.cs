@@ -4,7 +4,6 @@ using CommunityToolkit.Mvvm.Input;
 using DynamicData;
 using Microsoft.Playwright;
 using Playhouse.Core.Models.BotActions;
-using Playhouse.ViewModels.ViewModels.PlaywrightViewModels;
 
 namespace Playhouse.ViewModels.ViewModels.BotActionViewModels
 {
@@ -55,8 +54,6 @@ namespace Playhouse.ViewModels.ViewModels.BotActionViewModels
         }
 
         public ReadOnlyObservableCollection<string> SelectedModifiers { get; }
-
-        public PositionViewModel Position { get; }
 
         public float Delay
         {
@@ -131,7 +128,6 @@ namespace Playhouse.ViewModels.ViewModels.BotActionViewModels
             _clickCount = action.Options.ClickCount;
             _selectedModofiers = new ObservableCollection<string>(action.Options.Modifiers.Select(x => x.ToString()));
             SelectedModifiers = new ReadOnlyObservableCollection<string>(_selectedModofiers);
-            Position = new PositionViewModel(action.Options.Position);
             _delay = action.Options.Delay;
             _force = action.Options.Force;
             _steps = action.Options.Steps;
@@ -175,7 +171,6 @@ namespace Playhouse.ViewModels.ViewModels.BotActionViewModels
             return !(_selectedButton == Action.Options.Button.ToString()
                 && _clickCount == Action.Options.ClickCount
                 && SelectedModifiers.Select(Enum.Parse<KeyboardModifier>).OrderDescending().SequenceEqual(Action.Options.Modifiers.OrderDescending())
-                && Position.IsModified == false
                 && _delay == Action.Options.Delay
                 && _force == Action.Options.Force
                 && _steps == Action.Options.Steps
@@ -195,7 +190,6 @@ namespace Playhouse.ViewModels.ViewModels.BotActionViewModels
             {
                 Action.Options.Modifiers.Remove(modifier);
             }
-            Position.SaveChangesCommand.Execute(null);
             Action.Options.Delay = _delay;
             Action.Options.Force = _force;
             Action.Options.Steps = _steps;
@@ -209,7 +203,6 @@ namespace Playhouse.ViewModels.ViewModels.BotActionViewModels
             ClickCount = Action.Options.ClickCount;
             _selectedModofiers.Clear();
             _selectedModofiers.AddRange(Action.Options.Modifiers.Select(m => m.ToString()));
-            Position.CancelChangesCommand.Execute(null);
             Delay = Action.Options.Delay;
             Force = Action.Options.Force;
             Steps = Action.Options.Steps;

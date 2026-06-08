@@ -41,12 +41,6 @@ namespace Playhouse.Core.Models.PlaywrightDecorator
 
         public ISet<KeyboardModifier> Modifiers => _modifiers;
 
-        public Position Position
-        {
-            get => _options.Position!;
-            private set => _options.Position = value;
-        }
-
         public int Steps
         {
             get => _options.Steps ??= DEFAULT_STEPS;
@@ -80,7 +74,6 @@ namespace Playhouse.Core.Models.PlaywrightDecorator
             _options.Force ??= DEFAULT_FORCE;
             _modifiers = new(_options.Modifiers ??= []);
             _options.Modifiers = _modifiers;
-            _options.Position ??= new Position();
             _options.Steps ??= DEFAULT_STEPS;
             _options.Timeout ??= DEFAULT_TIMEOUT;
             _options.Trial ??= DEFAULT_TRIAL;

@@ -126,8 +126,6 @@ namespace Playhouse.Core.Data.EntityTypeConfigurations
             builder.HasBaseType<LocatorBotAction>();
             builder.OwnsOne(l => l.Options, b =>
             {
-                b.OwnsOne(c => c.Position);
-
                 b.Property(p => p.Modifiers)
                     .HasConversion(new HashSetEnumToJsonConverter<KeyboardModifier>(), new HashSetValueComparer<KeyboardModifier>());
             });
