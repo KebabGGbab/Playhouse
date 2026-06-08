@@ -6,7 +6,7 @@
             return;
         }
 
-        let text = (element.innerText || element.value || element.alt);
+        let text = (element.innerText || element.alt || element.placeholder || element.getAttribute('aria-label'));
         if (text != null) {
             text = text.slice(0, 100);
         }
