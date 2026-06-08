@@ -35,9 +35,9 @@ namespace Playhouse.Core.Models.BotActions.Abstractions
         {
             ArgumentNullException.ThrowIfNull(page);
 
-            if (Role != null)
+            if (Role != AriaRole.None)
             {
-                return page.GetByRole((AriaRole)Role, new PageGetByRoleOptions()
+                return page.GetByRole(Role, new PageGetByRoleOptions()
                 {
                     Name = Text,
                     Exact = Text == null
@@ -45,7 +45,7 @@ namespace Playhouse.Core.Models.BotActions.Abstractions
                             : Text.Length < 100
                 });
             }
-            else if (Id != null)
+            else if (string.IsNullOrWhiteSpace(Id) == false)
             {
                 return page.Locator($"#{Id}");
             }

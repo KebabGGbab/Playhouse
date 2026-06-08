@@ -26,7 +26,11 @@ namespace Playhouse.Core.Services.ConstructorService
 
         public LocatorActionData ToLocatorActionData()
         {
-            Enum.TryParse(Role, true, out AriaRole role);
+            if (Enum.TryParse(Role, true, out AriaRole role) == false || Enum.IsDefined(role) == false)
+            {
+                role = AriaRole.None;
+            }
+
             ActionTypes.TryFromName(Action, true, out ActionTypes action);
 
             return new(action, Selector!, role, Id, Text);
