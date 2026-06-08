@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Reactive.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using DynamicData;
 using Playhouse.Core.Models;
 using Playhouse.Core.Models.BotActions.Abstractions;
@@ -26,6 +27,8 @@ namespace Playhouse.ViewModels.ViewModels
 
         public ReadOnlyObservableCollection<BotActionViewModel> Actions => _actions;
 
+        public IRelayCommand SaveCommand { get; }
+
         public BotConfigurationViewModel()
             : this(new BotConfiguration(BrowserTypes.Chromium))
         {
@@ -46,6 +49,7 @@ namespace Playhouse.ViewModels.ViewModels
             {
                 AddAction2(action);
             }
+            SaveCommand = new RelayCommand(Save);
         }
 
         internal void AddAction(BotAction action)
@@ -57,6 +61,14 @@ namespace Playhouse.ViewModels.ViewModels
         private void AddAction2(BotAction action)
         {
             _actionSource.Add(action.Accept(_visitor));
+        }
+
+        private void Save()
+        {
+            foreach (BotActionViewModel action in _actions)
+            {
+                action.SaveChangesCommand.Execute(null);
+            }
         }
     }
 }

@@ -46,7 +46,8 @@ internal sealed partial class BotConstructorWindow : Window
         {
             return;
         }
-
+        _vm.Bot.SaveCommand.Execute(null);
+        
         await _vm.CompleteConstructionCommand.ExecuteAsync(null);
         Close(_vm.Bot);
     }
