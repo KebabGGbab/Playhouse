@@ -93,7 +93,13 @@ namespace Playhouse.ViewModels.ViewModels
 		public BotConfigurationViewModel? SelectedBotDelete
         {
             get;
-            set => SetProperty(ref field, value);
+            set
+            {
+                if (SetProperty(ref field, value))
+                {
+                    DeleteBotCommand.NotifyCanExecuteChanged();
+                }
+            }
         }
 
         public string BotNameFilterForDelete 
@@ -105,7 +111,13 @@ namespace Playhouse.ViewModels.ViewModels
         public bool IsConfirmDelete
         {
             get;
-            set => SetProperty(ref field, value);
+            set
+            {
+                if (SetProperty(ref field, value))
+                {
+                    DeleteBotCommand.NotifyCanExecuteChanged();
+                }
+            }
         }
 
         #endregion
@@ -197,7 +209,7 @@ namespace Playhouse.ViewModels.ViewModels
 
         private async Task ExecuteDeleteBot()
         {
-            if (SelectedBotDelete == null)
+            if (!CanExecuteDeleteBot())
             {
                 return;
             }
@@ -212,7 +224,8 @@ namespace Playhouse.ViewModels.ViewModels
             SendMessageRemoveItems([bot]);
 		}
 
-        private bool CanExecuteDeleteBot() => IsConfirmDelete && _botsSource.Items.Contains(SelectedBotDelete);
+        [MemberNotNullWhen(true, nameof(SelectedBotDelete))]
+        private bool CanExecuteDeleteBot() => IsConfirmDelete && SelectedBotDelete != null && _botsSource.Items.Contains(SelectedBotDelete);
 
         private async Task SaveBot(BotConfigurationViewModel? bot)
         {
