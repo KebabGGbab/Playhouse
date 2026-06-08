@@ -61,6 +61,7 @@ namespace Playhouse.Core.Services.ConstructorService
             await _browserContext.ExposeBindingAsync<LocatorActionDataDto>(nameof(SendAction), SendAction).ConfigureAwait(false);
             _browserContext.Close += BrowserClosed;
             _browserContext.Page += PageCreated;
+            _context.GetPageNumber(_browserContext.Pages[0]);
         }
 
         public async Task CompleteConstructionAsync()
