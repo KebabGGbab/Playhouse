@@ -2,6 +2,7 @@
 using Playhouse.Core.Models;
 using Playhouse.Core.Models.BotActions;
 using Playhouse.Core.Models.BotActions.Abstractions;
+using Playhouse.Core.Models.PlaywrightDecorator;
 using Playhouse.Core.Resources.Strings;
 using Playhouse.Core.Services.ConstructorService.Abstractions;
 using Playhouse.Core.Services.FilePathResolverService.Abstractions;
@@ -58,7 +59,8 @@ namespace Playhouse.Core.Services.ConstructorService
                 Number = _context.GetBrowserContextNumber(_browserContext) 
             });
             await _browserContext.AddInitScriptAsync(scriptPath: _filePathResolver.FileJSEventScripts.FullName).ConfigureAwait(false);
-            await _browserContext.ExposeBindingAsync<LocatorActionDataDto>(nameof(SendAction), SendAction).ConfigureAwait(false);
+            await _browserContext.ExposeBindingAsync<LocatorActionDataDto>(nameof(SendLocatorAction), SendLocatorAction).ConfigureAwait(false);
+            await _browserContext.ExposeBindingAsync<PageActionDataDto>(nameof(SendPageAction), SendPageAction).ConfigureAwait(false);
             _browserContext.Close += BrowserClosed;
             _browserContext.Page += PageCreated;
             _context.GetPageNumber(_browserContext.Pages[0]);
@@ -98,7 +100,6 @@ namespace Playhouse.Core.Services.ConstructorService
                 ActionNumber = Bot.Actions.Count,
                 Number = _context.GetPageNumber(e) 
             });
-            e.Load += PageLoaded;
             e.Close += PageClosed;
         }
 
@@ -109,20 +110,10 @@ namespace Playhouse.Core.Services.ConstructorService
                 ActionNumber = Bot.Actions.Count,
                 Number = _context.GetPageNumber(e) 
             });
-            e.Load -= PageLoaded;
             e.Close -= PageClosed;
         }
 
-        private void PageLoaded(object? sender, IPage e)
-        {
-            OnActionHappend(new PageGoToBotAction(Bot, e.Url) 
-            {
-                ActionNumber = Bot.Actions.Count,
-                Number = _context.GetPageNumber(e) 
-            });
-        }
-
-        private void SendAction(BindingSource source, LocatorActionDataDto data)
+        private void SendLocatorAction(BindingSource source, LocatorActionDataDto data)
         {
             BotAction action = data.Action switch
             {
@@ -139,6 +130,26 @@ namespace Playhouse.Core.Services.ConstructorService
                 _ => throw new NotSupportedException(ExceptionMessages.Constructor_NotSupportedAction)
             };
 
+            OnActionHappend(action);
+        }
+
+        private void SendPageAction(BindingSource source, PageActionDataDto data)
+        {
+
+            if (string.IsNullOrWhiteSpace(data.Referrer) == false)
+            {
+                return;
+            }
+
+            PageGoToOptionsStrictDecorator strictOptions = new(new PageGotoOptions()
+            {
+                Referer = data.Referrer
+            });
+            PageGoToBotAction action = new(Bot, data.Href, strictOptions)
+            {
+                ActionNumber = Bot.Actions.Count,
+                Number = _context.GetPageNumber(source.Page)
+            };
             OnActionHappend(action);
         }
 

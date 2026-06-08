@@ -1,5 +1,5 @@
 {
-    async function handleAction(event, details = null) {
+    async function HandleLocatorAction(event) {
         const element = event.target;
 
         if (!element || element === document) {
@@ -20,7 +20,7 @@
             value: element.value
         };
 
-        await window.SendAction(data);
+        await window.SendLocatorAction(data);
     }
 
     function getRole(element) {
@@ -120,6 +120,23 @@
         return path.join(' > ');
     }
 
-    document.addEventListener('click', handleAction, true);
-    document.addEventListener('change', handleAction, true);
+    async function DOMLoaded() {
+        const href = document.URL;
+        const referrer = document.referrer;
+
+        if (href.startsWith('chrome') || referrer) {
+            return;
+        }
+
+        const data = {
+            referrer: referrer,
+            href: href
+        };
+
+        await window.SendPageAction(data);
+    }
+
+    document.addEventListener('click', HandleLocatorAction, true);
+    document.addEventListener('change', HandleLocatorAction, true);
+    document.addEventListener('DOMContentLoaded', DOMLoaded)
 }
