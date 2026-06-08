@@ -4,19 +4,24 @@ namespace Playhouse.Core.Models.BotActions.Abstractions
 {
     public class LocatorActionData
     {
-        public string Action { get; }
+        public ActionTypes Action { get; set; } = null!;
 
-        public AriaRole? Role { get; }
+        public AriaRole Role { get; set; }
          
-        public string? Id { get; }
+        public string? Id { get; set; }
 
-        public string? Text { get; }
+        public string? Text { get; set; }
 
-        public string Selector { get; }
+        public string Selector { get; set; } = null!;
 
-        public LocatorActionData(string action, string selector, AriaRole? role = null, string? id = null, string? text = null)
+        // Конструктор для EntityFramework
+        private LocatorActionData()
         {
-            ArgumentException.ThrowIfNullOrWhiteSpace(action);
+        }
+
+        public LocatorActionData(ActionTypes action, string selector, AriaRole role, string? id = null, string? text = null)
+        {
+            ArgumentNullException.ThrowIfNull(action);
             ArgumentException.ThrowIfNullOrWhiteSpace(selector);
 
             Action = action;

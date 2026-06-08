@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Ardalis.SmartEnum.EFCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.Playwright;
 using Playhouse.Core.Data.Comparers;
@@ -113,6 +114,11 @@ namespace Playhouse.Core.Data.EntityTypeConfigurations
         public void Configure(EntityTypeBuilder<LocatorBotAction> builder)
         {
             builder.HasBaseType<PageBotAction>();
+            builder.OwnsOne(p => p.LocatorData, b =>
+            {
+                b.Property(p => p.Action)
+                    .HasConversion(new SmartEnumConverter<ActionTypes, int>());
+            });
         }
     }
 

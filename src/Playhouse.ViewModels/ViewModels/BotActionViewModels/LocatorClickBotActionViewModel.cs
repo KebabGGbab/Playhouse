@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using CommunityToolkit.Mvvm.Input;
 using DynamicData;
@@ -28,6 +29,8 @@ namespace Playhouse.ViewModels.ViewModels.BotActionViewModels
         private int _steps;
         private float _timeout;
         private bool _trial;
+
+        public LocatorActionDataViewModel LocatorData { get; }
 
         public string SelectedButton
         {
@@ -124,6 +127,8 @@ namespace Playhouse.ViewModels.ViewModels.BotActionViewModels
         {
             AddModifierCommand = new RelayCommand<string>(AddModifier);
             RemoveModifierCommand = new RelayCommand<string>(RemoveModifier);
+            LocatorData = new LocatorActionDataViewModel(action.LocatorData);
+            LocatorData.PropertyChanged += LocatorDataPropertyChanged;
             _selectedButton = action.Options.Button.ToString();
             _clickCount = action.Options.ClickCount;
             _selectedModofiers = new ObservableCollection<string>(action.Options.Modifiers.Select(x => x.ToString()));
@@ -133,6 +138,14 @@ namespace Playhouse.ViewModels.ViewModels.BotActionViewModels
             _steps = action.Options.Steps;
             _timeout = action.Options.Timeout;
             _trial = action.Options.Trial;
+        }
+
+        private void LocatorDataPropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(LocatorData.IsModified))
+            {
+                IsModified = CheckModified();
+            }
         }
 
         private void AddModifier(string? modifier)
@@ -168,7 +181,8 @@ namespace Playhouse.ViewModels.ViewModels.BotActionViewModels
 
         protected override bool CheckModified()
         {
-            return !(_selectedButton == Action.Options.Button.ToString()
+            return !(LocatorData.IsModified == false
+                && _selectedButton == Action.Options.Button.ToString()
                 && _clickCount == Action.Options.ClickCount
                 && SelectedModifiers.Select(Enum.Parse<KeyboardModifier>).OrderDescending().SequenceEqual(Action.Options.Modifiers.OrderDescending())
                 && _delay == Action.Options.Delay
@@ -180,6 +194,7 @@ namespace Playhouse.ViewModels.ViewModels.BotActionViewModels
 
         protected override async Task SaveChangesCoreAsync()
         {
+            LocatorData.SaveChangesCommand.Execute(null);
             Action.Options.Button = Enum.Parse<MouseButton>(_selectedButton);
             Action.Options.ClickCount = _clickCount;
             foreach (KeyboardModifier modifier in SelectedModifiers.Select(Enum.Parse<KeyboardModifier>))
@@ -199,6 +214,7 @@ namespace Playhouse.ViewModels.ViewModels.BotActionViewModels
 
         protected override void CancelChangesCore()
         {
+            LocatorData.CancelChangesCommand.Execute(null);
             SelectedButton = Action.Options.Button.ToString();
             ClickCount = Action.Options.ClickCount;
             _selectedModofiers.Clear();
