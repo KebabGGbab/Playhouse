@@ -4,7 +4,7 @@ namespace Playhouse.Core.Models.PlaywrightDecorator
 {
     public class PageGoToOptionsStrictDecorator
     {
-        private const float DEFAULT_TIMEOUT = 30000;
+        private const float DEFAULT_TIMEOUT = 30_000F;
         private const WaitUntilState DEFAULT_WAIT_UNTIL = WaitUntilState.Load;
 
         private readonly PageGotoOptions _options;

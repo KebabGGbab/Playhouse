@@ -6,10 +6,10 @@ namespace Playhouse.Core.Models.PlaywrightDecorator
     {
         private const MouseButton DEFAULT_BUTTON = MouseButton.Left;
         private const int DEFAULT_CLICK_COUNT = 1;
-        private const float DEFAULT_DELAY = 0;
+        private const float DEFAULT_DELAY = 0F;
         private const bool DEFAULT_FORCE = false;
         private const int DEFAULT_STEPS = 1;
-        private const int DEFAULT_TIMEOUT = 30000;
+        private const float DEFAULT_TIMEOUT = 30_000F;
         private const bool DEFAULT_TRIAL = false;    
 
         private readonly LocatorClickOptions _options;

@@ -5,7 +5,7 @@ namespace Playhouse.Core.Models.PlaywrightDecorator
     public class LocatorFillOptionsStrictDecorator
     {
         private const bool DEFAULT_FORCE = false;
-        private const float DEFAULT_TIMEOUT = 30_000;
+        private const float DEFAULT_TIMEOUT = 30_000F;
 
         private readonly LocatorFillOptions _options;
 
