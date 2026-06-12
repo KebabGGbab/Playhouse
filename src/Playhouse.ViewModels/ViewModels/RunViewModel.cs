@@ -4,22 +4,20 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using DynamicData;
-using Jobs.Abstractions;
 using Playhouse.Core.Services.BotRunningService;
-using Playhouse.Core.Services.BotRunningService.Abstrtactions;
 using Playhouse.ViewModels.Messages;
 
 namespace Playhouse.ViewModels.ViewModels
 {
     public class RunViewModel : ObservableObject
     {
-        private readonly IBotJobManagerFactory _jobManagerFactory;
+        private readonly IRunServiceFactory _runServiceFactory;
 
         private readonly ObservableCollection<BrowserConfigurationViewModel> _unselectedProfiles = [];
         private readonly ObservableCollection<BrowserConfigurationViewModel> _selectedProfiles = [];
         private readonly ObservableCollection<BotConfigurationViewModel> _bots = [];
-        private readonly ObservableCollection<BotJobManager> _runningTasks = [];
-        private readonly Dictionary<BotJobManager, BrowserConfigurationViewModel[]> _busyProfiles = [];
+        private readonly ObservableCollection<RunServiceViewModel> _runningTasks = [];
+        private readonly Dictionary<RunServiceViewModel, BrowserConfigurationViewModel[]> _busyProfiles = [];
 
         public ReadOnlyObservableCollection<BrowserConfigurationViewModel> UnselectedProfiles { get; }
 
@@ -27,7 +25,7 @@ namespace Playhouse.ViewModels.ViewModels
 
         public ReadOnlyObservableCollection<BotConfigurationViewModel> Bots { get; }
 
-        public ReadOnlyObservableCollection<BotJobManager> RunningTasks { get; }
+        public ReadOnlyObservableCollection<RunServiceViewModel> RunningTasks { get; }
 
 		public BotConfigurationViewModel? SelectedBotStart
 		{
@@ -47,9 +45,9 @@ namespace Playhouse.ViewModels.ViewModels
 
         public IRelayCommand RunBotCommand { get; }
 
-        public RunViewModel(IBotJobManagerFactory botJobManagerFactory)
+        public RunViewModel(IRunServiceFactory runServiceFactory)
         {
-            _jobManagerFactory = botJobManagerFactory;
+            _runServiceFactory = runServiceFactory;
             UnselectedProfiles = new(_unselectedProfiles);
             SelectedProfiles = new(_selectedProfiles);
             Bots = new(_bots);
@@ -116,12 +114,13 @@ namespace Playhouse.ViewModels.ViewModels
                 return;
             }
 
-            BotJobManager jobManager = _jobManagerFactory.Create(new BotJobContext(_selectedProfiles.Select(vm => vm.Profile).ToList(), SelectedBotStart.Bot));
-            _runningTasks.Add(jobManager);
-            _busyProfiles.Add(jobManager, _selectedProfiles.ToArray());
+            IRunService runService = _runServiceFactory.Create(SelectedBotStart.Bot, _selectedProfiles.Select(vm => vm.Profile).ToList());
+            RunServiceViewModel runVM = new(runService, SelectedBotStart, _selectedProfiles);
+            _runningTasks.Add(runVM);
+            _busyProfiles.Add(runVM, _selectedProfiles.ToArray());
             _selectedProfiles.Clear();
-            jobManager.Completed += OnJobManager_Completed;
-            await jobManager.ExecuteJobsAsync(RunArgs.Empty).ConfigureAwait(false);
+            runVM.RunCompleted += OnRunServiceCompleted;
+            await runVM.RunAsync().ConfigureAwait(false);
         }
 
         [MemberNotNullWhen(true, nameof(SelectedBotStart))]
@@ -130,12 +129,11 @@ namespace Playhouse.ViewModels.ViewModels
             return SelectedBotStart != null && _selectedProfiles.Count > 0;
         }
 
-        private void OnJobManager_Completed(object? sender, EventArgs e)
+        private void OnRunServiceCompleted(RunServiceViewModel sender, EventArgs e)
         {
-            BotJobManager jobManager = (BotJobManager)sender!;
-            jobManager.Completed -= OnJobManager_Completed;
-            _unselectedProfiles.Add(_busyProfiles[jobManager]);
-            _busyProfiles.Remove(jobManager);
+            sender.RunCompleted -= OnRunServiceCompleted;
+            _unselectedProfiles.Add(_busyProfiles[sender]);
+            _busyProfiles.Remove(sender);
         }
     }
 }
