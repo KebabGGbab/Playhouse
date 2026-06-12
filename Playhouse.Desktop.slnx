@@ -7,7 +7,5 @@
     <Project Path="src/Playhouse.UI/Playhouse.UI.csproj" />
     <Project Path="src/Playhouse.ViewModels/Playhouse.ViewModels.csproj" />
   </Folder>
-  <Folder Name="/test/">
-    <Project Path="test/Playhouse.Core.Test/Playhouse.Core.Test.csproj" />
-  </Folder>
+  <Folder Name="/test/" />
 </Solution>
