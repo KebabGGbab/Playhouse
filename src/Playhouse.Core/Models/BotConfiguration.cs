@@ -24,7 +24,5 @@ namespace Playhouse.Core.Models
             Browser = browser;
             Actions = [];
         }
-
-        public override string ToString() => $"{$"[{Id}]",-8}{Name}";
     }
 }

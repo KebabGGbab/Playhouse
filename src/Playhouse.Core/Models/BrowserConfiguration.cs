@@ -19,7 +19,5 @@ namespace Playhouse.Core.Models
         {
             Options = options ?? new BrowserTypeLaunchPersistentContextOptionsStrictDecorator();
         }
-
-        public override string ToString() => $"{$"[{Id}]",-8}{Name}";
     }
 }
