@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:vm="using:Playhouse.ViewModels.ViewModels.BotActionViewModels">
 
-    <DataTemplate x:Key="PageGoToBotActionViewModel" DataType="{x:Type vm:PageGoToBotActionViewModel}">
+    <DataTemplate x:Key="PageGoToBotActionViewModel.Details" DataType="{x:Type vm:PageGoToBotActionViewModel}">
         <ScrollViewer Classes="browser-event-settings">
             <StackPanel Classes="browser-event-settings">
 
@@ -27,6 +27,10 @@
 
             </StackPanel>
         </ScrollViewer>
+    </DataTemplate>
+
+    <DataTemplate x:Key="PageGoToBotActionViewModel.Master" DataType="{x:Type vm:PageGoToBotActionViewModel}">
+        <TextBlock Text="Переход по поисковому запросу" />
     </DataTemplate>
 
 </ResourceDictionary>

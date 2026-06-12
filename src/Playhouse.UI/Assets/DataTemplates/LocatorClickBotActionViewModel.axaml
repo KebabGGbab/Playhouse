@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:vm="using:Playhouse.ViewModels.ViewModels.BotActionViewModels">
 
-    <DataTemplate x:Key="LocatorClickBotActionViewModel" DataType="{x:Type vm:LocatorClickBotActionViewModel}">
+    <DataTemplate x:Key="LocatorClickBotActionViewModel.Details" DataType="{x:Type vm:LocatorClickBotActionViewModel}">
 		<ScrollViewer Classes="browser-event-settings">
 			<StackPanel Classes="browser-event-settings">
 
@@ -79,6 +79,10 @@
 
             </StackPanel>
         </ScrollViewer>
+    </DataTemplate>
+
+    <DataTemplate x:Key="LocatorClickBotActionViewModel.Master" DataType="{x:Type vm:LocatorClickBotActionViewModel}">
+        <TextBlock Text="Совершено нажатие мышью"/>
     </DataTemplate>
 
 </ResourceDictionary>

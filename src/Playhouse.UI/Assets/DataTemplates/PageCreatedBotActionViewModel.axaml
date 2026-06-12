@@ -2,13 +2,17 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:vm="using:Playhouse.ViewModels.ViewModels.BotActionViewModels">
 
-    <DataTemplate x:Key="PageCreatedBotActionViewModel" DataType="{x:Type vm:PageCreatedBotActionViewModel}">
+    <DataTemplate x:Key="PageCreatedBotActionViewModel.Details" DataType="{x:Type vm:PageCreatedBotActionViewModel}">
 		<StackPanel Classes="browser-event-settings">
 
 			<StackPanel Classes="browser-event-settings-item">
             </StackPanel>
 
         </StackPanel>
+    </DataTemplate>
+
+    <DataTemplate x:Key="PageCreatedBotActionViewModel.Master" DataType="{x:Type vm:PageCreatedBotActionViewModel}">
+        <TextBlock Text="Страница создана" />
     </DataTemplate>
 
 </ResourceDictionary>

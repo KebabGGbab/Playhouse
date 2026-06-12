@@ -3,7 +3,7 @@
                     xmlns:vm="using:Playhouse.ViewModels.ViewModels.BotActionViewModels"
                     xmlns:l="https://github.com/KebabGGbab">
 
-    <DataTemplate x:Key="PageClosedBotActionViewModel" DataType="{x:Type vm:PageClosedBotActionViewModel}">
+    <DataTemplate x:Key="PageClosedBotActionViewModel.Details" DataType="{x:Type vm:PageClosedBotActionViewModel}">
 		<StackPanel Classes="browser-event-settings">
 
 			<StackPanel Classes="browser-event-settings-item">
@@ -18,6 +18,10 @@
             </StackPanel>
 
         </StackPanel>
+    </DataTemplate>
+
+    <DataTemplate x:Key="PageClosedBotActionViewModel.Master" DataType="{x:Type vm:PageClosedBotActionViewModel}">
+        <TextBlock Text="Страница закрыта" />
     </DataTemplate>
 
 </ResourceDictionary>
