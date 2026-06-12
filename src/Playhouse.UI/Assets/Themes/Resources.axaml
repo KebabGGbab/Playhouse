@@ -1,0 +1,39 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ResourceDictionary.ThemeDictionaries>
+        <ResourceDictionary x:Key="Dark">
+
+            <!-- Avalonia -->
+            <SolidColorBrush x:Key="SystemRegionBrush" Color="{StaticResource JetBlackColor}" />
+            <SolidColorBrush x:Key="TabItemHeaderBackgroundSelected" Color="{StaticResource OnyxColor}" />
+            <SolidColorBrush x:Key="TabItemHeaderBackgroundUnselectedPointerOver" Color="{StaticResource MatteBlackColor}" />
+            <SolidColorBrush x:Key="HeaderedContentControlBorderBrush" Color="{StaticResource ChateauGrayColor}" />
+            <SolidColorBrush x:Key="StatusBackground" Color="{StaticResource SootyColor}" />
+            <SolidColorBrush x:Key="IconLoaderBorderBrush" Color="{StaticResource HotMagenta}" />
+
+            <!-- DataGrid -->
+
+            <StaticResource x:Key="DataGridBorderBrush" ResourceKey="ChateauGrayBrush" />
+            <StaticResource x:Key="DataGridBackground" ResourceKey="DarkCharcoalBrush" />
+
+            <!-- DataGridItem -->
+
+            <StaticResource x:Key="DataGridRowOddBackground" ResourceKey="GraphiteBlackBrush" />
+            <StaticResource x:Key="DataGridRowEvenBackground" ResourceKey="SignalBlackBrush" />
+
+            <!-- ListBox -->
+
+            <Thickness x:Key="ListBoxBorderThemeThickness">2</Thickness>
+            <StaticResource x:Key="ListBoxBorderBrush" ResourceKey="ChateauGrayBrush" />
+            <StaticResource x:Key="ListBoxBackground" ResourceKey="DarkCharcoalBrush" />
+            
+            <!-- ListBoxItem -->
+
+            <StaticResource x:Key="ListBoxOddBackground" ResourceKey="GraphiteBlackBrush" />
+            <StaticResource x:Key="ListBoxEvenBackground" ResourceKey="SignalBlackBrush" />
+
+        </ResourceDictionary>
+    </ResourceDictionary.ThemeDictionaries>
+
+</ResourceDictionary>
