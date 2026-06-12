@@ -25,6 +25,8 @@
         <StyleInclude Source="avares://Playhouse.UI/Assets/Styles/HeaderedContentControl.axaml" />
         <StyleInclude Source="avares://Playhouse.UI/Assets/Styles/Image.axaml" />
         <StyleInclude Source="avares://Playhouse.UI/Assets/Styles/Label.axaml" />
+        <StyleInclude Source="avares://Playhouse.UI/Assets/Styles/ListBox.axaml" />
+        <StyleInclude Source="avares://Playhouse.UI/Assets/Styles/ListBoxItem.axaml" />
         <StyleInclude Source="avares://Playhouse.UI/Assets/Styles/NumericUpDown.axaml" />
         <StyleInclude Source="avares://Playhouse.UI/Assets/Styles/ScrollViewer.axaml" />
         <StyleInclude Source="avares://Playhouse.UI/Assets/Styles/StackPanel.axaml" />
@@ -71,6 +73,7 @@
                 
                 <!-- Themes -->
 
+                <ResourceInclude Source="avares://Playhouse.UI/Assets/Themes/Resources.axaml" />
                 <ResourceInclude Source="avares://Playhouse.UI/Assets/Themes/TabItem.axaml" />
 
             </ResourceDictionary.MergedDictionaries>

@@ -1,0 +1,18 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <!-- Add Controls for Previewer Here -->
+        </Border>
+    </Design.PreviewWith>
+
+    <Style Selector="ListBoxItem:nth-child(odd)">
+		<Setter Property="Background" Value="{DynamicResource ListBoxOddBackground}" />
+    </Style>
+
+    <Style Selector="ListBoxItem:nth-child(even)">
+		<Setter Property="Background" Value="{DynamicResource ListBoxEvenBackground}" />
+    </Style>
+
+</Styles>
