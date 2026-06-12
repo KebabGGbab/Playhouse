@@ -35,14 +35,12 @@ namespace Playhouse.Core.Models.BotActions.Abstractions
         {
             ArgumentNullException.ThrowIfNull(page);
 
-            if (Role != AriaRole.None)
+            if (Role != AriaRole.None && string.IsNullOrWhiteSpace(Text) == false)
             {
                 return page.GetByRole(Role, new PageGetByRoleOptions()
                 {
                     Name = Text,
-                    Exact = Text == null
-                            ? null
-                            : Text.Length < 100
+                    Exact = Text.Length < 100
                 });
             }
             else if (string.IsNullOrWhiteSpace(Id) == false)
