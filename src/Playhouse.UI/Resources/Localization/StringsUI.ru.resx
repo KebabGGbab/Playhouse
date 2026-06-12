@@ -174,7 +174,7 @@
   <data name="WindowMainTitle" xml:space="preserve">
     <value>Playhouse</value>
   </data>
-  <data name="WindowConstructorBotTitle" xml:space="preserve">
+  <data name="BotConstructorWindow_Title" xml:space="preserve">
     <value>Playhouse - Конструктор Бота</value>
   </data>
   <data name="BoxInformationProfileHeader" xml:space="preserve">
@@ -260,5 +260,20 @@
   </data>
   <data name="MainWindow_TabSettings_DataPath" xml:space="preserve">
     <value>Путь к директории, в которой хранятся данные</value>
+  </data>
+  <data name="BotConstructorWindow_ActionSettings_Header" xml:space="preserve">
+    <value>Настройки действия</value>
+  </data>
+  <data name="BotConstructorWindow_EnumerableActions_Text" xml:space="preserve">
+    <value>Действия:</value>
+  </data>
+  <data name="PageClosedBotActionViewModel_Reason" xml:space="preserve">
+    <value>Причина закрытия окна:</value>
+  </data>
+  <data name="PageClosedBotActionViewModel_RunBeforeUnload" xml:space="preserve">
+    <value>Запускать событие выгрузки</value>
+  </data>
+  <data name="BrowserContextCreatedBotActionViewModel_Master_Title" xml:space="preserve">
+    <value>Контекст браузера создан</value>
   </data>
 </root>

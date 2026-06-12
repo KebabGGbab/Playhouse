@@ -61,6 +61,33 @@ namespace Playhouse.UI.Resources.Localization {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Action Settings.
+        /// </summary>
+        public static string BotConstructorWindow_ActionSettings_Header {
+            get {
+                return ResourceManager.GetString("BotConstructorWindow_ActionSettings_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Actions:.
+        /// </summary>
+        public static string BotConstructorWindow_EnumerableActions_Text {
+            get {
+                return ResourceManager.GetString("BotConstructorWindow_EnumerableActions_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Playhouse - Constructor Bot.
+        /// </summary>
+        public static string BotConstructorWindow_Title {
+            get {
+                return ResourceManager.GetString("BotConstructorWindow_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на id.
         /// </summary>
         public static string BotPropertyID {
@@ -138,6 +165,15 @@ namespace Playhouse.UI.Resources.Localization {
         public static string BoxStorageProfileHeader {
             get {
                 return ResourceManager.GetString("BoxStorageProfileHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Browser context created.
+        /// </summary>
+        public static string BrowserContextCreatedBotActionViewModel_Master_Title {
+            get {
+                return ResourceManager.GetString("BrowserContextCreatedBotActionViewModel_Master_Title", resourceCulture);
             }
         }
         
@@ -412,6 +448,24 @@ namespace Playhouse.UI.Resources.Localization {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Reason for closing the window:.
+        /// </summary>
+        public static string PageClosedBotActionViewModel_Reason {
+            get {
+                return ResourceManager.GetString("PageClosedBotActionViewModel_Reason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Trigger an unload event.
+        /// </summary>
+        public static string PageClosedBotActionViewModel_RunBeforeUnload {
+            get {
+                return ResourceManager.GetString("PageClosedBotActionViewModel_RunBeforeUnload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на ID.
         /// </summary>
         public static string ProfilePropertyID {
@@ -471,15 +525,6 @@ namespace Playhouse.UI.Resources.Localization {
         public static string TextBoxWatermarkProfilesFilter {
             get {
                 return ResourceManager.GetString("TextBoxWatermarkProfilesFilter", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Playhouse - Constructor Bot.
-        /// </summary>
-        public static string WindowConstructorBotTitle {
-            get {
-                return ResourceManager.GetString("WindowConstructorBotTitle", resourceCulture);
             }
         }
         
