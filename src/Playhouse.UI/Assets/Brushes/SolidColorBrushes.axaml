@@ -1,9 +1,19 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <SolidColorBrush x:Key="ChateauGrayBrush" Color="{StaticResource ChateauGrayColor}" />
-    <SolidColorBrush x:Key="DarkCharcoalBrush" Color="{StaticResource DarkCharcoalColor}" />
-    <SolidColorBrush x:Key="GraphiteBlackBrush" Color="{StaticResource GraphiteBlackColor}" />
-    <SolidColorBrush x:Key="SignalBlackBrush" Color="{StaticResource SignalBlackColor}" />
+    <!-- Black -->
+
+    <SolidColorBrush x:Key="Sooty.Brush" Color="{StaticResource Sooty.Color}" />
+    <SolidColorBrush x:Key="Graphite.Black.Brush" Color="{StaticResource Graphite.Black.Color}" />
+    <SolidColorBrush x:Key="Jet.Black.Brush" Color="{StaticResource Jet.Black.Color}" />
+    <SolidColorBrush x:Key="Signal.Black.Brush" Color="{StaticResource Signal.Black.Color}" />
+    <SolidColorBrush x:Key="Matte.Black.Brush" Color="{StaticResource Matte.Black.Color}" />
+    <SolidColorBrush x:Key="Dark.Charcoal.Brush" Color="{StaticResource Dark.Charcoal.Color}" />
+    <SolidColorBrush x:Key="Onyx.Brush" Color="{StaticResource Onyx.Color}" />
+    <SolidColorBrush x:Key="Chateau.Gray.Brush" Color="{StaticResource Chateau.Gray.Color}" />
+
+    <!-- Not Black -->
+
+    <SolidColorBrush x:Key="Hot.Magenta.Brush" Color="{StaticResource Hot.Magenta.Color}" />
 
 </ResourceDictionary>

@@ -1,8 +1,0 @@
-<ResourceDictionary xmlns="https://github.com/avaloniaui"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-
-    <Thickness x:Key="TabControlTopPlacementItemMargin">0</Thickness>
-    <Thickness x:Key="TabItemMargin">0</Thickness>
-    <Thickness x:Key="DataGridBorderThickness">2</Thickness>
-
-</ResourceDictionary>

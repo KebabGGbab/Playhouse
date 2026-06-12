@@ -1,0 +1,19 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Black -->
+
+    <Color x:Key="Sooty.Color">#141414</Color>
+    <Color x:Key="Graphite.Black.Color">#1C1C1C</Color>
+    <Color x:Key="Jet.Black.Color">#252525</Color>
+    <Color x:Key="Signal.Black.Color">#282828</Color>
+    <Color x:Key="Matte.Black.Color">#28282B</Color>
+    <Color x:Key="Dark.Charcoal.Color">#303030</Color>
+    <Color x:Key="Onyx.Color">#353839</Color>
+    <Color x:Key="Chateau.Gray.Color">#454545</Color>
+    
+    <!-- Not Black -->
+
+    <Color x:Key="Hot.Magenta.Color">#FF1DCE</Color>
+
+</ResourceDictionary>

@@ -4,34 +4,50 @@
     <ResourceDictionary.ThemeDictionaries>
         <ResourceDictionary x:Key="Dark">
 
-            <!-- Avalonia -->
-            <SolidColorBrush x:Key="SystemRegionBrush" Color="{StaticResource JetBlackColor}" />
-            <SolidColorBrush x:Key="TabItemHeaderBackgroundSelected" Color="{StaticResource OnyxColor}" />
-            <SolidColorBrush x:Key="TabItemHeaderBackgroundUnselectedPointerOver" Color="{StaticResource MatteBlackColor}" />
-            <SolidColorBrush x:Key="HeaderedContentControlBorderBrush" Color="{StaticResource ChateauGrayColor}" />
-            <SolidColorBrush x:Key="StatusBackground" Color="{StaticResource SootyColor}" />
-            <SolidColorBrush x:Key="IconLoaderBorderBrush" Color="{StaticResource HotMagenta}" />
+            <!-- IconLoader -->
+
+            <StaticResource x:Key="IconLoaderBorderBrush" ResourceKey="Hot.Magenta.Brush" />
+
+            <!-- System -->
+
+            <StaticResource x:Key="SystemRegionBrush" ResourceKey="Jet.Black.Brush" />
+
+            <!-- TabControl -->
+
+            <Thickness x:Key="TabControlTopPlacementItemMargin">0</Thickness>
+
+            <!-- TabItem -->
+
+            <StaticResource x:Key="TabItemHeaderBackgroundSelected" ResourceKey="Onyx.Brush" />
+            <StaticResource x:Key="TabItemHeaderBackgroundUnselectedPointerOver" ResourceKey="Matte.Black.Brush" />
+            <Thickness x:Key="TabItemMargin">0</Thickness>
+
+            <!-- HeaderedContentControl -->
+
+            <StaticResource x:Key="HeaderedContentControlBorderBrush" ResourceKey="Chateau.Gray.Brush" />
+            <x:Double x:Key="HeaderedContentControlHeaderFontSize">20</x:Double>
 
             <!-- DataGrid -->
 
-            <StaticResource x:Key="DataGridBorderBrush" ResourceKey="ChateauGrayBrush" />
-            <StaticResource x:Key="DataGridBackground" ResourceKey="DarkCharcoalBrush" />
+            <Thickness x:Key="DataGridBorderThickness">2</Thickness>
+            <StaticResource x:Key="DataGridBorderBrush" ResourceKey="Chateau.Gray.Brush" />
+            <StaticResource x:Key="DataGridBackground" ResourceKey="Dark.Charcoal.Brush" />
 
             <!-- DataGridItem -->
 
-            <StaticResource x:Key="DataGridRowOddBackground" ResourceKey="GraphiteBlackBrush" />
-            <StaticResource x:Key="DataGridRowEvenBackground" ResourceKey="SignalBlackBrush" />
+            <StaticResource x:Key="DataGridRowOddBackground" ResourceKey="Graphite.Black.Brush" />
+            <StaticResource x:Key="DataGridRowEvenBackground" ResourceKey="Signal.Black.Brush" />
 
             <!-- ListBox -->
 
             <Thickness x:Key="ListBoxBorderThemeThickness">2</Thickness>
-            <StaticResource x:Key="ListBoxBorderBrush" ResourceKey="ChateauGrayBrush" />
-            <StaticResource x:Key="ListBoxBackground" ResourceKey="DarkCharcoalBrush" />
+            <StaticResource x:Key="ListBoxBorderBrush" ResourceKey="Chateau.Gray.Brush" />
+            <StaticResource x:Key="ListBoxBackground" ResourceKey="Dark.Charcoal.Brush" />
             
             <!-- ListBoxItem -->
 
-            <StaticResource x:Key="ListBoxOddBackground" ResourceKey="GraphiteBlackBrush" />
-            <StaticResource x:Key="ListBoxEvenBackground" ResourceKey="SignalBlackBrush" />
+            <StaticResource x:Key="ListBoxOddBackground" ResourceKey="Graphite.Black.Brush" />
+            <StaticResource x:Key="ListBoxEvenBackground" ResourceKey="Signal.Black.Brush" />
 
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>

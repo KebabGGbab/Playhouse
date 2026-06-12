@@ -296,7 +296,7 @@
 
                 <Border DockPanel.Dock="Bottom"
                         Padding="8 5 8 5"
-                        Background="{StaticResource StatusBackground}">
+                        Background="{StaticResource Sooty.Brush}">
 					<DockPanel HorizontalSpacing="25">
 					    <StackPanel DockPanel.Dock="Left" 
                                     Orientation="Horizontal">

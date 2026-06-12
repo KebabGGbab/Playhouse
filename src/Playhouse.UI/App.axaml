@@ -68,8 +68,7 @@
 
                 <!-- Primitives -->
 
-                <ResourceInclude Source="avares://Playhouse.UI/Assets/Primitives/Double.axaml" />
-                <ResourceInclude Source="avares://Playhouse.UI/Assets/Primitives/Thickness.axaml" />
+                <ResourceInclude Source="avares://Playhouse.UI/Assets/Primitives/Color.axaml" />
                 
                 <!-- Themes -->
 
