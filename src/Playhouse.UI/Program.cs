@@ -17,6 +17,9 @@ namespace Playhouse
         public static AppBuilder BuildAvaloniaApp()
             => AppBuilder.Configure<App>()
                 .UsePlatformDetect()
+#if DEBUG
+                .WithDeveloperTools()
+#endif
                 .UseReactiveUI((b) => { })
                 .WithInterFont()
                 .LogToTrace();
