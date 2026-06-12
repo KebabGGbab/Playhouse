@@ -61,15 +61,6 @@ namespace Playhouse.Core.Resources.Strings {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Expected implementation &quot;{0}&quot; of abstract type &quot;{1}&quot; but received &quot;{2}&quot;..
-        /// </summary>
-        internal static string BotJob_IncorrectImplementation {
-            get {
-                return ResourceManager.GetString("BotJob_IncorrectImplementation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Ищет локализованную строку, похожую на The action performed by the user in the browser is not supported..
         /// </summary>
         internal static string Constructor_NotSupportedAction {
