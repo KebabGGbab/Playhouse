@@ -11,45 +11,60 @@
         Icon="{StaticResource ApplicationIcon}"
         Padding="10"
         WindowStartupLocation="CenterScreen"
-        CanResize="False"
-        Width="720" Height="400"
+        MaxWidth="1000"
         Loaded="Window_Loaded">
-
-    <Window.DataTemplates>
-	    <StaticResource ResourceKey="BrowserContextClosedBotActionViewModel" />
-        <StaticResource ResourceKey="LocatorClickBotActionViewModel" />
-        <StaticResource ResourceKey="PageClosedBotActionViewModel" />
-        <StaticResource ResourceKey="PageCreatedBotActionViewModel" />
-        <StaticResource ResourceKey="PageGoToBotActionViewModel" />
-    </Window.DataTemplates>
 
     <Grid RowDefinitions="*, auto" ColumnSpacing="15">
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="*" />
-            <ColumnDefinition Width="350" />
+            <ColumnDefinition MaxWidth="350" />
         </Grid.ColumnDefinitions>
 
         <HeaderedContentControl Grid.Column="0" Grid.Row="0"
                                 Classes="groupbox"
-                                Header="{l:Localization BoxEventSettingsHeader}">
+                                Header="{l:Localization BotConstructorWindow_ActionSettings_Header}">
+            <HeaderedContentControl.DataTemplates>
+	            <StaticResource ResourceKey="BrowserContextCreatedBotActionViewModel.Details" />
+                <StaticResource ResourceKey="BrowserContextClosedBotActionViewModel.Details" />
+                <StaticResource ResourceKey="PageClosedBotActionViewModel.Details" />
+                <StaticResource ResourceKey="PageCreatedBotActionViewModel.Details" />
+                <StaticResource ResourceKey="PageGoToBotActionViewModel.Details" />
+                <StaticResource ResourceKey="LocatorClickBotActionViewModel.Details" />
+                <StaticResource ResourceKey="LocatorFillBotActionViewModel.Details" />
+            </HeaderedContentControl.DataTemplates>
+
             <ContentControl Margin="10"
                             Content="{Binding Path=SelectedAction}" />
         </HeaderedContentControl>
 
-        <DataGrid Grid.Column="1" Grid.Row="0"
-                  ItemsSource="{Binding Path=Bot.Actions}"
-                  SelectedItem="{Binding Path=SelectedAction}">
-			<DataGrid.Columns>
-				<DataGridTextColumn Width="*" 
-                                    Header="{l:Localization DataGridColumnHeaderEvent}" />
-            </DataGrid.Columns>
-        </DataGrid>
+        <Grid Grid.Column="1" Grid.Row="0"
+              RowDefinitions="auto,*">
+            <TextBlock Grid.Row="0"
+                       Margin="10, 0, 10, 10"
+                       Text="{l:Localization BotConstructorWindow_EnumerableActions_Text}" />
+
+            <ListBox Grid.Row="1"
+                     ItemsSource="{Binding Path=Bot.Actions}"
+                     SelectedItem="{Binding Path=SelectedAction}"
+                     BorderThickness="2">
+                <ListBox.DataTemplates>
+	                <StaticResource ResourceKey="BrowserContextCreatedBotActionViewModel.Master" />
+                    <StaticResource ResourceKey="BrowserContextClosedBotActionViewModel.Master" />
+                    <StaticResource ResourceKey="PageClosedBotActionViewModel.Master" />
+                    <StaticResource ResourceKey="PageCreatedBotActionViewModel.Master" />
+                    <StaticResource ResourceKey="PageGoToBotActionViewModel.Master" />
+                    <StaticResource ResourceKey="LocatorClickBotActionViewModel.Master" />
+                    <StaticResource ResourceKey="LocatorFillBotActionViewModel.Master" />
+                </ListBox.DataTemplates>
+            </ListBox>
+        </Grid>
 
         <Grid Grid.Column="1" Grid.Row="1"
               Classes="command-panel">
 			<Button HorizontalAlignment="Right"
                     Content="{l:Localization ButtonSave}"
-                    Click="Save" />
+                    Click="Save"
+                    Command="{Binding Path=Bot.SaveCommand}"/>
         </Grid>
 
     </Grid>
