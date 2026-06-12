@@ -29,11 +29,73 @@
                        LastChildFill="True">
                 <HeaderedContentControl Classes="groupbox centered-header"
                                         DockPanel.Dock="Right" 
+                                        BorderThickness="0"
                                         MinWidth="400" MaxWidth="500"
                                         Header="{l:Localization BoxRunningTasksHeader}">
 					<ScrollViewer>
 						<StackPanel>
-							<ItemsControl ItemsSource="{Binding Path=RunViewModel.RunningTasks}" />
+							<ItemsControl ItemsSource="{Binding Path=RunViewModel.RunningTasks}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate x:DataType="vm:RunServiceViewModel">
+                                        <Grid>
+                                            <Border CornerRadius="20" Background="#222222" Margin="0,8,0,0">
+                                                <StackPanel Orientation="Vertical" Margin="10">
+                                                    <Grid ColumnDefinitions="*, *" RowDefinitions="*, *">
+                                                        <TextBlock Grid.Row="0" Grid.Column="0"
+                                                                   Text="Бот:" HorizontalAlignment="Left" />
+                                                        <TextBlock  Grid.Row="0" Grid.Column="1" 
+                                                                   Text="{Binding Path=Bot.Name}" HorizontalAlignment="Right" />
+                                                        <TextBlock Grid.Row="1" Grid.Column="0"
+                                                                   Text="Количество:" HorizontalAlignment="Left" />
+                                                        <TextBlock  Grid.Row="1" Grid.Column="1" 
+                                                                   Text="{Binding Path=Units.Count}" HorizontalAlignment="Right" />
+                                                    </Grid>
+                                                    <Grid Margin="0,5">
+                                                        <Border x:Name="MaskBorder" CornerRadius="5" Background="Black" Height="15" />
+                                                        <Grid>
+                                                            <Grid.Effect>
+                                                                <DropShadowEffect Color="LawnGreen" Opacity="1" BlurRadius="20" OffsetX="0" OffsetY="0" />
+                                                            </Grid.Effect>
+        
+                                                            <ProgressBar Value="{Binding Path=Progress}" 
+                                                                         Minimum="0" 
+                                                                         Maximum="{Binding Path=Units.Count}"
+                                                                         Background="{x:Null}" 
+                                                                         Foreground="LawnGreen"
+                                                                         ShowProgressText="True">
+                                                                <ProgressBar.OpacityMask>
+                                                                    <VisualBrush Visual="{Binding ElementName=MaskBorder}" />
+                                                                </ProgressBar.OpacityMask>
+                                                            </ProgressBar>
+                                                        </Grid>
+                                                    </Grid>
+                                                    <Expander Header="Детали"
+                                                              IsExpanded="False" ExpandDirection="Down"
+                                                              HorizontalAlignment="Stretch"
+                                                              Padding="0">
+                                                        <ListBox ItemsSource="{Binding Path=Units}" Margin="0" BorderThickness="0">
+                                                            <ListBox.ItemTemplate>
+                                                                <DataTemplate x:DataType="vm:RunUnitServiceViewModel">
+                                                                    <Grid ColumnDefinitions="*, *" RowDefinitions="*, *" Margin="10,5,10,5">
+                                                                        <TextBlock Grid.Row="0" Grid.Column="0"
+                                                                                   Text="Прфоиль:" HorizontalAlignment="Left" />
+                                                                        <TextBlock  Grid.Row="0" Grid.Column="1" 
+                                                                                   Text="{Binding Path=Browser.Name}" HorizontalAlignment="Right" />
+                                                                        <TextBlock Grid.Row="1" Grid.Column="0"
+                                                                                   Text="Статус:" HorizontalAlignment="Left" />
+                                                                        <TextBlock  Grid.Row="1" Grid.Column="1" 
+                                                                                   Text="{Binding Path=Status}" HorizontalAlignment="Right" />
+                                                                    </Grid>
+                                                                </DataTemplate>
+                                                            </ListBox.ItemTemplate>
+                                                        </ListBox>
+                                                    </Expander>
+                                                </StackPanel>
+                                            </Border>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
                         </StackPanel>
                     </ScrollViewer>
                 </HeaderedContentControl>
@@ -70,9 +132,19 @@
                                 <DataTemplate>
                                     <Button Content="{Binding Path=Name}" 
                                             Command="{Binding $parent[Window].DataContext.RunViewModel.SelectProfileCommand}"
-                                            CommandParameter="{Binding .}" />
+                                            CommandParameter="{Binding .}"
+                                            HorizontalAlignment="Stretch"
+                                            CornerRadius="0"
+                                            BorderThickness="0, 0, 0, 1" BorderBrush="Black"
+                                            Padding="15"/>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
+                            <ListBox.Styles>
+                                <Style Selector="ListBoxItem">
+                                    <Setter Property="Padding" Value="0" />
+                                    <Setter Property="HorizontalAlignment" Value="Stretch" />
+                                </Style>
+                            </ListBox.Styles>
                         </ListBox>
 
                         <ListBox Grid.Column="1" Grid.Row="2"
@@ -81,9 +153,19 @@
                                 <DataTemplate>
                                     <Button Content="{Binding Path=Name}"
                                             Command="{Binding $parent[Window].DataContext.RunViewModel.ExcludeProfileCommand}"
-                                            CommandParameter="{Binding .}" />
+                                            CommandParameter="{Binding .}" 
+                                            HorizontalAlignment="Stretch"
+                                            CornerRadius="0"
+                                            BorderThickness="0, 0, 0, 1" BorderBrush="Black"
+                                            Padding="15"/>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
+                            <ListBox.Styles>
+                                <Style Selector="ListBoxItem">
+                                    <Setter Property="Padding" Value="0" />
+                                    <Setter Property="HorizontalAlignment" Value="Stretch" />
+                                </Style>
+                            </ListBox.Styles>
                         </ListBox>
 
                         <Button Grid.ColumnSpan="2" Grid.Row="3"
@@ -169,7 +251,8 @@
                             </StackPanel>
 
                             <CheckBox Margin="0,10,0,0"
-                                      Content="{l:Localization CheckBoxConfirm}" />
+                                      Content="{l:Localization CheckBoxConfirm}"
+                                      IsChecked="{Binding Path=BotsViewModel.IsConfirmDelete}" />
                             <Button Classes="box-action" 
                                     Content="{l:Localization ButtonDelete}"
                                     Command="{Binding Path=BotsViewModel.DeleteBotCommand}" />
@@ -324,6 +407,7 @@
                                            Target="{Binding ElementName=NumericUpDownProfilesSlowMo}" 
                                            Content="{l:Localization LabelSlowMo}" />
                                     <NumericUpDown x:Name="NumericUpDownProfilesSlowMo" 
+                                                   Classes="slow-mo"
                                                    Text="{Binding Path=BrowsersViewModel.SelectedProfile.SlowMo}" />								
                                 </StackPanel>
                             </StackPanel>

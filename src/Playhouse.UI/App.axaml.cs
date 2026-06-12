@@ -103,9 +103,9 @@ namespace Playhouse.UI
             services.AddSingleton<BotConstructorViewModel>();
             services.AddSingleton<IWindowFactory, WindowFactory>();
             services.AddBotConstruction();
-            services.AddBotRunning();
             services.AddFilePathResolver();
             services.AddPlaywright();
+            services.AddRunning();
             services.AddSettings();
             services.AddFileManagers();
             services.AddViewModelFactories();
