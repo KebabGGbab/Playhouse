@@ -133,11 +133,218 @@ namespace Playhouse.UI.Resources.Localization {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Browser context created.
+        ///   Ищет локализованную строку, похожую на Close reason:.
+        /// </summary>
+        public static string BrowserContextClosedBotActionViewModel_Details_Reason {
+            get {
+                return ResourceManager.GetString("BrowserContextClosedBotActionViewModel_Details_Reason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Close the browser.
+        /// </summary>
+        public static string BrowserContextClosedBotActionViewModel_Master_Title {
+            get {
+                return ResourceManager.GetString("BrowserContextClosedBotActionViewModel_Master_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Open browser.
         /// </summary>
         public static string BrowserContextCreatedBotActionViewModel_Master_Title {
             get {
                 return ResourceManager.GetString("BrowserContextCreatedBotActionViewModel_Master_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Action:.
+        /// </summary>
+        public static string LocatorClickBotActionViewModel_Details_Action {
+            get {
+                return ResourceManager.GetString("LocatorClickBotActionViewModel_Details_Action", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Button:.
+        /// </summary>
+        public static string LocatorClickBotActionViewModel_Details_Button {
+            get {
+                return ResourceManager.GetString("LocatorClickBotActionViewModel_Details_Button", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Number of clicks:.
+        /// </summary>
+        public static string LocatorClickBotActionViewModel_Details_ClickCount {
+            get {
+                return ResourceManager.GetString("LocatorClickBotActionViewModel_Details_ClickCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Identifier:.
+        /// </summary>
+        public static string LocatorClickBotActionViewModel_Details_CssId {
+            get {
+                return ResourceManager.GetString("LocatorClickBotActionViewModel_Details_CssId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Selector:.
+        /// </summary>
+        public static string LocatorClickBotActionViewModel_Details_CssSelector {
+            get {
+                return ResourceManager.GetString("LocatorClickBotActionViewModel_Details_CssSelector", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Button press duration:.
+        /// </summary>
+        public static string LocatorClickBotActionViewModel_Details_Delay {
+            get {
+                return ResourceManager.GetString("LocatorClickBotActionViewModel_Details_Delay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Force.
+        /// </summary>
+        public static string LocatorClickBotActionViewModel_Details_Force {
+            get {
+                return ResourceManager.GetString("LocatorClickBotActionViewModel_Details_Force", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Role:.
+        /// </summary>
+        public static string LocatorClickBotActionViewModel_Details_Role {
+            get {
+                return ResourceManager.GetString("LocatorClickBotActionViewModel_Details_Role", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Text:.
+        /// </summary>
+        public static string LocatorClickBotActionViewModel_Details_Text {
+            get {
+                return ResourceManager.GetString("LocatorClickBotActionViewModel_Details_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Timeout:.
+        /// </summary>
+        public static string LocatorClickBotActionViewModel_Details_Timeout {
+            get {
+                return ResourceManager.GetString("LocatorClickBotActionViewModel_Details_Timeout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Just wait for the opportunity to press the button.
+        /// </summary>
+        public static string LocatorClickBotActionViewModel_Details_Trial {
+            get {
+                return ResourceManager.GetString("LocatorClickBotActionViewModel_Details_Trial", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Click with mouse.
+        /// </summary>
+        public static string LocatorClickBotActionViewModel_Master_Title {
+            get {
+                return ResourceManager.GetString("LocatorClickBotActionViewModel_Master_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Action:.
+        /// </summary>
+        public static string LocatorFillBotActionViewModel_Details_Action {
+            get {
+                return ResourceManager.GetString("LocatorFillBotActionViewModel_Details_Action", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Identifier:.
+        /// </summary>
+        public static string LocatorFillBotActionViewModel_Details_CssId {
+            get {
+                return ResourceManager.GetString("LocatorFillBotActionViewModel_Details_CssId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Selector:.
+        /// </summary>
+        public static string LocatorFillBotActionViewModel_Details_CssSelector {
+            get {
+                return ResourceManager.GetString("LocatorFillBotActionViewModel_Details_CssSelector", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Force.
+        /// </summary>
+        public static string LocatorFillBotActionViewModel_Details_Force {
+            get {
+                return ResourceManager.GetString("LocatorFillBotActionViewModel_Details_Force", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Role:.
+        /// </summary>
+        public static string LocatorFillBotActionViewModel_Details_Role {
+            get {
+                return ResourceManager.GetString("LocatorFillBotActionViewModel_Details_Role", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Text:.
+        /// </summary>
+        public static string LocatorFillBotActionViewModel_Details_Text {
+            get {
+                return ResourceManager.GetString("LocatorFillBotActionViewModel_Details_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Timeout:.
+        /// </summary>
+        public static string LocatorFillBotActionViewModel_Details_Timeout {
+            get {
+                return ResourceManager.GetString("LocatorFillBotActionViewModel_Details_Timeout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Text to enter:.
+        /// </summary>
+        public static string LocatorFillBotActionViewModel_Details_Value {
+            get {
+                return ResourceManager.GetString("LocatorFillBotActionViewModel_Details_Value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Enter text.
+        /// </summary>
+        public static string LocatorFillBotActionViewModel_Master_Title {
+            get {
+                return ResourceManager.GetString("LocatorFillBotActionViewModel_Master_Title", resourceCulture);
             }
         }
         
@@ -592,20 +799,74 @@ namespace Playhouse.UI.Resources.Localization {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Reason for closing the window:.
+        ///   Ищет локализованную строку, похожую на Close reason:.
         /// </summary>
-        public static string PageClosedBotActionViewModel_Reason {
+        public static string PageClosedBotActionViewModel_Details_Reason {
             get {
-                return ResourceManager.GetString("PageClosedBotActionViewModel_Reason", resourceCulture);
+                return ResourceManager.GetString("PageClosedBotActionViewModel_Details_Reason", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Trigger an unload event.
         /// </summary>
-        public static string PageClosedBotActionViewModel_RunBeforeUnload {
+        public static string PageClosedBotActionViewModel_Details_RunBeforeUnload {
             get {
-                return ResourceManager.GetString("PageClosedBotActionViewModel_RunBeforeUnload", resourceCulture);
+                return ResourceManager.GetString("PageClosedBotActionViewModel_Details_RunBeforeUnload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Close page.
+        /// </summary>
+        public static string PageClosedBotActionViewModel_Master_Title {
+            get {
+                return ResourceManager.GetString("PageClosedBotActionViewModel_Master_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Open page.
+        /// </summary>
+        public static string PageCreatedBotActionViewModel_Master_Title {
+            get {
+                return ResourceManager.GetString("PageCreatedBotActionViewModel_Master_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на The URL to which the transition is made:.
+        /// </summary>
+        public static string PageGoToBotActionViewModel_Details_NewUrl {
+            get {
+                return ResourceManager.GetString("PageGoToBotActionViewModel_Details_NewUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на The URL from which the transition occurs:.
+        /// </summary>
+        public static string PageGoToBotActionViewModel_Details_OldUrl {
+            get {
+                return ResourceManager.GetString("PageGoToBotActionViewModel_Details_OldUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Timeout:.
+        /// </summary>
+        public static string PageGoToBotActionViewModel_Details_Timeout {
+            get {
+                return ResourceManager.GetString("PageGoToBotActionViewModel_Details_Timeout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Go to search query.
+        /// </summary>
+        public static string PageGoToBotActionViewModel_Master_Title {
+            get {
+                return ResourceManager.GetString("PageGoToBotActionViewModel_Master_Title", resourceCulture);
             }
         }
     }

@@ -249,14 +249,14 @@
   <data name="BotConstructorWindow_Actions_Text" xml:space="preserve">
     <value>Actions:</value>
   </data>
-  <data name="PageClosedBotActionViewModel_Reason" xml:space="preserve">
-    <value>Reason for closing the window:</value>
+  <data name="PageClosedBotActionViewModel_Details_Reason" xml:space="preserve">
+    <value>Close reason:</value>
   </data>
-  <data name="PageClosedBotActionViewModel_RunBeforeUnload" xml:space="preserve">
+  <data name="PageClosedBotActionViewModel_Details_RunBeforeUnload" xml:space="preserve">
     <value>Trigger an unload event</value>
   </data>
   <data name="BrowserContextCreatedBotActionViewModel_Master_Title" xml:space="preserve">
-    <value>Browser context created</value>
+    <value>Open browser</value>
   </data>
   <data name="MainWindow_RunningTasksGroup_Bot" xml:space="preserve">
     <value>Bot:</value>
@@ -299,5 +299,92 @@
   </data>
   <data name="BotConstructorWindow_Save" xml:space="preserve">
     <value>Save</value>
+  </data>
+  <data name="BrowserContextClosedBotActionViewModel_Details_Reason" xml:space="preserve">
+    <value>Close reason:</value>
+  </data>
+  <data name="BrowserContextClosedBotActionViewModel_Master_Title" xml:space="preserve">
+    <value>Close the browser</value>
+  </data>
+  <data name="PageClosedBotActionViewModel_Master_Title" xml:space="preserve">
+    <value>Close page</value>
+  </data>
+  <data name="PageCreatedBotActionViewModel_Master_Title" xml:space="preserve">
+    <value>Open page</value>
+  </data>
+  <data name="PageGoToBotActionViewModel_Master_Title" xml:space="preserve">
+    <value>Go to search query</value>
+  </data>
+  <data name="PageGoToBotActionViewModel_Details_NewUrl" xml:space="preserve">
+    <value>The URL to which the transition is made:</value>
+  </data>
+  <data name="PageGoToBotActionViewModel_Details_OldUrl" xml:space="preserve">
+    <value>The URL from which the transition occurs:</value>
+  </data>
+  <data name="PageGoToBotActionViewModel_Details_Timeout" xml:space="preserve">
+    <value>Timeout:</value>
+  </data>
+  <data name="LocatorFillBotActionViewModel_Master_Title" xml:space="preserve">
+    <value>Enter text</value>
+  </data>
+  <data name="LocatorFillBotActionViewModel_Details_Value" xml:space="preserve">
+    <value>Text to enter:</value>
+  </data>
+  <data name="LocatorFillBotActionViewModel_Details_Force" xml:space="preserve">
+    <value>Force</value>
+  </data>
+  <data name="LocatorFillBotActionViewModel_Details_Timeout" xml:space="preserve">
+    <value>Timeout:</value>
+  </data>
+  <data name="LocatorFillBotActionViewModel_Details_Action" xml:space="preserve">
+    <value>Action:</value>
+  </data>
+  <data name="LocatorFillBotActionViewModel_Details_Role" xml:space="preserve">
+    <value>Role:</value>
+  </data>
+  <data name="LocatorFillBotActionViewModel_Details_Text" xml:space="preserve">
+    <value>Text:</value>
+  </data>
+  <data name="LocatorFillBotActionViewModel_Details_CssId" xml:space="preserve">
+    <value>Identifier:</value>
+  </data>
+  <data name="LocatorFillBotActionViewModel_Details_CssSelector" xml:space="preserve">
+    <value>Selector:</value>
+  </data>
+  <data name="LocatorClickBotActionViewModel_Master_Title" xml:space="preserve">
+    <value>Click with mouse</value>
+  </data>
+  <data name="LocatorClickBotActionViewModel_Details_Button" xml:space="preserve">
+    <value>Button:</value>
+  </data>
+  <data name="LocatorClickBotActionViewModel_Details_ClickCount" xml:space="preserve">
+    <value>Number of clicks:</value>
+  </data>
+  <data name="LocatorClickBotActionViewModel_Details_Delay" xml:space="preserve">
+    <value>Button press duration:</value>
+  </data>
+  <data name="LocatorClickBotActionViewModel_Details_Force" xml:space="preserve">
+    <value>Force</value>
+  </data>
+  <data name="LocatorClickBotActionViewModel_Details_Timeout" xml:space="preserve">
+    <value>Timeout:</value>
+  </data>
+  <data name="LocatorClickBotActionViewModel_Details_Trial" xml:space="preserve">
+    <value>Just wait for the opportunity to press the button</value>
+  </data>
+  <data name="LocatorClickBotActionViewModel_Details_Action" xml:space="preserve">
+    <value>Action:</value>
+  </data>
+  <data name="LocatorClickBotActionViewModel_Details_Role" xml:space="preserve">
+    <value>Role:</value>
+  </data>
+  <data name="LocatorClickBotActionViewModel_Details_Text" xml:space="preserve">
+    <value>Text:</value>
+  </data>
+  <data name="LocatorClickBotActionViewModel_Details_CssId" xml:space="preserve">
+    <value>Identifier:</value>
+  </data>
+  <data name="LocatorClickBotActionViewModel_Details_CssSelector" xml:space="preserve">
+    <value>Selector:</value>
   </data>
 </root>

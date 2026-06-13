@@ -249,14 +249,14 @@
   <data name="BotConstructorWindow_Actions_Text" xml:space="preserve">
     <value>Действия:</value>
   </data>
-  <data name="PageClosedBotActionViewModel_Reason" xml:space="preserve">
-    <value>Причина закрытия окна:</value>
+  <data name="PageClosedBotActionViewModel_Details_Reason" xml:space="preserve">
+    <value>Причина закрытия:</value>
   </data>
-  <data name="PageClosedBotActionViewModel_RunBeforeUnload" xml:space="preserve">
+  <data name="PageClosedBotActionViewModel_Details_RunBeforeUnload" xml:space="preserve">
     <value>Запускать событие выгрузки</value>
   </data>
   <data name="BrowserContextCreatedBotActionViewModel_Master_Title" xml:space="preserve">
-    <value>Контекст браузера создан</value>
+    <value>Открыть браузер</value>
   </data>
   <data name="MainWindow_RunningTasksGroup_Bot" xml:space="preserve">
     <value>Бот:</value>
@@ -299,5 +299,92 @@
   </data>
   <data name="BotConstructorWindow_Save" xml:space="preserve">
     <value>Сохранить</value>
+  </data>
+  <data name="BrowserContextClosedBotActionViewModel_Details_Reason" xml:space="preserve">
+    <value>Причина закрытия:</value>
+  </data>
+  <data name="BrowserContextClosedBotActionViewModel_Master_Title" xml:space="preserve">
+    <value>Закрыть браузер</value>
+  </data>
+  <data name="PageClosedBotActionViewModel_Master_Title" xml:space="preserve">
+    <value>Закрыть страницу</value>
+  </data>
+  <data name="PageCreatedBotActionViewModel_Master_Title" xml:space="preserve">
+    <value>Открыть страницу</value>
+  </data>
+  <data name="PageGoToBotActionViewModel_Master_Title" xml:space="preserve">
+    <value>Перейти к поисковому запросу</value>
+  </data>
+  <data name="PageGoToBotActionViewModel_Details_NewUrl" xml:space="preserve">
+    <value>URL-адрес, на который осуществляется переход:</value>
+  </data>
+  <data name="PageGoToBotActionViewModel_Details_OldUrl" xml:space="preserve">
+    <value>URL-адрес, с которого осуществляется переход:</value>
+  </data>
+  <data name="PageGoToBotActionViewModel_Details_Timeout" xml:space="preserve">
+    <value>Время ожидания:</value>
+  </data>
+  <data name="LocatorFillBotActionViewModel_Master_Title" xml:space="preserve">
+    <value>Ввести текст</value>
+  </data>
+  <data name="LocatorFillBotActionViewModel_Details_Value" xml:space="preserve">
+    <value>Текст для ввода:</value>
+  </data>
+  <data name="LocatorFillBotActionViewModel_Details_Force" xml:space="preserve">
+    <value>Принудительно</value>
+  </data>
+  <data name="LocatorFillBotActionViewModel_Details_Timeout" xml:space="preserve">
+    <value>Время ожидания:</value>
+  </data>
+  <data name="LocatorFillBotActionViewModel_Details_Action" xml:space="preserve">
+    <value>Действие::</value>
+  </data>
+  <data name="LocatorFillBotActionViewModel_Details_Role" xml:space="preserve">
+    <value>Роль:</value>
+  </data>
+  <data name="LocatorFillBotActionViewModel_Details_Text" xml:space="preserve">
+    <value>Текст:</value>
+  </data>
+  <data name="LocatorFillBotActionViewModel_Details_CssId" xml:space="preserve">
+    <value>Идентификатор:</value>
+  </data>
+  <data name="LocatorFillBotActionViewModel_Details_CssSelector" xml:space="preserve">
+    <value>Селектор:</value>
+  </data>
+  <data name="LocatorClickBotActionViewModel_Master_Title" xml:space="preserve">
+    <value>Кликнуть мышью</value>
+  </data>
+  <data name="LocatorClickBotActionViewModel_Details_Button" xml:space="preserve">
+    <value>Кнопка:</value>
+  </data>
+  <data name="LocatorClickBotActionViewModel_Details_ClickCount" xml:space="preserve">
+    <value>Количество кликов:</value>
+  </data>
+  <data name="LocatorClickBotActionViewModel_Details_Delay" xml:space="preserve">
+    <value>Длительность нажатия кнопки:</value>
+  </data>
+  <data name="LocatorClickBotActionViewModel_Details_Force" xml:space="preserve">
+    <value>Принудительно</value>
+  </data>
+  <data name="LocatorClickBotActionViewModel_Details_Timeout" xml:space="preserve">
+    <value>Время ожидания:</value>
+  </data>
+  <data name="LocatorClickBotActionViewModel_Details_Trial" xml:space="preserve">
+    <value>Только ожидать возможности нажатия кнопки</value>
+  </data>
+  <data name="LocatorClickBotActionViewModel_Details_Action" xml:space="preserve">
+    <value>Действие:</value>
+  </data>
+  <data name="LocatorClickBotActionViewModel_Details_Role" xml:space="preserve">
+    <value>Роль:</value>
+  </data>
+  <data name="LocatorClickBotActionViewModel_Details_Text" xml:space="preserve">
+    <value>Текст:</value>
+  </data>
+  <data name="LocatorClickBotActionViewModel_Details_CssId" xml:space="preserve">
+    <value>Идентификатор:</value>
+  </data>
+  <data name="LocatorClickBotActionViewModel_Details_CssSelector" xml:space="preserve">
+    <value>Селектор:</value>
   </data>
 </root>

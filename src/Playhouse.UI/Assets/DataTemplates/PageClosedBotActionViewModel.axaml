@@ -1,19 +1,19 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:l="https://github.com/KebabGGbab"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:vm="using:Playhouse.ViewModels.ViewModels.BotActionViewModels"
-                    xmlns:l="https://github.com/KebabGGbab">
+                    xmlns:vm="using:Playhouse.ViewModels.ViewModels.BotActionViewModels">
 
     <DataTemplate x:Key="PageClosedBotActionViewModel.Details" DataType="{x:Type vm:PageClosedBotActionViewModel}">
 		<StackPanel Classes="browser-event-settings">
 
 			<StackPanel Classes="browser-event-settings-item">
                 <TextBlock Classes="browser-event-settings-item"
-                           Text="Причина закрытия:" />
+                           Text="{l:Localization PageClosedBotActionViewModel_Details_Reason}" />
                 <TextBox Text="{Binding Path=Reason, Mode=TwoWay}" />
             </StackPanel>
 
             <StackPanel Classes="browser-event-settings-item">
-				<CheckBox Content="Запускать событие выгрузки"
+				<CheckBox Content="{l:Localization PageClosedBotActionViewModel_Details_RunBeforeUnload}"
                           IsChecked="{Binding Path=RunBeforeUnload}" />
             </StackPanel>
 
@@ -21,7 +21,7 @@
     </DataTemplate>
 
     <DataTemplate x:Key="PageClosedBotActionViewModel.Master" DataType="{x:Type vm:PageClosedBotActionViewModel}">
-        <TextBlock Text="Страница закрыта" />
+        <TextBlock Text="{l:Localization PageClosedBotActionViewModel_Master_Title}" />
     </DataTemplate>
 
 </ResourceDictionary>

@@ -1,18 +1,13 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:l="https://github.com/KebabGGbab"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:vm="using:Playhouse.ViewModels.ViewModels.BotActionViewModels">
 
     <DataTemplate x:Key="BrowserContextCreatedBotActionViewModel.Details" DataType="{x:Type vm:BrowserContextCreatedBotActionViewModel}">
-		<StackPanel Classes="browser-event-settings">
-
-			<StackPanel Classes="browser-event-settings-item">
-            </StackPanel>
-
-        </StackPanel>
     </DataTemplate>
 
     <DataTemplate x:Key="BrowserContextCreatedBotActionViewModel.Master" DataType="{x:Type vm:BrowserContextCreatedBotActionViewModel}">
-        <TextBlock Text="Контекст браузера создан"/>
+        <TextBlock Text="{l:Localization BrowserContextCreatedBotActionViewModel_Master_Title}"/>
     </DataTemplate>
 
 </ResourceDictionary>

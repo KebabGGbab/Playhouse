@@ -1,4 +1,5 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:l="https://github.com/KebabGGbab"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:vm="using:Playhouse.ViewModels.ViewModels.BotActionViewModels">
 
@@ -8,72 +9,72 @@
 
                 <StackPanel Classes="browser-event-settings-item">
                     <TextBlock Classes="browser-event-settings-item"
-                               Text="Кнопка:" />
+                               Text="{l:Localization LocatorClickBotActionViewModel_Details_Button}" />
 				    <ComboBox ItemsSource="{Binding Path=Buttons}"
                               SelectedItem="{Binding Path=SelectedButton}" />
                 </StackPanel>
 
 			    <StackPanel Classes="browser-event-settings-item">
 				    <TextBlock Classes="browser-event-settings-item" 
-                               Text="Количество нажатий:" />
+                               Text="{l:Localization LocatorClickBotActionViewModel_Details_ClickCount}" />
                     <NumericUpDown Value="{Binding Path=ClickCount, Mode=TwoWay}" />
                 </StackPanel>
 
                 <StackPanel Classes="browser-event-settings-item">
 				    <TextBlock Classes="browser-event-settings-item" 
-                               Text="Длительность зажатия кнопки:" />
+                               Text="{l:Localization LocatorClickBotActionViewModel_Details_Delay}" />
                     <NumericUpDown Classes="delay"
                                    Value="{Binding Path=Delay, Mode=TwoWay}" />
                 </StackPanel>
 
                 <StackPanel Classes="browser-event-settings-item">
 				    <CheckBox IsChecked="{Binding Path=Force, Mode=TwoWay}"
-                              Content="Принудительно" />
+                              Content="{l:Localization LocatorClickBotActionViewModel_Details_Force}" />
                 </StackPanel>
 
                 <StackPanel Classes="browser-event-settings-item">
 				    <TextBlock Classes="browser-event-settings-item" 
-                               Text="Время ожидания:" />
+                               Text="{l:Localization LocatorClickBotActionViewModel_Details_Timeout}" />
                     <NumericUpDown Classes="timeout" 
                                    Value="{Binding Path=Timeout, Mode=TwoWay}" />
                 </StackPanel>
 
                 <StackPanel Classes="browser-event-settings-item">
 				    <CheckBox IsChecked="{Binding Path=Trial, Mode=TwoWay}"
-                              Content="Ожидать готовности нажатия, без самого нажатия" />
+                              Content="{l:Localization LocatorClickBotActionViewModel_Details_Trial}" />
                 </StackPanel>
                 
                 <Separator />
 
                 <StackPanel Classes="browser-event-settings-item">
 				    <TextBlock Classes="browser-event-settings-item" 
-                               Text="Действие" />
+                               Text="{l:Localization LocatorClickBotActionViewModel_Details_Action}" />
                     <ComboBox ItemsSource="{Binding Path=LocatorData.Actions}"
                               SelectedItem="{Binding Path=LocatorData.Action}" />
                 </StackPanel>
                 
                 <StackPanel Classes="browser-event-settings-item">
 				    <TextBlock Classes="browser-event-settings-item" 
-                               Text="Роль" />
+                               Text="{l:Localization LocatorClickBotActionViewModel_Details_Role}" />
                     <ComboBox ItemsSource="{Binding Path=LocatorData.Roles}"
                               SelectedItem="{Binding Path=LocatorData.Role}" />
                 </StackPanel>
 
                 <StackPanel Classes="browser-event-settings-item">
 				    <TextBlock Classes="browser-event-settings-item" 
-                               Text="Текст:" />
+                               Text="{l:Localization LocatorClickBotActionViewModel_Details_Text}" />
                     <TextBox Text="{Binding Path=LocatorData.Text, Mode=TwoWay}" />
                 </StackPanel>
 
                 <StackPanel Classes="browser-event-settings-item">
 				    <TextBlock Classes="browser-event-settings-item" 
-                               Text="Идентификатор:" />
+                               Text="{l:Localization LocatorClickBotActionViewModel_Details_CssId}" />
                     <TextBox Text="{Binding Path=LocatorData.Id, Mode=TwoWay}" />
                 </StackPanel>
 
                 <StackPanel Classes="browser-event-settings-item">
 				    <TextBlock Classes="browser-event-settings-item" 
-                               Text="Селектор:" />
+                               Text="{l:Localization LocatorClickBotActionViewModel_Details_CssSelector}" />
                     <TextBox Text="{Binding Path=LocatorData.Selector, Mode=TwoWay}" />
                 </StackPanel>
 
@@ -82,7 +83,7 @@
     </DataTemplate>
 
     <DataTemplate x:Key="LocatorClickBotActionViewModel.Master" DataType="{x:Type vm:LocatorClickBotActionViewModel}">
-        <TextBlock Text="Совершено нажатие мышью"/>
+        <TextBlock Text="{l:Localization LocatorClickBotActionViewModel_Master_Title}"/>
     </DataTemplate>
 
 </ResourceDictionary>

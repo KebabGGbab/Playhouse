@@ -1,4 +1,5 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:l="https://github.com/KebabGGbab"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:vm="using:Playhouse.ViewModels.ViewModels.BotActionViewModels">
 
@@ -8,18 +9,18 @@
 
 			    <StackPanel Classes="browser-event-settings-item">
 				    <TextBlock Classes="browser-event-settings-item" 
-                               Text="Текст:" />
+                               Text="{l:Localization LocatorFillBotActionViewModel_Details_Value}" />
                     <TextBox Text="{Binding Path=Value, Mode=TwoWay}" />
                 </StackPanel>
 
                 <StackPanel Classes="browser-event-settings-item">
 			        <CheckBox IsChecked="{Binding Path=Force, Mode=TwoWay}"
-                              Content="Принудительно" />
+                              Content="{l:Localization LocatorFillBotActionViewModel_Details_Force}" />
                 </StackPanel>
 
                 <StackPanel Classes="browser-event-settings-item">
 				    <TextBlock Classes="browser-event-settings-item" 
-                               Text="Время ожидания:" />
+                               Text="{l:Localization LocatorFillBotActionViewModel_Details_Timeout}" />
                     <NumericUpDown Classes="timeout" 
                                    Value="{Binding Path=Timeout, Mode=TwoWay}" />
                 </StackPanel>
@@ -28,33 +29,33 @@
 
                 <StackPanel Classes="browser-event-settings-item">
 				    <TextBlock Classes="browser-event-settings-item" 
-                                Text="Действие" />
+                                Text="{l:Localization LocatorFillBotActionViewModel_Details_Action}" />
                     <ComboBox ItemsSource="{Binding Path=LocatorData.Actions}"
                                 SelectedItem="{Binding Path=LocatorData.Action}" />
                 </StackPanel>
                 
                 <StackPanel Classes="browser-event-settings-item">
 				    <TextBlock Classes="browser-event-settings-item" 
-                                Text="Роль" />
+                                Text="{l:Localization LocatorFillBotActionViewModel_Details_Role}" />
                     <ComboBox ItemsSource="{Binding Path=LocatorData.Roles}"
                                 SelectedItem="{Binding Path=LocatorData.Role}" />
                 </StackPanel>
 
                 <StackPanel Classes="browser-event-settings-item">
 				    <TextBlock Classes="browser-event-settings-item" 
-                                Text="Текст:" />
+                                Text="{l:Localization LocatorFillBotActionViewModel_Details_Text}" />
                     <TextBox Text="{Binding Path=LocatorData.Text, Mode=TwoWay}" />
                 </StackPanel>
 
                 <StackPanel Classes="browser-event-settings-item">
 				    <TextBlock Classes="browser-event-settings-item" 
-                                Text="Идентификатор:" />
+                                Text="{l:Localization LocatorFillBotActionViewModel_Details_CssId}" />
                     <TextBox Text="{Binding Path=LocatorData.Id, Mode=TwoWay}" />
                 </StackPanel>
 
                 <StackPanel Classes="browser-event-settings-item">
 				    <TextBlock Classes="browser-event-settings-item" 
-                                Text="Селектор:" />
+                                Text="{l:Localization LocatorFillBotActionViewModel_Details_CssSelector}" />
                     <TextBox Text="{Binding Path=LocatorData.Selector, Mode=TwoWay}" />
                 </StackPanel>
 
@@ -63,7 +64,7 @@
     </DataTemplate>
 
     <DataTemplate x:Key="LocatorFillBotActionViewModel.Master" DataType="{x:Type vm:LocatorFillBotActionViewModel}">
-        <TextBlock Text="Вставлен текст в область ввода" />
+        <TextBlock Text="{l:Localization LocatorFillBotActionViewModel_Master_Title}" />
     </DataTemplate>
 
 </ResourceDictionary>

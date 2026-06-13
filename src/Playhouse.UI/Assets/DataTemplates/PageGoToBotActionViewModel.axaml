@@ -1,4 +1,5 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:l="https://github.com/KebabGGbab"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:vm="using:Playhouse.ViewModels.ViewModels.BotActionViewModels">
 
@@ -8,19 +9,19 @@
 
 			    <StackPanel Classes="browser-event-settings-item">
 				    <TextBlock Classes="browser-event-settings-item" 
-                               Text="URL-адрес страницы, на которую осуществляется переход:" />
+                               Text="{l:Localization PageGoToBotActionViewModel_Details_NewUrl}" />
                     <TextBox Text="{Binding Path=Url, Mode=TwoWay}" />
                 </StackPanel>
 
                 <StackPanel Classes="browser-event-settings-item">
 				    <TextBlock Classes="browser-event-settings-item" 
-                               Text="URL-адрес страницы, с которой осуществляется переход" />
+                               Text="{l:Localization PageGoToBotActionViewModel_Details_OldUrl}" />
                     <TextBox Text="{Binding Path=Referer, Mode=TwoWay}" />
                 </StackPanel>
 
                 <StackPanel Classes="browser-event-settings-item">
 				    <TextBlock Classes="browser-event-settings-item" 
-                               Text="Время ожидания:" />
+                               Text="{l:Localization PageGoToBotActionViewModel_Details_Timeout}" />
                     <NumericUpDown Classes="timeout"
                                    Value="{Binding Path=Timeout, Mode=TwoWay}" />
                 </StackPanel>
@@ -30,7 +31,7 @@
     </DataTemplate>
 
     <DataTemplate x:Key="PageGoToBotActionViewModel.Master" DataType="{x:Type vm:PageGoToBotActionViewModel}">
-        <TextBlock Text="Переход по поисковому запросу" />
+        <TextBlock Text="{l:Localization PageGoToBotActionViewModel_Master_Title}" />
     </DataTemplate>
 
 </ResourceDictionary>
