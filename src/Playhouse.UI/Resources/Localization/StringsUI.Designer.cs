@@ -61,6 +61,33 @@ namespace Playhouse.UI.Resources.Localization {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на id.
+        /// </summary>
+        public static string Bot_Id {
+            get {
+                return ResourceManager.GetString("Bot_Id", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Name.
+        /// </summary>
+        public static string Bot_Name {
+            get {
+                return ResourceManager.GetString("Bot_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Actions:.
+        /// </summary>
+        public static string BotConstructorWindow_Actions_Text {
+            get {
+                return ResourceManager.GetString("BotConstructorWindow_Actions_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Action Settings.
         /// </summary>
         public static string BotConstructorWindow_ActionSettings_Header {
@@ -70,11 +97,11 @@ namespace Playhouse.UI.Resources.Localization {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Actions:.
+        ///   Ищет локализованную строку, похожую на Save.
         /// </summary>
-        public static string BotConstructorWindow_EnumerableActions_Text {
+        public static string BotConstructorWindow_Save {
             get {
-                return ResourceManager.GetString("BotConstructorWindow_EnumerableActions_Text", resourceCulture);
+                return ResourceManager.GetString("BotConstructorWindow_Save", resourceCulture);
             }
         }
         
@@ -88,83 +115,20 @@ namespace Playhouse.UI.Resources.Localization {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на id.
+        ///   Ищет локализованную строку, похожую на ID.
         /// </summary>
-        public static string BotPropertyID {
+        public static string Browser_Id {
             get {
-                return ResourceManager.GetString("BotPropertyID", resourceCulture);
+                return ResourceManager.GetString("Browser_Id", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Name.
         /// </summary>
-        public static string BotPropertyName {
+        public static string Browser_Name {
             get {
-                return ResourceManager.GetString("BotPropertyName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Create bot.
-        /// </summary>
-        public static string BoxCreateBotHeader {
-            get {
-                return ResourceManager.GetString("BoxCreateBotHeader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Delete bot.
-        /// </summary>
-        public static string BoxDeleteBotHeader {
-            get {
-                return ResourceManager.GetString("BoxDeleteBotHeader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Information.
-        /// </summary>
-        public static string BoxInformationProfileHeader {
-            get {
-                return ResourceManager.GetString("BoxInformationProfileHeader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Other.
-        /// </summary>
-        public static string BoxOtherProfileHeader {
-            get {
-                return ResourceManager.GetString("BoxOtherProfileHeader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Running tasks.
-        /// </summary>
-        public static string BoxRunningTasksHeader {
-            get {
-                return ResourceManager.GetString("BoxRunningTasksHeader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Run task.
-        /// </summary>
-        public static string BoxRunTaskHeader {
-            get {
-                return ResourceManager.GetString("BoxRunTaskHeader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Storage.
-        /// </summary>
-        public static string BoxStorageProfileHeader {
-            get {
-                return ResourceManager.GetString("BoxStorageProfileHeader", resourceCulture);
+                return ResourceManager.GetString("Browser_Name", resourceCulture);
             }
         }
         
@@ -178,272 +142,452 @@ namespace Playhouse.UI.Resources.Localization {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Add.
+        ///   Ищет локализованную строку, похожую на Bots.
         /// </summary>
-        public static string ButtonAdd {
+        public static string MainWindow_BotsTab_Header {
             get {
-                return ResourceManager.GetString("ButtonAdd", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Cancel.
-        /// </summary>
-        public static string ButtonCancel {
-            get {
-                return ResourceManager.GetString("ButtonCancel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Create.
-        /// </summary>
-        public static string ButtonCreate {
-            get {
-                return ResourceManager.GetString("ButtonCreate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Delete.
-        /// </summary>
-        public static string ButtonDelete {
-            get {
-                return ResourceManager.GetString("ButtonDelete", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Save.
-        /// </summary>
-        public static string ButtonSave {
-            get {
-                return ResourceManager.GetString("ButtonSave", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Save all.
-        /// </summary>
-        public static string ButtonSaveAll {
-            get {
-                return ResourceManager.GetString("ButtonSaveAll", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Browse...
-        /// </summary>
-        public static string ButtonSearchFile {
-            get {
-                return ResourceManager.GetString("ButtonSearchFile", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Run.
-        /// </summary>
-        public static string ButtonStart {
-            get {
-                return ResourceManager.GetString("ButtonStart", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Confirm.
-        /// </summary>
-        public static string CheckBoxConfirm {
-            get {
-                return ResourceManager.GetString("CheckBoxConfirm", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Enable Chromium sandbox.
-        /// </summary>
-        public static string CheckBoxEnableChromiumSandbox {
-            get {
-                return ResourceManager.GetString("CheckBoxEnableChromiumSandbox", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Headless mode.
-        /// </summary>
-        public static string CheckBoxHeadlessMode {
-            get {
-                return ResourceManager.GetString("CheckBoxHeadlessMode", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Accept all downloads.
-        /// </summary>
-        public static string LabelAcceptDownloadsProfile {
-            get {
-                return ResourceManager.GetString("LabelAcceptDownloadsProfile", resourceCulture);
+                return ResourceManager.GetString("MainWindow_BotsTab_Header", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Bot name:.
         /// </summary>
-        public static string LabelBotName {
+        public static string MainWindow_CreateBotGroup_BotName {
             get {
-                return ResourceManager.GetString("LabelBotName", resourceCulture);
+                return ResourceManager.GetString("MainWindow_CreateBotGroup_BotName", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Download path.
+        ///   Ищет локализованную строку, похожую на Create.
         /// </summary>
-        public static string LabelDownloadPath {
+        public static string MainWindow_CreateBotGroup_Create {
             get {
-                return ResourceManager.GetString("LabelDownloadPath", resourceCulture);
+                return ResourceManager.GetString("MainWindow_CreateBotGroup_Create", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Create bot.
+        /// </summary>
+        public static string MainWindow_CreateBotGroup_Header {
+            get {
+                return ResourceManager.GetString("MainWindow_CreateBotGroup_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Select browser:.
+        /// </summary>
+        public static string MainWindow_CreateBotGroup_SelectBrowserType {
+            get {
+                return ResourceManager.GetString("MainWindow_CreateBotGroup_SelectBrowserType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Select Profile:.
+        /// </summary>
+        public static string MainWindow_CreateBotGroup_SelectProfile {
+            get {
+                return ResourceManager.GetString("MainWindow_CreateBotGroup_SelectProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Confirm.
+        /// </summary>
+        public static string MainWindow_DeleteBotGroup_Confirm {
+            get {
+                return ResourceManager.GetString("MainWindow_DeleteBotGroup_Confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Delete.
+        /// </summary>
+        public static string MainWindow_DeleteBotGroup_Delete {
+            get {
+                return ResourceManager.GetString("MainWindow_DeleteBotGroup_Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Delete bot.
+        /// </summary>
+        public static string MainWindow_DeleteBotGroup_Header {
+            get {
+                return ResourceManager.GetString("MainWindow_DeleteBotGroup_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Select bot:.
+        /// </summary>
+        public static string MainWindow_DeleteBotGroup_SelectBot {
+            get {
+                return ResourceManager.GetString("MainWindow_DeleteBotGroup_SelectBot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Add.
+        /// </summary>
+        public static string MainWindow_ProfilesControl_Add {
+            get {
+                return ResourceManager.GetString("MainWindow_ProfilesControl_Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Cancel.
+        /// </summary>
+        public static string MainWindow_ProfilesControl_Cancel {
+            get {
+                return ResourceManager.GetString("MainWindow_ProfilesControl_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Delete.
+        /// </summary>
+        public static string MainWindow_ProfilesControl_Delete {
+            get {
+                return ResourceManager.GetString("MainWindow_ProfilesControl_Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Filter.
+        /// </summary>
+        public static string MainWindow_ProfilesControl_FilterPlaceholder {
+            get {
+                return ResourceManager.GetString("MainWindow_ProfilesControl_FilterPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Save.
+        /// </summary>
+        public static string MainWindow_ProfilesControl_Save {
+            get {
+                return ResourceManager.GetString("MainWindow_ProfilesControl_Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Save all.
+        /// </summary>
+        public static string MainWindow_ProfilesControl_SaveAll {
+            get {
+                return ResourceManager.GetString("MainWindow_ProfilesControl_SaveAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Information.
+        /// </summary>
+        public static string MainWindow_ProfilesInformationGroup_Header {
+            get {
+                return ResourceManager.GetString("MainWindow_ProfilesInformationGroup_Header", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Profile name:.
         /// </summary>
-        public static string LabelProfileName {
+        public static string MainWindow_ProfilesInformationGroup_Name {
             get {
-                return ResourceManager.GetString("LabelProfileName", resourceCulture);
+                return ResourceManager.GetString("MainWindow_ProfilesInformationGroup_Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Select bot.
+        ///   Ищет локализованную строку, похожую на Enable Chromium sandbox.
         /// </summary>
-        public static string LabelSelectBot {
+        public static string MainWindow_ProfilesOther_ChromiumSandbox {
             get {
-                return ResourceManager.GetString("LabelSelectBot", resourceCulture);
+                return ResourceManager.GetString("MainWindow_ProfilesOther_ChromiumSandbox", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Select browser.
+        ///   Ищет локализованную строку, похожую на Other.
         /// </summary>
-        public static string LabelSelectBrowser {
+        public static string MainWindow_ProfilesOther_Header {
             get {
-                return ResourceManager.GetString("LabelSelectBrowser", resourceCulture);
+                return ResourceManager.GetString("MainWindow_ProfilesOther_Header", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Select Profile.
+        ///   Ищет локализованную строку, похожую на Headless mode.
         /// </summary>
-        public static string LabelSelectProfile {
+        public static string MainWindow_ProfilesOther_HeadlessMode {
             get {
-                return ResourceManager.GetString("LabelSelectProfile", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Select Profiles.
-        /// </summary>
-        public static string LabelSelectProfiles {
-            get {
-                return ResourceManager.GetString("LabelSelectProfiles", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Locating files in a computer&apos;s file system..
-        /// </summary>
-        public static string LabelSettingsDescriptionFileLocation {
-            get {
-                return ResourceManager.GetString("LabelSettingsDescriptionFileLocation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Browsers and their channels that need to be installed..
-        /// </summary>
-        public static string LabelSettingsDescriptionInstalledBrowsers {
-            get {
-                return ResourceManager.GetString("LabelSettingsDescriptionInstalledBrowsers", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Sets parameters that affect the display of the user interface..
-        /// </summary>
-        public static string LabelSettingsDescriptionUserInterface {
-            get {
-                return ResourceManager.GetString("LabelSettingsDescriptionUserInterface", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Installed browsers.
-        /// </summary>
-        public static string LabelSettingsHeaderInstalledBrowsers {
-            get {
-                return ResourceManager.GetString("LabelSettingsHeaderInstalledBrowsers", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Interface.
-        /// </summary>
-        public static string LabelSettingsHeaderUserInterface {
-            get {
-                return ResourceManager.GetString("LabelSettingsHeaderUserInterface", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Language.
-        /// </summary>
-        public static string LabelSettingsLanguage {
-            get {
-                return ResourceManager.GetString("LabelSettingsLanguage", resourceCulture);
+                return ResourceManager.GetString("MainWindow_ProfilesOther_HeadlessMode", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Slow motion (milliseconds).
         /// </summary>
-        public static string LabelSlowMo {
+        public static string MainWindow_ProfilesOther_SlowMo {
             get {
-                return ResourceManager.GetString("LabelSlowMo", resourceCulture);
+                return ResourceManager.GetString("MainWindow_ProfilesOther_SlowMo", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Number of profiles:.
         /// </summary>
-        public static string LabelStatusNumberOfProfiles {
+        public static string MainWindow_ProfilesStatus_ProfilesCount {
             get {
-                return ResourceManager.GetString("LabelStatusNumberOfProfiles", resourceCulture);
+                return ResourceManager.GetString("MainWindow_ProfilesStatus_ProfilesCount", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Selected profile:.
         /// </summary>
-        public static string LabelStatusSelectedProfile {
+        public static string MainWindow_ProfilesStatus_SelectedProfile {
             get {
-                return ResourceManager.GetString("LabelStatusSelectedProfile", resourceCulture);
+                return ResourceManager.GetString("MainWindow_ProfilesStatus_SelectedProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Accept all downloads.
+        /// </summary>
+        public static string MainWindow_ProfilesStorageGroup_AcceptDownloads {
+            get {
+                return ResourceManager.GetString("MainWindow_ProfilesStorageGroup_AcceptDownloads", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Download path.
+        /// </summary>
+        public static string MainWindow_ProfilesStorageGroup_DownloadPath {
+            get {
+                return ResourceManager.GetString("MainWindow_ProfilesStorageGroup_DownloadPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Storage.
+        /// </summary>
+        public static string MainWindow_ProfilesStorageGroup_Header {
+            get {
+                return ResourceManager.GetString("MainWindow_ProfilesStorageGroup_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Profiles.
+        /// </summary>
+        public static string MainWindow_ProfilesTab_Header {
+            get {
+                return ResourceManager.GetString("MainWindow_ProfilesTab_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Bot:.
+        /// </summary>
+        public static string MainWindow_RunningTasksGroup_Bot {
+            get {
+                return ResourceManager.GetString("MainWindow_RunningTasksGroup_Bot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Count:.
+        /// </summary>
+        public static string MainWindow_RunningTasksGroup_BrowserProfilesCount {
+            get {
+                return ResourceManager.GetString("MainWindow_RunningTasksGroup_BrowserProfilesCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Details.
+        /// </summary>
+        public static string MainWindow_RunningTasksGroup_Details {
+            get {
+                return ResourceManager.GetString("MainWindow_RunningTasksGroup_Details", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Running tasks.
+        /// </summary>
+        public static string MainWindow_RunningTasksGroup_Header {
+            get {
+                return ResourceManager.GetString("MainWindow_RunningTasksGroup_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Profile:.
+        /// </summary>
+        public static string MainWindow_RunningTasksGroup_UnitBrowserProfile {
+            get {
+                return ResourceManager.GetString("MainWindow_RunningTasksGroup_UnitBrowserProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Status:.
+        /// </summary>
+        public static string MainWindow_RunningTasksGroup_UnitStatus {
+            get {
+                return ResourceManager.GetString("MainWindow_RunningTasksGroup_UnitStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Run.
+        /// </summary>
+        public static string MainWindow_RunTab_Header {
+            get {
+                return ResourceManager.GetString("MainWindow_RunTab_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Run task.
+        /// </summary>
+        public static string MainWindow_RunTaskGroup_Header {
+            get {
+                return ResourceManager.GetString("MainWindow_RunTaskGroup_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Launch.
+        /// </summary>
+        public static string MainWindow_RunTaskGroup_Launch {
+            get {
+                return ResourceManager.GetString("MainWindow_RunTaskGroup_Launch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Select bot:.
+        /// </summary>
+        public static string MainWindow_RunTaskGroup_SelectBot {
+            get {
+                return ResourceManager.GetString("MainWindow_RunTaskGroup_SelectBot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Select Profiles:.
+        /// </summary>
+        public static string MainWindow_RunTaskGroup_SelectProfiles {
+            get {
+                return ResourceManager.GetString("MainWindow_RunTaskGroup_SelectProfiles", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Data.
         /// </summary>
-        public static string MainWindow_TabSettings_DataHeader {
+        public static string MainWindow_SettingsData_Header {
             get {
-                return ResourceManager.GetString("MainWindow_TabSettings_DataHeader", resourceCulture);
+                return ResourceManager.GetString("MainWindow_SettingsData_Header", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Path to the directory where the data is stored.
         /// </summary>
-        public static string MainWindow_TabSettings_DataPath {
+        public static string MainWindow_SettingsData_Path {
             get {
-                return ResourceManager.GetString("MainWindow_TabSettings_DataPath", resourceCulture);
+                return ResourceManager.GetString("MainWindow_SettingsData_Path", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Browse...
+        /// </summary>
+        public static string MainWindow_SettingsData_Search {
+            get {
+                return ResourceManager.GetString("MainWindow_SettingsData_Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Browsers and their channels that need to be installed..
+        /// </summary>
+        public static string MainWindow_SettingsInstalledBrowsers_Description {
+            get {
+                return ResourceManager.GetString("MainWindow_SettingsInstalledBrowsers_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Installed browsers.
+        /// </summary>
+        public static string MainWindow_SettingsInstalledBrowsers_Header {
+            get {
+                return ResourceManager.GetString("MainWindow_SettingsInstalledBrowsers_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Settings.
+        /// </summary>
+        public static string MainWindow_SettingsTab_Header {
+            get {
+                return ResourceManager.GetString("MainWindow_SettingsTab_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Sets parameters that affect the display of the user interface..
+        /// </summary>
+        public static string MainWindow_SettingsUserInterface_Description {
+            get {
+                return ResourceManager.GetString("MainWindow_SettingsUserInterface_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Interface.
+        /// </summary>
+        public static string MainWindow_SettingsUserInterface_Header {
+            get {
+                return ResourceManager.GetString("MainWindow_SettingsUserInterface_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Language.
+        /// </summary>
+        public static string MainWindow_SettingsUserInterface_Language {
+            get {
+                return ResourceManager.GetString("MainWindow_SettingsUserInterface_Language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Save.
+        /// </summary>
+        public static string MainWindow_SettingsUserInterface_Save {
+            get {
+                return ResourceManager.GetString("MainWindow_SettingsUserInterface_Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Playhouse.
+        /// </summary>
+        public static string MianWindow_Title {
+            get {
+                return ResourceManager.GetString("MianWindow_Title", resourceCulture);
             }
         }
         
@@ -462,78 +606,6 @@ namespace Playhouse.UI.Resources.Localization {
         public static string PageClosedBotActionViewModel_RunBeforeUnload {
             get {
                 return ResourceManager.GetString("PageClosedBotActionViewModel_RunBeforeUnload", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на ID.
-        /// </summary>
-        public static string ProfilePropertyID {
-            get {
-                return ResourceManager.GetString("ProfilePropertyID", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Name.
-        /// </summary>
-        public static string ProfilePropertyName {
-            get {
-                return ResourceManager.GetString("ProfilePropertyName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Bots.
-        /// </summary>
-        public static string TabBotsHeader {
-            get {
-                return ResourceManager.GetString("TabBotsHeader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Profiles.
-        /// </summary>
-        public static string TabProfilesHeader {
-            get {
-                return ResourceManager.GetString("TabProfilesHeader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Run.
-        /// </summary>
-        public static string TabRunHeader {
-            get {
-                return ResourceManager.GetString("TabRunHeader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Settings.
-        /// </summary>
-        public static string TabSettingsHeader {
-            get {
-                return ResourceManager.GetString("TabSettingsHeader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Filter.
-        /// </summary>
-        public static string TextBoxWatermarkProfilesFilter {
-            get {
-                return ResourceManager.GetString("TextBoxWatermarkProfilesFilter", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Playhouse.
-        /// </summary>
-        public static string WindowMainTitle {
-            get {
-                return ResourceManager.GetString("WindowMainTitle", resourceCulture);
             }
         }
     }

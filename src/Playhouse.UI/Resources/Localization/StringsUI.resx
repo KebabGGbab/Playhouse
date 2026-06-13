@@ -117,154 +117,136 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BoxRunTaskHeader" xml:space="preserve">
-    <value>Run task</value>
-  </data>
-  <data name="BoxRunningTasksHeader" xml:space="preserve">
+  <data name="MainWindow_RunningTasksGroup_Header" xml:space="preserve">
     <value>Running tasks</value>
   </data>
-  <data name="TabBotsHeader" xml:space="preserve">
+  <data name="MainWindow_BotsTab_Header" xml:space="preserve">
     <value>Bots</value>
   </data>
-  <data name="TabProfilesHeader" xml:space="preserve">
+  <data name="MainWindow_ProfilesTab_Header" xml:space="preserve">
     <value>Profiles</value>
   </data>
-  <data name="TabRunHeader" xml:space="preserve">
+  <data name="MainWindow_RunTab_Header" xml:space="preserve">
     <value>Run</value>
   </data>
-  <data name="TabSettingsHeader" xml:space="preserve">
+  <data name="MainWindow_SettingsTab_Header" xml:space="preserve">
     <value>Settings</value>
   </data>
-  <data name="LabelSelectBot" xml:space="preserve">
-    <value>Select bot</value>
+  <data name="MainWindow_RunTaskGroup_SelectBot" xml:space="preserve">
+    <value>Select bot:</value>
   </data>
-  <data name="BotPropertyName" xml:space="preserve">
+  <data name="Bot_Name" xml:space="preserve">
     <value>Name</value>
   </data>
-  <data name="LabelSelectProfile" xml:space="preserve">
-    <value>Select Profile</value>
+  <data name="MainWindow_CreateBotGroup_SelectProfile" xml:space="preserve">
+    <value>Select Profile:</value>
   </data>
-  <data name="BoxCreateBotHeader" xml:space="preserve">
+  <data name="MainWindow_CreateBotGroup_Header" xml:space="preserve">
     <value>Create bot</value>
   </data>
-  <data name="LabelBotName" xml:space="preserve">
+  <data name="MainWindow_CreateBotGroup_BotName" xml:space="preserve">
     <value>Bot name:</value>
   </data>
-  <data name="LabelProfileName" xml:space="preserve">
+  <data name="MainWindow_ProfilesInformationGroup_Name" xml:space="preserve">
     <value>Profile name:</value>
   </data>
-  <data name="LabelSelectProfiles" xml:space="preserve">
-    <value>Select Profiles</value>
+  <data name="MainWindow_RunTaskGroup_SelectProfiles" xml:space="preserve">
+    <value>Select Profiles:</value>
   </data>
-  <data name="LabelSelectBrowser" xml:space="preserve">
-    <value>Select browser</value>
-  </data>
-  <data name="BoxDeleteBotHeader" xml:space="preserve">
+  <data name="MainWindow_DeleteBotGroup_Header" xml:space="preserve">
     <value>Delete bot</value>
   </data>
-  <data name="ButtonCreate" xml:space="preserve">
+  <data name="MainWindow_CreateBotGroup_Create" xml:space="preserve">
     <value>Create</value>
   </data>
-  <data name="ButtonDelete" xml:space="preserve">
+  <data name="MainWindow_DeleteBotGroup_Delete" xml:space="preserve">
     <value>Delete</value>
   </data>
-  <data name="CheckBoxConfirm" xml:space="preserve">
+  <data name="MainWindow_DeleteBotGroup_Confirm" xml:space="preserve">
     <value>Confirm</value>
   </data>
-  <data name="WindowMainTitle" xml:space="preserve">
+  <data name="MianWindow_Title" xml:space="preserve">
     <value>Playhouse</value>
   </data>
   <data name="BotConstructorWindow_Title" xml:space="preserve">
     <value>Playhouse - Constructor Bot</value>
   </data>
-  <data name="BoxInformationProfileHeader" xml:space="preserve">
+  <data name="MainWindow_ProfilesInformationGroup_Header" xml:space="preserve">
     <value>Information</value>
   </data>
-  <data name="BoxStorageProfileHeader" xml:space="preserve">
+  <data name="MainWindow_ProfilesStorageGroup_Header" xml:space="preserve">
     <value>Storage</value>
   </data>
-  <data name="LabelDownloadPath" xml:space="preserve">
+  <data name="MainWindow_ProfilesStorageGroup_DownloadPath" xml:space="preserve">
     <value>Download path</value>
   </data>
-  <data name="LabelAcceptDownloadsProfile" xml:space="preserve">
+  <data name="MainWindow_ProfilesStorageGroup_AcceptDownloads" xml:space="preserve">
     <value>Accept all downloads</value>
   </data>
-  <data name="BoxOtherProfileHeader" xml:space="preserve">
+  <data name="MainWindow_ProfilesOther_Header" xml:space="preserve">
     <value>Other</value>
   </data>
-  <data name="CheckBoxHeadlessMode" xml:space="preserve">
+  <data name="MainWindow_ProfilesOther_HeadlessMode" xml:space="preserve">
     <value>Headless mode</value>
   </data>
-  <data name="CheckBoxEnableChromiumSandbox" xml:space="preserve">
+  <data name="MainWindow_ProfilesOther_ChromiumSandbox" xml:space="preserve">
     <value>Enable Chromium sandbox</value>
   </data>
-  <data name="LabelSlowMo" xml:space="preserve">
+  <data name="MainWindow_ProfilesOther_SlowMo" xml:space="preserve">
     <value>Slow motion (milliseconds)</value>
   </data>
-  <data name="LabelStatusNumberOfProfiles" xml:space="preserve">
+  <data name="MainWindow_ProfilesStatus_ProfilesCount" xml:space="preserve">
     <value>Number of profiles:</value>
   </data>
-  <data name="LabelStatusSelectedProfile" xml:space="preserve">
+  <data name="MainWindow_ProfilesStatus_SelectedProfile" xml:space="preserve">
     <value>Selected profile:</value>
   </data>
-  <data name="ProfilePropertyID" xml:space="preserve">
+  <data name="Browser_Id" xml:space="preserve">
     <value>ID</value>
   </data>
-  <data name="ProfilePropertyName" xml:space="preserve">
+  <data name="Browser_Name" xml:space="preserve">
     <value>Name</value>
   </data>
-  <data name="ButtonAdd" xml:space="preserve">
+  <data name="MainWindow_ProfilesControl_Add" xml:space="preserve">
     <value>Add</value>
   </data>
-  <data name="ButtonSave" xml:space="preserve">
+  <data name="MainWindow_ProfilesControl_Save" xml:space="preserve">
     <value>Save</value>
   </data>
-  <data name="MainWindow_TabSettings_DataHeader" xml:space="preserve">
-    <value>Data</value>
-  </data>
-  <data name="LabelSettingsDescriptionFileLocation" xml:space="preserve">
-    <value>Locating files in a computer's file system.</value>
-  </data>
-  <data name="ButtonSearchFile" xml:space="preserve">
+  <data name="MainWindow_SettingsData_Search" xml:space="preserve">
     <value>Browse..</value>
   </data>
-  <data name="LabelSettingsHeaderInstalledBrowsers" xml:space="preserve">
+  <data name="MainWindow_SettingsInstalledBrowsers_Header" xml:space="preserve">
     <value>Installed browsers</value>
   </data>
-  <data name="LabelSettingsDescriptionInstalledBrowsers" xml:space="preserve">
+  <data name="MainWindow_SettingsInstalledBrowsers_Description" xml:space="preserve">
     <value>Browsers and their channels that need to be installed.</value>
   </data>
-  <data name="LabelSettingsHeaderUserInterface" xml:space="preserve">
-    <value>Interface</value>
-  </data>
-  <data name="LabelSettingsDescriptionUserInterface" xml:space="preserve">
+  <data name="MainWindow_SettingsUserInterface_Description" xml:space="preserve">
     <value>Sets parameters that affect the display of the user interface.</value>
   </data>
-  <data name="ButtonStart" xml:space="preserve">
-    <value>Run</value>
+  <data name="MainWindow_RunTaskGroup_Launch" xml:space="preserve">
+    <value>Launch</value>
   </data>
-  <data name="TextBoxWatermarkProfilesFilter" xml:space="preserve">
+  <data name="MainWindow_ProfilesControl_FilterPlaceholder" xml:space="preserve">
     <value>Filter</value>
   </data>
-  <data name="ButtonSaveAll" xml:space="preserve">
+  <data name="MainWindow_ProfilesControl_SaveAll" xml:space="preserve">
     <value>Save all</value>
   </data>
-  <data name="ButtonCancel" xml:space="preserve">
+  <data name="MainWindow_ProfilesControl_Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
-  <data name="LabelSettingsLanguage" xml:space="preserve">
+  <data name="MainWindow_SettingsUserInterface_Language" xml:space="preserve">
     <value>Language</value>
   </data>
-  <data name="BotPropertyID" xml:space="preserve">
+  <data name="Bot_Id" xml:space="preserve">
     <value>id</value>
-  </data>
-  <data name="MainWindow_TabSettings_DataPath" xml:space="preserve">
-    <value>Path to the directory where the data is stored</value>
   </data>
   <data name="BotConstructorWindow_ActionSettings_Header" xml:space="preserve">
     <value>Action Settings</value>
   </data>
-  <data name="BotConstructorWindow_EnumerableActions_Text" xml:space="preserve">
+  <data name="BotConstructorWindow_Actions_Text" xml:space="preserve">
     <value>Actions:</value>
   </data>
   <data name="PageClosedBotActionViewModel_Reason" xml:space="preserve">
@@ -275,5 +257,47 @@
   </data>
   <data name="BrowserContextCreatedBotActionViewModel_Master_Title" xml:space="preserve">
     <value>Browser context created</value>
+  </data>
+  <data name="MainWindow_RunningTasksGroup_Bot" xml:space="preserve">
+    <value>Bot:</value>
+  </data>
+  <data name="MainWindow_RunningTasksGroup_BrowserProfilesCount" xml:space="preserve">
+    <value>Count:</value>
+  </data>
+  <data name="MainWindow_RunningTasksGroup_Details" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="MainWindow_RunningTasksGroup_UnitBrowserProfile" xml:space="preserve">
+    <value>Profile:</value>
+  </data>
+  <data name="MainWindow_RunningTasksGroup_UnitStatus" xml:space="preserve">
+    <value>Status:</value>
+  </data>
+  <data name="MainWindow_RunTaskGroup_Header" xml:space="preserve">
+    <value>Run task</value>
+  </data>
+  <data name="MainWindow_CreateBotGroup_SelectBrowserType" xml:space="preserve">
+    <value>Select browser:</value>
+  </data>
+  <data name="MainWindow_DeleteBotGroup_SelectBot" xml:space="preserve">
+    <value>Select bot:</value>
+  </data>
+  <data name="MainWindow_ProfilesControl_Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="MainWindow_SettingsData_Header" xml:space="preserve">
+    <value>Data</value>
+  </data>
+  <data name="MainWindow_SettingsData_Path" xml:space="preserve">
+    <value>Path to the directory where the data is stored</value>
+  </data>
+  <data name="MainWindow_SettingsUserInterface_Header" xml:space="preserve">
+    <value>Interface</value>
+  </data>
+  <data name="MainWindow_SettingsUserInterface_Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="BotConstructorWindow_Save" xml:space="preserve">
+    <value>Save</value>
   </data>
 </root>

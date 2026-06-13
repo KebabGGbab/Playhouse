@@ -41,7 +41,7 @@
               RowDefinitions="auto,*">
             <TextBlock Grid.Row="0"
                        Margin="10, 0, 10, 10"
-                       Text="{l:Localization BotConstructorWindow_EnumerableActions_Text}" />
+                       Text="{l:Localization BotConstructorWindow_Actions_Text}" />
 
             <ListBox Grid.Row="1"
                      ItemsSource="{Binding Path=Bot.Actions}"
@@ -62,7 +62,7 @@
         <Grid Grid.Column="1" Grid.Row="1"
               Classes="command-panel">
 			<Button HorizontalAlignment="Right"
-                    Content="{l:Localization ButtonSave}"
+                    Content="{l:Localization BotConstructorWindow_Save}"
                     Click="Save"
                     Command="{Binding Path=Bot.SaveCommand}"/>
         </Grid>
