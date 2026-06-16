@@ -1,6 +1,5 @@
 ﻿using KebabGGbab.CommunityToolkit.MVVM.Extensions.ViewModelAbstractions;
-using Playhouse.Core.Services;
-
+using Playhouse.Application.Services;
 namespace Playhouse.ViewModels.ViewModels
 {
 	public class UpdateViewModel : ViewModelBase

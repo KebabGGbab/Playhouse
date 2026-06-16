@@ -4,7 +4,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using DynamicData;
-using Playhouse.Core.Services.BotRunningService;
+using Playhouse.Application.Services.BotRunningService;
 using Playhouse.ViewModels.Messages;
 
 namespace Playhouse.ViewModels.ViewModels

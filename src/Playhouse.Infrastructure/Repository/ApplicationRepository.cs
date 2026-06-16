@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Playhouse.Core.Services.ApplicationSettingsService;
+using Playhouse.Domain;
 
 namespace Playhouse.Infrastructure.Repository
 {

@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Playhouse.Core.Services.ConstructorService.Abstractions;
+using Playhouse.Application.Services.ConstructorService.Abstractions;
 using Playhouse.ViewModels.ViewModels.BotActionViewModels;
 
 namespace Playhouse.ViewModels.ViewModels

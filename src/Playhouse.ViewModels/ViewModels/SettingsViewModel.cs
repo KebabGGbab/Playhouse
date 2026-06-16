@@ -2,8 +2,8 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using KebabGGbab.CommunityToolkit.MVVM.Extensions.ViewModelAbstractions;
-using Playhouse.Core.Services.ApplicationSettingsService;
-using Playhouse.Core.Services.LocalizationService;
+using Playhouse.Application.Services.ApplicationSettingsService;
+using Playhouse.Application.Services.LocalizationService;
 using Playhouse.Domain;
 
 namespace Playhouse.ViewModels.ViewModels

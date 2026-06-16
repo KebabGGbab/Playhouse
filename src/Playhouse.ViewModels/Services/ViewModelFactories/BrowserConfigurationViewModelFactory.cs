@@ -1,4 +1,4 @@
-﻿using Playhouse.Core.Services.FileManagerService.Abstractions;
+﻿using Playhouse.Application.Services.FileManagerService.Abstractions;
 using Playhouse.Domain;
 using Playhouse.ViewModels.Services.ViewModelFactories.Abstractions;
 using Playhouse.ViewModels.ViewModels;

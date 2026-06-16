@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Playhouse.Core.Services.ApplicationSettingsService;
 using Playhouse.Domain;
 using Playhouse.Infrastructure.Comparers;
 using Playhouse.Infrastructure.Converters;

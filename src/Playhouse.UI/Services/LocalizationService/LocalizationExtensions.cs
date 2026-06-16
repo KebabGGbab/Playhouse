@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 using KebabGGbab.Localization;
 using Microsoft.Extensions.DependencyInjection;
-using Playhouse.Core.Services.LocalizationService;
+using Playhouse.Application.Services.LocalizationService;
 using Playhouse.UI.Resources.Localization;
 
 namespace Playhouse.UI.Services.LocalizationService

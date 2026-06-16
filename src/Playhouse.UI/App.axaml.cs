@@ -6,12 +6,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Playhouse.Core.Services.ApplicationSettingsService;
-using Playhouse.Core.Services.BotRunningService;
-using Playhouse.Core.Services.ConstructorService;
-using Playhouse.Core.Services.FileManagerService;
-using Playhouse.Core.Services.FilePathResolverService;
-using Playhouse.Core.Services.PlaywrightService;
+using Playhouse.Application.Services.ApplicationSettingsService;
+using Playhouse.Application.Services.BotRunningService;
+using Playhouse.Application.Services.ConstructorService;
+using Playhouse.Application.Services.FileManagerService;
+using Playhouse.Application.Services.FilePathResolverService;
+using Playhouse.Application.Services.PlaywrightService;
 using Playhouse.Infrastructure;
 using Playhouse.UI.Services.LocalizationService;
 using Playhouse.UI.Services.WindowCreatorService;
@@ -22,7 +22,7 @@ using Playhouse.ViewModels.ViewModels;
 
 namespace Playhouse.UI
 {
-    public partial class App : Application, IDisposable
+    public partial class App : Avalonia.Application, IDisposable
     {
         private readonly IHost _host;
 

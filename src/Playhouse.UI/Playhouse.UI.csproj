@@ -42,7 +42,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Playhouse.Core\Playhouse.Core.csproj" />
+    <ProjectReference Include="..\Playhouse.Application\Playhouse.Application.csproj" />
     <ProjectReference Include="..\Playhouse.ViewModels\Playhouse.ViewModels.csproj" />
   </ItemGroup>
 

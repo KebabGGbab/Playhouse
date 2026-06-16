@@ -1,8 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
-using Playhouse.Domain;
 
-namespace Playhouse.Core.Services.ApplicationSettingsService
+namespace Playhouse.Domain
 {
     public class ApplicationSettings
     {

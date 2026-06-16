@@ -1,5 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using Playhouse.Core.Services.BotRunningService;
+using Playhouse.Application.Services.BotRunningService;
 
 namespace Playhouse.ViewModels.ViewModels
 {
