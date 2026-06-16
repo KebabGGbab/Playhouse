@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Playhouse.Core.Data;
-using Playhouse.Core.Models;
 using Playhouse.Core.Services.FileManagerService.Abstractions;
+using Playhouse.Domain;
 using Playhouse.ViewModels.Services.ViewModelFactories.Abstractions;
 using Playhouse.ViewModels.ViewModels;
 

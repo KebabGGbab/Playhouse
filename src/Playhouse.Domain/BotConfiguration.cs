@@ -1,6 +1,6 @@
-﻿using Playhouse.Core.Models.BotActions.Abstractions;
+﻿using Playhouse.Domain.BotActions.Abstractions;
 
-namespace Playhouse.Core.Models
+namespace Playhouse.Domain
 {
 	public class BotConfiguration
     {

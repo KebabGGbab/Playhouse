@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 using Microsoft.Playwright;
-using Playhouse.Core.Models.BotActions.Abstractions;
+using Playhouse.Domain.BotActions.Abstractions;
 
 namespace Playhouse.Core.Services.ConstructorService
 {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Playhouse.Core.Data.EntityTypeConfigurations;
-using Playhouse.Core.Models;
 using Playhouse.Core.Services.ApplicationSettingsService;
+using Playhouse.Domain;
 
 namespace Playhouse.Core.Data
 {

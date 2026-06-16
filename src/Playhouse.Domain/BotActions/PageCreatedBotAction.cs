@@ -1,15 +1,15 @@
-﻿using Playhouse.Core.Models.BotActions.Abstractions;
+﻿using Playhouse.Domain.BotActions.Abstractions;
 
-namespace Playhouse.Core.Models.BotActions
+namespace Playhouse.Domain.BotActions
 {
-    public sealed class BrowserContextCreatedBotAction : BrowserContextBotAction
+    public class PageCreatedBotAction : PageBotAction
     {
         // Конструктор для EntityFramework
-        private BrowserContextCreatedBotAction()
+        private PageCreatedBotAction() 
         {
         }
 
-        public BrowserContextCreatedBotAction(BotConfiguration configuration)
+        public PageCreatedBotAction(BotConfiguration configuration)
             : base(configuration)
         {
         }

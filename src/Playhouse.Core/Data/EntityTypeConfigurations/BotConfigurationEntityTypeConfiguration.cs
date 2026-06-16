@@ -1,7 +1,7 @@
 ﻿using Ardalis.SmartEnum.EFCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Playhouse.Core.Models;
+using Playhouse.Domain;
 
 namespace Playhouse.Core.Data.EntityTypeConfigurations
 {

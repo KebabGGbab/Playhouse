@@ -1,17 +1,21 @@
-﻿using Playhouse.Core.Models.BotActions.Abstractions;
+﻿using Playhouse.Domain.BotActions.Abstractions;
+using Playhouse.Domain.PlaywrightDecorator;
 
-namespace Playhouse.Core.Models.BotActions
+namespace Playhouse.Domain.BotActions
 {
-    public class PageCreatedBotAction : PageBotAction
+    public class PageClosedBotAction : PageBotAction
     {
+        public PageCloseOptionsStrictDecorator Options { get; } = null!;
+
         // Конструктор для EntityFramework
-        private PageCreatedBotAction() 
+        private PageClosedBotAction()
         {
         }
 
-        public PageCreatedBotAction(BotConfiguration configuration)
+        public PageClosedBotAction(BotConfiguration configuration, PageCloseOptionsStrictDecorator? options = null)
             : base(configuration)
         {
+            Options = options ?? new PageCloseOptionsStrictDecorator();
         }
 
         public override T Accept<T>(IBotActionVisitor<T> visitor)

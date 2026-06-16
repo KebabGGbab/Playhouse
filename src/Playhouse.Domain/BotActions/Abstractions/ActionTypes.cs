@@ -1,6 +1,6 @@
 ﻿using Ardalis.SmartEnum;
 
-namespace Playhouse.Core.Models.BotActions.Abstractions
+namespace Playhouse.Domain.BotActions.Abstractions
 {
     public sealed class ActionTypes : SmartEnum<ActionTypes>
     {

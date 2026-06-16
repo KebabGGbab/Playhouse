@@ -1,7 +1,7 @@
-﻿using Playhouse.Core.Models.BotActions.Abstractions;
-using Playhouse.Core.Models.PlaywrightDecorator;
+﻿using Playhouse.Domain.BotActions.Abstractions;
+using Playhouse.Domain.PlaywrightDecorator;
 
-namespace Playhouse.Core.Models.BotActions
+namespace Playhouse.Domain.BotActions
 {
     public sealed class LocatorFillBotAction : LocatorBotAction
     {

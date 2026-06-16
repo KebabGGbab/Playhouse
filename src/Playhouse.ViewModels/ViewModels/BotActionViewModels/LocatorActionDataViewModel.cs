@@ -1,6 +1,6 @@
 ﻿using KebabGGbab.CommunityToolkit.MVVM.Extensions.ViewModelAbstractions;
 using Microsoft.Playwright;
-using Playhouse.Core.Models.BotActions.Abstractions;
+using Playhouse.Domain.BotActions.Abstractions;
 
 namespace Playhouse.ViewModels.ViewModels.BotActionViewModels
 {

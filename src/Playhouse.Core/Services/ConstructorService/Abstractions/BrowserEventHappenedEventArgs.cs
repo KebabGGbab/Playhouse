@@ -1,4 +1,4 @@
-﻿using Playhouse.Core.Models.BotActions.Abstractions;
+﻿using Playhouse.Domain.BotActions.Abstractions;
 
 namespace Playhouse.Core.Services.ConstructorService.Abstractions
 {

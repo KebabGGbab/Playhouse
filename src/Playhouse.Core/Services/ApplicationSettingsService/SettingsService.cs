@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 using Playhouse.Core.Data.Repository;
-using Playhouse.Core.Models;
+using Playhouse.Domain;
 
 namespace Playhouse.Core.Services.ApplicationSettingsService
 {

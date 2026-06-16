@@ -1,6 +1,6 @@
-﻿using Playhouse.Core.Models.PlaywrightDecorator;
+﻿using Playhouse.Domain.PlaywrightDecorator;
 
-namespace Playhouse.Core.Models
+namespace Playhouse.Domain
 {
 	public class BrowserConfiguration
     {

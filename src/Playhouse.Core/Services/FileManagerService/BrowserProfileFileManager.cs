@@ -1,6 +1,6 @@
-﻿using Playhouse.Core.Models;
-using Playhouse.Core.Services.FileManagerService.Abstractions;
+﻿using Playhouse.Core.Services.FileManagerService.Abstractions;
 using Playhouse.Core.Services.FilePathResolverService.Abstractions;
+using Playhouse.Domain;
 
 namespace Playhouse.Core.Services.FileManagerService
 {

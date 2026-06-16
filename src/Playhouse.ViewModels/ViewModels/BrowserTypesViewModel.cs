@@ -1,4 +1,4 @@
-﻿using Playhouse.Core.Models;
+﻿using Playhouse.Domain;
 using Playhouse.ViewModels.ViewModels.Abstractions;
 
 namespace Playhouse.ViewModels.ViewModels

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Playwright;
 
-namespace Playhouse.Core.Models.BotActions.Abstractions
+namespace Playhouse.Domain.BotActions.Abstractions
 {
     public class LocatorActionData
     {

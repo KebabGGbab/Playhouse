@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 using Ardalis.SmartEnum;
 
-namespace Playhouse.Core.Models
+namespace Playhouse.Domain
 {
     public sealed class BrowserTypes : SmartEnum<BrowserTypes>
     {

@@ -1,5 +1,5 @@
-﻿using Playhouse.Core.Models.BotActions;
-using Playhouse.Core.Models.BotActions.Abstractions;
+﻿using Playhouse.Domain.BotActions;
+using Playhouse.Domain.BotActions.Abstractions;
 using Playhouse.ViewModels.ViewModels.BotActionViewModels;
 
 namespace Playhouse.ViewModels.Visitor

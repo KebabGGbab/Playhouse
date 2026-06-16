@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Playhouse.Core.Models;
 using Playhouse.Core.Services.FileManagerService.Abstractions;
+using Playhouse.Domain;
 
 namespace Playhouse.Core.Services.FileManagerService
 {

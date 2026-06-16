@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Playhouse.Core.Data.Comparers;
 using Playhouse.Core.Data.Converters;
-using Playhouse.Core.Models;
+using Playhouse.Domain;
 
 namespace Playhouse.Core.Data.EntityTypeConfigurations
 {

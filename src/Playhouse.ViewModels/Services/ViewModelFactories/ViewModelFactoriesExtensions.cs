@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Playhouse.Core.Models;
+using Playhouse.Domain;
 using Playhouse.ViewModels.Services.ViewModelFactories.Abstractions;
 using Playhouse.ViewModels.ViewModels;
 

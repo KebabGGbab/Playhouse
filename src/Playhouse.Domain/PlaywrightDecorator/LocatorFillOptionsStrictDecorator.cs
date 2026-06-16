@@ -1,6 +1,6 @@
 ﻿using Microsoft.Playwright;
 
-namespace Playhouse.Core.Models.PlaywrightDecorator
+namespace Playhouse.Domain.PlaywrightDecorator
 {
     public class LocatorFillOptionsStrictDecorator
     {

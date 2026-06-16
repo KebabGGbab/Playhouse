@@ -1,5 +1,5 @@
-﻿using Playhouse.Core.Models;
-using Playhouse.Core.Services.PlaywrightService.Abstractions;
+﻿using Playhouse.Core.Services.PlaywrightService.Abstractions;
+using Playhouse.Domain;
 
 namespace Playhouse.Core.Services.BotRunningService
 {

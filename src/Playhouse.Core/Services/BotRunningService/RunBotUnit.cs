@@ -1,6 +1,6 @@
 ﻿using Microsoft.Playwright;
-using Playhouse.Core.Models;
-using Playhouse.Core.Models.BotActions.Abstractions;
+using Playhouse.Domain;
+using Playhouse.Domain.BotActions.Abstractions;
 
 namespace Playhouse.Core.Services.BotRunningService
 {

@@ -1,12 +1,12 @@
 ﻿using Microsoft.Playwright;
-using Playhouse.Core.Models;
-using Playhouse.Core.Models.BotActions;
-using Playhouse.Core.Models.BotActions.Abstractions;
-using Playhouse.Core.Models.PlaywrightDecorator;
 using Playhouse.Core.Resources.Strings;
 using Playhouse.Core.Services.ConstructorService.Abstractions;
 using Playhouse.Core.Services.FilePathResolverService.Abstractions;
 using Playhouse.Core.Services.PlaywrightService.Abstractions;
+using Playhouse.Domain;
+using Playhouse.Domain.BotActions;
+using Playhouse.Domain.BotActions.Abstractions;
+using Playhouse.Domain.PlaywrightDecorator;
 
 namespace Playhouse.Core.Services.ConstructorService
 {

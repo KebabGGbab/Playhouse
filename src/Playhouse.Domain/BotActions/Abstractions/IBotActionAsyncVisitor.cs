@@ -1,4 +1,4 @@
-﻿namespace Playhouse.Core.Models.BotActions.Abstractions
+﻿namespace Playhouse.Domain.BotActions.Abstractions
 {
     public interface IBotActionAsyncVisitor
     {

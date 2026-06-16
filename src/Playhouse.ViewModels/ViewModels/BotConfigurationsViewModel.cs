@@ -3,7 +3,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using DynamicData;
 using Microsoft.EntityFrameworkCore;
 using Playhouse.Core.Data;
-using Playhouse.Core.Models;
+using Playhouse.Domain;
 using Playhouse.ViewModels.Messages;
 using Playhouse.ViewModels.Services.ViewModelFactories.Abstractions;
 using Playhouse.ViewModels.ViewModels.Abstractions;

@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.EntityFrameworkCore;
-using Playhouse.Core.Models;
 using Playhouse.Core.Services.FileManagerService.Abstractions;
+using Playhouse.Domain;
 
 namespace Playhouse.ViewModels.ViewModels
 {

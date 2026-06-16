@@ -1,4 +1,4 @@
-﻿using Playhouse.Core.Models.BotActions;
+﻿using Playhouse.Domain.BotActions;
 
 namespace Playhouse.ViewModels.ViewModels.BotActionViewModels
 {

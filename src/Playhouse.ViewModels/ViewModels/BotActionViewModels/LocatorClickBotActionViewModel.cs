@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using CommunityToolkit.Mvvm.Input;
 using DynamicData;
 using Microsoft.Playwright;
-using Playhouse.Core.Models.BotActions;
+using Playhouse.Domain.BotActions;
 
 namespace Playhouse.ViewModels.ViewModels.BotActionViewModels
 {
