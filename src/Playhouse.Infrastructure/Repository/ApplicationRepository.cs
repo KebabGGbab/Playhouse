@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Playhouse.Core.Services.ApplicationSettingsService;
 
-namespace Playhouse.Core.Data.Repository
+namespace Playhouse.Infrastructure.Repository
 {
     public sealed class ApplicationRepository : ISettingsRepository
     {

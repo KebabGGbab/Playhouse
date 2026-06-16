@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Playhouse.Core.Data.EntityTypeConfigurations;
 using Playhouse.Core.Services.ApplicationSettingsService;
 using Playhouse.Domain;
+using Playhouse.Infrastructure.EntityTypeConfigurations;
 
-namespace Playhouse.Core.Data
+namespace Playhouse.Infrastructure
 {
     public class ApplicationDbContext : DbContext
     {

@@ -3,8 +3,8 @@ using System.Diagnostics.CodeAnalysis;
 using CommunityToolkit.Mvvm.Input;
 using DynamicData;
 using Microsoft.EntityFrameworkCore;
-using Playhouse.Core.Data;
 using Playhouse.Domain;
+using Playhouse.Infrastructure;
 using Playhouse.ViewModels.Services.ViewModelFactories.Abstractions;
 using Playhouse.ViewModels.ViewModels.Abstractions;
 

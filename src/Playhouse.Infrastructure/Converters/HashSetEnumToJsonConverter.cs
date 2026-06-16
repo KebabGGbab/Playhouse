@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Playhouse.Core.Data.Converters
+namespace Playhouse.Infrastructure.Converters
 {
     internal sealed class HashSetEnumToJsonConverter<TEnum> : ValueConverter<ISet<TEnum>, string>
         where TEnum : struct

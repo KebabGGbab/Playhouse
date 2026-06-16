@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Playhouse.Core.Data.Repository;
+using Playhouse.Infrastructure.Repository;
 
-namespace Playhouse.Core.Data
+namespace Playhouse.Infrastructure
 {
     public static class DataExtensions
     {

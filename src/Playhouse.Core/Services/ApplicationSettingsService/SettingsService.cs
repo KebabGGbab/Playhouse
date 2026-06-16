@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
-using Playhouse.Core.Data.Repository;
 using Playhouse.Domain;
+using Playhouse.Infrastructure.Repository;
 
 namespace Playhouse.Core.Services.ApplicationSettingsService
 {
@@ -9,8 +9,7 @@ namespace Playhouse.Core.Services.ApplicationSettingsService
         private readonly ISettingsRepository _repository;
 
         private ApplicationSettings _settings;
-
-        public CultureInfo CurrentUICulture => _settings.UICulture;
+                public CultureInfo CurrentUICulture => _settings.UICulture;
 
         public string PathToData => _settings.PathToData;
 

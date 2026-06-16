@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
 
-namespace Playhouse.Core.Data.Comparers
+namespace Playhouse.Infrastructure.Comparers
 {
     internal sealed class HashSetValueComparer<T> : ValueComparer<ISet<T>>
     {

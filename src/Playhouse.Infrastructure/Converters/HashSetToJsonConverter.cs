@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Playhouse.Core.Data.Converters
+namespace Playhouse.Infrastructure.Converters
 {
     internal class HashSetToJsonConverter<TItem> : ValueConverter<ISet<TItem>, string>
     {

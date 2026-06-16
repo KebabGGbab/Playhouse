@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Playhouse.Domain;
 
-namespace Playhouse.Core.Data.EntityTypeConfigurations
+namespace Playhouse.Infrastructure.EntityTypeConfigurations
 {
     /// <summary>
     /// Конфигурация типа сущности <see cref="BrowserConfiguration"/>.

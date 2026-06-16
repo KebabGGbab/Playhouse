@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Playhouse.Core.Data.Comparers;
-using Playhouse.Core.Data.Converters;
 using Playhouse.Core.Services.ApplicationSettingsService;
 using Playhouse.Domain;
+using Playhouse.Infrastructure.Comparers;
+using Playhouse.Infrastructure.Converters;
 
-namespace Playhouse.Core.Data.EntityTypeConfigurations
+namespace Playhouse.Infrastructure.EntityTypeConfigurations
 {
     internal sealed class ApplicationSettingsEntityTypeConfiguration : IEntityTypeConfiguration<ApplicationSettings>
     {

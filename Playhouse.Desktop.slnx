@@ -5,6 +5,7 @@
   <Folder Name="/src/">
     <Project Path="src/Playhouse.Core/Playhouse.Core.csproj" />
     <Project Path="src/Playhouse.Domain/Playhouse.Domain.csproj" Id="ab55b1b2-aaf5-4b1c-a614-6b45ad143219" />
+    <Project Path="src/Playhouse.Infrastructure/Playhouse.Infrastructure.csproj" Id="92e502e0-c255-4e57-bfb5-2ae9fcdff9ed" />
     <Project Path="src/Playhouse.UI/Playhouse.UI.csproj" />
     <Project Path="src/Playhouse.ViewModels/Playhouse.ViewModels.csproj" />
   </Folder>

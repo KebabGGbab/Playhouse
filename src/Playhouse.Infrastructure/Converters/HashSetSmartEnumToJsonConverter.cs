@@ -3,7 +3,7 @@ using Ardalis.SmartEnum;
 using Ardalis.SmartEnum.EFCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Playhouse.Core.Data.Converters
+namespace Playhouse.Infrastructure.Converters
 {
     internal class HashSetSmartEnumToJsonConverter<TEnum, TValue> : ValueConverter<ISet<TEnum>, string>
         where TEnum : SmartEnum<TEnum, TValue>

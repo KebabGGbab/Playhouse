@@ -2,12 +2,12 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.Playwright;
-using Playhouse.Core.Data.Comparers;
-using Playhouse.Core.Data.Converters;
 using Playhouse.Domain.BotActions;
 using Playhouse.Domain.BotActions.Abstractions;
+using Playhouse.Infrastructure.Comparers;
+using Playhouse.Infrastructure.Converters;
 
-namespace Playhouse.Core.Data.EntityTypeConfigurations
+namespace Playhouse.Infrastructure.EntityTypeConfigurations
 {
     /// <summary>
     /// Конфигурация типа сущности <see cref="BotAction"/>.
