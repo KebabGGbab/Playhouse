@@ -4,7 +4,6 @@
         xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
         xmlns:vm="using:Playhouse.ViewModels.ViewModels"
         xmlns:views="using:Playhouse.UI.Views"
-        xmlns:models="using:Playhouse.Core.Models"
         xmlns:l="https://github.com/KebabGGbab"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -276,11 +275,11 @@
                                 MinWidth="100" MaxWidth="400"
                                 ItemsSource="{Binding Path=BotsViewModel.Bots}">
 				    <DataGrid.Columns>
-					    <DataGridTextColumn x:DataType="models:BotConfiguration" 
+					    <DataGridTextColumn x:DataType="vm:BotConfigurationViewModel" 
                                             Width="SizeToHeader"
                                             Header="{l:Localization Bot_Id}" 
                                             Binding="{Binding Path=Id}" />
-                        <DataGridTextColumn x:DataType="models:BotConfiguration" 
+                        <DataGridTextColumn x:DataType="vm:BotConfigurationViewModel" 
                                             Width="*"
                                             Header="{l:Localization Bot_Name}" 
                                             Binding="{Binding Path=Name}" />
@@ -333,11 +332,11 @@
                                   ItemsSource="{Binding Path=BrowsersViewModel.Profiles}"
                                   SelectedItem="{Binding Path=BrowsersViewModel.SelectedProfile}">
 						    <DataGrid.Columns>
-							    <DataGridTextColumn x:DataType="models:BrowserConfiguration"
+							    <DataGridTextColumn x:DataType="vm:BrowserConfigurationViewModel"
                                                     Width="SizeToHeader"
                                                     Binding="{Binding Path=Id}"
                                                     Header="{l:Localization Browser_Id}" />
-                                <DataGridTextColumn x:DataType="models:BrowserConfiguration" 
+                                <DataGridTextColumn x:DataType="vm:BrowserConfigurationViewModel"
                                                     Width="*"
                                                     Binding="{Binding Path=Name}"
                                                     Header="{l:Localization Browser_Name}" />
