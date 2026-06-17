@@ -2,7 +2,7 @@
     async function HandleLocatorAction(event) {
         const element = event.target;
 
-        if (!element || element === document) {
+        if (element instanceof HTMLElement == false) {
             return;
         }
 
@@ -63,7 +63,9 @@
     }
 
     function getUniqueCssSelector(element) {
-        if (!element || element.nodeType !== 1) return '';
+        if (element instanceof HTMLElement == false) {
+            return null;
+        }
 
         // 1. Если есть ID, это лучший и самый короткий селектор
         if (element.id) {
