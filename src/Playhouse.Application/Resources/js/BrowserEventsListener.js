@@ -16,7 +16,7 @@
             id: element.id,
             role: getRole(element),
             text: text,
-            selector: getUniqueCssSelector(element),
+            selector: getCssSelector(element),
             value: element.value
         };
 
@@ -62,62 +62,34 @@
         }
     }
 
-    function getUniqueCssSelector(element) {
+    function getCssSelector(element) {
         if (element instanceof HTMLElement == false) {
-            return null;
-        }
-
-        // 1. Если есть ID, это лучший и самый короткий селектор
-        if (element.id) {
-            return `#${CSS.escape(element.id)}`;
+            return;
         }
 
         const path = [];
         let current = element;
 
-        while (current && current.nodeType === 1) {
-            let selector = current.tagName.toLowerCase();
+        do {
+            if (current.id) {
+                path.unshift(`#${CSS.escape(current.id)}`);
 
-            // 2. Проверяем специальные атрибуты, которые часто делают элемент уникальным (хорошо для тестов/ботов)
-            const testId = current.getAttribute('data-testid');
-            const name = current.getAttribute('name');
-
-            if (testId) {
-                selector += `[data-testid="${CSS.escape(testId)}"]`;
-                path.unshift(selector);
-                break; // data-testid обычно уникален, можно останавливаться
-            }
-            if (name && (current.tagName.toLowerCase() === 'input' || current.tagName.toLowerCase() === 'select')) {
-                selector += `[name="${CSS.escape(name)}"]`;
-                // Не прерываем сразу, имя может повторяться (например, radio buttons), поэтому идем дальше, но этот атрибут усилит селектор
-            }
-
-            // 3. Если есть классы, добавляем первый (или можно добавить логику проверки уникальности класса)
-            if (current.className && typeof current.className === 'string') {
-                const classes = current.className.trim().split(/\s+/).filter(c => c && !c.startsWith('ng-') && !c.startsWith('_')); // Фильтруем фреймворчные классы
-                if (classes.length > 0) {
-                    selector += `.${CSS.escape(classes[0])}`;
-                }
-            }
-
-            // 4. Fallback: добавляем порядковый номер среди соседей того же тега
-            let sibling = current;
-            let nth = 1;
-            while (sibling.previousElementSibling) {
-                sibling = sibling.previousElementSibling;
-                if (sibling.tagName === current.tagName) nth++;
-            }
-            selector += `:nth-of-type(${nth})`;
-
-            path.unshift(selector);
-            current = current.parentElement;
-
-            // Останавливаемся на body, чтобы селектор не был бесконечным
-            if (current && current.tagName.toLowerCase() === 'body') {
-                path.unshift('body');
                 break;
             }
-        }
+
+            const currentNodeName = current.nodeName.toLowerCase();
+            const childrenParent = Array.from(current.parentElement.children);
+
+            if (childrenParent.filter(item => item.nodeName == current.nodeName).length > 1) {
+                path.unshift(`${currentNodeName}:nth-child(${childrenParent.indexOf(current) + 1})`);
+            }
+            else {
+                path.unshift(currentNodeName);
+            }
+
+            current = current.parentElement;
+
+        } while (current.parentElement !== null)
 
         return path.join(' > ');
     }
