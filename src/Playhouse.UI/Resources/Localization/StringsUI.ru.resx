@@ -337,7 +337,7 @@
     <value>Время ожидания:</value>
   </data>
   <data name="LocatorFillBotActionViewModel_Details_Action" xml:space="preserve">
-    <value>Действие::</value>
+    <value>Действие:</value>
   </data>
   <data name="LocatorFillBotActionViewModel_Details_Role" xml:space="preserve">
     <value>Роль:</value>
