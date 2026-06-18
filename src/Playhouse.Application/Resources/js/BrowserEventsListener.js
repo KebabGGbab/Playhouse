@@ -1,17 +1,22 @@
 {
-    async function HandleLocatorAction(event) {
+    async function HandleLocatorAction(event)
+    {
         const element = event.target;
 
-        if (element instanceof HTMLElement == false) {
+        if (element instanceof HTMLElement == false)
+        {
             return;
         }
 
         let text = (element.innerText || element.alt || element.placeholder || element.getAttribute('aria-label'));
-        if (text != null) {
+
+        if (text != null)
+        {
             text = text.slice(0, 100);
         }
 
-        const data = {
+        const data =
+        {
             action: event.type,
             id: element.id,
             role: getRole(element),
@@ -23,17 +28,22 @@
         await window.SendLocatorAction(data);
     }
 
-    function getRole(element) {
-        if (!element || element.nodeType !== 1) {
-            return null;
+    function getRole(element)
+    {
+        if (element instanceof HTMLElement == false)
+        {
+            return;
         }
 
         const explicitRole = element.getAttribute('role');
-        if (explicitRole) {
+
+        if (explicitRole)
+        {
             return explicitRole.toLowerCase().trim();
         }
 
-        const implicitRoles = {
+        const implicitRoles =
+        {
             'a': 'link',
             'button': 'button',
             'input': element.type === 'checkbox' ? 'checkbox' :
@@ -54,24 +64,30 @@
         };
         const tagName = element.tagName.toLowerCase();
 
-        if (implicitRoles[tagName]) {
+        if (implicitRoles[tagName])
+        {
             return implicitRoles[tagName];
         }
-        else {
+        else
+        {
             return null;
         }
     }
 
-    function getCssSelector(element) {
-        if (element instanceof HTMLElement == false) {
+    function getCssSelector(element)
+    {
+        if (element instanceof HTMLElement == false)
+        {
             return;
         }
 
         const path = [];
         let current = element;
 
-        do {
-            if (current.id) {
+        do
+        {
+            if (current.id)
+            {
                 path.unshift(`#${CSS.escape(current.id)}`);
 
                 break;
@@ -80,29 +96,35 @@
             const currentNodeName = current.nodeName.toLowerCase();
             const childrenParent = Array.from(current.parentElement.children);
 
-            if (childrenParent.filter(item => item.nodeName == current.nodeName).length > 1) {
+            if (childrenParent.filter(item => item.nodeName == current.nodeName).length > 1)
+            {
                 path.unshift(`${currentNodeName}:nth-child(${childrenParent.indexOf(current) + 1})`);
             }
-            else {
+            else
+            {
                 path.unshift(currentNodeName);
             }
 
             current = current.parentElement;
 
-        } while (current.parentElement !== null)
+        }
+        while (current.parentElement !== null)
 
         return path.join(' > ');
     }
 
-    async function DOMLoaded() {
+    async function DOMLoaded()
+    {
         const href = document.URL;
         const referrer = document.referrer;
 
-        if (href.startsWith('chrome') || referrer) {
+        if (href.startsWith('chrome') || referrer)
+        {
             return;
         }
 
-        const data = {
+        const data =
+        {
             referrer: referrer,
             href: href
         };
