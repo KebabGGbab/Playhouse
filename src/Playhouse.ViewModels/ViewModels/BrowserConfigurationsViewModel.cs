@@ -57,8 +57,8 @@ namespace Playhouse.ViewModels.ViewModels
 
         public BrowserConfigurationsViewModel(IDbContextFactory<ApplicationDbContext> dbFactory, IViewModelFactory<BrowserConfigurationViewModel, BrowserConfiguration> viewModelFactory)
         {
-            ArgumentNullException.ThrowIfNull(dbFactory, nameof(dbFactory));
-            ArgumentNullException.ThrowIfNull(viewModelFactory, nameof(viewModelFactory));
+            ArgumentNullException.ThrowIfNull(dbFactory);
+            ArgumentNullException.ThrowIfNull(viewModelFactory);
 
             _dbFactory = dbFactory;
             _viewModelFactory = viewModelFactory;

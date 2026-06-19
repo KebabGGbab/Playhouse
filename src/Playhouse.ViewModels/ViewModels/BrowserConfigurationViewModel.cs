@@ -130,8 +130,8 @@ namespace Playhouse.ViewModels.ViewModels
 
         public BrowserConfigurationViewModel(BrowserConfiguration profile, FileManager<BrowserConfiguration> fileManager)
         {
-            ArgumentNullException.ThrowIfNull(fileManager, nameof(fileManager));
-            ArgumentNullException.ThrowIfNull(profile, nameof(profile));
+            ArgumentNullException.ThrowIfNull(fileManager);
+            ArgumentNullException.ThrowIfNull(profile);
 
             _fileManager = fileManager;
             Profile = profile;

@@ -8,7 +8,7 @@ namespace Playhouse.Application.Services.ConstructorService.Abstractions
 
         public BrowserEventHappenedEventArgs(BotAction action)
         {
-            ArgumentNullException.ThrowIfNull(action, nameof(action));
+            ArgumentNullException.ThrowIfNull(action);
 
             Action = action;
         }

@@ -14,10 +14,10 @@ namespace Playhouse.ViewModels.ViewModels
 
         public MainWindowViewModel(RunViewModel runVM, BotConfigurationsViewModel botsVM, BrowserConfigurationsViewModel browsersVM, SettingsViewModel settingsVM)
         {
-            ArgumentNullException.ThrowIfNull(runVM, nameof(runVM));
-            ArgumentNullException.ThrowIfNull(botsVM, nameof(botsVM));
-            ArgumentNullException.ThrowIfNull(browsersVM, nameof(browsersVM));
-            ArgumentNullException.ThrowIfNull(settingsVM, nameof(settingsVM));
+            ArgumentNullException.ThrowIfNull(runVM);
+            ArgumentNullException.ThrowIfNull(botsVM);
+            ArgumentNullException.ThrowIfNull(browsersVM);
+            ArgumentNullException.ThrowIfNull(settingsVM);
 
             RunViewModel = runVM;
             BotsViewModel = botsVM;

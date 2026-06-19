@@ -9,7 +9,7 @@ namespace Playhouse.ViewModels.Services.ViewModelFactories
     {
         public static IServiceCollection AddViewModelFactories(this IServiceCollection services)
         {
-            ArgumentNullException.ThrowIfNull(services, nameof(services));
+            ArgumentNullException.ThrowIfNull(services);
 
             return services.AddSingleton<IViewModelFactory<BrowserConfigurationViewModel, BrowserConfiguration>, BrowserConfigurationViewModelFactory>()
                 .AddSingleton<IViewModelFactory<BotConfigurationViewModel, BotConfiguration>, BotConfigurationViewModelFactory>();

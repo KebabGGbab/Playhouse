@@ -11,8 +11,8 @@ namespace Playhouse.ViewModels.Messages
 
         public GetBotActionsMessage(BotConfigurationViewModel botInfo, BrowserConfigurationViewModel browserProfile)
         {
-            ArgumentNullException.ThrowIfNull(botInfo, nameof(botInfo));
-            ArgumentNullException.ThrowIfNull(browserProfile, nameof(browserProfile));
+            ArgumentNullException.ThrowIfNull(botInfo);
+            ArgumentNullException.ThrowIfNull(browserProfile);
 
             Bot = botInfo;
             Profile = browserProfile;

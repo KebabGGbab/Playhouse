@@ -8,7 +8,7 @@ namespace Playhouse.Application.Services.ConstructorService.Abstractions
 
         public ConstructionCompletedEventArgs(BotConfiguration bot)
         {
-            ArgumentNullException.ThrowIfNull(bot, nameof(bot));
+            ArgumentNullException.ThrowIfNull(bot);
 
             Bot = bot;
         }

@@ -8,7 +8,7 @@
 
         public CollectionChangedMessage(IReadOnlyList<T> items, CollectionChangedAction action)
         {
-            ArgumentNullException.ThrowIfNull(items, nameof(items));
+            ArgumentNullException.ThrowIfNull(items);
             if (!Enum.IsDefined(action))
             {
                 throw new ArgumentOutOfRangeException(nameof(action));
