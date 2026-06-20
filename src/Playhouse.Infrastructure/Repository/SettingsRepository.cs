@@ -3,11 +3,11 @@ using Playhouse.Domain;
 
 namespace Playhouse.Infrastructure.Repository
 {
-    public sealed class ApplicationRepository : ISettingsRepository
+    public sealed class SettingsRepository : ISettingsRepository
     {
         private readonly IDbContextFactory<ApplicationDbContext> _dbFactory;
 
-        public ApplicationRepository(IDbContextFactory<ApplicationDbContext> dbFactory)
+        public SettingsRepository(IDbContextFactory<ApplicationDbContext> dbFactory)
         {
             ArgumentNullException.ThrowIfNull(dbFactory);
 
