@@ -2,6 +2,8 @@
 {
     public interface IInitializer
     {
+        bool IsInitialized { get; }
+
         Task InitializeAsync();
     }
 }

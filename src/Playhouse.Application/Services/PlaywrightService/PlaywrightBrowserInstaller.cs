@@ -1,5 +1,4 @@
-﻿using Playhouse.Application.Services;
-using Playhouse.Application.Services.ApplicationSettingsService;
+﻿using Playhouse.Application.Services.ApplicationSettingsService;
 using Playhouse.Application.Services.PlaywrightService.Abstractions;
 
 namespace Playhouse.Application.Services.PlaywrightService
@@ -7,6 +6,8 @@ namespace Playhouse.Application.Services.PlaywrightService
     public class PlaywrightBrowserInstaller : IPlaywrightBrowserInstaller, IInitializer
 	{
 		private readonly ISettingsService _settings;
+
+		public bool IsInitialized { get; private set; }
 
 		public PlaywrightBrowserInstaller(ISettingsService settings)
 		{
@@ -45,6 +46,7 @@ namespace Playhouse.Application.Services.PlaywrightService
         public async Task InitializeAsync()
         {
             await InstallAsync().ConfigureAwait(false);
+			IsInitialized = true;
         }
     }
 }

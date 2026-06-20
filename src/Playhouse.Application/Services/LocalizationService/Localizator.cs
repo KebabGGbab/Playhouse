@@ -9,6 +9,8 @@ namespace Playhouse.Application.Services.LocalizationService
         private readonly ILocalizationManager _localization;
         private readonly ISettingsService _settings;
 
+        public bool IsInitialized { get; private set; }
+
         public IReadOnlyCollection<CultureInfo> SupportedUICultures => _localization.Cultures;
 
         public CultureInfo CurrentUICulture => _localization.CurrentUICulture;
@@ -31,6 +33,7 @@ namespace Playhouse.Application.Services.LocalizationService
         public async Task InitializeAsync()
         {
             SetCulture();
+            IsInitialized = true;
         }
 
         private void SetCulture()

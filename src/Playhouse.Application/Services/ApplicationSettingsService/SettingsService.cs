@@ -9,7 +9,10 @@ namespace Playhouse.Application.Services.ApplicationSettingsService
         private readonly ISettingsRepository _repository;
 
         private ApplicationSettings _settings;
-                public CultureInfo CurrentUICulture => _settings.UICulture;
+
+        public bool IsInitialized { get; private set; }
+
+        public CultureInfo CurrentUICulture => _settings.UICulture;
 
         public string PathToData => _settings.PathToData;
 
@@ -31,6 +34,7 @@ namespace Playhouse.Application.Services.ApplicationSettingsService
         {
             _settings = await _repository.GetSettingsAsync().ConfigureAwait(false)
                 ?? new ApplicationSettings();
+            IsInitialized = true;
             OnSettingsChanged();
         }
 
