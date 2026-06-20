@@ -4,6 +4,6 @@
     {
         bool IsInitialized { get; }
 
-        Task InitializeAsync();
+        Task InitializeAsync(CancellationToken cancellation = default);
     }
 }

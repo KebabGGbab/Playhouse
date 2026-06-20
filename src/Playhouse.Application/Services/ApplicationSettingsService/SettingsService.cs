@@ -30,9 +30,9 @@ namespace Playhouse.Application.Services.ApplicationSettingsService
             _settings = new ApplicationSettings();
         }
 
-        public async Task InitializeAsync()
+        public async Task InitializeAsync(CancellationToken cancellation = default)
         {
-            _settings = await _repository.GetSettingsAsync().ConfigureAwait(false)
+            _settings = await _repository.GetSettingsAsync(cancellation).ConfigureAwait(false)
                 ?? new ApplicationSettings();
             IsInitialized = true;
             OnSettingsChanged();

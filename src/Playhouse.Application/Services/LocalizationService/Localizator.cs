@@ -30,7 +30,7 @@ namespace Playhouse.Application.Services.LocalizationService
             SetCulture();
         }
 
-        public async Task InitializeAsync()
+        public async Task InitializeAsync(CancellationToken cancellation = default)
         {
             SetCulture();
             IsInitialized = true;

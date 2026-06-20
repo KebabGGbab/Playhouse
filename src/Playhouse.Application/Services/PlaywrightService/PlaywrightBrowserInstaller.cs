@@ -43,7 +43,7 @@ namespace Playhouse.Application.Services.PlaywrightService
 				.ToArray();
 		}
 
-        public async Task InitializeAsync()
+        public async Task InitializeAsync(CancellationToken cancellation = default)
         {
             await InstallAsync().ConfigureAwait(false);
 			IsInitialized = true;
