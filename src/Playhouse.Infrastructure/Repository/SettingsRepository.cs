@@ -14,17 +14,17 @@ namespace Playhouse.Infrastructure.Repository
             _dbFactory = dbFactory;
         }
 
-        public async Task<ApplicationSettings?> GetSettingsAsync()
+        public async Task<ApplicationSettings?> GetSettingsAsync(CancellationToken cancellation = default)
         {
-            using ApplicationDbContext db = await _dbFactory.CreateDbContextAsync().ConfigureAwait(false);
-            return await db.Settings.FirstOrDefaultAsync(s => s.Id == 1).ConfigureAwait(false);
+            using ApplicationDbContext db = await _dbFactory.CreateDbContextAsync(cancellation).ConfigureAwait(false);
+            return await db.Settings.FirstOrDefaultAsync(s => s.Id == 1, cancellation).ConfigureAwait(false);
         }
 
-        public async Task UpdateSettingsAsync(ApplicationSettings settings)
+        public async Task UpdateSettingsAsync(ApplicationSettings settings, CancellationToken cancellation = default)
         {
-            using ApplicationDbContext db = await _dbFactory.CreateDbContextAsync().ConfigureAwait(false);
+            using ApplicationDbContext db = await _dbFactory.CreateDbContextAsync(cancellation).ConfigureAwait(false);
             db.Settings.Update(settings);
-            await db.SaveChangesAsync().ConfigureAwait(false);
+            await db.SaveChangesAsync(cancellation).ConfigureAwait(false);
         }
     }
 }
