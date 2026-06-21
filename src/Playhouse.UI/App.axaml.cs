@@ -18,6 +18,7 @@ using Playhouse.UI.Services.LocalizationService;
 using Playhouse.UI.Services.WindowCreatorService;
 using Playhouse.UI.Services.WindowCreatorService.Abstractions;
 using Playhouse.UI.Views.Windows;
+using Playhouse.ViewModels.Services.BrowserConfigurationViewModelService;
 using Playhouse.ViewModels.Services.ViewModelFactories;
 using Playhouse.ViewModels.ViewModels;
 
@@ -113,6 +114,7 @@ namespace Playhouse.UI
             services.AddLocalizationApp();
             services.AddData("LocalDb");
             services.AddBrowserConfigurationService();
+            services.AddBrowserConfigurationViewModelService();
         }
 
         private static void ConfigureConfiguration(ConfigurationManager configuration)
