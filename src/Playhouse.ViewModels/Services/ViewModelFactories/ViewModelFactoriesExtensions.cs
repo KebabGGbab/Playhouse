@@ -11,8 +11,7 @@ namespace Playhouse.ViewModels.Services.ViewModelFactories
         {
             ArgumentNullException.ThrowIfNull(services);
 
-            return services.AddSingleton<IViewModelFactory<BrowserConfigurationViewModel, BrowserConfiguration>, BrowserConfigurationViewModelFactory>()
-                .AddSingleton<IViewModelFactory<BotConfigurationViewModel, BotConfiguration>, BotConfigurationViewModelFactory>();
+            return services.AddSingleton<IViewModelFactory<BotConfigurationViewModel, BotConfiguration>, BotConfigurationViewModelFactory>();
         }
     }
 }
