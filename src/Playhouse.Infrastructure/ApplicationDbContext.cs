@@ -12,10 +12,15 @@ namespace Playhouse.Infrastructure
 
         public DbSet<ApplicationSettings> Settings { get; set; }
 
+        private static readonly Lock _lock = new();
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) 
             : base(options)
         {
-            Database.EnsureCreated();
+            lock (_lock)
+            {
+                Database.EnsureCreated();
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
