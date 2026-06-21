@@ -333,10 +333,6 @@
                                   SelectedItem="{Binding Path=BrowsersViewModel.SelectedProfile}">
 						    <DataGrid.Columns>
 							    <DataGridTextColumn x:DataType="vm:BrowserConfigurationViewModel"
-                                                    Width="SizeToHeader"
-                                                    Binding="{Binding Path=Id}"
-                                                    Header="{l:Localization Browser_Id}" />
-                                <DataGridTextColumn x:DataType="vm:BrowserConfigurationViewModel"
                                                     Width="*"
                                                     Binding="{Binding Path=Name}"
                                                     Header="{l:Localization Browser_Name}" />

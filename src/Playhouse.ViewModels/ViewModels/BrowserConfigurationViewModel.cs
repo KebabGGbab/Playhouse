@@ -1,14 +1,10 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using Microsoft.EntityFrameworkCore;
-using Playhouse.Application.Services.FileManagerService.Abstractions;
+﻿using KebabGGbab.CommunityToolkit.MVVM.Extensions.ViewModelAbstractions;
 using Playhouse.Domain;
 
 namespace Playhouse.ViewModels.ViewModels
 {
-    public class BrowserConfigurationViewModel : ObservableObject
+    public class BrowserConfigurationViewModel : EditableViewModel
     {
-        private readonly FileManager<BrowserConfiguration> _fileManager;
-
         private string _name;
         private bool _acceptDownloads;
         private string? _channel;
@@ -19,26 +15,6 @@ namespace Playhouse.ViewModels.ViewModels
 
         internal BrowserConfiguration Profile { get; }
 
-        public bool IsSaving
-        {
-            get;
-            private set => SetProperty(ref field, value);
-        }
-
-        public bool IsNew 
-        {
-            get => field;
-            set => SetProperty(ref field, value);
-        }
-
-        public bool IsModifier
-        {
-            get;
-            private set => SetProperty(ref field, value);
-        }
-
-        public int Id => Profile.Id;
-
         public string Name
         {
             get => _name;
@@ -46,7 +22,7 @@ namespace Playhouse.ViewModels.ViewModels
             {
                 if (SetProperty(ref _name, value))
                 {
-                    CheckChanges();
+                    IsModified = CheckModified();
                 }
             }
         }
@@ -58,7 +34,7 @@ namespace Playhouse.ViewModels.ViewModels
             {
                 if (SetProperty(ref _acceptDownloads, value))
                 {
-                    CheckChanges();
+                    IsModified = CheckModified();
                 }
             }
         }
@@ -70,7 +46,7 @@ namespace Playhouse.ViewModels.ViewModels
             {
                 if (SetProperty(ref _channel, value))
                 {
-                    CheckChanges();
+                    IsModified = CheckModified();
                 }
             }
         }
@@ -82,7 +58,7 @@ namespace Playhouse.ViewModels.ViewModels
             {
                 if (SetProperty(ref _chromiumSandbox, value))
                 {
-                    CheckChanges();
+                    IsModified = CheckModified();
                 }
             }
         }
@@ -94,7 +70,7 @@ namespace Playhouse.ViewModels.ViewModels
             {
                 if (SetProperty(ref _downloadsPath, value))
                 {
-                    CheckChanges();
+                    IsModified = CheckModified();
                 }
             }
         }
@@ -106,7 +82,7 @@ namespace Playhouse.ViewModels.ViewModels
             {
                 if (SetProperty(ref _headless, value))
                 {
-                    CheckChanges();
+                    IsModified = CheckModified();
                 }
             }
         }
@@ -118,22 +94,20 @@ namespace Playhouse.ViewModels.ViewModels
             {
                 if (SetProperty(ref _slowMo, value))
                 {
-                    CheckChanges();
+                    IsModified = CheckModified();
                 }
             }
         }
 
-        public BrowserConfigurationViewModel(FileManager<BrowserConfiguration> fileManager) 
-            : this(new BrowserConfiguration(), fileManager)
+        public BrowserConfigurationViewModel() 
+            : this(new BrowserConfiguration())
         {
         }
 
-        public BrowserConfigurationViewModel(BrowserConfiguration profile, FileManager<BrowserConfiguration> fileManager)
+        public BrowserConfigurationViewModel(BrowserConfiguration profile)
         {
-            ArgumentNullException.ThrowIfNull(fileManager);
             ArgumentNullException.ThrowIfNull(profile);
 
-            _fileManager = fileManager;
             Profile = profile;
             _name = Profile.Name;
             _acceptDownloads = Profile.Options.AcceptDownloads;
@@ -142,22 +116,9 @@ namespace Playhouse.ViewModels.ViewModels
             _downloadsPath = Profile.Options.DownloadsPath;
             _headless = Profile.Options.Headless;
             _slowMo = Profile.Options.SlowMo;
-            IsNew = Id == 0;
-            IsModifier = IsNew;
         }
 
-        private void CheckChanges()
-        {
-            IsModifier = !(Profile.Name == Name 
-                && Profile.Options.AcceptDownloads == AcceptDownloads
-                && Profile.Options.Channel == Channel
-                && Profile.Options.ChromiumSandbox == ChromiumSandbox 
-                && Profile.Options.DownloadsPath == DownloadsPath
-                && Profile.Options.Headless == Headless
-                && Profile.Options.SlowMo == SlowMo);
-        }
-
-        private void ApplyChanges()
+        protected override async Task SaveChangesCoreAsync()
         {
             Profile.Name = Name;
             Profile.Options.AcceptDownloads = AcceptDownloads;
@@ -168,7 +129,7 @@ namespace Playhouse.ViewModels.ViewModels
             Profile.Options.SlowMo = SlowMo;
         }
 
-        private void ResetChanges()
+        protected override void CancelChangesCore()
         {
             Name = Profile.Name;
             AcceptDownloads = Profile.Options.AcceptDownloads;
@@ -179,86 +140,15 @@ namespace Playhouse.ViewModels.ViewModels
             SlowMo = Profile.Options.SlowMo;
         }
 
-        private void NotifyChangedOneTimeSetProperty()
+        protected override bool CheckModified()
         {
-            OnPropertyChanged(nameof(Id));
+            return !(Profile.Name == Name
+                && Profile.Options.AcceptDownloads == AcceptDownloads
+                && Profile.Options.Channel == Channel
+                && Profile.Options.ChromiumSandbox == ChromiumSandbox
+                && Profile.Options.DownloadsPath == DownloadsPath
+                && Profile.Options.Headless == Headless
+                && Profile.Options.SlowMo == SlowMo);
         }
-
-        public async Task SaveAsync(DbContext db)
-        {
-            if (!CanSave())
-            {
-                return; 
-            }
-
-            IsSaving = true;
-            ApplyChanges();
-            db.SavedChanges += OnProfileSaved;
-
-            if (IsNew)
-            {
-                await db.Set<BrowserConfiguration>().AddAsync(Profile);
-            }
-            else
-            {
-                db.Set<BrowserConfiguration>().Update(Profile);
-            }
-        }
-
-        private void OnProfileSaved(object? sender, SavedChangesEventArgs e)
-        {
-            if (sender is not DbContext db)
-            {
-                return;
-            }
-
-            db.SavedChanges -= OnProfileSaved;
-
-            if (IsNew)
-            {
-                _fileManager.Create(Profile);
-                IsNew = false;
-                NotifyChangedOneTimeSetProperty();
-            }
-
-            IsModifier = false;
-            IsSaving = false;
-        }
-
-        private bool CanSave() => IsModifier && !IsSaving;
-
-        public async Task DeleteAsync(DbContext db)
-        {
-            if (!IsNew)
-            {
-                db.SavedChanges += OnProfileDeleted;
-                db.Set<BrowserConfiguration>().Remove(Profile);
-            }
-        }
-
-        private void OnProfileDeleted(object? sender, SavedChangesEventArgs e)
-        {
-            if (sender is not DbContext db)
-            {
-                return;
-            }
-
-            db.SavedChanges -= OnProfileDeleted;
-
-            _fileManager.Delete(Profile);
-        }
-
-        public void CancelChanges()
-        {
-            if (!CanCancelChanges())
-            {
-                return;
-            }
-
-            ResetChanges();
-            IsModifier = false;
-        }
-
-        private bool CanCancelChanges() => IsModifier && !IsSaving;
     }
 }
