@@ -17,6 +17,7 @@ namespace Playhouse.Infrastructure.Repository
         public async Task<ApplicationSettings?> GetSettingsAsync(CancellationToken cancellation = default)
         {
             using ApplicationDbContext db = await _dbFactory.CreateDbContextAsync(cancellation).ConfigureAwait(false);
+
             return await db.Settings.FirstOrDefaultAsync(s => s.Id == 1, cancellation).ConfigureAwait(false);
         }
 

@@ -14,7 +14,8 @@ namespace Playhouse.Infrastructure
             return services.AddDbContextFactory<ApplicationDbContext>(
                 (services, options) => options.UseSqlite(
                     services.GetRequiredService<IConfiguration>().GetConnectionString(connectionStringKey)))
-                .AddSingleton<ISettingsRepository, SettingsRepository>();
+                .AddSingleton<ISettingsRepository, SettingsRepository>()
+                .AddSingleton<IBrowserConfigurationRepository, BrowserConfigurationRepository>();
         }
     }
 }
