@@ -1,29 +1,39 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
+using System.Reactive.Linq;
+using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using DynamicData;
+using DynamicData.Binding;
 using Microsoft.EntityFrameworkCore;
 using Playhouse.Domain;
 using Playhouse.Infrastructure;
 using Playhouse.ViewModels.Messages;
+using Playhouse.ViewModels.Services.BrowserConfigurationViewModelService;
 using Playhouse.ViewModels.Services.ViewModelFactories.Abstractions;
 using Playhouse.ViewModels.ViewModels.Abstractions;
 using Playhouse.ViewModels.ViewModelsExtensions;
-using System.Collections.ObjectModel;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Playhouse.ViewModels.ViewModels
 {
-	public class BotConfigurationsViewModel : BaseCollectionViewModel<BotConfigurationViewModel>
+	public class BotConfigurationsViewModel : BaseCollectionViewModel<BotConfigurationViewModel>, IDisposable
     {
+        // Зависимости
         private readonly IDbContextFactory<ApplicationDbContext> _dbFactory;
         private readonly IViewModelFactory<BotConfigurationViewModel, BotConfiguration> _viewModelFactory;
+        private readonly IBrowserConfigurationViewModelService _browserConfigurationViewModelService;
+
         private readonly SourceCache<BotConfigurationViewModel, int> _botsSource = new(b => b.Id);
         private readonly ReadOnlyObservableCollection<BotConfigurationViewModel> _bots;
+
+        private bool _disposed;
+
         public ReadOnlyObservableCollection<BotConfigurationViewModel> Bots => _bots;
 
         #region Property for create bot
 
-        private readonly SourceCache<BrowserConfigurationViewModel, int> _profilesSource = new(p => p.Id);
+        private readonly SourceList<BrowserConfigurationViewModel> _profilesSource;
+        private readonly IDisposable _bindingBrowserConfigurationSource;
         private readonly ReadOnlyObservableCollection<BrowserConfigurationViewModel> _profiles;
 
         private string _profileNameFilterCreate;
@@ -130,10 +140,13 @@ namespace Playhouse.ViewModels.ViewModels
 
         public IAsyncRelayCommand<BotConfigurationViewModel> SaveBotCommand { get; }
 
-        public BotConfigurationsViewModel(IDbContextFactory<ApplicationDbContext> dbFactory, IViewModelFactory<BotConfigurationViewModel, BotConfiguration> viewModelFactory)
+        public BotConfigurationsViewModel(IDbContextFactory<ApplicationDbContext> dbFactory, IViewModelFactory<BotConfigurationViewModel, BotConfiguration> viewModelFactory, IBrowserConfigurationViewModelService browserConfigurationViewModelService)
 		{
+            ArgumentNullException.ThrowIfNull(browserConfigurationViewModelService);
+
             _dbFactory = dbFactory;
             _viewModelFactory = viewModelFactory;
+            _browserConfigurationViewModelService = browserConfigurationViewModelService;
             Browsers = BrowserTypes.List;
             _botNameCreate = string.Empty;
             _profileNameFilterCreate = string.Empty;
@@ -142,7 +155,10 @@ namespace Playhouse.ViewModels.ViewModels
             CreateBotCommand = new AsyncRelayCommand(CreateBot, CanCreateBot);
             DeleteBotCommand = new AsyncRelayCommand(ExecuteDeleteBot, CanExecuteDeleteBot);
             SaveBotCommand = new AsyncRelayCommand<BotConfigurationViewModel>(SaveBot);
-            WeakReferenceMessenger.Default.Register<BotConfigurationsViewModel, CollectionChangedMessage<BrowserConfigurationViewModel>>(this, OnSourceProfilesCollectionChanged);
+            _profilesSource = new();
+            _bindingBrowserConfigurationSource = _browserConfigurationViewModelService.Configurations
+                .ToObservableChangeSet()
+                .PopulateInto(_profilesSource);
             _profilesSource.Connect()
                 .Filter(p => p.FilterByName(ProfileNameFilterForCreateBot))
                 .Bind(out _profiles)
@@ -171,19 +187,6 @@ namespace Playhouse.ViewModels.ViewModels
 
             SendMessageRemoveItems(oldBots);
             SendMessageAddItems(bots);
-        }
-
-        private void OnSourceProfilesCollectionChanged(BotConfigurationsViewModel recipient, CollectionChangedMessage<BrowserConfigurationViewModel> e)
-        {
-            switch (e.Action)
-            {
-                case CollectionChangedAction.Add: 
-                    _profilesSource.AddOrUpdate(e.Items);
-                    break;
-                case CollectionChangedAction.Remove:
-                    _profilesSource.Remove(e.Items);
-                    break;
-            }
         }
 
         private async Task CreateBot()
@@ -239,6 +242,18 @@ namespace Playhouse.ViewModels.ViewModels
             await db.SaveChangesAsync();
             _botsSource.AddOrUpdate(bot);
             SendMessageAddItems([bot]);
+        }
+
+        public void Dispose()
+        {
+            if (_disposed)
+            {
+                return;
+            }
+
+            _disposed = true;
+            GC.SuppressFinalize(this);
+            _bindingBrowserConfigurationSource.Dispose();
         }
 	}
 }
