@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Playhouse.Application.Services.ApplicationSettingsService;
 using Playhouse.Application.Services.BotRunningService;
+using Playhouse.Application.Services.BrowserConfigurationService;
 using Playhouse.Application.Services.ConstructorService;
 using Playhouse.Application.Services.FileManagerService;
 using Playhouse.Application.Services.FilePathResolverService;
@@ -111,6 +112,7 @@ namespace Playhouse.UI
             services.AddViewModelFactories();
             services.AddLocalizationApp();
             services.AddData("LocalDb");
+            services.AddBrowserConfigurationService();
         }
 
         private static void ConfigureConfiguration(ConfigurationManager configuration)
