@@ -4,20 +4,28 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using DynamicData;
+using DynamicData.Binding;
 using Playhouse.Application.Services.BotRunningService;
 using Playhouse.ViewModels.Messages;
+using Playhouse.ViewModels.Services.BrowserConfigurationViewModelService;
 
 namespace Playhouse.ViewModels.ViewModels
 {
-    public class RunViewModel : ObservableObject
+    public class RunViewModel : ObservableObject, IDisposable
     {
+        // Зависимости
         private readonly IRunServiceFactory _runServiceFactory;
+        private readonly IBrowserConfigurationViewModelService _browserConfigurationViewModelService;
 
-        private readonly ObservableCollection<BrowserConfigurationViewModel> _unselectedProfiles = [];
-        private readonly ObservableCollection<BrowserConfigurationViewModel> _selectedProfiles = [];
+        private readonly SourceList<BrowserConfigurationViewModel> _browserConfigurationsSource;
+        private readonly IDisposable _bindingBrowserConfigurationsSource;
+        private readonly ObservableCollection<BrowserConfigurationViewModel> _unselectedProfiles;
+        private readonly ObservableCollection<BrowserConfigurationViewModel> _selectedProfiles;
         private readonly ObservableCollection<BotConfigurationViewModel> _bots = [];
         private readonly ObservableCollection<RunServiceViewModel> _runningTasks = [];
         private readonly Dictionary<RunServiceViewModel, BrowserConfigurationViewModel[]> _busyProfiles = [];
+
+        private bool _disposed;
 
         public ReadOnlyObservableCollection<BrowserConfigurationViewModel> UnselectedProfiles { get; }
 
@@ -45,35 +53,44 @@ namespace Playhouse.ViewModels.ViewModels
 
         public IRelayCommand RunBotCommand { get; }
 
-        public RunViewModel(IRunServiceFactory runServiceFactory)
+        public RunViewModel(IRunServiceFactory runServiceFactory, IBrowserConfigurationViewModelService browserConfigurationViewModelService)
         {
+            ArgumentNullException.ThrowIfNull(browserConfigurationViewModelService);
+
             _runServiceFactory = runServiceFactory;
-            UnselectedProfiles = new(_unselectedProfiles);
-            SelectedProfiles = new(_selectedProfiles);
+            _browserConfigurationViewModelService = browserConfigurationViewModelService;
             Bots = new(_bots);
             RunningTasks = new(_runningTasks);
-            WeakReferenceMessenger.Default.Register<RunViewModel, CollectionChangedMessage<BrowserConfigurationViewModel>>(this, OnSourceProfilesCollectionChanged);
             WeakReferenceMessenger.Default.Register<RunViewModel, CollectionChangedMessage<BotConfigurationViewModel>>(this, OnSourceBotsCollectionChanged);
             SelectProfileCommand = new RelayCommand<BrowserConfigurationViewModel>(SelectProfile);
             ExcludeProfileCommand = new RelayCommand<BrowserConfigurationViewModel>(ExcludeProfile);
             RunBotCommand = new RelayCommand(ExecuteRunBot, CanExecuteRunBot);
+            _unselectedProfiles = [];
+            UnselectedProfiles = new ReadOnlyObservableCollection<BrowserConfigurationViewModel>(_unselectedProfiles);
+            _selectedProfiles = [];
+            SelectedProfiles = new ReadOnlyObservableCollection<BrowserConfigurationViewModel>(_selectedProfiles);
+            _browserConfigurationsSource = new();
+            _bindingBrowserConfigurationsSource = _browserConfigurationViewModelService.Configurations
+                .ToObservableChangeSet()
+                .PopulateInto(_browserConfigurationsSource);
+            _browserConfigurationsSource.Connect()
+                .OnItemAdded(BrowserConfigurationAddedToSource)
+                .OnItemRemoved(BrowserConfigurationDeletedFromSource)
+                .Subscribe();
         }
 
-        private static void OnSourceProfilesCollectionChanged(RunViewModel recipient, CollectionChangedMessage<BrowserConfigurationViewModel> e)
+        private void BrowserConfigurationAddedToSource(BrowserConfigurationViewModel configuration)
         {
-            switch (e.Action)
-            {
-                case CollectionChangedAction.Add:
-                    recipient._unselectedProfiles.Add(e.Items);
-                    break;
-                case CollectionChangedAction.Remove:
-                    foreach (BrowserConfigurationViewModel vm in e.Items)
-                    {
-                        if (!recipient._unselectedProfiles.Remove(vm))
-                            recipient._selectedProfiles.Remove(vm);
-                    }
-                    break;
-            }
+            _unselectedProfiles.Add(configuration);
+        }
+
+        private void BrowserConfigurationDeletedFromSource(BrowserConfigurationViewModel configuration)
+        {
+            if (!_unselectedProfiles.Remove(configuration))
+                if (!_selectedProfiles.Remove(configuration))
+                {
+                    // TODO: сделать удаление из занятых браузеров
+                }
         }
 
         private static void OnSourceBotsCollectionChanged(RunViewModel recipient, CollectionChangedMessage<BotConfigurationViewModel> e)
@@ -134,6 +151,19 @@ namespace Playhouse.ViewModels.ViewModels
             sender.RunCompleted -= OnRunServiceCompleted;
             _unselectedProfiles.Add(_busyProfiles[sender]);
             _busyProfiles.Remove(sender);
+        }
+
+        public void Dispose()
+        {
+            if (_disposed)
+            {
+                return;
+            }
+
+            _disposed = true;
+            GC.SuppressFinalize(this);
+            _bindingBrowserConfigurationsSource.Dispose();
+            _browserConfigurationsSource.Dispose();
         }
     }
 }
