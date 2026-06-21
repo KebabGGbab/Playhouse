@@ -1,28 +1,31 @@
 ﻿using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
+using System.Reactive.Linq;
 using CommunityToolkit.Mvvm.Input;
 using DynamicData;
-using Microsoft.EntityFrameworkCore;
-using Playhouse.Domain;
-using Playhouse.Infrastructure;
-using Playhouse.ViewModels.Services.ViewModelFactories.Abstractions;
-using Playhouse.ViewModels.ViewModels.Abstractions;
+using DynamicData.Binding;
+using KebabGGbab.CommunityToolkit.MVVM.Extensions.ViewModelAbstractions;
+using Playhouse.ViewModels.Services.BrowserConfigurationViewModelService;
 
 namespace Playhouse.ViewModels.ViewModels
 {
-    public class BrowserConfigurationsViewModel : BaseCollectionViewModel<BrowserConfigurationViewModel>
+    public class BrowserConfigurationsViewModel : ViewModelBase, IDisposable
     {
-        private readonly IDbContextFactory<ApplicationDbContext> _dbFactory;
-        private readonly IViewModelFactory<BrowserConfigurationViewModel, BrowserConfiguration> _viewModelFactory;
-        private readonly SourceList<BrowserConfigurationViewModel> _source = new();
+        // Зависимости
+        private readonly IBrowserConfigurationViewModelService _browserConfigurationViewModelService;
 
-        private ReadOnlyObservableCollection<BrowserConfigurationViewModel> _profiles;
+        private readonly SourceList<BrowserConfigurationViewModel> _savedConfigurationsSource;
+        private readonly IDisposable _bindingSavedSource;
+        private readonly SourceList<BrowserConfigurationViewModel> _unsavedConfigurationsSource;
+        private readonly ReadOnlyObservableCollection<BrowserConfigurationViewModel> _configurations;
 
-        public ReadOnlyObservableCollection<BrowserConfigurationViewModel> Profiles => _profiles;
+        private bool _disposed;
 
-        public BrowserConfigurationViewModel? SelectedProfile
+        public ReadOnlyObservableCollection<BrowserConfigurationViewModel> Configurations => _configurations;
+
+        public BrowserConfigurationViewModel? SelectedConfiguration
         {
-            get => field;
+            get;
             set
             {
                 if (SetProperty(ref field, value))
@@ -34,62 +37,70 @@ namespace Playhouse.ViewModels.ViewModels
             }
         }
 
-        public bool IsSavingAll
+        public IAsyncRelayCommand LoadDataCommand { get; }
+
+        public IAsyncRelayCommand AddProfileCommand { get; }
+
+        public IAsyncRelayCommand<BrowserConfigurationViewModel> SaveProfileCommand { get; }
+
+        public IAsyncRelayCommand<BrowserConfigurationViewModel> DeleteProfileCommand { get; }
+
+        public IRelayCommand<BrowserConfigurationViewModel> CancelProfileChangesCommand { get; }
+
+        public IAsyncRelayCommand SaveAllProfilesCommand { get; }
+
+        public BrowserConfigurationsViewModel(IBrowserConfigurationViewModelService browserConfigurationViewModelService)
         {
-            get;
-            set => SetProperty(ref field, value);
+            ArgumentNullException.ThrowIfNull(browserConfigurationViewModelService);
+
+            _browserConfigurationViewModelService = browserConfigurationViewModelService;
+            LoadDataCommand = new AsyncRelayCommand(LoadDataAsync);
+            AddProfileCommand = new AsyncRelayCommand(AddProfile);
+            SaveProfileCommand = new AsyncRelayCommand<BrowserConfigurationViewModel>(SaveProfileAsync, CanSaveProfile);
+            DeleteProfileCommand = new AsyncRelayCommand<BrowserConfigurationViewModel>(DeleteProfileAsync, CanDeleteProfile);
+            CancelProfileChangesCommand = new RelayCommand<BrowserConfigurationViewModel>(CancelProfileChanges, CanCancelProfileChanges);
+            SaveAllProfilesCommand = new AsyncRelayCommand(SaveAllProfilesAsync, CanSaveAllProfiles);
+            _savedConfigurationsSource = new();
+            _unsavedConfigurationsSource = new();
+            _bindingSavedSource = _browserConfigurationViewModelService.Configurations
+                .ToObservableChangeSet()
+                .PopulateInto(_savedConfigurationsSource);
+            _savedConfigurationsSource.Connect()
+                .OnItemAdded(async (c) => await c.InitializeCommand.ExecuteAsync(null))
+                .Or(_unsavedConfigurationsSource.Connect())
+                .Bind(out _configurations)
+                .AutoRefresh(p => p.IsModified)
+                .Subscribe(_ =>
+                {
+                    SaveAllProfilesCommand.NotifyCanExecuteChanged();
+                    SaveProfileCommand.NotifyCanExecuteChanged();
+                    CancelProfileChangesCommand.NotifyCanExecuteChanged();
+                });
         }
 
-        public IAsyncRelayCommand LoadDataCommand => field ??= new AsyncRelayCommand(LoadDataAsync);
-
-        public IRelayCommand AddProfileCommand => field ??= new RelayCommand(AddProfile);
-
-        public IAsyncRelayCommand<BrowserConfigurationViewModel> SaveProfileCommand
-            => field ?? new AsyncRelayCommand<BrowserConfigurationViewModel>(SaveProfileAsync, CanSaveProfile);
-
-        public IAsyncRelayCommand<BrowserConfigurationViewModel> DeleteProfileCommand 
-            => field ??= new AsyncRelayCommand<BrowserConfigurationViewModel>(DeleteProfileAsync, CanDeleteProfile);
-
-        public IRelayCommand<BrowserConfigurationViewModel> CancelProfileChangesCommand
-            => field ??= new RelayCommand<BrowserConfigurationViewModel>(CancelProfileChanges, CanCancelProfileChanges);
-
-        public IAsyncRelayCommand SaveAllProfilesCommand => field ??= new AsyncRelayCommand(SaveAllProfilesAsync, CanSaveAllProfiles);
-
-        public BrowserConfigurationsViewModel(IDbContextFactory<ApplicationDbContext> dbFactory, IViewModelFactory<BrowserConfigurationViewModel, BrowserConfiguration> viewModelFactory)
+        protected override async Task InitializeCoreAsync()
         {
-            ArgumentNullException.ThrowIfNull(dbFactory);
-            ArgumentNullException.ThrowIfNull(viewModelFactory);
-
-            _dbFactory = dbFactory;
-            _viewModelFactory = viewModelFactory;
-
-            _source.Connect()
-                .Bind(out _profiles)
-                .AutoRefresh(p => p.IsModifier)
-                .Subscribe(_ => SaveAllProfilesCommand.NotifyCanExecuteChanged());
+            foreach (BrowserConfigurationViewModel configuration in _configurations)
+            {
+                await configuration.InitializeCommand.ExecuteAsync(null);
+            }
         }
 
         private async Task LoadDataAsync()
         {
-            using ApplicationDbContext db = await _dbFactory.CreateDbContextAsync();
-
-            List<BrowserConfigurationViewModel> profiles = await db.Profiles
-                .Select(p => _viewModelFactory.Create(p))
-                .ToListAsync();
-
-            IReadOnlyList<BrowserConfigurationViewModel> oldItems = _source.Items; 
-            _source.RemoveMany(oldItems);
-            _source.AddRange(profiles);
-
-            SendMessageRemoveItems((oldItems));
-            SendMessageAddItems(profiles);
+            await DoBusy(async () =>
+            {
+                await _browserConfigurationViewModelService.LoadAsync()
+                    .ConfigureAwait(false);
+            });
         }
 
-        private void AddProfile()
+        private async Task AddProfile()
         {
-            BrowserConfigurationViewModel newProfile = _viewModelFactory.Create();
-            _source.Add(newProfile);
-            SelectedProfile = newProfile;
+            BrowserConfigurationViewModel newProfile = new();
+            await newProfile.InitializeCommand.ExecuteAsync(null);
+            _unsavedConfigurationsSource.Add(newProfile);
+            SelectedConfiguration = newProfile;
         }
 
         private async Task SaveProfileAsync(BrowserConfigurationViewModel? profile)
@@ -99,17 +110,20 @@ namespace Playhouse.ViewModels.ViewModels
                 return; 
             }
 
-            bool isNew = profile.IsNew;
-            using ApplicationDbContext db = await _dbFactory.CreateDbContextAsync();
-            await profile.SaveAsync(db);
-            await db.SaveChangesAsync();
-            if (isNew)
+            await DoBusy(async () =>
             {
-                SendMessageAddItems([profile]);
-            }
+                await profile.SaveChangesCommand.ExecuteAsync(null)
+                    .ConfigureAwait(false);
+                await _browserConfigurationViewModelService.SaveAsync(profile)
+                    .ConfigureAwait(false);
+                _unsavedConfigurationsSource.Remove(profile);
+            });
         }
 
-        private bool CanSaveProfile([NotNullWhen(true)] BrowserConfigurationViewModel? profile) => profile != null;
+        private bool CanSaveProfile([NotNullWhen(true)] BrowserConfigurationViewModel? profile) 
+            => !IsBusy
+            && profile != null 
+            && profile.SaveChangesCommand.CanExecute(null);
 
         private async Task DeleteProfileAsync(BrowserConfigurationViewModel? profile)
         {
@@ -118,18 +132,24 @@ namespace Playhouse.ViewModels.ViewModels
                 return;
             }
 
-            if (!profile.IsNew)
+            if (profile.Profile.Id == default)
             {
-                using ApplicationDbContext db = await _dbFactory.CreateDbContextAsync();
-                await profile.DeleteAsync(db);
-                await db.SaveChangesAsync();
+                _unsavedConfigurationsSource.Remove(profile);
+
+                return;
             }
 
-            _source.Remove(profile);
-            SendMessageRemoveItems([profile]);
+            await DoBusy(async () =>
+            {
+                await _browserConfigurationViewModelService.DeleteAsync(profile)
+                    .ConfigureAwait(false);
+            });
         }
 
-        private bool CanDeleteProfile([NotNullWhen(true)] BrowserConfigurationViewModel? profile) => profile != null;
+        private bool CanDeleteProfile([NotNullWhen(true)] BrowserConfigurationViewModel? profile) 
+            => !IsBusy
+            && profile != null
+            && _configurations.Contains(profile);
 
         private void CancelProfileChanges(BrowserConfigurationViewModel? profile)
         {
@@ -138,37 +158,51 @@ namespace Playhouse.ViewModels.ViewModels
                 return;
             }
 
-            profile.CancelChanges();
+            profile.CancelChangesCommand.Execute(null);
         }
 
-        private bool CanCancelProfileChanges([NotNullWhen(true)] BrowserConfigurationViewModel? profile) => profile != null;
+        private bool CanCancelProfileChanges([NotNullWhen(true)] BrowserConfigurationViewModel? profile) 
+            => !IsBusy
+            && profile != null
+            && _configurations.Contains(profile)
+            && profile.CancelChangesCommand.CanExecute(null);
 
         private async Task SaveAllProfilesAsync()
         {
-            if (!CanSaveAllProfiles() || IsSavingAll)
+            if (!CanSaveAllProfiles())
             {
                 return; 
             }
 
-            IsSavingAll = true;
-            List<BrowserConfigurationViewModel> modifiedProfiles = _profiles.Where(p => p.IsModifier).ToList();
+            List<BrowserConfigurationViewModel> modifiedProfiles = _configurations.Where(p => p.SaveChangesCommand.CanExecute(null)).ToList();
 
             if (modifiedProfiles.Count > 0)
             {
-
-                using ApplicationDbContext db = await _dbFactory.CreateDbContextAsync();
-
                 foreach (BrowserConfigurationViewModel profile in modifiedProfiles)
                 {
-                    await profile.SaveAsync(db);
+                    await profile.SaveChangesCommand.ExecuteAsync(null)
+                        .ConfigureAwait(false);
                 }
 
-                await db.SaveChangesAsync();
+                await _browserConfigurationViewModelService.SaveAsync(modifiedProfiles);
+                _unsavedConfigurationsSource.Clear();
             }
-
-            IsSavingAll = false;
         }
 
-        private bool CanSaveAllProfiles() => _profiles.Count > 0;
+        private bool CanSaveAllProfiles() 
+            => !IsBusy 
+            && _configurations.Any(c => c.SaveChangesCommand.CanExecute(null));
+
+        public void Dispose()
+        {
+            if (_disposed)
+            {
+                return;
+            }
+
+            _disposed = true;
+            GC.SuppressFinalize(this);
+            _bindingSavedSource.Dispose();
+        }
     }
 }

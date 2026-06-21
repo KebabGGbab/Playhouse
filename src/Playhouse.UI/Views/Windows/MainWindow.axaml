@@ -296,11 +296,7 @@
 			<TabItem.Header>
 				<TextBlock Text="{l:Localization MainWindow_ProfilesTab_Header}" />
             </TabItem.Header>
-            <i:Interaction.Behaviors>
-				<ia:EventTriggerBehavior EventName="Loaded" SourceObject="{Binding ElementName=TabProfiles}">
-					<ia:InvokeCommandAction Command="{Binding Path=BrowsersViewModel.LoadDataCommand}" />
-                </ia:EventTriggerBehavior>
-            </i:Interaction.Behaviors>
+
             <DockPanel LastChildFill="True"
                        HorizontalSpacing="10" VerticalSpacing="10">
 
@@ -311,12 +307,12 @@
 					    <StackPanel DockPanel.Dock="Left" 
                                     Orientation="Horizontal">
 						    <TextBlock Text="{l:Localization MainWindow_ProfilesStatus_ProfilesCount}" />
-                            <TextBlock Text="{Binding Path=BrowsersViewModel.Profiles.Count}" />
+                            <TextBlock Text="{Binding Path=BrowsersViewModel.Configurations.Count}" />
                         </StackPanel>
                         <StackPanel DockPanel.Dock="Left" 
                                     Orientation="Horizontal">
 						    <TextBlock Text="{l:Localization MainWindow_ProfilesStatus_SelectedProfile}" />
-                            <TextBlock Text="{Binding Path=BrowsersViewModel.SelectedProfile.Name}" />
+                            <TextBlock Text="{Binding Path=BrowsersViewModel.SelectedConfiguration.Name}" />
                         </StackPanel>
                     </DockPanel>
                 </Border>
@@ -329,10 +325,10 @@
                           RowSpacing="10">
 
 					    <DataGrid Grid.Row="0"
-                                  ItemsSource="{Binding Path=BrowsersViewModel.Profiles}"
-                                  SelectedItem="{Binding Path=BrowsersViewModel.SelectedProfile}">
+                                  ItemsSource="{Binding Path=BrowsersViewModel.Configurations}"
+                                  SelectedItem="{Binding Path=BrowsersViewModel.SelectedConfiguration}">
 						    <DataGrid.Columns>
-							    <DataGridTextColumn x:DataType="vm:BrowserConfigurationViewModel"
+                                <DataGridTextColumn x:DataType="vm:BrowserConfigurationViewModel"
                                                     Width="*"
                                                     Binding="{Binding Path=Name}"
                                                     Header="{l:Localization Browser_Name}" />
@@ -353,11 +349,11 @@
                             <Button Grid.Row="0" Grid.Column="1"
                                     Classes="not-defined-size"
                                     Content="{l:Localization MainWindow_ProfilesControl_Save}"
-                                    Command="{Binding Path=BrowsersViewModel.SaveProfileCommand}" CommandParameter="{Binding Path=BrowsersViewModel.SelectedProfile}" />
+                                    Command="{Binding Path=BrowsersViewModel.SaveProfileCommand}" CommandParameter="{Binding Path=BrowsersViewModel.SelectedConfiguration}" />
                             <Button Grid.Row="0" Grid.Column="2"
                                     Classes="not-defined-size"
                                     Content="{l:Localization MainWindow_ProfilesControl_Delete}"
-                                    Command="{Binding Path=BrowsersViewModel.DeleteProfileCommand}" CommandParameter="{Binding Path=BrowsersViewModel.SelectedProfile}" />
+                                    Command="{Binding Path=BrowsersViewModel.DeleteProfileCommand}" CommandParameter="{Binding Path=BrowsersViewModel.SelectedConfiguration}" />
                             <Button Grid.Row="1" Grid.Column="1"
                                     Classes="not-defined-size"
                                     Content="{l:Localization MainWindow_ProfilesControl_SaveAll}"
@@ -365,7 +361,7 @@
                             <Button Grid.Row="2" Grid.Column="2"
                                     Classes="not-defined-size"
                                     Content="{l:Localization MainWindow_ProfilesControl_Cancel}"
-                                    Command="{Binding Path=BrowsersViewModel.CancelProfileChangesCommand}" CommandParameter="{Binding Path=BrowsersViewModel.SelectedProfile}" />
+                                    Command="{Binding Path=BrowsersViewModel.CancelProfileChangesCommand}" CommandParameter="{Binding Path=BrowsersViewModel.SelectedConfiguration}" />
                         </Grid>
                     </Grid>
                 </HeaderedContentControl>
@@ -380,7 +376,7 @@
                                            Target="{Binding ElementName=TextBoxProfilesInformationName}" 
                                            Content="{l:Localization MainWindow_ProfilesInformationGroup_Name}" />
                                     <TextBox x:Name="TextBoxProfilesInformationName"
-                                             Text="{Binding Path=BrowsersViewModel.SelectedProfile.Name}" />
+                                             Text="{Binding Path=BrowsersViewModel.SelectedConfiguration.Name}" />
                                 </StackPanel>
                             </StackPanel>
                         </HeaderedContentControl>
@@ -392,10 +388,10 @@
                                            Target="{Binding ElementName=TextBoxProfilesPathDownloads}" 
                                            Content="{l:Localization MainWindow_ProfilesStorageGroup_DownloadPath}" />
                                     <TextBox x:Name="TextBoxProfilesPathDownloads"
-                                             Text="{Binding Path=BrowsersViewModel.SelectedProfile.DownloadsPath}" />
+                                             Text="{Binding Path=BrowsersViewModel.SelectedConfiguration.DownloadsPath}" />
                                 </StackPanel>
                                 <CheckBox Margin="0,10,0,0"
-                                          IsChecked="{Binding Path=BrowsersViewModel.SelectedProfile.AcceptDownloads}"
+                                          IsChecked="{Binding Path=BrowsersViewModel.SelectedConfiguration.AcceptDownloads}"
                                           Content="{l:Localization MainWindow_ProfilesStorageGroup_AcceptDownloads}" />
                             </StackPanel>
                         </HeaderedContentControl>
@@ -404,17 +400,17 @@
                             <StackPanel>
 						        <CheckBox Margin="0,10,0,0"
                                           Content="{l:Localization MainWindow_ProfilesOther_HeadlessMode}"
-                                          IsChecked="{Binding Path=BrowsersViewModel.SelectedProfile.Headless}" />
+                                          IsChecked="{Binding Path=BrowsersViewModel.SelectedConfiguration.Headless}" />
                                 <CheckBox Margin="0,10,0,10"
                                           Content="{l:Localization MainWindow_ProfilesOther_ChromiumSandbox}"
-                                          IsChecked="{Binding Path=BrowsersViewModel.SelectedProfile.ChromiumSandbox}" />
+                                          IsChecked="{Binding Path=BrowsersViewModel.SelectedConfiguration.ChromiumSandbox}" />
                                 <StackPanel Classes="last-group">
                                     <Label Classes="overline" 
                                            Target="{Binding ElementName=NumericUpDownProfilesSlowMo}" 
                                            Content="{l:Localization MainWindow_ProfilesOther_SlowMo}" />
                                     <NumericUpDown x:Name="NumericUpDownProfilesSlowMo" 
                                                    Classes="slow-mo"
-                                                   Text="{Binding Path=BrowsersViewModel.SelectedProfile.SlowMo}" />								
+                                                   Text="{Binding Path=BrowsersViewModel.SelectedConfiguration.SlowMo}" />								
                                 </StackPanel>
                             </StackPanel>
                         </HeaderedContentControl>

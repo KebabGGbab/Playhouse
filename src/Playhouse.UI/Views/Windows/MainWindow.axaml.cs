@@ -48,7 +48,8 @@ namespace Playhouse.UI.Views.Windows
                 return;
             }
 
-            _vm.SettingsViewModel.InitializeCommand.Execute(null);
+            _vm.SettingsViewModel.InitializeCommand.ExecuteAsync(null);
+            _vm.BrowsersViewModel.InitializeCommand.ExecuteAsync(null);
         }
     }
 }
