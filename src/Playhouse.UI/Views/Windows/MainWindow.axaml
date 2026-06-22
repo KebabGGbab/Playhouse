@@ -396,6 +396,24 @@
                             </StackPanel>
                         </HeaderedContentControl>
                         <HeaderedContentControl Classes="groupbox centered-header model-settings-box"
+                                                Header="{l:Localization MainWindow_ProfilesEmulationGroup_Header}">
+                            <StackPanel>
+                                <StackPanel Classes="first-group">
+                                    <Label Classes="overline" 
+                                           Target="{Binding ElementName=TextBoxProfilesUserAgent}" 
+                                           Content="{l:Localization MainWindow_ProfilesEmulationGroup_UserAgent}" />
+                                    <TextBox x:Name="TextBoxProfilesUserAgent"
+                                             Text="{Binding Path=BrowsersViewModel.SelectedConfiguration.UserAgent}" />
+                                </StackPanel>
+                                <CheckBox Margin="0,5,0,5"
+                                          Content="{l:Localization MainWindow_ProfilesEmulationGroup_Offline}"
+                                          IsChecked="{Binding Path=BrowsersViewModel.SelectedConfiguration.Offline}" />
+                                <CheckBox Margin="0,5,0,0"
+                                          Content="{l:Localization MainWindow_ProfilesEmulationGroup_JavaScriptEnabled}"
+                                          IsChecked="{Binding Path=BrowsersViewModel.SelectedConfiguration.JavaScriptEnabled}" />
+                            </StackPanel>
+                        </HeaderedContentControl>
+                        <HeaderedContentControl Classes="groupbox centered-header model-settings-box"
                                                 Header="{l:Localization MainWindow_ProfilesOther_Header}">
                             <StackPanel>
 						        <CheckBox Margin="0,10,0,0"

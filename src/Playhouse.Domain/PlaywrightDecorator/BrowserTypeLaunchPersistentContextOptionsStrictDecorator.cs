@@ -7,6 +7,8 @@ namespace Playhouse.Domain.PlaywrightDecorator
         private const bool DEFAULT_ACCEPT_DOWNLOADS = true;
         private const bool DEFAULT_CHROMIUM_SANDBOX = false;
         private const bool DEFAULT_HEADLESS = true;
+        private const bool DEFAULT_JAVASCRIPT_ENABLED = true;
+        private const bool DEFAULT_OFFLINE = false;
 
         private static readonly string[] _defaultArgs = ["--disable-blink-features=AutomationControlled"];
 
@@ -45,10 +47,28 @@ namespace Playhouse.Domain.PlaywrightDecorator
             set => _options.Headless = value;
         }
 
+        public bool JavaScriptEnabled
+        {
+            get => _options.JavaScriptEnabled ??= DEFAULT_JAVASCRIPT_ENABLED;
+            set => _options.JavaScriptEnabled = value;
+        }
+
+        public bool Offline
+        {
+            get => _options.Offline ??= DEFAULT_OFFLINE;
+            set => _options.Offline = value;
+        }
+
         public float? SlowMo
         {
             get => _options.SlowMo;
             set => _options.SlowMo = value;
+        }
+
+        public string? UserAgent
+        {
+            get => _options.UserAgent;
+            set => _options.UserAgent = value;
         }
 
         // Конструктор для EntityFramework
@@ -63,6 +83,8 @@ namespace Playhouse.Domain.PlaywrightDecorator
             _options.AcceptDownloads ??= DEFAULT_ACCEPT_DOWNLOADS;
             _options.ChromiumSandbox ??= DEFAULT_CHROMIUM_SANDBOX;
             _options.Headless ??= DEFAULT_HEADLESS;
+            _options.JavaScriptEnabled ??= DEFAULT_JAVASCRIPT_ENABLED;
+            _options.Offline ??= DEFAULT_OFFLINE;
             _args = new(_options.Args ?? _defaultArgs);
             _options.Args = _args;
         }

@@ -493,6 +493,42 @@ namespace Playhouse.UI.Resources.Localization {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Emulation.
+        /// </summary>
+        public static string MainWindow_ProfilesEmulationGroup_Header {
+            get {
+                return ResourceManager.GetString("MainWindow_ProfilesEmulationGroup_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на JavaScript enabled .
+        /// </summary>
+        public static string MainWindow_ProfilesEmulationGroup_JavaScriptEnabled {
+            get {
+                return ResourceManager.GetString("MainWindow_ProfilesEmulationGroup_JavaScriptEnabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Offline.
+        /// </summary>
+        public static string MainWindow_ProfilesEmulationGroup_Offline {
+            get {
+                return ResourceManager.GetString("MainWindow_ProfilesEmulationGroup_Offline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на User agent:.
+        /// </summary>
+        public static string MainWindow_ProfilesEmulationGroup_UserAgent {
+            get {
+                return ResourceManager.GetString("MainWindow_ProfilesEmulationGroup_UserAgent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Information.
         /// </summary>
         public static string MainWindow_ProfilesInformationGroup_Header {
@@ -597,6 +633,60 @@ namespace Playhouse.UI.Resources.Localization {
         public static string MainWindow_ProfilesTab_Header {
             get {
                 return ResourceManager.GetString("MainWindow_ProfilesTab_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Add.
+        /// </summary>
+        public static string MainWindow_ProfilesUserDataGroup_Add {
+            get {
+                return ResourceManager.GetString("MainWindow_ProfilesUserDataGroup_Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Name:.
+        /// </summary>
+        public static string MainWindow_ProfilesUserDataGroup_AddingVariableName {
+            get {
+                return ResourceManager.GetString("MainWindow_ProfilesUserDataGroup_AddingVariableName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Value:.
+        /// </summary>
+        public static string MainWindow_ProfilesUserDataGroup_AddingVariableValue {
+            get {
+                return ResourceManager.GetString("MainWindow_ProfilesUserDataGroup_AddingVariableValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на User data.
+        /// </summary>
+        public static string MainWindow_ProfilesUserDataGroup_Header {
+            get {
+                return ResourceManager.GetString("MainWindow_ProfilesUserDataGroup_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Name.
+        /// </summary>
+        public static string MainWindow_ProfilesUserDataGroup_NameColumn {
+            get {
+                return ResourceManager.GetString("MainWindow_ProfilesUserDataGroup_NameColumn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Value.
+        /// </summary>
+        public static string MainWindow_ProfilesUserDataGroup_ValueColumn {
+            get {
+                return ResourceManager.GetString("MainWindow_ProfilesUserDataGroup_ValueColumn", resourceCulture);
             }
         }
         

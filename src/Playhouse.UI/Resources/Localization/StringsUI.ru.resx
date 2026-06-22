@@ -387,4 +387,34 @@
   <data name="LocatorClickBotActionViewModel_Details_CssSelector" xml:space="preserve">
     <value>Селектор:</value>
   </data>
+  <data name="MainWindow_ProfilesUserDataGroup_Header" xml:space="preserve">
+    <value>Пользовательские данные</value>
+  </data>
+  <data name="MainWindow_ProfilesUserDataGroup_AddingVariableName" xml:space="preserve">
+    <value>Имя:</value>
+  </data>
+  <data name="MainWindow_ProfilesUserDataGroup_AddingVariableValue" xml:space="preserve">
+    <value>Значение:</value>
+  </data>
+  <data name="MainWindow_ProfilesUserDataGroup_Add" xml:space="preserve">
+    <value>Добавить</value>
+  </data>
+  <data name="MainWindow_ProfilesUserDataGroup_NameColumn" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="MainWindow_ProfilesUserDataGroup_ValueColumn" xml:space="preserve">
+    <value>Значение</value>
+  </data>
+  <data name="MainWindow_ProfilesEmulationGroup_Header" xml:space="preserve">
+    <value>Эмуляция</value>
+  </data>
+  <data name="MainWindow_ProfilesEmulationGroup_UserAgent" xml:space="preserve">
+    <value>Пользовательский агент:</value>
+  </data>
+  <data name="MainWindow_ProfilesEmulationGroup_Offline" xml:space="preserve">
+    <value>Офлайн</value>
+  </data>
+  <data name="MainWindow_ProfilesEmulationGroup_JavaScriptEnabled" xml:space="preserve">
+    <value>JavaScript включен</value>
+  </data>
 </root>

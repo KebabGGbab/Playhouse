@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.Input;
-﻿using KebabGGbab.CommunityToolkit.MVVM.Extensions.ViewModelAbstractions;
+using KebabGGbab.CommunityToolkit.MVVM.Extensions.ViewModelAbstractions;
 using Playhouse.Domain;
 
 namespace Playhouse.ViewModels.ViewModels
@@ -15,7 +15,10 @@ namespace Playhouse.ViewModels.ViewModels
         private bool _chromiumSandbox;
         private string? _downloadsPath;
         private bool _headless;
+        private bool _javaScriptEnabled;
+        private bool _offline;
         private float? _slowMo;
+        private string? _userAgent;
 
         internal BrowserConfiguration Profile { get; }
 
@@ -117,12 +120,48 @@ namespace Playhouse.ViewModels.ViewModels
             }
         }
 
+        public bool JavaScriptEnabled
+        {
+            get => _javaScriptEnabled;
+            set
+            {
+                if (SetProperty(ref _javaScriptEnabled, value))
+                {
+                    IsModified = CheckModified();
+                }
+            }
+        }
+
+        public bool Offline
+        {
+            get => _offline;
+            set
+            {
+                if (SetProperty(ref _offline, value))
+                {
+                    IsModified = CheckModified();
+                }
+            }
+        }
+
         public float? SlowMo
         {
             get => _slowMo;
             set
             {
                 if (SetProperty(ref _slowMo, value))
+                {
+                    IsModified = CheckModified();
+                }
+            }
+        }
+
+        public string? UserAgent
+        {
+            get => _userAgent;
+            set
+            {
+                if (SetProperty(ref _userAgent, value))
                 {
                     IsModified = CheckModified();
                 }
@@ -148,7 +187,10 @@ namespace Playhouse.ViewModels.ViewModels
             _chromiumSandbox = Profile.Options.ChromiumSandbox;
             _downloadsPath = Profile.Options.DownloadsPath;
             _headless = Profile.Options.Headless;
+            _javaScriptEnabled = Profile.Options.JavaScriptEnabled;
+            _offline = Profile.Options.Offline;
             _slowMo = Profile.Options.SlowMo;
+            _userAgent = Profile.Options.UserAgent;
             _userVariables = new(profile.UserVariables.Select(v => new VariableViewModel(v)));
             UserVariables = new(_userVariables);
             NameNewVariable = string.Empty;
@@ -173,13 +215,16 @@ namespace Playhouse.ViewModels.ViewModels
 
         protected override async Task SaveChangesCoreAsync()
         {
-            Profile.Name = Name;
-            Profile.Options.AcceptDownloads = AcceptDownloads;
-            Profile.Options.Channel = Channel;
-            Profile.Options.ChromiumSandbox = ChromiumSandbox;
-            Profile.Options.DownloadsPath = DownloadsPath;
-            Profile.Options.Headless = Headless;
-            Profile.Options.SlowMo = SlowMo;
+            Profile.Name = _name;
+            Profile.Options.AcceptDownloads = _acceptDownloads;
+            Profile.Options.Channel = _channel;
+            Profile.Options.ChromiumSandbox = _chromiumSandbox;
+            Profile.Options.DownloadsPath = _downloadsPath;
+            Profile.Options.Headless = _headless;
+            Profile.Options.JavaScriptEnabled = _javaScriptEnabled;
+            Profile.Options.Offline = _offline;
+            Profile.Options.SlowMo = _slowMo;
+            Profile.Options.UserAgent = _userAgent;
             Profile.UserVariables.Clear();
 
             foreach (VariableViewModel variableVM in _userVariables)
@@ -201,7 +246,10 @@ namespace Playhouse.ViewModels.ViewModels
             ChromiumSandbox = Profile.Options.ChromiumSandbox;
             DownloadsPath = Profile.Options.DownloadsPath;
             Headless = Profile.Options.Headless;
+            JavaScriptEnabled = Profile.Options.JavaScriptEnabled;
+            Offline = Profile.Options.Offline;
             SlowMo = Profile.Options.SlowMo;
+            UserAgent = Profile.Options.UserAgent;
             _userVariables.Clear();
 
             foreach (Variable variable in Profile.UserVariables)
@@ -212,13 +260,16 @@ namespace Playhouse.ViewModels.ViewModels
 
         protected override bool CheckModified()
         {
-            return !(Profile.Name == Name
-                && Profile.Options.AcceptDownloads == AcceptDownloads
-                && Profile.Options.Channel == Channel
-                && Profile.Options.ChromiumSandbox == ChromiumSandbox
-                && Profile.Options.DownloadsPath == DownloadsPath
-                && Profile.Options.Headless == Headless
-                && Profile.Options.SlowMo == SlowMo);
+            return !(_name == Profile.Name
+                && _acceptDownloads == Profile.Options.AcceptDownloads
+                && _channel == Profile.Options.Channel
+                && _chromiumSandbox == Profile.Options.ChromiumSandbox
+                && _downloadsPath == Profile.Options.DownloadsPath
+                && _headless == Profile.Options.Headless
+                && _javaScriptEnabled == Profile.Options.JavaScriptEnabled
+                && _offline == Profile.Options.Offline
+                && _slowMo == Profile.Options.SlowMo
+                && _userAgent == Profile.Options.UserAgent
                 && Profile.UserVariables.Count == _userVariables.Count
                 && !_userVariables.Select(v => v.IsModified).FirstOrDefault(v => v == true)
                 && Profile.UserVariables.OrderByDescending(v => v.Name).SequenceEqual(_userVariables.Select(v => v.Variable).OrderByDescending(v => v.Name)));

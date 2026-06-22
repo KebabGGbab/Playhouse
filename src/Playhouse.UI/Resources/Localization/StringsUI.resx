@@ -387,4 +387,34 @@
   <data name="LocatorClickBotActionViewModel_Details_CssSelector" xml:space="preserve">
     <value>Selector:</value>
   </data>
+  <data name="MainWindow_ProfilesUserDataGroup_Header" xml:space="preserve">
+    <value>User data</value>
+  </data>
+  <data name="MainWindow_ProfilesUserDataGroup_AddingVariableName" xml:space="preserve">
+    <value>Name:</value>
+  </data>
+  <data name="MainWindow_ProfilesUserDataGroup_AddingVariableValue" xml:space="preserve">
+    <value>Value:</value>
+  </data>
+  <data name="MainWindow_ProfilesUserDataGroup_Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="MainWindow_ProfilesUserDataGroup_NameColumn" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="MainWindow_ProfilesUserDataGroup_ValueColumn" xml:space="preserve">
+    <value>Value</value>
+  </data>
+  <data name="MainWindow_ProfilesEmulationGroup_Header" xml:space="preserve">
+    <value>Emulation</value>
+  </data>
+  <data name="MainWindow_ProfilesEmulationGroup_UserAgent" xml:space="preserve">
+    <value>User agent:</value>
+  </data>
+  <data name="MainWindow_ProfilesEmulationGroup_Offline" xml:space="preserve">
+    <value>Offline</value>
+  </data>
+  <data name="MainWindow_ProfilesEmulationGroup_JavaScriptEnabled" xml:space="preserve">
+    <value>JavaScript enabled </value>
+  </data>
 </root>
