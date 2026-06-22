@@ -414,6 +414,43 @@
                                 </StackPanel>
                             </StackPanel>
                         </HeaderedContentControl>
+                        <HeaderedContentControl Classes="groupbox centered-header model-settings-box"
+                                                Header="{l:Localization MainWindow_ProfilesUserDataGroup_Header}">
+                            <StackPanel>
+                                <StackPanel Classes="first-group">
+                                    <Label Classes="overline"
+                                           Target="{Binding ElementName=UserDataAddName}"
+                                           Content="{l:Localization MainWindow_ProfilesUserDataGroup_AddingVariableName}"/>
+                                    <TextBox x:Name="UserDataAddName"
+                                             Text="{Binding Path=BrowsersViewModel.SelectedConfiguration.NameNewVariable}"/>
+                                </StackPanel>
+                                <StackPanel Classes="middle-group">
+                                    <Label Classes="overline"
+                                           Target="{Binding ElementName=UserDataAddValue}"
+                                           Content="{l:Localization MainWindow_ProfilesUserDataGroup_AddingVariableValue}"/>
+                                    <TextBox x:Name="UserDataAddValue" 
+                                             Text="{Binding Path=BrowsersViewModel.SelectedConfiguration.ValueNewVariable}"/>
+                                </StackPanel>
+                                <Button Content="{l:Localization MainWindow_ProfilesUserDataGroup_Add}"
+                                        Command="{Binding Path=BrowsersViewModel.SelectedConfiguration.AddVariableCommand}"
+                                        Margin="0,0,0,10"/>
+                                <DataGrid ItemsSource="{Binding Path=BrowsersViewModel.SelectedConfiguration.UserVariables}"
+                                          Height="300"
+                                          IsReadOnly="False">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn x:DataType="vm:VariableViewModel" 
+                                                            Header="{l:Localization MainWindow_ProfilesUserDataGroup_NameColumn}"
+                                                            Binding="{Binding Path=Name}" 
+                                                            IsReadOnly="False" />
+                                        <DataGridTextColumn x:DataType="vm:VariableViewModel" 
+                                                            Width="*"
+                                                            Header="{l:Localization MainWindow_ProfilesUserDataGroup_ValueColumn}"
+                                                            Binding="{Binding Path=Value}"
+                                                            IsReadOnly="False" />
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </StackPanel>
+                        </HeaderedContentControl>
                     </WrapPanel>
                 </ScrollViewer>
             </DockPanel>
