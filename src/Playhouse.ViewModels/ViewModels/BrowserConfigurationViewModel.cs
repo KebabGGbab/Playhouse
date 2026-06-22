@@ -1,3 +1,5 @@
+﻿using System.Collections.ObjectModel;
+using CommunityToolkit.Mvvm.Input;
 ﻿using KebabGGbab.CommunityToolkit.MVVM.Extensions.ViewModelAbstractions;
 using Playhouse.Domain;
 
@@ -5,6 +7,8 @@ namespace Playhouse.ViewModels.ViewModels
 {
     public class BrowserConfigurationViewModel : EditableViewModel
     {
+        private readonly ObservableCollection<VariableViewModel> _userVariables;
+
         private string _name;
         private bool _acceptDownloads;
         private string? _channel;
@@ -14,6 +18,32 @@ namespace Playhouse.ViewModels.ViewModels
         private float? _slowMo;
 
         internal BrowserConfiguration Profile { get; }
+
+        public ReadOnlyObservableCollection<VariableViewModel> UserVariables { get; }
+
+        public string NameNewVariable
+        {
+            get;
+            set
+            {
+                if (SetProperty(ref field, value))
+                {
+                    AddVariableCommand.NotifyCanExecuteChanged();
+                }
+            }
+        }
+
+        public string ValueNewVariable
+        {
+            get;
+            set
+            {
+                if (SetProperty(ref field, value))
+                {
+                    AddVariableCommand.NotifyCanExecuteChanged();
+                }
+            }
+        }
 
         public string Name
         {
@@ -99,6 +129,8 @@ namespace Playhouse.ViewModels.ViewModels
             }
         }
 
+        public IRelayCommand AddVariableCommand { get; }
+
         public BrowserConfigurationViewModel() 
             : this(new BrowserConfiguration())
         {
@@ -109,6 +141,7 @@ namespace Playhouse.ViewModels.ViewModels
             ArgumentNullException.ThrowIfNull(profile);
 
             Profile = profile;
+            AddVariableCommand = new RelayCommand(AddVariable, CanAddVariable);
             _name = Profile.Name;
             _acceptDownloads = Profile.Options.AcceptDownloads;
             _channel = Profile.Options.Channel;
@@ -116,7 +149,27 @@ namespace Playhouse.ViewModels.ViewModels
             _downloadsPath = Profile.Options.DownloadsPath;
             _headless = Profile.Options.Headless;
             _slowMo = Profile.Options.SlowMo;
+            _userVariables = new(profile.UserVariables.Select(v => new VariableViewModel(v)));
+            UserVariables = new(_userVariables);
+            NameNewVariable = string.Empty;
+            ValueNewVariable = string.Empty;
         }
+
+        private void AddVariable()
+        {
+            if (!CanAddVariable())
+            {
+                return;
+            }
+
+            _userVariables.Add(new VariableViewModel(new Variable(NameNewVariable, ValueNewVariable)));
+            AddVariableCommand.NotifyCanExecuteChanged();
+            IsModified = CheckModified();
+        }
+
+        private bool CanAddVariable() =>
+            Variable.CanCreate(NameNewVariable, ValueNewVariable)
+            && !_userVariables.Any(v => v.Name == NameNewVariable);
 
         protected override async Task SaveChangesCoreAsync()
         {
@@ -127,6 +180,17 @@ namespace Playhouse.ViewModels.ViewModels
             Profile.Options.DownloadsPath = DownloadsPath;
             Profile.Options.Headless = Headless;
             Profile.Options.SlowMo = SlowMo;
+            Profile.UserVariables.Clear();
+
+            foreach (VariableViewModel variableVM in _userVariables)
+            {
+                if (variableVM.SaveChangesCommand.CanExecute(null))
+                {
+                    variableVM.SaveChangesCommand.Execute(null);
+                }
+
+                Profile.UserVariables.Add(variableVM.Variable);
+            }
         }
 
         protected override void CancelChangesCore()
@@ -138,6 +202,12 @@ namespace Playhouse.ViewModels.ViewModels
             DownloadsPath = Profile.Options.DownloadsPath;
             Headless = Profile.Options.Headless;
             SlowMo = Profile.Options.SlowMo;
+            _userVariables.Clear();
+
+            foreach (Variable variable in Profile.UserVariables)
+            {
+                _userVariables.Add(new VariableViewModel(variable));
+            }
         }
 
         protected override bool CheckModified()
@@ -149,6 +219,9 @@ namespace Playhouse.ViewModels.ViewModels
                 && Profile.Options.DownloadsPath == DownloadsPath
                 && Profile.Options.Headless == Headless
                 && Profile.Options.SlowMo == SlowMo);
+                && Profile.UserVariables.Count == _userVariables.Count
+                && !_userVariables.Select(v => v.IsModified).FirstOrDefault(v => v == true)
+                && Profile.UserVariables.OrderByDescending(v => v.Name).SequenceEqual(_userVariables.Select(v => v.Variable).OrderByDescending(v => v.Name)));
         }
     }
 }
