@@ -14,11 +14,15 @@ namespace Playhouse.Infrastructure.EntityTypeConfigurations
         public void Configure(EntityTypeBuilder<BrowserConfiguration> builder)
         {
             builder.ToTable("Browser_Configurations", t => t.HasComment("Конфигурации браузеров."));
+
             builder.OwnsOne(p => p.Options, b =>
             {
                 b.Property(p => p.Args)
                     .HasConversion(new HashSetToJsonConverter<string>(), new HashSetValueComparer<string>());
             });
+
+            builder.Property(b => b.UserVariables)
+                .HasConversion(new HashSetToJsonConverter<Variable>(), new HashSetValueComparer<Variable>());
         }
     }
 }
