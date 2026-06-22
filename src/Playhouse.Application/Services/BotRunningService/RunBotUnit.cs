@@ -28,7 +28,7 @@ namespace Playhouse.Application.Services.BotRunningService
         {
             ArgumentNullException.ThrowIfNull(browserContext);
 
-            InvokeActionVisitor visitor = new(browserContext);
+            InvokeActionVisitor visitor = new(browserContext, Browser);
 
             try
             {

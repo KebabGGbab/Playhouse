@@ -1,4 +1,6 @@
 ﻿using Microsoft.Playwright;
+using Playhouse.Application.Services.VariableService;
+using Playhouse.Domain;
 using Playhouse.Domain.BotActions;
 using Playhouse.Domain.BotActions.Abstractions;
 
@@ -7,12 +9,16 @@ namespace Playhouse.Application.Services.BotRunningService
     public sealed class InvokeActionVisitor : IBotActionAsyncVisitor
     {
         private readonly IBrowserContext _browserContext;
+        private readonly BrowserConfiguration _browserConfiguration;
 
-        public InvokeActionVisitor(IBrowserContext browserContext)
+
+        public InvokeActionVisitor(IBrowserContext browserContext, BrowserConfiguration browserConfiguration)
         {
             ArgumentNullException.ThrowIfNull(browserContext);
+            ArgumentNullException.ThrowIfNull(browserConfiguration);
 
             _browserContext = browserContext;
+            _browserConfiguration = browserConfiguration;
         }
 
         public Task VisitAsync(BrowserContextCreatedBotAction action)
@@ -50,7 +56,7 @@ namespace Playhouse.Application.Services.BotRunningService
             ArgumentNullException.ThrowIfNull(action);
 
             await _browserContext.Pages[action.Number]
-                .GotoAsync(action.Url, (PageGotoOptions)action.Options)
+                .GotoAsync(VariableFormatter.Format(action.Url, _browserConfiguration.UserVariables), (PageGotoOptions)action.Options)
                 .ConfigureAwait(false);
         }
 
@@ -70,7 +76,7 @@ namespace Playhouse.Application.Services.BotRunningService
 
             await action.LocatorData
                 .GetLocator(_browserContext.Pages[action.Number])
-                .FillAsync(action.Value, (LocatorFillOptions)action.Options)
+                .FillAsync(VariableFormatter.Format(action.Value, _browserConfiguration.UserVariables), (LocatorFillOptions)action.Options)
                 .ConfigureAwait(false);
         }
     }
