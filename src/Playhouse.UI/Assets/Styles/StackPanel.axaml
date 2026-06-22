@@ -8,17 +8,17 @@
 
   <Style Selector="StackPanel.first-group">
       <Setter Property="Orientation" Value="Vertical" />
-	  <Setter Property="Margin" Value="0,0,0,0" />
+	  <Setter Property="Margin" Value="0,0,0,5" />
   </Style>
 
   <Style Selector="StackPanel.middle-group">
       <Setter Property="Orientation" Value="Vertical" />
-	  <Setter Property="Margin" Value="0,10,0,10" />
+	  <Setter Property="Margin" Value="0,5,0,5" />
   </Style>
 
   <Style Selector="StackPanel.last-group">
       <Setter Property="Orientation" Value="Vertical" />
-	  <Setter Property="Margin" Value="0,0,0,0" />
+	  <Setter Property="Margin" Value="0,5,0,0" />
   </Style>
 
     <Style Selector="StackPanel.settings-body">
