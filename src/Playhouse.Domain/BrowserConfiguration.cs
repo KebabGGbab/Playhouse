@@ -10,6 +10,8 @@ namespace Playhouse.Domain
 
         public string Name { get; set; } = string.Empty;
 
+        public ISet<Variable> UserVariables { get; } = null!;
+
         // Конструктор для EntityFramework
         private BrowserConfiguration()
         {
@@ -18,6 +20,7 @@ namespace Playhouse.Domain
         public BrowserConfiguration(BrowserTypeLaunchPersistentContextOptionsStrictDecorator? options = null)
         {
             Options = options ?? new BrowserTypeLaunchPersistentContextOptionsStrictDecorator();
+            UserVariables = new HashSet<Variable>();
         }
     }
 }
