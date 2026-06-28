@@ -47,6 +47,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="KebabGGbab.Avalonia.Extensions">
+      <HintPath>..\..\..\..\Libraries\KebabGGbab.Avalonia.Extensions\KebabGGbab.Avalonia.Extensions\bin\Debug\net10.0\KebabGGbab.Avalonia.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="KebabGGbab.CommunityToolkit.MVVM.Extensions">
+      <HintPath>..\..\..\..\Libraries\KebabGGbab.CommunityToolkit.MVVM.Extensions\src\KebabGGbab.CommunityToolkit.MVVM.Extensions\bin\Debug\net10.0\KebabGGbab.CommunityToolkit.MVVM.Extensions.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="Resources\Localization\StringsUI.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -59,15 +68,6 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>StringsUI.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="KebabGGbab.Avalonia.Extensions">
-      <HintPath>..\..\..\Libraries\KebabGGbab.Avalonia.Extensions\KebabGGbab.Avalonia.Extensions\bin\Debug\net10.0\KebabGGbab.Avalonia.Extensions.dll</HintPath>
-    </Reference>
-    <Reference Include="KebabGGbab.CommunityToolkit.MVVM.Extensions">
-      <HintPath>..\..\..\Libraries\KebabGGbab.CommunityToolkit.MVVM.Extensions\src\KebabGGbab.CommunityToolkit.MVVM.Extensions\bin\Debug\net10.0\KebabGGbab.CommunityToolkit.MVVM.Extensions.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
   <ItemGroup>
